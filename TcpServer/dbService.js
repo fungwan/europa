@@ -3,6 +3,7 @@
  * Modified by andy.feng on 14-8-28
  */
 var async = require('async'),
+	conf = require('./conf'),
     sessionPool = null;
 
 
