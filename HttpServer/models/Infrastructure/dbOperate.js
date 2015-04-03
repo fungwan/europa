@@ -296,8 +296,8 @@ dbOperate.prototype.getContentByParentId = function(dirID,templateId,pageId,emit
     },function(err, results) {
         if(err !== null){
             emitter.emit('channelContent',global.ERROR_CRASHMYSQL,global.ERROR_CRASHMYSQL);
-        }
-        var dirArray = results["get_directory"];
+        }else{
+		        var dirArray = results["get_directory"];
         var directory = [];
         for(x in dirArray) {
             var resultSet = {};
@@ -316,6 +316,8 @@ dbOperate.prototype.getContentByParentId = function(dirID,templateId,pageId,emit
         }
 
         emitter.emit('channelContent',directory,fileContent);
+		}
+
     });
 
 };
