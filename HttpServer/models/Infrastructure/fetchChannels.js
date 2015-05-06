@@ -14,21 +14,21 @@ function netCmd_fetchChannels(){
 }
 
 netCmd_fetchChannels.prototype.HandleRequest = function(templateId,res) {
-    db.getChannelList(templateId,emitter);
+    db.getChannelList(templateId,res);
 
-    emitter.once('getChannel_finished',function(arg1){
-        var content = arg1;
-        if(content == global.ERROR_CRASHMYSQL || content == global.ERROR_QUERYMYSQL){
-            res.send(content);
-            return;
-        }
-        var jsObj = {
-            "content":content
-        };
-
-        var jsonStr = JSON.stringify(jsObj);
-        jsonStr += '\n';
-
-        res.send(jsonStr);
-    });
+//    emitter.once('getChannel_finished',function(arg1){
+//        var content = arg1;
+//        if(content == global.ERROR_CRASHMYSQL || content == global.ERROR_QUERYMYSQL){
+//            res.send(content);
+//            return;
+//        }
+//        var jsObj = {
+//            "content":content
+//        };
+//
+//        var jsonStr = JSON.stringify(jsObj);
+//        jsonStr += '\n';
+//
+//        res.send(jsonStr);
+//    });
 };

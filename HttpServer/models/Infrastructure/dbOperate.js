@@ -14,13 +14,14 @@ var DEVICE_INFORMATION_TABLE = "device_information",
 
 var result = null;
 var dbService =  db;
+var templateId = '';
 
 module.exports = dbOperate;
 
 function dbOperate(){
 }
 
-dbOperate.prototype.isRegistered = function (macAddress,emitter){
+dbOperate.prototype.isRegistered = function (macAddress,version,res){
 
     async.auto({
 
@@ -31,12 +32,32 @@ dbOperate.prototype.isRegistered = function (macAddress,emitter){
 
         },function(err, results) {
             var data = results.get_data;
-            emitter.emit('isRegistered',data);
+
+            if (data === '' && data != global.ERROR_CRASHMYSQL && data!= global.ERROR_QUERYMYSQL && data!= undefined ){
+                //如果没有找到相应设备，默认mac地址为：00-00-00-00-00-00
+                data = '15'//15为默认的mac id值
+                macAddress = '00-00-00-00-00-00';
+            }
+
+            var arg =  data;
+            if (arg != '' && arg != global.ERROR_CRASHMYSQL && arg!= global.ERROR_QUERYMYSQL && arg!= undefined ) {
+
+                logon(macAddress,version, res);
+
+            } else {
+                if (arg === ''){//can not find device
+                    var errDevice = global.ERROR_NOREGISTER;
+                    res.send(errDevice);
+                }else{
+                    res.send(arg);
+                }
+            }
+            //emitter.emit('isRegistered',data);
         }
     );
 };
 
-dbOperate.prototype.logon = function (macAddress,version,emitter){
+function logon(macAddress,version,res){
 
     async.auto({
         get_areaId: function(callback){
@@ -145,8 +166,85 @@ dbOperate.prototype.logon = function (macAddress,version,emitter){
         var startImg    = results.get_startupImage;
         var address     = results.get_deviceName;
 
-        var deviceInfo = new Array(templateId,uiId,startImg,apkLink,address);
-        emitter.emit('get_moblieInfo',deviceInfo);
+        var arg1 = new Array(templateId,uiId,startImg,apkLink,address);
+
+        var epgId = '';
+        //arg1接收的是一个数组，包含4个元素，即epgid、Img、uid、apk、name
+        epgId = arg1[0];
+
+        if(epgId != '' && epgId != global.ERROR_CRASHMYSQL && epgId!= global.ERROR_QUERYMYSQL ){
+
+            var uid = '';
+            var apkLink = '';
+            var startImg = '';
+            var address = '';
+
+            //apk
+            if(arg1[3] == global.ERROR_CRASHMYSQL || arg1[3]== global.ERROR_QUERYMYSQL){
+                res.send(arg1[3]);
+                return;
+            }//arg1[3] == undefined ||
+            else{
+                if(arg1[3] == undefined)
+                    apkLink = '';
+                else
+                    apkLink = arg1[3];
+            }
+
+            //uid
+            if(arg1[1] == global.ERROR_CRASHMYSQL || arg1[1] == global.ERROR_QUERYMYSQL){
+                res.send(arg1[1]);
+                return;
+            }
+            else if(arg1[1] == undefined)
+                uid = '';
+            else
+                uid = arg1[1];
+
+            //Img
+            if(arg1[2] == global.ERROR_CRASHMYSQL || arg1[2] == global.ERROR_QUERYMYSQL){
+                res.send(arg1[2]);
+                return;
+            }
+            else if(arg1[2] == undefined)
+                startImg = '';
+            else
+                startImg = arg1[2];
+
+            //address
+            if(arg1[4] == global.ERROR_CRASHMYSQL || arg1[4] == global.ERROR_QUERYMYSQL){
+                res.send(arg1[4]);
+                return;
+            }
+            else if(arg1[4] == undefined)
+                address = '';
+            else
+                address = arg1[4];
+
+            //send success message
+            var logonContent = {
+                "UI id"         :uid,
+                "template id"   :epgId,
+                "startup image" :startImg,
+                "apklink"       : apkLink,
+                "device name"   : address
+            };
+
+            var jsonStr = JSON.stringify(logonContent);
+            jsonStr += '\n';
+
+            res.send(jsonStr);
+
+        }else{
+            if (epgId === ''){//can not find epg
+                var errEpg = global.ERROR_NOEPG;
+                res.send(errEpg);
+            }else{
+                res.send(arg);
+            }
+        }
+
+        //emitter.emit('get_moblieInfo',deviceInfo);
     });
 };
 
@@ -167,7 +265,7 @@ dbOperate.prototype.updateScreenshot = function(fileName,macId){
     dbService.updateValue(DEVICE_INFORMATION_TABLE,updateData,condition);
 };
 
-dbOperate.prototype.getChannelList = function(templateId,emitter){
+dbOperate.prototype.getChannelList = function(templateId,res){
     async.auto({
             get_channel: function (callback) {
 
@@ -182,7 +280,8 @@ dbOperate.prototype.getChannelList = function(templateId,emitter){
         function(err, results) {
 
             if(err !== null){
-                emitter.emit('getChannel_finished',results.get_channel);
+                res.send(results.get_channel);
+                //emitter.emit('getChannel_finished',results.get_channel);
             }else{
 
                 var recArray = results.get_channel;
@@ -194,12 +293,20 @@ dbOperate.prototype.getChannelList = function(templateId,emitter){
                     content.push(resultSet);
                 }
 
-                emitter.emit('getChannel_finished',content);
+                var jsObj = {
+                    "content":content
+                };
+
+                var jsonStr = JSON.stringify(jsObj);
+                jsonStr += '\n';
+
+                res.send(jsonStr);
+                //emitter.emit('getChannel_finished',content);
             }
         });
 };
 
-dbOperate.prototype.isHaveDirectoryIndex = function(dirID,templateId,emitter){
+dbOperate.prototype.isHaveDirectoryIndex = function(dirId,templateId,pageId,res){
     var channelTableName;
 
     channelTableName = "epg_channel_";
@@ -208,18 +315,142 @@ dbOperate.prototype.isHaveDirectoryIndex = function(dirID,templateId,emitter){
     async.auto({
 
             judge_dir: function(callback){
-                var condition = ' where id =\'' + dirID + '\'';
+                var condition = ' where id =\'' + dirId + '\'';
                 dbService.selectValue('title',channelTableName,condition,callback);
             }
 
         },function(err, results) {
+
             var isDir = results.judge_dir;
-            emitter.emit('isDirExist', isDir);
+            if(err !== null){
+                res.send(isDir);
+                return;
+            }else{
+                pageId *= 20;
+                var listNumbers = '20';
+                async.auto({
+                    get_directory : function(callback){
+
+                        //var condition = ' where parentID =\'' + dirID + '\'';
+                        var condition = ' where parentID =\'' + dirId + '\' ORDER BY queue limit ' + pageId + ',' + listNumbers;
+                        var channelTableName = 'epg_channel_' + templateId;
+
+                        dbService.selectMulitValue('id,title,queue,description,resource',channelTableName,condition,callback);
+                    },
+
+                    get_epgContent : function(callback){
+
+                        var channelTableName = 'epg_channelcontent_' + templateId;
+                        var multiSql = 'SELECT id,title,description,resource,stream AS urls,editor,updatetime,queue,t1.source_type as type \
+                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                inner JOIN source_video  t2 on t1.source_type = "video" where t1.source_id = t2.id\
+                UNION\
+                SELECT id,title,description,resource,img_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
+                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + ' ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                inner JOIN source_img  t3 on t1.source_type = "img" where t1.source_id = t3.id\
+                UNION\
+                SELECT id,title,description,resource,document_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
+                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                inner JOIN source_document  t4 on t1.source_type = "document" where t1.source_id = t4.id\
+                UNION\
+                SELECT id,title,description,resource,webpage_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
+                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                inner JOIN source_web  t5 on t1.source_type = "web" where t1.source_id = t5.id\
+                UNION\
+                SELECT id,title,description,resource,stream_page AS urls,editor,updatetime,queue,t1.source_type as type  \
+                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                inner JOIN carousel  t6 on t1.source_type = "carousel" where t1.source_id = t6.id \
+                UNION\
+                SELECT id,title,news_content AS description,news_picture AS resource,news_streamPath AS urls,editor,updatetime,queue,t1.source_type as type  \
+                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                inner JOIN source_news  t7 on t1.source_type = "news_templet" where t1.source_id = t7.id ';
+
+                        /*
+                         SELECT id,title,description,resource,stream_page AS urls,editor,updatetime,queue,t1.source_type as type
+                         from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
+                         inner JOIN source_video  t2 on t1.source_type = 'video' where t1.source_id = t2.id
+                         UNION
+
+                         SELECT id,title,description,resource,img_urls AS urls,editor,updatetime,queue,t1.source_type as type
+                         from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
+                         inner JOIN source_img  t3 on t1.source_type = 'img' where t1.source_id = t3.id
+                         UNION
+
+                         SELECT id,title,description,resource,document_urls AS urls,editor,updatetime,queue,t1.source_type as type
+                         from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
+                         inner JOIN source_document   t4 on t1.source_type = 'document' where t1.source_id = t4.id
+                         UNION
+
+                         SELECT id,title,description,resource,webpage_urls AS urls,editor,updatetime,queue,t1.source_type as type
+                         from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
+                         inner JOIN source_web  t5 on t1.source_type = 'web' where t1.source_id = t5.id
+                         UNION
+
+                         SELECT id,title,description,resource,stream_page  AS urls,editor,updatetime,queue,t1.source_type as type
+                         from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
+                         inner JOIN carousel  t6 on t1.source_type = 'carousel' where t1.source_id = t6.id
+                         UNION
+
+                         SELECT id,title,news_content AS description,news_picture AS resource,news_streamPath AS urls,editor,updatetime,queue,t1.source_type as type
+                         from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
+                         inner JOIN source_news t7 on t1.source_type = 'news_templet' where t1.source_id = t7.id;
+                         */
+
+                        dbService.selectMoreValue(multiSql,callback);
+                    }
+
+                },function(err, results) {
+                    if(err !== null){
+                        res.send(global.ERROR_CRASHMYSQL);
+                        //emitter.emit('channelContent',global.ERROR_CRASHMYSQL,global.ERROR_CRASHMYSQL);
+                    }else{
+                        var dirArray = results["get_directory"];
+                        var directory = [];
+                        for(x in dirArray) {
+                            var resultSet = {};
+                            resultSet = {"type":"dir","index":dirArray[x].id,"title":dirArray[x].title,"queue":dirArray[x].queue,
+                                "description":dirArray[x].description,"resource":dirArray[x].resource,"urls":''};
+                            directory.push(resultSet);
+                        }
+
+                        var fileArray = results["get_epgContent"];
+                        var fileContent = [];
+                        for(y in fileArray) {
+                            var resultSet = {};
+                            resultSet = {"type":fileArray[y].type,"index":fileArray[y].id,"title":fileArray[y].title,"queue":fileArray[y].queue,
+                                "description":fileArray[y].description,"resource":fileArray[y].resource,"urls":fileArray[y].urls};
+                            fileContent.push(resultSet);
+                        }
+
+                        var content;
+                        content = directory.concat(fileContent);
+                        content.sort(function(a,b){
+                            return b.queue - a.queue;//a-b输出从小到大排序，b-a输出从大到小排序。
+                        });
+
+                        var jsObj = {
+                            "content"   :  {
+                                "directoryid"   : dirId,
+                                "info"          : content
+                            }
+                        };
+
+                        var jsonStr = JSON.stringify(jsObj);
+                        jsonStr += '\n';
+
+                        res.send(jsonStr);
+                        //emitter.emit('channelContent',directory,fileContent);
+                    }
+
+                });
+            }
+
+            //emitter.emit('isDirExist', isDir);
         }
     );
 };
 
-dbOperate.prototype.getContentByParentId = function(dirID,templateId,pageId,emitter){
+function getContentByParentId(dirID,templateId,pageId,res){
     pageId *= 20;
     var listNumbers = '20';
     async.auto({
@@ -295,27 +526,45 @@ dbOperate.prototype.getContentByParentId = function(dirID,templateId,pageId,emit
 
     },function(err, results) {
         if(err !== null){
-            emitter.emit('channelContent',global.ERROR_CRASHMYSQL,global.ERROR_CRASHMYSQL);
+            res.send(global.ERROR_CRASHMYSQL);
+            //emitter.emit('channelContent',global.ERROR_CRASHMYSQL,global.ERROR_CRASHMYSQL);
         }else{
-		        var dirArray = results["get_directory"];
-        var directory = [];
-        for(x in dirArray) {
-            var resultSet = {};
-            resultSet = {"type":"dir","index":dirArray[x].id,"title":dirArray[x].title,"queue":dirArray[x].queue,
-                "description":dirArray[x].description,"resource":dirArray[x].resource,"urls":''};
-            directory.push(resultSet);
-        }
+            var dirArray = results["get_directory"];
+            var directory = [];
+            for(x in dirArray) {
+                var resultSet = {};
+                resultSet = {"type":"dir","index":dirArray[x].id,"title":dirArray[x].title,"queue":dirArray[x].queue,
+                    "description":dirArray[x].description,"resource":dirArray[x].resource,"urls":''};
+                directory.push(resultSet);
+            }
 
-        var fileArray = results["get_epgContent"];
-        var fileContent = [];
-        for(y in fileArray) {
-            var resultSet = {};
-            resultSet = {"type":fileArray[y].type,"index":fileArray[y].id,"title":fileArray[y].title,"queue":fileArray[y].queue,
-                "description":fileArray[y].description,"resource":fileArray[y].resource,"urls":fileArray[y].urls};
-            fileContent.push(resultSet);
-        }
+            var fileArray = results["get_epgContent"];
+            var fileContent = [];
+            for(y in fileArray) {
+                var resultSet = {};
+                resultSet = {"type":fileArray[y].type,"index":fileArray[y].id,"title":fileArray[y].title,"queue":fileArray[y].queue,
+                    "description":fileArray[y].description,"resource":fileArray[y].resource,"urls":fileArray[y].urls};
+                fileContent.push(resultSet);
+            }
 
-        emitter.emit('channelContent',directory,fileContent);
+            var content;
+            content = directory.concat(fileContent);
+            content.sort(function(a,b){
+                return b.queue - a.queue;//a-b输出从小到大排序，b-a输出从大到小排序。
+            });
+
+            var jsObj = {
+                "content"   :  {
+                    "directoryid"   : dirID,
+                    "info"          : content
+                }
+            };
+
+            var jsonStr = JSON.stringify(jsObj);
+            jsonStr += '\n';
+
+            res.send(jsonStr );
+            //emitter.emit('channelContent',directory,fileContent);
 		}
 
     });
