@@ -60,7 +60,7 @@ dbOperate.prototype.isRegistered = function (macAddress,version,res){
 function logon(macAddress,version,res){
 
     async.auto({
-        get_areaId: function(callback){
+        /*get_areaId: function(callback){
 
             var condition = ' where mac =\'' + macAddress + '\'';
             dbService.selectValue('area_id',DEVICE_INFORMATION_TABLE,condition,callback);
@@ -103,36 +103,73 @@ function logon(macAddress,version,res){
 
         get_updateVersion: function(callback){
             dbService.selectValue('version',VERSION_INFORMATION,'',callback);
+        },*/
+
+        get_baseInfo: function(callback){
+
+            /*
+             SELECT epg_templet.id as epg_id,ui_id,startup_image ,address ,version,apklink
+             from epg_templet,device_information ,versioninfo
+             WHERE epg_templet.id =
+             (SELECT epg_templet_id
+             from epg_area_manage RIGHT JOIN
+             (SELECT area_id from device_information WHERE mac = "00-22-F4-CE-C8-50") areaInId
+             ON areaInId.area_id = epg_area_manage.area_id)
+             and device_information.mac = "00-22-F4-CE-C8-50";
+             */
+
+            var sql = 'SELECT epg_templet.id as epg_id,ui_id,startup_image ,address ,version,apklink ';
+            sql += 'from epg_templet,device_information ,versioninfo ';
+            sql += 'WHERE epg_templet.id = ';
+            sql += '(SELECT epg_templet_id ';
+            sql += 'from epg_area_manage RIGHT JOIN ';
+            sql += '(SELECT area_id from device_information WHERE mac = \"';
+            sql += macAddress;
+            sql += '\") areaInId ';
+            sql += ' ON areaInId.area_id = epg_area_manage.area_id) ';
+            sql += ' and device_information.mac = \"';
+            sql += macAddress;
+            sql += '\"';
+
+            dbService.selectMoreValue(sql,callback);
         },
+        get_apkLink: ['get_baseInfo',function(callback ,results) {
 
-        get_apkLink: ['get_updateVersion',function(callback ,results) {
-            var versionFromDB = results.get_updateVersion;
-			var condition = ' where mac =\'' + macAddress + '\'';
-			var updateData = 'recent_version = "' + versionFromDB + '"';
-			
-            if(versionFromDB.split('.').length == 3 && version.split('.').length == 3){
-                var firstBitFromDb = parseInt(versionFromDB.split('.')[0]);
-                var firstBitFromClient = parseInt(version.split('.')[0]);
+            var macArray = results["get_baseInfo"];
+            if(macArray.length > 0) {
+                var versionFromDB = macArray[0]['version'];
+                var condition = ' where mac =\'' + macAddress + '\'';
+                var updateData = 'recent_version = "' + versionFromDB + '"';
 
-                if(firstBitFromClient < firstBitFromDb){
-                    dbService.selectValue('apklink',VERSION_INFORMATION,'',callback);
-					dbService.updateValue(DEVICE_INFORMATION_TABLE,updateData,condition);
-                }else if(firstBitFromClient == firstBitFromDb){
-                    var secBitFromDb = parseInt(versionFromDB.split('.')[1]);
-                    var secBitFromClient = parseInt(version.split('.')[1]);
+                if(versionFromDB.split('.').length == 3 && version.split('.').length == 3){
+                    var firstBitFromDb = parseInt(versionFromDB.split('.')[0]);
+                    var firstBitFromClient = parseInt(version.split('.')[0]);
 
-                    if(secBitFromClient < secBitFromDb){
+                    if(firstBitFromClient < firstBitFromDb){
                         dbService.selectValue('apklink',VERSION_INFORMATION,'',callback);
-						dbService.updateValue(DEVICE_INFORMATION_TABLE,updateData,condition);
-                    }else if(secBitFromClient == secBitFromDb){
-                        var thiBitFromDb = parseInt(versionFromDB.split('.')[2]);
-                        var thiBitFromClient = parseInt(version.split('.')[2]);
+                        dbService.updateValue(DEVICE_INFORMATION_TABLE,updateData,condition);
+                    }else if(firstBitFromClient == firstBitFromDb){
+                        var secBitFromDb = parseInt(versionFromDB.split('.')[1]);
+                        var secBitFromClient = parseInt(version.split('.')[1]);
 
-                        if(thiBitFromClient < thiBitFromDb){
+                        if(secBitFromClient < secBitFromDb){
                             dbService.selectValue('apklink',VERSION_INFORMATION,'',callback);
-							dbService.updateValue(DEVICE_INFORMATION_TABLE,updateData,condition);
-                        }else if(thiBitFromClient == thiBitFromDb){
-                            callback(null, '');
+                            dbService.updateValue(DEVICE_INFORMATION_TABLE,updateData,condition);
+                        }else if(secBitFromClient == secBitFromDb){
+                            var thiBitFromDb = parseInt(versionFromDB.split('.')[2]);
+                            var thiBitFromClient = parseInt(version.split('.')[2]);
+
+                            if(thiBitFromClient < thiBitFromDb){
+                                dbService.selectValue('apklink',VERSION_INFORMATION,'',callback);
+                                dbService.updateValue(DEVICE_INFORMATION_TABLE,updateData,condition);
+                            }else if(thiBitFromClient == thiBitFromDb){
+                                callback(null, '');
+                            }else{
+                                callback(null, '');
+                                console.info(versionFromDB +  ' from DB ');
+                                console.info(version +  ' from Client ');
+                                console.error('version error from client');
+                            }
                         }else{
                             callback(null, '');
                             console.info(versionFromDB +  ' from DB ');
@@ -149,102 +186,118 @@ function logon(macAddress,version,res){
                     callback(null, '');
                     console.info(versionFromDB +  ' from DB ');
                     console.info(version +  ' from Client ');
-                    console.error('version error from client');
+                    console.error('version format error: from db ' + versionFromDB.split('.').length + ',from client ' + version.split('.').length);
                 }
-            }else{
-                callback(null, '');
-                console.info(versionFromDB +  ' from DB ');
-                console.info(version +  ' from Client ');
-                console.error('version format error: from db ' + versionFromDB.split('.').length + ',from client ' + version.split('.').length);
             }
         }]
 
     },function(err, results) {
-        templateId      = results.get_templateId;
-        var uiId        = results.get_uiId;
-        var apkLink     = results.get_apkLink;
-        var startImg    = results.get_startupImage;
-        var address     = results.get_deviceName;
 
-        var arg1 = new Array(templateId,uiId,startImg,apkLink,address);
+        if(err !== null){
+            res.send(434);
+            return;
+        }
 
-        var epgId = '';
-        //arg1接收的是一个数组，包含4个元素，即epgid、Img、uid、apk、name
-        epgId = arg1[0];
+        var macArray = results["get_baseInfo"];
+        var apkLink  = results['get_apkLink'];
 
-        if(epgId != '' && epgId != global.ERROR_CRASHMYSQL && epgId!= global.ERROR_QUERYMYSQL ){
+        if(macArray.length > 0) {
+            var dataObject = macArray[0];
+            var epg_id              = dataObject['epg_id'];
+            var ui_id               = dataObject['ui_id'];
+            var startup_image       = dataObject['startup_image'];
+            var address             = dataObject['address'];
 
-            var uid = '';
-            var apkLink = '';
-            var startImg = '';
-            var address = '';
-
-            //apk
-            if(arg1[3] == global.ERROR_CRASHMYSQL || arg1[3]== global.ERROR_QUERYMYSQL){
-                res.send(arg1[3]);
-                return;
-            }//arg1[3] == undefined ||
-            else{
-                if(arg1[3] == undefined)
-                    apkLink = '';
-                else
-                    apkLink = arg1[3];
-            }
-
-            //uid
-            if(arg1[1] == global.ERROR_CRASHMYSQL || arg1[1] == global.ERROR_QUERYMYSQL){
-                res.send(arg1[1]);
-                return;
-            }
-            else if(arg1[1] == undefined)
-                uid = '';
-            else
-                uid = arg1[1];
-
-            //Img
-            if(arg1[2] == global.ERROR_CRASHMYSQL || arg1[2] == global.ERROR_QUERYMYSQL){
-                res.send(arg1[2]);
-                return;
-            }
-            else if(arg1[2] == undefined)
-                startImg = '';
-            else
-                startImg = arg1[2];
-
-            //address
-            if(arg1[4] == global.ERROR_CRASHMYSQL || arg1[4] == global.ERROR_QUERYMYSQL){
-                res.send(arg1[4]);
-                return;
-            }
-            else if(arg1[4] == undefined)
-                address = '';
-            else
-                address = arg1[4];
-
-            //send success message
-            var logonContent = {
-                "UI id"         :uid,
-                "template id"   :epgId,
-                "startup image" :startImg,
-                "apklink"       : apkLink,
-                "device name"   : address
-            };
-
-            var jsonStr = JSON.stringify(logonContent);
-            jsonStr += '\n';
-
-            res.send(jsonStr);
-
-        }else{
-            if (epgId === ''){//can not find epg
+            if(epg_id === ''){
                 var errEpg = global.ERROR_NOEPG;
                 res.send(errEpg);
             }else{
-                res.send(arg);
+                //send success message
+                var logonContent = {
+                    "UI id"         :ui_id,
+                    "template id"   :epg_id,
+                    "startup image" :startup_image,
+                    "apklink"       : apkLink,
+                    "device name"   : address
+                };
+
+                var jsonStr = JSON.stringify(logonContent);
+                jsonStr += '\n';
+
+                res.send(jsonStr);
             }
         }
 
-        //emitter.emit('get_moblieInfo',deviceInfo);
+//        templateId      = results.get_templateId;
+//        var uiId        = results.get_uiId;
+//        var apkLink     = results.get_apkLink;
+//        var startImg    = results.get_startupImage;
+//        var address     = results.get_deviceName;
+//
+//        var arg1 = new Array(templateId,uiId,startImg,apkLink,address);
+//
+//        var epgId = '';
+//        //arg1接收的是一个数组，包含4个元素，即epgid、Img、uid、apk、name
+//        epgId = arg1[0];
+//
+//        if(epgId != '' && epgId != global.ERROR_CRASHMYSQL && epgId!= global.ERROR_QUERYMYSQL ){
+//
+//            var uid = '';
+//            var apkLink = '';
+//            var startImg = '';
+//            var address = '';
+//
+//            //apk
+//            if(arg1[3] == global.ERROR_CRASHMYSQL || arg1[3]== global.ERROR_QUERYMYSQL){
+//                res.send(arg1[3]);
+//                return;
+//            }//arg1[3] == undefined ||
+//            else{
+//                if(arg1[3] == undefined)
+//                    apkLink = '';
+//                else
+//                    apkLink = arg1[3];
+//            }
+//
+//            //uid
+//            if(arg1[1] == global.ERROR_CRASHMYSQL || arg1[1] == global.ERROR_QUERYMYSQL){
+//                res.send(arg1[1]);
+//                return;
+//            }
+//            else if(arg1[1] == undefined)
+//                uid = '';
+//            else
+//                uid = arg1[1];
+//
+//            //Img
+//            if(arg1[2] == global.ERROR_CRASHMYSQL || arg1[2] == global.ERROR_QUERYMYSQL){
+//                res.send(arg1[2]);
+//                return;
+//            }
+//            else if(arg1[2] == undefined)
+//                startImg = '';
+//            else
+//                startImg = arg1[2];
+//
+//            //address
+//            if(arg1[4] == global.ERROR_CRASHMYSQL || arg1[4] == global.ERROR_QUERYMYSQL){
+//                res.send(arg1[4]);
+//                return;
+//            }
+//            else if(arg1[4] == undefined)
+//                address = '';
+//            else
+//                address = arg1[4];
+//
+//        }else{
+//            if (epgId === ''){//can not find epg
+//                var errEpg = global.ERROR_NOEPG;
+//                res.send(errEpg);
+//            }else{
+//                res.send(arg);
+//            }
+//        }
+
     });
 };
 
