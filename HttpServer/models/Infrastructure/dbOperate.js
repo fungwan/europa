@@ -395,28 +395,28 @@ dbOperate.prototype.isHaveDirectoryIndex = function(dirId,templateId,pageId,res)
 
                         var channelTableName = 'epg_channelcontent_' + templateId;
                         var multiSql = 'SELECT id,title,description,resource,stream AS urls,editor,updatetime,queue,t1.source_type as type \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_video  t2 on t1.source_type = "video" where t1.source_id = t2.id\
-                UNION\
-                SELECT id,title,description,resource,img_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + ' ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_img  t3 on t1.source_type = "img" where t1.source_id = t3.id\
-                UNION\
-                SELECT id,title,description,resource,document_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_document  t4 on t1.source_type = "document" where t1.source_id = t4.id\
-                UNION\
-                SELECT id,title,description,resource,webpage_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_web  t5 on t1.source_type = "web" where t1.source_id = t5.id\
-                UNION\
-                SELECT id,title,description,resource,stream_page AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN carousel  t6 on t1.source_type = "carousel" where t1.source_id = t6.id \
-                UNION\
-                SELECT id,title,news_content AS description,news_picture AS resource,news_streamPath AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_news  t7 on t1.source_type = "news_templet" where t1.source_id = t7.id ';
+                        from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                        inner JOIN source_video  t2 on t1.source_type = "video" where t1.source_id = t2.id\
+                        UNION\
+                        SELECT id,title,description,resource,img_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
+                        from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + ' ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                        inner JOIN source_img  t3 on t1.source_type = "img" where t1.source_id = t3.id\
+                        UNION\
+                        SELECT id,title,description,resource,document_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
+                        from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                        inner JOIN source_document  t4 on t1.source_type = "document" where t1.source_id = t4.id\
+                        UNION\
+                        SELECT id,title,description,resource,webpage_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
+                        from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                        inner JOIN source_web  t5 on t1.source_type = "web" where t1.source_id = t5.id\
+                        UNION\
+                        SELECT id,title,description,resource,stream_page AS urls,editor,updatetime,queue,t1.source_type as type  \
+                        from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                        inner JOIN carousel  t6 on t1.source_type = "carousel" where t1.source_id = t6.id \
+                        UNION\
+                        SELECT id,title,news_content AS description,news_picture AS resource,news_streamPath AS urls,editor,updatetime,queue,t1.source_type as type  \
+                        from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirId + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
+                        inner JOIN source_news  t7 on t1.source_type = "news_templet" where t1.source_id = t7.id ';
 
                         /*
                          SELECT id,title,description,resource,stream_page AS urls,editor,updatetime,queue,t1.source_type as type
@@ -449,7 +449,17 @@ dbOperate.prototype.isHaveDirectoryIndex = function(dirId,templateId,pageId,res)
                          inner JOIN source_news t7 on t1.source_type = 'news_templet' where t1.source_id = t7.id;
                          */
 
-                        dbService.selectMoreValue(multiSql,callback);
+                        var PROCEDURE = 'CALL getChannelContent("';
+                        PROCEDURE += channelTableName;
+                        PROCEDURE += '",';
+                        PROCEDURE += dirId;
+                        PROCEDURE += ',';
+                        PROCEDURE += pageId;
+                        PROCEDURE += ',';
+                        PROCEDURE += listNumbers;
+                        PROCEDURE += ');';
+
+                        dbService.selectMoreValue(PROCEDURE,callback);
                     }
 
                 },function(err, results) {
@@ -466,13 +476,24 @@ dbOperate.prototype.isHaveDirectoryIndex = function(dirId,templateId,pageId,res)
                             directory.push(resultSet);
                         }
 
-                        var fileArray = results["get_epgContent"];
+                        //注意这里‘存储’的返回值，返回的是一个数组，里面有两个对象，数组（子）和object，内容都在这个数组里面了
+                        //和object对象是存储的一些属性值
+
+                        var fileArrayWai = results["get_epgContent"];
                         var fileContent = [];
-                        for(y in fileArray) {
-                            var resultSet = {};
-                            resultSet = {"type":fileArray[y].type,"index":fileArray[y].id,"title":fileArray[y].title,"queue":fileArray[y].queue,
-                                "description":fileArray[y].description,"resource":fileArray[y].resource,"urls":fileArray[y].urls};
-                            fileContent.push(resultSet);
+                        for(m in fileArrayWai) {
+
+                            if(fileArrayWai[m] instanceof  Array){
+
+                                var fileArray = fileArrayWai[m];
+
+                                for(y in fileArray){
+                                    var resultSet = {};
+                                    resultSet = {"type":fileArray[y].type,"index":fileArray[y].id,"title":fileArray[y].title,"queue":fileArray[y].queue,
+                                        "description":fileArray[y].description,"resource":fileArray[y].resource,"urls":fileArray[y].urls};
+                                    fileContent.push(resultSet);
+                                }
+                            }
                         }
 
                         var content;
@@ -501,125 +522,4 @@ dbOperate.prototype.isHaveDirectoryIndex = function(dirId,templateId,pageId,res)
             //emitter.emit('isDirExist', isDir);
         }
     );
-};
-
-function getContentByParentId(dirID,templateId,pageId,res){
-    pageId *= 20;
-    var listNumbers = '20';
-    async.auto({
-        get_directory : function(callback){
-
-            //var condition = ' where parentID =\'' + dirID + '\'';
-            var condition = ' where parentID =\'' + dirID + '\' ORDER BY queue limit ' + pageId + ',' + listNumbers;
-            var channelTableName = 'epg_channel_' + templateId;
-
-            dbService.selectMulitValue('id,title,queue,description,resource',channelTableName,condition,callback);
-        },
-
-        get_epgContent : function(callback){
-
-            var channelTableName = 'epg_channelcontent_' + templateId;
-            var multiSql = 'SELECT id,title,description,resource,stream AS urls,editor,updatetime,queue,t1.source_type as type \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirID + '  ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_video  t2 on t1.source_type = "video" where t1.source_id = t2.id\
-                UNION\
-                SELECT id,title,description,resource,img_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirID + ' ORDER BY queue  DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_img  t3 on t1.source_type = "img" where t1.source_id = t3.id\
-                UNION\
-                SELECT id,title,description,resource,document_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirID + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_document  t4 on t1.source_type = "document" where t1.source_id = t4.id\
-                UNION\
-                SELECT id,title,description,resource,webpage_urls AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirID + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_web  t5 on t1.source_type = "web" where t1.source_id = t5.id\
-                UNION\
-                SELECT id,title,description,resource,stream_page AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirID + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN carousel  t6 on t1.source_type = "carousel" where t1.source_id = t6.id \
-                UNION\
-                SELECT id,title,news_content AS description,news_picture AS resource,news_streamPath AS urls,editor,updatetime,queue,t1.source_type as type  \
-                from (SELECT source_id, source_type,queue from ' + channelTableName +  ' WHERE parentID = ' + dirID + '  ORDER BY queue DESC LIMIT ' + pageId + ',' + listNumbers + ') t1\
-                inner JOIN source_news  t7 on t1.source_type = "news_templet" where t1.source_id = t7.id ';
-
-            /*
-             SELECT id,title,description,resource,stream_page AS urls,editor,updatetime,queue,t1.source_type as type
-             from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
-             inner JOIN source_video  t2 on t1.source_type = 'video' where t1.source_id = t2.id
-             UNION
-
-             SELECT id,title,description,resource,img_urls AS urls,editor,updatetime,queue,t1.source_type as type
-             from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
-             inner JOIN source_img  t3 on t1.source_type = 'img' where t1.source_id = t3.id
-             UNION
-
-             SELECT id,title,description,resource,document_urls AS urls,editor,updatetime,queue,t1.source_type as type
-             from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
-             inner JOIN source_document   t4 on t1.source_type = 'document' where t1.source_id = t4.id
-             UNION
-
-             SELECT id,title,description,resource,webpage_urls AS urls,editor,updatetime,queue,t1.source_type as type
-             from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
-             inner JOIN source_web  t5 on t1.source_type = 'web' where t1.source_id = t5.id
-             UNION
-
-             SELECT id,title,description,resource,stream_page  AS urls,editor,updatetime,queue,t1.source_type as type
-             from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
-             inner JOIN carousel  t6 on t1.source_type = 'carousel' where t1.source_id = t6.id
-             UNION
-
-             SELECT id,title,news_content AS description,news_picture AS resource,news_streamPath AS urls,editor,updatetime,queue,t1.source_type as type
-             from (SELECT source_id, source_type,queue from epg_channelcontent_7 WHERE parentID = 18  ORDER BY queue LIMIT 0,20 ) t1
-             inner JOIN source_news t7 on t1.source_type = 'news_templet' where t1.source_id = t7.id;
-             */
-
-            dbService.selectMoreValue(multiSql,callback);
-        }
-
-    },function(err, results) {
-        if(err !== null){
-            res.send(global.ERROR_CRASHMYSQL);
-            //emitter.emit('channelContent',global.ERROR_CRASHMYSQL,global.ERROR_CRASHMYSQL);
-        }else{
-            var dirArray = results["get_directory"];
-            var directory = [];
-            for(x in dirArray) {
-                var resultSet = {};
-                resultSet = {"type":"dir","index":dirArray[x].id,"title":dirArray[x].title,"queue":dirArray[x].queue,
-                    "description":dirArray[x].description,"resource":dirArray[x].resource,"urls":''};
-                directory.push(resultSet);
-            }
-
-            var fileArray = results["get_epgContent"];
-            var fileContent = [];
-            for(y in fileArray) {
-                var resultSet = {};
-                resultSet = {"type":fileArray[y].type,"index":fileArray[y].id,"title":fileArray[y].title,"queue":fileArray[y].queue,
-                    "description":fileArray[y].description,"resource":fileArray[y].resource,"urls":fileArray[y].urls};
-                fileContent.push(resultSet);
-            }
-
-            var content;
-            content = directory.concat(fileContent);
-            content.sort(function(a,b){
-                return b.queue - a.queue;//a-b输出从小到大排序，b-a输出从大到小排序。
-            });
-
-            var jsObj = {
-                "content"   :  {
-                    "directoryid"   : dirID,
-                    "info"          : content
-                }
-            };
-
-            var jsonStr = JSON.stringify(jsObj);
-            jsonStr += '\n';
-
-            res.send(jsonStr );
-            //emitter.emit('channelContent',directory,fileContent);
-		}
-
-    });
-
 };
