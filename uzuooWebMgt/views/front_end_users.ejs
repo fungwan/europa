@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>悠住后台管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="images/icons/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+    <!--LOADING STYLESHEET FOR PAGE-->
+    <link type="text/css" rel="stylesheet" href="vendors/intro.js/introjs.css">
+    <link type="text/css" rel="stylesheet" href="vendors/calendar/zabuto_calendar.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/sco.message/sco.message.css">
+    <link type="text/css" rel="stylesheet" href="vendors/intro.js/introjs.css">
+    <!--Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css">
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-notific8/jquery.notific8.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap-daterangepicker/daterangepicker-bs3.css">
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="css/themes/style1/orange-blue.css" class="default-style">
+    <link type="text/css" rel="stylesheet" href="css/themes/style1/orange-blue.css" id="theme-change" class="style-change color-change">
+    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
+    <link type="text/css" rel="stylesheet" href="css/laypage.css">
+</head>
+
+<body class=" ">
+<div>
+<!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
+<!--END BACK TO TOP-->
+<!--BEGIN TOPBAR-->
+<div id="header-topbar-option-demo" class="page-header-topbar">
+<nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;" class="navbar navbar-default navbar-static-top">
+<div class="navbar-header">
+    <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+    </button><a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">UZUOO</span><span style="display: none" class="logo-text-icon">µ</span></a>
+</div>
+<div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+<ul class="nav navbar-nav">
+    <li class="active"><a href="/">Dashboard</a>
+    </li>
+    <li><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">Layouts
+            &nbsp;<i class="fa fa-angle-down"></i></a>
+        <ul class="dropdown-menu">
+            <li><a href="layout-left-sidebar.html">Left Sidebar</a>
+            </li>
+            <li><a href="layout-right-sidebar.html">Right Sidebar</a>
+            </li>
+            <li><a href="layout-left-sidebar-collapsed.html">Left Sidebar Collasped</a>
+            </li>
+            <li><a href="layout-right-sidebar-collapsed.html">Right Sidebar Collasped</a>
+            </li>
+            <li class="dropdown-submenu"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">More Options</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Second level link</a>
+                    </li>
+                    <li class="dropdown-submenu"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">More Options</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Third level link</a>
+                            </li>
+                            <li><a href="#">Third level link</a>
+                            </li>
+                            <li><a href="#">Third level link</a>
+                            </li>
+                            <li><a href="#">Third level link</a>
+                            </li>
+                            <li><a href="#">Third level link</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Second level link</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li class="mega-menu-dropdown"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">UI Elements
+            &nbsp;<i class="fa fa-angle-down"></i></a>
+        <ul class="dropdown-menu">
+            <li>
+                <div class="mega-menu-content">
+                    <div class="row">
+                        <ul class="col-md-4 mega-menu-submenu">
+                            <li>
+                                <h3>Neque porro quisquam</h3>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
+                            </li>
+                        </ul>
+                        <ul class="col-md-4 mega-menu-submenu">
+                            <li>
+                                <h3>Neque porro quisquam</h3>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
+                            </li>
+                        </ul>
+                        <ul class="col-md-4 mega-menu-submenu">
+                            <li>
+                                <h3>Neque porro quisquam</h3>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="mega-menu-dropdown mega-menu-full"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">Extras
+            &nbsp;<i class="fa fa-angle-down"></i></a>
+        <ul class="dropdown-menu">
+            <li>
+                <div class="mega-menu-content">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <ul class="col-md-4 mega-menu-submenu">
+                                <li>
+                                    <h3>Neque porro quisquam</h3>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
+                                </li>
+                            </ul>
+                            <ul class="col-md-4 mega-menu-submenu">
+                                <li>
+                                    <h3>Neque porro quisquam</h3>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
+                                </li>
+                            </ul>
+                            <ul class="col-md-4 mega-menu-submenu">
+                                <li>
+                                    <h3>Neque porro quisquam</h3>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-5 document-demo">
+                            <ul class="col-md-4 mega-menu-submenu">
+                                <li><a href="#"><i class="fa fa-info-circle"></i><span>Introduction</span></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-download"></i><span>Installation</span></a>
+                                </li>
+                            </ul>
+                            <ul class="col-md-4 mega-menu-submenu">
+                                <li><a href="#"><i class="fa fa-cog"></i><span>T3 Settings</span></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-desktop"></i><span>Layout System</span></a>
+                                </li>
+                            </ul>
+                            <ul class="col-md-4 mega-menu-submenu">
+                                <li><a href="#"><i class="fa fa-magic"></i><span>Customization</span></a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-question-circle"></i><span>FAQs</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
+<form id="topbar-search" action="#" method="GET" class="hidden-xs">
+    <div class="input-group">
+        <input type="text" placeholder="Search..." class="form-control" /><span class="input-group-btn"><a href="javascript:;" class="btn submit"><i class="fa fa-search"></i></a></span>
+    </div>
+</form>
+<ul class="nav navbar navbar-top-links navbar-right mbn">
+    <li class="dropdown topbar-user">
+        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">Fung Wan</span>&nbsp;<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-user pull-right">
+            <!--
+            <li><a href="extra-profile.html"><i class="fa fa-user"></i>My Profile</a>
+            </li>
+            <li><a href="page-calendar.html"><i class="fa fa-calendar"></i>My Calendar</a>
+            </li>
+            <li><a href="email-inbox.html"><i class="fa fa-envelope"></i>My Inbox<span class="badge badge-danger">3</span></a>
+            </li>
+            <li><a href="#"><i class="fa fa-tasks"></i>My Tasks<span class="badge badge-success">7</span></a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="extra-lock-screen.html"><i class="fa fa-lock"></i>Lock Screen</a>
+            </li> !-->
+            <li><a href="/logout"><i class="fa fa-key"></i>Log Out</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+</div>
+</nav>
+
+
+</div>
+<!--END TOPBAR-->
+<div id="wrapper">
+<!--BEGIN SIDEBAR MENU-->
+<nav id="sidebar" role="navigation" class="navbar-default navbar-static-side">
+    <div class="sidebar-collapse menu-scroll">
+        <ul id="side-menu" class="nav">
+            <li class="user-panel">
+                <div class="thumb"><img src="/images/avatar/128.jpg" alt="" class="img-circle" />
+                </div>
+                <div class="info">
+                    <p>Fung Wan</p>
+                    <ul class="list-inline list-unstyled">
+                        <!--li><a href="extra-profile.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a>
+                        </li>
+                        <li><a href="email-inbox.html" data-hover="tooltip" title="Mail"><i class="fa fa-envelope"></i></a>
+                        </li-->
+                        <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a>
+                        </li>
+                        <li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </li>
+
+            <li >
+                <a href="/"><i class="fa fa-home fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">悠住</span></a>
+            </li>
+
+            <li class="active"><a href="#"><i class="fa fa-user fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">用户管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li class="active"><a href="/customer"><i class="fa fa-tablet"></i><span class="submenu-title">悠住用户</span></a>
+                    </li>
+                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
+                    </li-->
+                    <li><a href="/users"><i class="fa fa-desktop"></i><span class="submenu-title">后台用户</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="/orders"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
+                    </li>
+                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
+                    </li-->
+                    <li><a href="#"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><a href="#"><i class="fa fa-rss-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">活动信息管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#"><i class="fa fa-table"></i><span class="submenu-title">活动查看</span></a>
+                    </li>
+                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
+                    </li-->
+                    <li><a href="#"><i class="fa fa-pencil-square-o"></i><span class="submenu-title">信息发布</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><a href="#"><i class="fa fa-trello fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">运营管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">APP活跃度统计</span></a>
+                    </li>
+                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
+                    </li-->
+                    <li><a href="#"><i class="fa fa-money"></i><span class="submenu-title">优惠券使用统计</span></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-th-large"></i><span class="submenu-title">价格管理</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li><a href="/history"><i class="fa fa-file-o fa-fw"><div class="icon-bg bg-green"></div></i><span class="menu-title">系统日志</span></a>
+            </li>
+            <!--li><a href="#"><i class="fa fa-database fa-fw"><div class="icon-bg bg-red"></div></i><span class="menu-title">Data Grids</span><span class="fa arrow"></span><span class="label label-yellow">Hot</span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#"><i class="fa fa-th-large"></i><span class="submenu-title">Layout Examples</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li><a href="grid-layout-div.html"><i class="fa fa-angle-right"></i><span class="submenu-title">DIVs Layout</span></a>
+                            </li>
+                            <li><a href="grid-layout-table-1.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Table Demo 1</span></a>
+                            </li>
+                            <li><a href="grid-layout-table-2.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Table Demo 2</span></a>
+                            </li>
+                            <li><a href="grid-layout-2-table.html"><i class="fa fa-angle-right"></i><span class="submenu-title">2 Tables on the Page</span></a>
+                            </li>
+                            <li><a href="grid-layout-ul-li.html"><i class="fa fa-angle-right"></i><span class="submenu-title">UL LI</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">Actions Examples</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li><a href="grid-filter-with-ul-li.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Filters With UL/LI</span></a>
+                            </li>
+                            <li><a href="grid-filter-with-select.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Filters With SELECT</span></a>
+                            </li>
+                            <li><a href="grid-double-sort.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Double Sort</span></a>
+                            </li>
+                            <li><a href="grid-deep-linking.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Deep Linking</span></a>
+                            </li>
+                            <li><a href="grid-pagination-only.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Pagination Only</span></a>
+                            </li>
+                            <li><a href="grid-without-item-per-page.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Without "Items per Page"</span></a>
+                            </li>
+                            <li><a href="grid-hidden-sort.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Hidden Sort</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-table"></i><span class="submenu-title">jPList with jQuery UI</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li><a href="grid-range-slider.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Range Slider</span></a>
+                            </li>
+                            <li><a href="grid-datepicker.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Date Picker Filter</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li-->
+
+
+            <!--li><a href="#"><i class="fa fa-sitemap fa-fw"><div class="icon-bg bg-dark"></div></i><span class="menu-title">Multi-Level Dropdown</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Second Level Item</span></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Second Level Item</span></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Third Level</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level">
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title"> Third Level Item</span></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li-->
+            <!--li.charts-sum<div id="ajax-loaded-data-sidebar"></div>-->
+        </ul>
+    </div>
+</nav>
+<!--END SIDEBAR MENU-->
+
+<!--BEGIN PAGE WRAPPER-->
+            <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">悠住用户</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li><a href="#">Tables</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">Action Tables</li>
+                    </ol>
+                    <div class="btn btn-blue reportrange hide"><i class="fa fa-calendar"></i>&nbsp;<span></span>&nbsp;report&nbsp;<i class="fa fa-angle-down"></i>
+                        <input type="hidden" name="datestart" />
+                        <input type="hidden" name="endstart" />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <!--BEGIN CONTENT-->
+                <div class="page-content">
+                    <div id="table-action" class="row">
+                        <div class="col-lg-12">
+                            <ul id="tableactiondTab" class="nav nav-tabs">
+                                <li class="active"><a href="#table-table-tab" data-toggle="tab">业主信息</a>
+                                </li>
+                                <li><a href="#table-row-tab" data-toggle="tab">工人信息</a>
+                                </li>
+                                <li><a href="#table-panel-tab" data-toggle="tab">商家信息</a>
+                                </li>
+                            </ul>
+                            <div id="tableactionTabContent" class="tab-content">
+                                <div id="table-table-tab" class="tab-pane fade in active">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-container">
+                                                <table class="table table-hover table-striped table-bordered table-advanced tablesorter display dataTable no-footer">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="10%">用户名</th>
+                                                            <th width="10%">城市</th>
+                                                            <th width="10%">联系方式</th>
+                                                            <th width="7%">邮箱地址</th>
+                                                            <th width="12%">最近登录时间</th>
+                                                            <th width="6%"></th>
+                                                        </tr>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>冯云</td>
+                                                                <td>射洪</td>
+                                                                <td>13882568547</td>
+                                                                <td>andy@qq.com</td>
+                                                                <td>20-05-2014</td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>刘春萍</td>
+                                                                <td>射洪</td>
+                                                                <td>15869877412</td>
+                                                                <td>candy@163.com</td>
+                                                                <td>20-05-2014</td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </thead>
+                                                </table>
+                                                <div id="uzUserPage"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="table-row-tab" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <table  class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="7%">用户名</th>
+                                                        <th width="7%">真实姓名</th>
+                                                        <th width="7%">头像</th>
+                                                        <th width="5%">城市</th>
+                                                        <th width="10%">联系方式</th>
+                                                        <th width="7%">角色</th>
+                                                        <th width="7%">邮箱地址</th>
+                                                        <th width="10%">最近登录日期</th>
+                                                        <th width="7%">审核状态</th>
+                                                        <th width="10%"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>叫我升哥</td>
+                                                        <td>茅以升</td>
+                                                        <td>^_^</td>
+                                                        <td>杭州</td>
+                                                        <td>6658742</td>
+                                                        <td>工长</td>
+                                                        <td>6658742@qq.com</td>
+                                                        <!--td>
+                                                            <select class="form-control">
+                                                                <option>Male</option>
+                                                                <option>Female</option>
+                                                                <option>Other</option>
+                                                            </select>
+                                                        </td-->
+                                                        <!--td>
+                                                            <input type="text" value="32" class="spinner input-mini" />
+                                                        </td-->
+                                                        <td>20-05-2014</td>
+                                                        <!--td>
+                                                            <div data-hover="tooltip" title="75%" class="progress progress-xs mbs">
+                                                                <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;" class="progress-bar progress-bar-green"><span class="sr-only">75% Complete</span>
+                                                                </div>
+                                                            </div>
+                                                        </td-->
+                                                        <td><span class="label label-sm label-success">已通过</span>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; Edit
+                                                            </button>&nbsp;
+                                                            <!--button type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>&nbsp; Delete
+                                                            </button-->
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>天下第一刀</td>
+                                                        <td>鲁班</td>
+                                                        <td>^_^</td>
+                                                        <td>天津</td>
+                                                        <td>6658742</td>
+                                                        <td>木工</td>
+                                                        <td>6658742@qq.com</td>
+                                                        <td>20-05-2014</td>
+                                                        <!--td>
+                                                            <div data-hover="tooltip" title="40%" class="progress progress-xs mbs">
+                                                                <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;" class="progress-bar progress-bar-red six-sec-ease-in-out"><span class="sr-only">40% Complete</span>
+                                                                </div>
+                                                            </div>
+                                                        </td-->
+                                                        <td><span class="label label-sm label-info">未审核</span>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; Edit
+                                                            </button>&nbsp;
+                                                            <!--button type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>&nbsp; Delete
+                                                            </button-->
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div id="uzLeaderPage"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="table-panel-tab" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <!--div class="portlet portlet-white">
+                                                <div class="portlet-header pam mbn">
+                                                    <div class="caption">Customer Listing</div>
+                                                    <div class="actions"><a href="#" class="btn btn-info btn-sm"><i class="fa fa-plus"></i>&nbsp;
+New Customer</a>&nbsp;
+                                                        <div class="btn-group"><a href="#" data-toggle="dropdown" class="btn btn-warning btn-sm dropdown-toggle"><i class="fa fa-wrench"></i>&nbsp;
+Tools</a>
+                                                            <ul class="dropdown-menu pull-right">
+                                                                <li><a href="#">Export to Excel</a>
+                                                                </li>
+                                                                <li><a href="#">Export to CSV</a>
+                                                                </li>
+                                                                <li><a href="#">Export to XML</a>
+                                                                </li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">Print Invoices</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div-->
+                                                <div class="portlet-body pan">
+                                                    <table class="table table-hover table-striped table-bordered table-advanced tablesorter mbn">
+                                                        <thead>
+                                                            <tr>
+                                                                <!--th width="3%">
+                                                                    <input type="checkbox" class="checkall" />
+                                                                </th-->
+                                                                <th width="9%">Record #</th>
+                                                                <th>Username</th>
+                                                                <th width="10%">Country</th>
+                                                                <th width="10%">Gender</th>
+                                                                <th width="7%">Order</th>
+                                                                <th width="12%">Date</th>
+                                                                <th width="10%">Price</th>
+                                                                <th width="9%">Status</th>
+                                                                <th width="12%">Actions</th>
+                                                            </tr>
+                                                            <!--tr role="row" class="filter">
+                                                                <td></td>
+                                                                <td>
+                                                                    <input type="text" name="order_id" class="form-control form-filter input-sm" />
+                                                                </td>
+                                                                <td>
+                                                                    <div data-date-format="dd/mm/yyyy" class="input-group date datepicker-filter mbs">
+                                                                        <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    </div>
+                                                                    <div data-date-format="dd/mm/yyyy" class="input-group date datepicker-filter">
+                                                                        <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" />
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control input-sm" />
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mbs">
+                                                                        <input type="text" placeholder="From" class="form-control input-sm" />
+                                                                    </div>
+                                                                    <input type="text" placeholder="To" class="form-control input-sm" />
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mbs">
+                                                                        <input type="text" placeholder="From" class="form-control input-sm mbs" />
+                                                                    </div>
+                                                                    <input type="text" placeholder="To" class="form-control input-sm" />
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control input-sm">
+                                                                        <option value="">Select...</option>
+                                                                        <option value="pending">Pending</option>
+                                                                        <option value="closed">Closed</option>
+                                                                        <option value="hold">On Hold</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="mbs">
+                                                                        <button class="btn btn-xs btn-success filter-submit"><i class="fa fa-search"></i>&nbsp; Search
+                                                                        </button>
+                                                                    </div>
+                                                                    <button class="btn btn-xs btn-info filter-cancel"><i class="fa fa-times"></i>&nbsp; Reset
+                                                                    </button>
+                                                                </td>
+                                                            </tr-->
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <!--td>
+                                                                    <input type="checkbox" />
+                                                                </td-->
+                                                                <td>1</td>
+                                                                <td>Henry</td>
+                                                                <td>United States</td>
+                                                                <td>Male</td>
+                                                                <td>32</td>
+                                                                <td>20-05-2014</td>
+                                                                <td>$240.50</td>
+                                                                <td><span class="label label-sm label-success">Approved</span>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; Edit
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <!--td>
+                                                                    <input type="checkbox" />
+                                                                </td-->
+                                                                <td>2</td>
+                                                                <td>John</td>
+                                                                <td>United States</td>
+                                                                <td>Female</td>
+                                                                <td>45</td>
+                                                                <td>20-05-2014</td>
+                                                                <td>$240.50</td>
+                                                                <td><span class="label label-sm label-info">Pending</span>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; Edit
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br>
+                                                    <div id="uzBusinessPage"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END CONTENT-->
+            </div>
+            <!--BEGIN FOOTER-->
+            <div id="footer">
+                <div class="copyright">2014 © &mu;Admin - Responsive Multi-Style Admin Template</div>
+            </div>
+            <!--END FOOTER-->
+            <!--END PAGE WRAPPER-->
+        </div>
+    </div>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!--loading bootstrap js-->
+    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <script src="vendors/iCheck/custom.min.js"></script>
+    <script src="vendors/jquery-notific8/jquery.notific8.min.js"></script>
+    <script src="vendors/jquery-highcharts/highcharts.js"></script>
+    <script src="js/jquery.menu.js"></script>
+    <script src="vendors/jquery-pace/pace.min.js"></script>
+    <script src="vendors/holder/holder.js"></script>
+    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+    <script src="vendors/jquery-news-ticker/jquery.newsTicker.min.js"></script>
+    <script src="vendors/moment/moment.js"></script>
+    <script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!--CORE JAVASCRIPT-->
+    <script src="js/main.js"></script>
+    <!--LOADING SCRIPTS FOR PAGE-->
+    <script src="js/table-action.js"></script>
+    <script src="custom/sigin.js"></script>
+    <script src="custom/fe_userList.js"></script>
+    <script src="lib/laypage.js"></script>
+
+    <script type="text/javascript">
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-145464-14', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
