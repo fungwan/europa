@@ -8,8 +8,7 @@ module.exports = function(app,acl) {
     app.get('/', function (req, res) {
         res.render('index',
             {
-                active: 'home' ,
-                tips:'内测阶段，Fung Wan 暴走写码中...'
+                userInfo:req.session.user
             });
     });
 
@@ -24,15 +23,19 @@ module.exports = function(app,acl) {
     });
 
     //test list common element
-    app.get('/userList', checkLogin);
-    app.get('/userList', function (req, res) {
-        res.render('table-action', { title: '测试列表' });
+    //app.get('/userList', checkLogin);
+    app.get('/test', function (req, res) {
+        res.render('index_city', { title: '测试列表' });
     });
 
     //front end user
     app.get('/customer', checkLogin);
     app.get('/customer', function (req, res) {
-        res.render('front_end_users', { title: '悠住用户' });
+        res.render('front_end_users',
+            {
+                userInfo:req.session.user
+            }
+        );
     });
 
     //background user
@@ -44,13 +47,19 @@ module.exports = function(app,acl) {
     //system log
     app.get('/orders', checkLogin);
     app.get('/orders', function (req, res) {
-        res.render('orders', { title: '所有订单' });
+        res.render('orders',
+            {
+                userInfo:req.session.user
+            });
     });
 
     //system log
     app.get('/history', checkLogin);
     app.get('/history', function (req, res) {
-        res.render('system_logs', { title: '历史留痕' });
+        res.render('system_logs',
+            {
+                userInfo:req.session.user
+            });
     });
 
     app.get('/logout', checkLogin);
@@ -58,23 +67,34 @@ module.exports = function(app,acl) {
         logout.getProcess(req,res);
     });
 
-//    app.get('/reg', checkNotLogin);
-//    app.get('/reg', function (req, res) {
-//        res.render('reg', { title: '注册' });
-//    });
-//    app.get('/reg', checkNotLogin);
-//    app.post('/reg', function (req, res) {
-//    });
+    //action for ajax request about bg_users
 
-    //action for ajax request
-    app.get('/doFinduserByName', checkLogin);
-    app.get('/doFinduserByName', function (req, res) {
-        users.findUserByName(req,res);
-    });
-
-    app.post('/doCreateAccount', checkLogin);
     app.post('/doCreateAccount', function (req, res) {
         users.createAccount(req,res);
+    });
+
+    app.post('/doDelUsersByUuId', function (req, res) {
+        users.delUsersByUuId(req,res);
+    });
+
+    app.post('/doDelUsersById', function (req, res) {
+        users.delUsersById(req,res);
+    });
+
+    app.post('/doUpdateUserById', function (req, res) {
+        users.updateUserById(req,res);
+    });
+
+    app.post('/doUpdateUserPWById', function (req, res) {
+        users.updateUserPWById(req,res);
+    });
+
+    app.get('/doFindUsersByPage', function (req, res) {
+        users.findUsersByPage(req,res);
+    });
+
+    app.get('/doFindUserByName', function (req, res) {
+        users.findUserByName(req,res);
     });
 };
 

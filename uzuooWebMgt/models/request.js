@@ -35,3 +35,34 @@ exports.post = function(options,contents,cb){
     req.write(contents);
     req.end();
 };
+
+exports.put = function(options,contents,cb){
+
+    var req = http.request(options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function(data) {
+            return cb(null,data);
+        });
+    });
+
+    req.on('error',function(e){
+        return cb(e, e.message);
+    });
+    req.write(contents);
+    req.end();
+};
+
+exports.del = function(options,cb){
+
+    var req = http.request(options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function(data) {
+            return cb(null,data);
+        });
+    });
+
+    req.on('error',function(e){
+        return cb(e, e.message);
+    });
+    req.end();
+};

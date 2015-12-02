@@ -5,51 +5,14 @@
 var request = require('./request.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
+var async = require('async');
 
 exports.getProcess = function(req,res){
 
-    var options = settings.bmpMgtAddr + '/users';
-    request.get(options,function(err,results){
-        if(err === null){
-            res.render('background_users.ejs', { title: '后台用户' });
-        }else{
-            res.send(503);
-        }
-    });
-
-};
-
-
-exports.postProcess = function(req,res){
-
-
-};
-
-
-exports.findUserByName = function(req,res){
-
-    var username = req.query.username;
-    var options = settings.bmpMgtAddr + '/users?$filter=username eq ' + '\'' + username + '\'' ;
-
-    request.get(options,function(err,results){
-        if(err === null){
-            var jsonObj = jsonConvert.stringToJson(results);
-            var array = jsonObj['value'];
-            if(array.length === 0){
-                //no user in db
-                res.json({ result: 'success',
-                        content:''});
-            }else{
-
-                res.json({ result: 'fail',
-                    content:'user has been exist...'});
-            }
-        }else{
-            res.json({ result: 'fail',
-                       content:err});
-        }
-    });
-
+    res.render('background_users.ejs',
+        {
+            userInfo:req.session.user
+        });
 };
 
 exports.createAccount = function(req,res){
@@ -70,7 +33,6 @@ exports.createAccount = function(req,res){
 
     request.post(options,bodyString,function(err,results){
         if(err === null){
-            console.log('chengg');
             res.json({ result: 'success',
                 content:results});
         }else{
@@ -81,3 +43,226 @@ exports.createAccount = function(req,res){
 
 };
 
+exports.delUsersById = function(req,res){
+
+    var idArray = req.body.ids;
+    async.map(idArray, function(item, callback) {
+
+        var delIdPath = '/users(' + item + ')';
+        var options = {
+            host: 'localhost',
+            port:'3000',
+            path: delIdPath,
+            method: 'DELETE',
+            headers: {
+                'Accept': '/',
+                'Content-Type':'application/json'
+            }
+        };
+
+        request.del(options,callback);
+
+    }, function(err,results) {
+        if(err !== null){
+            res.json({
+                    result: 'fail',
+                    content:err}
+            );
+        }else{
+            res.json({
+                    result: 'success',
+                    content: 'ok'}
+            );
+        }
+    });
+};
+
+
+exports.delUsersByUuId = function(req,res){
+
+    var idArray = req.body.ids;
+    async.map(idArray, function(item, callback) {
+
+        var delIdPath = '/v1/users?uuid=' + item + '';
+        var options = {
+            host: 'localhost',
+            port:'3000',
+            path: delIdPath,
+            method: 'DELETE',
+            headers: {
+                'Accept': '/',
+                'Content-Type':'application/json'
+            }
+        };
+
+        request.del(options,callback);
+
+    }, function(err,results) {
+        if(err !== null){
+            res.json({
+                    result: 'fail',
+                    content:err}
+            );
+        }else{
+            res.json({
+                    result: 'success',
+                    content: 'ok'}
+            );
+        }
+    });
+};
+
+exports.updateUserById = function(req,res){
+
+    var content = req.body.content;
+
+    var putPath = '/users(' + req.body.id + ')';
+
+    var bodyString = JSON.stringify(content);
+    var options = {
+        host: 'localhost',
+        port:'3000',
+        path: putPath,
+        method: 'PUT',
+        headers: {
+            'Accept': '/',
+            'Content-Type':'application/json'
+        }
+    };
+
+    request.put(options,bodyString,function(err,results){
+        if(err === null){
+            res.json({ result: 'success',
+                content:results});
+        }else{
+            res.json({ result: 'fail',
+                content:err});
+        }
+    });
+};
+
+exports.updateUserPWById = function(req,res){
+
+    var content = req.body.content;
+    var oldPW = content.oldPW;
+
+    async.auto({
+        judge_pw:function(callback){
+
+            var options = settings.bmpMgtAddr + '/users(' + req.body.id + ')' ;
+            request.get(options,callback);
+        },
+        update_PW : ['judge_pw',function(callback, results){
+
+            var jsonObj = jsonConvert.stringToJson(results.judge_pw);
+            var pw_db = jsonObj['password'];
+            if(oldPW !== pw_db){
+
+                callback('old_pw_error','old_pw_error');
+
+            }else{
+                var putPath = '/users(' + req.body.id + ')';
+
+                var afterData = {
+                    password : content.newPW
+                }
+                var bodyString = JSON.stringify(afterData);
+                var options = {
+                    host: 'localhost',
+                    port:'3000',
+                    path: putPath,
+                    method: 'PUT',
+                    headers: {
+                        'Accept': '/',
+                        'Content-Type':'application/json'
+                    }
+                };
+
+                request.put(options,bodyString,callback);
+            }
+
+        }]
+    },function(err,results){
+        if(err !== null){
+            res.json({
+                result: 'fail',
+                content:err});
+        }else{
+            res.json({
+                result: 'success',
+                content:'密码更新成功'});
+        }
+    });
+};
+
+exports.findUsersByPage = function(req,res){
+
+    var currPage = req.query.page - 1;
+
+    async.auto(
+        {
+            get_all: function (callback) {
+                var options = settings.bmpMgtAddr + '/users?$count=true';
+                request.get(options,callback);
+            },
+            get_currPage: function (callback) {
+
+                var skipValue = currPage * 10;
+                var options = settings.bmpMgtAddr + '/users?$top=10&$skip=' + skipValue;//
+                request.get(options,callback);
+            }
+        },
+        function(err, results) {
+            if(err !== null){
+                res.json({ result: 'fail',
+                    content:err});
+            }else{
+
+
+                var allUserCounts = jsonConvert.stringToJson(results.get_all)['@odata.count'];
+
+                //get product list
+                var pageCounts = 1;
+                if(allUserCounts > 0){
+                    var over = (allUserCounts) % 10;
+                    over > 0 ? pageCounts = parseInt((allUserCounts) / 10) + 1 :  pageCounts = parseInt((allUserCounts) / 10) ;
+                }
+
+                //第一页用户数组
+                var userArray = jsonConvert.stringToJson(results.get_currPage)['value'];
+
+                res.json({
+                        result: 'success',
+                        pages:pageCounts,
+                        content:userArray}
+                );
+            }
+        }
+    );
+};
+
+exports.findUserByName = function(req,res){
+
+    var username = req.query.username;
+    var options = settings.bmpMgtAddr + '/users?$filter=username eq ' + '\'' + username + '\'' ;
+
+    request.get(options,function(err,results){
+        if(err === null){
+            var jsonObj = jsonConvert.stringToJson(results);
+            var array = jsonObj['value'];
+            if(array.length === 0){
+                //no user in db
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                res.json({ result: 'fail',
+                    content:'user has been exist...'});
+            }
+        }else{
+            res.json({ result: 'fail',
+                content:err});
+        }
+    });
+
+};

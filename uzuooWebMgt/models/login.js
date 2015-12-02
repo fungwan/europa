@@ -33,7 +33,7 @@ exports.postProcess = function(req,res){
                 }));
             }else{
                 //login success...
-                req.session.user = req.body;
+                req.session.user = array[0];
                 res.send(jsonConvert.jsonToString({
                     result:'success',
                     //code:200,
