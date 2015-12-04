@@ -171,7 +171,7 @@ $(document).ready(function(){
             var isChecked = $(this).children("td:first").find('input').is(':checked');// .text();
             if(isChecked){
                 flag = true;
-                var id = $(this).children("td").eq(3).attr("id");
+                var id = $(this).children("td").eq(4).attr("id");
                 userIdArray.push(id);
             }
 

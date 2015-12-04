@@ -1,8 +1,74 @@
-
 <!--BEGIN FOOTER-->
 <div id="footer">
-    <div class="copyright">2015-2016 © uzuoo</div>
+    <div class="copyright">2015-2016 © &mu;uzuoo</div>
 </div>
+
+<!--BEGIN FOOTER-->
+<div aria-hidden="true"  id="modify_account_pw_dlg" tabindex="-1"  class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#0a819c;color:white;" id="add_device_dlg_title">
+                <h4 id="modal-header-primary-label" class="modal-title" >修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" id="add_device_content_div">
+                        <form class="form-horizontal" id="modify_account_pw_form" action="#" method="POST">
+                            <div class="form-body pal">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">密码 <span class="require">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon">
+                                            <i class="fa fa-eye-slash"></i> <input id="old_account_password_input" name="old_account_password_input" class="form-control input-sm" type="password">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-3 control-label" style="color:red;display:none;text-align:left;" id="add_device_orders_error_label"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputUsername" class="col-md-3 control-label">新密码<span class="require">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon">
+                                            <i class="fa fa-eye-slash"></i> <input id="modify_account_password_input" name="modify_account_password_input" class="form-control input-sm" type="password">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-3 control-label" style="color:red;display:none;text-align:left;" id="add_device_mac_error_label"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputUsername" class="col-md-3 control-label">确认密码<span class="require">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon">
+                                            <i class="fa fa-eye-slash"></i> <input id="modify_account_confirm_password_input" name="modify_account_confirm_password_input" class="form-control input-sm" type="password">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-3 control-label" style="color:red;display:none;text-align:left;" id="add_device_mac_error_label"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div id="create_conference_footer">
+                    <div class="col-md-6">
+                        <p class="text-left" style="display:none;" id="modify_account_pw_error_tooltip_p">
+                            <span class="label label-danger" id="modify_account_pw_error_tooltip_span"></span>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+
+                        <button type="button" id="modify_account_pw_cancel_btn" class="btn btn-default">取消</button>
+                        <button type="button" id="modify_account_pw_btn" class="btn btn-primary" >更新</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--END FOOTER-->
 <!--END PAGE WRAPPER-->
 </div>
@@ -20,8 +86,6 @@
 <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
 <script src="vendors/iCheck/icheck.min.js"></script>
 <script src="vendors/iCheck/custom.min.js"></script>
-<script src="vendors/jquery-notific8/jquery.notific8.min.js"></script>
-<script src="vendors/jquery-highcharts/highcharts.js"></script>
 <script src="js/jquery.menu.js"></script>
 <script src="vendors/jquery-pace/pace.min.js"></script>
 <script src="vendors/holder/holder.js"></script>
@@ -32,40 +96,10 @@
 <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!--CORE JAVASCRIPT-->
 <script src="js/main.js"></script>
-<!--LOADING SCRIPTS FOR PAGE-->
-<script src="vendors/intro.js/intro.js"></script>
-<script src="vendors/flot-chart/jquery.flot.js"></script>
-<script src="vendors/flot-chart/jquery.flot.categories.js"></script>
-<script src="vendors/flot-chart/jquery.flot.pie.js"></script>
-<script src="vendors/flot-chart/jquery.flot.tooltip.js"></script>
-<script src="vendors/flot-chart/jquery.flot.resize.js"></script>
-<script src="vendors/flot-chart/jquery.flot.fillbetween.js"></script>
-<script src="vendors/flot-chart/jquery.flot.stack.js"></script>
-<script src="vendors/flot-chart/jquery.flot.spline.js"></script>
-<script src="vendors/calendar/zabuto_calendar.min.js"></script>
-<script src="vendors/sco.message/sco.message.js"></script>
-<script src="vendors/intro.js/intro.js"></script>
-<script src="js/index.js"></script>
+<!--LOADING SCRIPTS FOR COMMON FUNC-->
 <script src="lib/laypage.js"></script>
-<script src="custom/sigin.js"></script>
-
-<script type="text/javascript">
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-145464-14', 'auto');
-    ga('send', 'pageview');
-</script>
-
-
+<script src="custom/passwordmgt.js"></script>
+<script src="lib/md5.js"></script>
 </body>
 
 </html>

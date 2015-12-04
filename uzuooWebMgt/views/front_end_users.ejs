@@ -8,10 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
-    <link rel="shortcut icon" href="images/icons/favicon.ico">
-    <link rel="apple-touch-icon" href="images/icons/favicon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
     <!--Loading bootstrap css-->
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
@@ -19,10 +15,7 @@
     <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
     <!--LOADING STYLESHEET FOR PAGE-->
-    <link type="text/css" rel="stylesheet" href="vendors/intro.js/introjs.css">
-    <link type="text/css" rel="stylesheet" href="vendors/calendar/zabuto_calendar.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/sco.message/sco.message.css">
-    <link type="text/css" rel="stylesheet" href="vendors/intro.js/introjs.css">
+
     <!--Loading style vendors-->
     <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
     <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css">
@@ -243,18 +236,6 @@
         <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">Fung Wan</span>&nbsp;<span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-user pull-right">
-            <!--
-            <li><a href="extra-profile.html"><i class="fa fa-user"></i>My Profile</a>
-            </li>
-            <li><a href="page-calendar.html"><i class="fa fa-calendar"></i>My Calendar</a>
-            </li>
-            <li><a href="email-inbox.html"><i class="fa fa-envelope"></i>My Inbox<span class="badge badge-danger">3</span></a>
-            </li>
-            <li><a href="#"><i class="fa fa-tasks"></i>My Tasks<span class="badge badge-success">7</span></a>
-            </li>
-            <li class="divider"></li>
-            <li><a href="extra-lock-screen.html"><i class="fa fa-lock"></i>Lock Screen</a>
-            </li> !-->
             <li><a href="/logout"><i class="fa fa-key"></i>Log Out</a>
             </li>
         </ul>
@@ -342,73 +323,6 @@
 
             <li><a href="/history"><i class="fa fa-file-o fa-fw"><div class="icon-bg bg-green"></div></i><span class="menu-title">系统日志</span></a>
             </li>
-            <!--li><a href="#"><i class="fa fa-database fa-fw"><div class="icon-bg bg-red"></div></i><span class="menu-title">Data Grids</span><span class="fa arrow"></span><span class="label label-yellow">Hot</span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="#"><i class="fa fa-th-large"></i><span class="submenu-title">Layout Examples</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="grid-layout-div.html"><i class="fa fa-angle-right"></i><span class="submenu-title">DIVs Layout</span></a>
-                            </li>
-                            <li><a href="grid-layout-table-1.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Table Demo 1</span></a>
-                            </li>
-                            <li><a href="grid-layout-table-2.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Table Demo 2</span></a>
-                            </li>
-                            <li><a href="grid-layout-2-table.html"><i class="fa fa-angle-right"></i><span class="submenu-title">2 Tables on the Page</span></a>
-                            </li>
-                            <li><a href="grid-layout-ul-li.html"><i class="fa fa-angle-right"></i><span class="submenu-title">UL LI</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">Actions Examples</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="grid-filter-with-ul-li.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Filters With UL/LI</span></a>
-                            </li>
-                            <li><a href="grid-filter-with-select.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Filters With SELECT</span></a>
-                            </li>
-                            <li><a href="grid-double-sort.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Double Sort</span></a>
-                            </li>
-                            <li><a href="grid-deep-linking.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Deep Linking</span></a>
-                            </li>
-                            <li><a href="grid-pagination-only.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Pagination Only</span></a>
-                            </li>
-                            <li><a href="grid-without-item-per-page.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Without "Items per Page"</span></a>
-                            </li>
-                            <li><a href="grid-hidden-sort.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Hidden Sort</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-table"></i><span class="submenu-title">jPList with jQuery UI</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="grid-range-slider.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Range Slider</span></a>
-                            </li>
-                            <li><a href="grid-datepicker.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Date Picker Filter</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li-->
-
-
-            <!--li><a href="#"><i class="fa fa-sitemap fa-fw"><div class="icon-bg bg-dark"></div></i><span class="menu-title">Multi-Level Dropdown</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Second Level Item</span></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Second Level Item</span></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Third Level</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title"> Third Level Item</span></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li-->
-            <!--li.charts-sum<div id="ajax-loaded-data-sidebar"></div>-->
         </ul>
     </div>
 </nav>
@@ -438,11 +352,11 @@
                     <div id="table-action" class="row">
                         <div class="col-lg-12">
                             <ul id="tableactiondTab" class="nav nav-tabs">
-                                <li class="active"><a href="#table-table-tab" data-toggle="tab">业主信息</a>
+                                <li id="houseOwner"  class="active"><a href="#table-table-tab" data-toggle="tab">业主信息</a>
                                 </li>
-                                <li><a href="#table-row-tab" data-toggle="tab">工人信息</a>
+                                <li id="worker"><a href="#table-row-tab" data-toggle="tab">工人信息</a>
                                 </li>
-                                <li><a href="#table-panel-tab" data-toggle="tab">商家信息</a>
+                                <li id="business"><a href="#table-panel-tab" data-toggle="tab">商家信息</a>
                                 </li>
                             </ul>
                             <div id="tableactionTabContent" class="tab-content">
@@ -492,80 +406,96 @@
                                     </div>
                                 </div>
                                 <div id="table-row-tab" class="tab-pane fade">
+                                    <div class="row mbl">
+                                        <div class="col-lg-3">
+                                            <div class="input-group input-group-sm mbs">
+                                                <input type="text" placeholder="Enter here..." class="form-control"><span class="input-group-btn"><button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Search</button></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="tb-group-actions pull-right">
+                                                <button class="btn btn-sm btn-warning"><i class="fa fa-check"></i>&nbsp; 审核
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <table  class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                                            <table  id="edit_worker_table" class="table table-hover table-striped table-bordered table-advanced tablesorter mbn">
                                                 <thead>
                                                     <tr>
-                                                        <th width="7%">用户名</th>
-                                                        <th width="7%">真实姓名</th>
-                                                        <th width="7%">头像</th>
+                                                        <th width="3%" class="sorting_disabled">
+                                                            <input type="checkbox" class="checkall" />
+                                                        </th>
+                                                        <th width="5%">用户名</th>
+                                                        <th width="5%">真实姓名</th>
+                                                        <th width="5%">头像</th>
                                                         <th width="5%">城市</th>
                                                         <th width="10%">联系方式</th>
-                                                        <th width="7%">角色</th>
-                                                        <th width="7%">邮箱地址</th>
-                                                        <th width="10%">最近登录日期</th>
-                                                        <th width="7%">审核状态</th>
-                                                        <th width="10%"></th>
+                                                        <th width="7%">工种</th>
+                                                        <th width="8%">
+                                                            <select data-style="btn-grey" class="selectpicker form-control">
+                                                                <option>审核状态</option>
+                                                                <option>未审核</option>
+                                                                <option>审核失败</option>
+                                                                <option>已通过</option>
+                                                            </select>
+                                                        </th>
+                                                        <th width="3%"></th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="workerAvater_tbody" style="">
                                                     <tr>
+                                                        <td>
+                                                            <input type="checkbox" class="checkbox" />
+                                                        </td>
                                                         <td>叫我升哥</td>
                                                         <td>茅以升</td>
-                                                        <td>^_^</td>
+                                                        <td>
+                                                            <img src="images/avatar/128.jpg" width="35px" height="35px">
+                                                        </td>
                                                         <td>杭州</td>
-                                                        <td>6658742</td>
+                                                        <td>13981967875</td>
                                                         <td>工长</td>
-                                                        <td>6658742@qq.com</td>
-                                                        <!--td>
-                                                            <select class="form-control">
-                                                                <option>Male</option>
-                                                                <option>Female</option>
-                                                                <option>Other</option>
-                                                            </select>
-                                                        </td-->
-                                                        <!--td>
-                                                            <input type="text" value="32" class="spinner input-mini" />
-                                                        </td-->
-                                                        <td>20-05-2014</td>
-                                                        <!--td>
-                                                            <div data-hover="tooltip" title="75%" class="progress progress-xs mbs">
-                                                                <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;" class="progress-bar progress-bar-green"><span class="sr-only">75% Complete</span>
-                                                                </div>
-                                                            </div>
-                                                        </td-->
                                                         <td><span class="label label-sm label-success">已通过</span>
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; Edit
-                                                            </button>&nbsp;
-                                                            <!--button type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-                                                            </button-->
+                                                            <a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
+                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>
+                                                            <input type="checkbox" class="checkbox" />
+                                                        </td>
                                                         <td>天下第一刀</td>
                                                         <td>鲁班</td>
-                                                        <td>^_^</td>
+                                                        <td><img src="images/avatar/128.jpg" width="35px" height="35px"></td>
                                                         <td>天津</td>
-                                                        <td>6658742</td>
+                                                        <td>18856985412</td>
                                                         <td>木工</td>
-                                                        <td>6658742@qq.com</td>
-                                                        <td>20-05-2014</td>
-                                                        <!--td>
-                                                            <div data-hover="tooltip" title="40%" class="progress progress-xs mbs">
-                                                                <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;" class="progress-bar progress-bar-red six-sec-ease-in-out"><span class="sr-only">40% Complete</span>
-                                                                </div>
-                                                            </div>
-                                                        </td-->
                                                         <td><span class="label label-sm label-info">未审核</span>
                                                         </td>
                                                         <td>
-                                                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; Edit
-                                                            </button>&nbsp;
-                                                            <!--button type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-                                                            </button-->
+                                                            <a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
+                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" class="checkbox" />
+                                                        </td>
+                                                        <td>小可爱</td>
+                                                        <td>羽田爱</td>
+                                                        <td><img src="images/avatar/128.jpg" width="35px" height="35px"></td>
+                                                        <td>大阪</td>
+                                                        <td>18856985412</td>
+                                                        <td>保洁</td>
+                                                        <td><span class="label label-sm label-primary">审核失败</span>
+                                                        </td>
+                                                        <td>
+                                                            <a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
+                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -577,27 +507,6 @@
                                 <div id="table-panel-tab" class="tab-pane fade">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <!--div class="portlet portlet-white">
-                                                <div class="portlet-header pam mbn">
-                                                    <div class="caption">Customer Listing</div>
-                                                    <div class="actions"><a href="#" class="btn btn-info btn-sm"><i class="fa fa-plus"></i>&nbsp;
-New Customer</a>&nbsp;
-                                                        <div class="btn-group"><a href="#" data-toggle="dropdown" class="btn btn-warning btn-sm dropdown-toggle"><i class="fa fa-wrench"></i>&nbsp;
-Tools</a>
-                                                            <ul class="dropdown-menu pull-right">
-                                                                <li><a href="#">Export to Excel</a>
-                                                                </li>
-                                                                <li><a href="#">Export to CSV</a>
-                                                                </li>
-                                                                <li><a href="#">Export to XML</a>
-                                                                </li>
-                                                                <li class="divider"></li>
-                                                                <li><a href="#">Print Invoices</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div-->
                                                 <div class="portlet-body pan">
                                                     <table class="table table-hover table-striped table-bordered table-advanced tablesorter mbn">
                                                         <thead>
@@ -615,54 +524,7 @@ Tools</a>
                                                                 <th width="9%">Status</th>
                                                                 <th width="12%">Actions</th>
                                                             </tr>
-                                                            <!--tr role="row" class="filter">
-                                                                <td></td>
-                                                                <td>
-                                                                    <input type="text" name="order_id" class="form-control form-filter input-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <div data-date-format="dd/mm/yyyy" class="input-group date datepicker-filter mbs">
-                                                                        <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                                    </div>
-                                                                    <div data-date-format="dd/mm/yyyy" class="input-group date datepicker-filter">
-                                                                        <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" class="form-control input-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" class="form-control input-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <div class="mbs">
-                                                                        <input type="text" placeholder="From" class="form-control input-sm" />
-                                                                    </div>
-                                                                    <input type="text" placeholder="To" class="form-control input-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <div class="mbs">
-                                                                        <input type="text" placeholder="From" class="form-control input-sm mbs" />
-                                                                    </div>
-                                                                    <input type="text" placeholder="To" class="form-control input-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <select class="form-control input-sm">
-                                                                        <option value="">Select...</option>
-                                                                        <option value="pending">Pending</option>
-                                                                        <option value="closed">Closed</option>
-                                                                        <option value="hold">On Hold</option>
-                                                                    </select>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="mbs">
-                                                                        <button class="btn btn-xs btn-success filter-submit"><i class="fa fa-search"></i>&nbsp; Search
-                                                                        </button>
-                                                                    </div>
-                                                                    <button class="btn btn-xs btn-info filter-cancel"><i class="fa fa-times"></i>&nbsp; Reset
-                                                                    </button>
-                                                                </td>
-                                                            </tr-->
+
                                                         </thead>
                                                         <tbody>
                                                             <tr>
@@ -716,60 +578,7 @@ Tools</a>
                 </div>
                 <!--END CONTENT-->
             </div>
-            <!--BEGIN FOOTER-->
-            <div id="footer">
-                <div class="copyright">2014 © &mu;Admin - Responsive Multi-Style Admin Template</div>
-            </div>
-            <!--END FOOTER-->
-            <!--END PAGE WRAPPER-->
-        </div>
-    </div>
-    <script src="js/jquery-1.10.2.min.js"></script>
-    <script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <!--loading bootstrap js-->
-    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
-    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
-    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
-    <script src="vendors/iCheck/icheck.min.js"></script>
-    <script src="vendors/iCheck/custom.min.js"></script>
-    <script src="vendors/jquery-notific8/jquery.notific8.min.js"></script>
-    <script src="vendors/jquery-highcharts/highcharts.js"></script>
-    <script src="js/jquery.menu.js"></script>
-    <script src="vendors/jquery-pace/pace.min.js"></script>
-    <script src="vendors/holder/holder.js"></script>
-    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
-    <script src="vendors/jquery-news-ticker/jquery.newsTicker.min.js"></script>
-    <script src="vendors/moment/moment.js"></script>
-    <script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!--CORE JAVASCRIPT-->
-    <script src="js/main.js"></script>
-    <!--LOADING SCRIPTS FOR PAGE-->
-    <script src="js/table-action.js"></script>
-    <script src="custom/sigin.js"></script>
-    <script src="custom/fe_userList.js"></script>
-    <script src="lib/laypage.js"></script>
-
-    <script type="text/javascript">
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-145464-14', 'auto');
-        ga('send', 'pageview');
-    </script>
-</body>
-
-</html>
+<%- include footer %>
+<script src="vendors/DataTables/media/js/jquery.dataTables.js"></script>
+<script src="vendors/DataTables/jquery.jeditable.js"></script>
+<script src="custom/fe_userList.js"></script>
