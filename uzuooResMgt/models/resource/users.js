@@ -4,5 +4,5 @@
 
 exports.use = function(server){
 
-    server.resource('users', {uuid:String,username: String, password: String ,role:String,city:String});
+    server.resource('users', {username: String, password: String ,role:String,city:String});
 };
