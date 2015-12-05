@@ -163,68 +163,63 @@
                     <div class="col-lg-12">
                         <div class="panel panel-green">
                             <div class="panel-heading">历史留痕记录表</div>
-                            <div class="panel-body">
-                                <table class="table table-hover table-bordered table-advanced">
-                                    <thead>
-                                    <tr role="row" class="heading">
-                                        <th width="3%" class="sorting_disabled">
-                                            <input type="checkbox" class="checkall" />
-                                        </th>
-                                        <th width="9%" class="sorting">姓名</th>
-                                        <th width="18%" class="sorting">时间</th>
-                                        <th width="15%" class="sorting_asc">操作员</th>
-                                        <th width="10%" class="sorting">描述</th>
-                                        <th width="10%" class="sorting"></th>
-                                    </tr>
-                                    <tr role="row" class="filter">
-                                        <td></td>
-                                        <td>
-                                            <input type="text" name="order_id" class="form-control form-filter input-sm" />
-                                        </td>
-                                        <td>
-                                            <div data-date-format="dd/mm/yyyy" class="input-group date datepicker-filter mbs">
-                                                <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <div class="panel-body">
+                                    <div class="row mbl">
+                                        <div class="col-lg-6">
+                                            <div class="input-group input-group-sm mbs">
+                                                <div style="float: left" data-date-format="dd-mm-yyyy" class="input-group date datepicker-filter input-group-sm mbs">
+                                                    <input id="startDate-input" type="text" readonly="" class="form-control">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                                <div style="float: left">
+                                                    <div style="position: relative;top: 5px">-</div>
+                                                </div>
+                                                <div style="float: left" data-date-format="dd-mm-yyyy" class="input-group date datepicker-filter input-group-sm mbs">
+                                                    <input id="endDate-input" type="text" readonly="" class="form-control">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>&nbsp;
+                                                <button id="search-btn" type="button" class="btn btn-success btn-sm">查询</button>
                                             </div>
-                                            <div data-date-format="dd/mm/yyyy" class="input-group date datepicker-filter">
-                                                <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <select class="form-control input-sm">
-                                                <option value="">筛选操作员</option>
-                                                <option value="pending">管理员</option>
-                                                <option value="closed">运营</option>
-                                                <option value="hold">财务</option>
-                                            </select>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div class="mbs">
-                                                <button class="btn btn-xs btn-success filter-submit"><i class="fa fa-search"></i>&nbsp; Search
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="tb-group-actions pull-right"><span></span>
+                                                <button id="btn-allDel-warning" class="btn btn-primary " data-target="modal-confirm-all" data-toggle="modal" >
+                                                    <!--i class="fa fa-check"&nbsp; ></i-->删除
                                                 </button>
                                             </div>
-                                            <button class="btn btn-xs btn-info filter-cancel"><i class="fa fa-times"></i>&nbsp; Reset
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="checkbox" />
-                                        </td>
-                                        <td>yun_feng</td>
-                                        <td>05/12/2014</td>
-                                        <td>管理员</td>
-                                        <td>确认了一笔付款...</span>
-                                        </td>
-                                        <td><a href="javascript:;" class="btn btn-xs btn-default"><i class="fa fa-trash-o"></i>&nbsp;
-                                                删除</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div id="logPage"></div>
+                                        </div>
+                                    </div>
+                                    <table id="history-tab" class="table table-hover table-bordered table-advanced">
+                                        <thead>
+                                        <tr role="row" class="heading">
+                                            <th width="3%" class="sorting_disabled">
+                                                <input type="checkbox" class="checkall" />
+                                            </th>
+                                            <th width="9%" class="sorting">姓名</th>
+                                            <th width="18%" class="sorting">时间</th>
+                                            <th width="15%" class="sorting_asc">操作员</th>
+                                            <th width="10%" class="sorting">描述</th>
+                                            <th width="10%" class="sorting"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--tr>
+                                            <td>
+                                                <input type="checkbox" class="checkbox" />
+                                            </td>
+                                            <td>yun_feng</td>
+                                            <td>05/12/2014</td>
+                                            <td>管理员</td>
+                                            <td>确认了一笔付款...</span>
+                                            </td>
+                                            <td><a href="javascript:;" class="btn btn-xs btn-default"><i class="fa fa-trash-o"></i>&nbsp;
+                                                    删除</a>
+                                            </td>
+                                        </tr-->
+                                        </tbody>
+                                    </table>
+                                    <div id="logPage"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,7 +227,30 @@
             </div>
         <!--END CONTENT-->
         </div>
-
+        <!--END PAGE WRAPPER-->
+        <div id="modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">你确定删除吗?</div>
+                    <div class="modal-footer">
+                        <input type="hidden" value="">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button id="btn-del" type="button" data-dismiss="modal" class="btn btn-primary">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-confirm-all" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">你确定删除吗?</div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button id="btn-delAll" type="button" data-dismiss="modal" class="btn btn-primary">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%- include footer %>
         <!--LOADING SCRIPTS FOR PAGE-->
         <script src="js/table-filter.js"></script>

@@ -1,6 +1,7 @@
 var login = require('../models/login');
 var logout = require('../models/logout');
 var users = require('../models/users');
+var history = require('../models/history');
 
 module.exports = function(app,acl) {
 
@@ -96,6 +97,19 @@ module.exports = function(app,acl) {
     app.get('/doFindUserByName', function (req, res) {
         users.findUserByName(req,res);
     });
+
+    app.get('/doFindLogsByPage', function (req, res) {
+        history.findLogsByPage(req,res);
+    });
+
+    app.get('/doFindLogsByDate', function (req, res) {
+        history.findLogsByDate(req,res);
+    });
+
+    app.post('/doDelLogsById', function (req, res) {
+        history.delLogsById(req,res);
+    });
+
 };
 
 function checkLogin(req, res, next) {

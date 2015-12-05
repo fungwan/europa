@@ -35,12 +35,41 @@ exports.createAccount = function(req,res){
         if(err === null){
             res.json({ result: 'success',
                 content:results});
+
+            //操作留痕
+            var logString = JSON.stringify({
+                'username':'fengyun',
+                'operator_date':new Date().getTime(),
+                'role':'4',
+                'action':'创建了账户'
+            });
+
+            var logOptions = {
+                host: 'localhost',
+                port:'3000',
+                path: '/logs',
+                method: 'POST',
+                headers: {
+                    'Accept': '/',
+                    'Content-Type':'application/json'
+                }
+            };
+
+            request.post(logOptions,logString,function(err,results){
+                if(err === null){
+                    res.json({ result: 'success',
+                        content:results});
+                }else{
+                    res.json({ result: 'fail',
+                        content:err});
+                }
+            });
+
         }else{
             res.json({ result: 'fail',
                 content:err});
         }
     });
-
 };
 
 exports.delUsersById = function(req,res){
