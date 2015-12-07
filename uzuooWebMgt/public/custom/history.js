@@ -124,11 +124,11 @@ $(document).ready(function(){
         }
         //02-12-2015
         var tmpStartArray = $("#startDate-input").val().split('-');
-        var startDateStr = tmpStartArray[2] + '/' + tmpStartArray[1] + '/' + tmpStartArray[0];
+        var startDateStr = $("#startDate-input").val();//tmpStartArray[2] + '/' + tmpStartArray[1] + '/' + tmpStartArray[0];
         var startTimeStamp = new Date(startDateStr).getTime();
         //alert(startTimeStamp);
         var tmpEndtArray = $("#endDate-input").val().split('-');
-        var endDateStr = tmpEndtArray[2] + '/' + tmpEndtArray[1] + '/' + tmpEndtArray[0];
+        var endDateStr = $("#endDate-input").val();//tmpEndtArray[2] + '/' + tmpEndtArray[1] + '/' + tmpEndtArray[0];
         var endTimeStamp = new Date(endDateStr).getTime();
         //alert(endTimeStamp);
 

@@ -6,6 +6,8 @@ var request = require('./request.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
 
+var connectAddr = settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
+
 exports.getProcess = function(req,res){
 
     //var options = settings.bmpMgtAddr + req.originalUrl;
@@ -19,8 +21,8 @@ exports.postProcess = function(req,res){
     var username = req.body.username;
     var pw = req.body.password;
 
-    var options = settings.bmpMgtAddr + '/users?$filter=username eq ' + '\'' + username + '\'' + ' and password eq ' + '\'' + pw + '\'';
-    //console.log(options);
+    var options = connectAddr + '/users?$filter=username eq ' + '\'' + username + '\'' + ' and password eq ' + '\'' + pw + '\'';
+
     request.get(options,function(err,results){
         if(err === null){
             var jsonObj = jsonConvert.stringToJson(results);

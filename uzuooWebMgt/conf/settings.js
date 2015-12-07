@@ -8,4 +8,6 @@ exports.mongodb = {
     port: 27017
 };
 
-exports.bmpMgtAddr = 'http://127.0.0.1:3000';
+exports.bmpMgtIpAddr = 'http://127.0.0.1';
+
+exports.bmpMgtPortAddr = 3000;

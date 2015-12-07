@@ -2,7 +2,7 @@
  * Created by Administrator on 2015/11/22.
  */
 
-var request = require('./request.js');
+var request = require('./requestForGo.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
 var async = require('async');

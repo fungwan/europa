@@ -6,6 +6,32 @@ var request = require('./request.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
 var async = require('async');
+var connectAddr = settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
+
+exports.delLogsById = function(req,res){
+
+    var idArray = req.body.ids;
+    async.map(idArray, function(item, callback) {
+
+        var delIdPath = '/logs(' + item + ')';
+        var optionItem = {};
+        optionItem['path'] = delIdPath;
+        request.del(optionItem,callback);
+
+    }, function(err,results) {
+        if(err !== null){
+            res.json({
+                    result: 'fail',
+                    content:err}
+            );
+        }else{
+            res.json({
+                    result: 'success',
+                    content: 'ok'}
+            );
+        }
+    });
+};
 
 exports.findLogsByPage = function(req,res){
 
@@ -14,13 +40,13 @@ exports.findLogsByPage = function(req,res){
     async.auto(
         {
             get_all: function (callback) {
-                var options = settings.bmpMgtAddr + '/logs?$count=true';
+                var options = connectAddr + '/logs?$count=true';
                 request.get(options,callback);
             },
             get_currPage: function (callback) {
 
                 var skipValue = currPage * 10;
-                var options = settings.bmpMgtAddr + '/logs?$top=10&$skip=' + skipValue;//
+                var options = connectAddr + '/logs?$top=10&$skip=' + skipValue;//
                 request.get(options,callback);
             }
         },
@@ -63,7 +89,7 @@ exports.findLogsByDate = function(req,res){
     async.auto(
         {
             get_all: function (callback) {
-                var options = settings.bmpMgtAddr + '/logs?$filter=operator_date le ' + endStamp + ' and operator_date gt ' + startStamp;
+                var options = connectAddr + '/logs?$filter=operator_date le ' + endStamp + ' and operator_date gt ' + startStamp;
                 request.get(options,callback);
             },
             get_currPage: [ 'get_all',function (callback,results) {
@@ -105,38 +131,4 @@ exports.findLogsByDate = function(req,res){
             }
         }
     );
-};
-
-exports.delLogsById = function(req,res){
-
-    var idArray = req.body.ids;
-    async.map(idArray, function(item, callback) {
-
-        var delIdPath = '/logs(' + item + ')';
-        var options = {
-            host: 'localhost',
-            port:'3000',
-            path: delIdPath,
-            method: 'DELETE',
-            headers: {
-                'Accept': '/',
-                'Content-Type':'application/json'
-            }
-        };
-
-        request.del(options,callback);
-
-    }, function(err,results) {
-        if(err !== null){
-            res.json({
-                    result: 'fail',
-                    content:err}
-            );
-        }else{
-            res.json({
-                    result: 'success',
-                    content: 'ok'}
-            );
-        }
-    });
 };

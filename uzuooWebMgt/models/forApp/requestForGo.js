@@ -1,16 +1,16 @@
 /**
  * Created by fungwan on 2015/11/22.
  *
- * 对http请求的封装
+ * 对http请求的封装,目标REST服务器为GO语言实现，端口为80
  *
  */
 
 var http = require('http');
-var settings = require('../conf/settings');
+//var settings = require('../../conf/settings');
 
-var hostIp = settings.bmpMgtIpAddr;
-hostIp = hostIp.substr(7);
-var hostPort = settings.bmpMgtPortAddr;
+var hostIp =  '127.0.0.1'  // settings.bmpMgtIpAddr;
+//hostIp = hostIp.substr(7);
+var hostPort = 80;
 
 exports.get = function(options,cb){
 
