@@ -6,7 +6,7 @@ var request = require('./request.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
 
-var connectAddr = settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
+var connectAddr = "http://" +settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
 
 exports.getProcess = function(req,res){
 

@@ -9,7 +9,7 @@ var http = require('http');
 var settings = require('../conf/settings');
 
 var hostIp = settings.bmpMgtIpAddr;
-hostIp = hostIp.substr(7);
+
 var hostPort = settings.bmpMgtPortAddr;
 
 exports.get = function(options,cb){

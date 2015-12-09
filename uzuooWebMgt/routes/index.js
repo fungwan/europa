@@ -24,7 +24,6 @@ module.exports = function(app,acl) {
     });
 
     //test list common element
-    //app.get('/userList', checkLogin);
     app.get('/test', function (req, res) {
         res.render('index_city', { title: '测试列表' });
     });
@@ -72,10 +71,6 @@ module.exports = function(app,acl) {
 
     app.post('/doCreateAccount', function (req, res) {
         users.createAccount(req,res);
-    });
-
-    app.post('/doDelUsersByUuId', function (req, res) {
-        users.delUsersByUuId(req,res);
     });
 
     app.post('/doDelUsersById', function (req, res) {

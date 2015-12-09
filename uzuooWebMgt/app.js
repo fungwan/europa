@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var routes = require('./routes/index');
 var settings = require('./conf/settings').mongodb;
 
 var session = require('express-session');
@@ -93,14 +92,26 @@ mongodb.connect("mongodb://127.0.0.1:27017/UZUOO-WEB-Service", function(error, d
         });
     });
 
+
+    app.set('port', process.env.PORT || 8080);
+
+
+//var server = app.listen(app.get('port'), function() {
+//    console.log('Https server listening on port ' + 8080);
+//});
+
+    var https = require('https')
+        ,fs = require("fs");
+
+    var options = {
+        key: fs.readFileSync('./privatekey.pem'),
+        cert: fs.readFileSync('./certificate.pem')
+    };
+
+    https.createServer(options, app).listen(app.get('port'), function () {
+        console.log('Https server listening on port ' + app.get('port'));
+    });
+
+    module.exports = app;
+
 });
-
-
-app.set('port', process.env.PORT || 8080);
-
-var server = app.listen(app.get('port'), function() {
-
-});
-
-
-module.exports = app;

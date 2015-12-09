@@ -6,23 +6,43 @@
  */
 
 var http = require('http');
-//var settings = require('../../conf/settings');
+var settings = require('../../conf/settings');
 
-var hostIp =  '127.0.0.1'  // settings.bmpMgtIpAddr;
-//hostIp = hostIp.substr(7);
-var hostPort = 80;
+var hostIp =  settings.appCloudMgtIpAddr;
+var hostPort = settings.appCloudPortAddr;
 
-exports.get = function(options,cb){
+var str = settings.apiKeyID + ':' + settings.apiKeySecret;
+var buffer = new Buffer(str);
+var base64Code = buffer.toString('base64');
+var basicCode = 'Basic ' + base64Code;
 
-    http.get(options, function(res) {
+exports.get = function(optionItem,cb){
+
+    var options = {
+        host: hostIp,
+        port: hostPort,
+        method: 'GET',
+        headers: {
+            'Accept': '/',
+            'Authorization': basicCode,
+            'Content-Type':'application/json'
+        }
+    };
+
+    options['path'] = optionItem['path'];
+
+    var req = http.request(options, function(res) {
         res.setEncoding('utf8');
         res.on('data', function(data) {
             return cb(null,data);
         });
-    }).on('error',function(e){
+    });
+
+    req.on('error',function(e){
         return cb(e, e.message);
     });
 
+    req.end();
 };
 
 exports.post = function(optionItem,contents,cb){
@@ -33,6 +53,7 @@ exports.post = function(optionItem,contents,cb){
         method: 'POST',
         headers: {
             'Accept': '/',
+            'Authorization': basicCode,
             'Content-Type':'application/json'
         }
     };
@@ -61,6 +82,7 @@ exports.put = function(optionItem,contents,cb){
         method: 'PUT',
         headers: {
             'Accept': '/',
+            'Authorization': basicCode,
             'Content-Type':'application/json'
         }
     };
@@ -89,6 +111,7 @@ exports.del = function(optionItem,cb){
         method: 'DELETE',
         headers: {
             'Accept': '/',
+            'Authorization': basicCode,
             'Content-Type':'application/json'
         }
     };
