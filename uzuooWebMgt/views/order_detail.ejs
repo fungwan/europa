@@ -11,13 +11,32 @@
                     <div class="navbar">
                         <div class="navbar-inner">
                             <ul>
-                                <li><a href="#tab1-wizard-custom-circle" data-toggle="tab"><i class="glyphicon glyphicon-user"></i><p class="anchor">1. Log in</p><p class="description">Set up account</p></a>
+                                <li>
+                                    <a href="#tab1-wizard-custom-circle" data-toggle="tab">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        <p class="anchor">派单中</p>
+                                        <!--p class="description">基本信息</p-->
+                                    </a>
                                 </li>
-                                <li><a href="#tab2-wizard-custom-circle" data-toggle="tab"><i class="glyphicon glyphicon-send mln"></i><p class="anchor">2. Address</p><p class="description">Provide information</p></a>
+                                <li>
+                                    <a href="#tab2-wizard-custom-circle" data-toggle="tab">
+                                        <i class="glyphicon glyphicon-send mln"></i>
+                                        <p class="anchor">订单已签约</p>
+                                        <p class="description"></p>
+                                    </a>
                                 </li>
-                                <li><a href="#tab3-wizard-custom-circle" data-toggle="tab"><i class="glyphicon glyphicon-shopping-cart"></i><p class="anchor">3. Cart detail</p><p class="description">Check products</p></a>
+                                <li>
+                                    <a href="#tab3-wizard-custom-circle" data-toggle="tab">
+                                        <i class="glyphicon glyphicon-wrench"></i>
+                                        <p class="anchor">施工阶段</p>
+                                        <p class="description"></p>
+                                    </a>
                                 </li>
-                                <li><a href="#tab4-wizard-custom-circle" data-toggle="tab"><i class="glyphicon glyphicon-check"></i><p class="anchor">4. Finish</p><p class="description">Confirm all</p></a>
+                                <li><a href="#tab4-wizard-custom-circle" data-toggle="tab">
+                                        <i class="glyphicon glyphicon-check"></i>
+                                        <p class="anchor">交易完成</p>
+                                        <p class="description"></p>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -27,125 +46,146 @@
                     </div>
                     <div class="tab-content">
                         <div id="tab1-wizard-custom-circle" class="tab-pane">
-                            <h3 class="mbxl">Set up your account</h3>
+                            <h3 class="mbxl">基本信息：</h3>
                             <form action="#" class="form-horizontal">
                                 <div class="form-group">
-                                    <label for="inputUsername" class="col-sm-3 control-label">Username <span class='require'>*</span>
+                                    <label class="col-sm-3 control-label">客户姓名：<span>冯云</span>
                                     </label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                            <input type="text" placeholder="Username" class="inputUsername form-control" />
-                                        </div><i class="alert alert-hide">Oops! Forgot something? Let try again.</i>
-                                    </div>
+                                    <label class="col-sm-3 control-label" >联系电话：<span>18180450714</span>
+                                    </label>
+                                    <label class="col-sm-6 control-label">房屋住址：<span>武侯区天府四街仁美大源印象</span>
+                                    </label>
+
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-3 control-label">Password <span class='require'>*</span>
+                                    <label class="col-sm-3 control-label">装修内容：<span>整装</span>
                                     </label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                            <input type="text" placeholder="Password" class="inputPwd form-control" />
-                                        </div><i class="alert alert-hide">Oops! Forgot something? Let try again.</i>
-                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputAddress" class="col-sm-3 control-label">Password confirm <span class='require'>*</span>
+                                    <label class="col-sm-3 control-label">候选者：
                                     </label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                            <input type="text" placeholder="Password confirm" class="inputPwdC form-control" />
-                                        </div><i class="alert alert-hide">Oops! Forgot something? Let try again.</i>
-                                    </div>
+                                    <label class="col-sm-6 control-label" style="position: relative;text-align: left"><span>贝聿铭,鲁班,茅以升</span></label>
                                 </div>
                             </form>
                         </div>
                         <div id="tab2-wizard-custom-circle" class="tab-pane">
-                            <h3 class="mbxl">Delivery information</h3>
+                            <h3 class="mbxl">合同信息</h3>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="inputStreet" class="control-label">Street <span class='require'>*</span>
-                                        </label>
-                                        <input id="inputStreet" type="text" placeholder="" class="form-control" /><i class="alert alert-hide">Oops! Forgot something? Let try again.</i>
-                                    </div>
+                                    <label class="col-sm-3 control-label">项目名称：<span>仁美大源印象</span>
+                                    </label>
+                                    <label class="col-sm-3 control-label" >面积：<span>95平</span>
+                                    </label>
+                                    <label class="col-sm-6 control-label">套型：<span>套三</span>
+                                    </label>
+                                    <label class="col-sm-3 control-label">甲方：<span>冯云</span>
+                                    </label>
+                                    <label class="col-sm-3 control-label" >乙方：<span>悠住</span>
+                                    </label>
+                                    <label class="col-sm-6 control-label">丙方：<span>贝聿铭</span>
+                                    </label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inputFirstName" class="control-label">District</label>
-                                        <input id="inputDistrict" type="text" placeholder="" class="form-control" /><i class="alert alert-hide">Oops! Forgot something? Let try again.</i>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inputCity" class="control-label">City <span class='require'>*</span>
-                                        </label>
-                                        <input id="inputCity" type="text" placeholder="" class="form-control" /><i class="alert alert-hide">Oops! Forgot something? Let try again.</i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inputPostCode" class="control-label">Post Code</label>
-                                        <input id="inputPostCode" type="text" placeholder="" class="form-control" /><i class="alert alert-hide">Oops! Forgot something? Let try again.</i>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="selCountry" class="control-label">Country</label>
-                                        <select id="selCountry" class="form-control">
-                                            <option value="">Select a Country</option>
-                                            <option value="">United States</option>
-                                            <option value="">England</option>
-                                            <option value="">France</option>
-                                            <option value="">Spain</option>
-                                        </select>
+                            <br>
+                            <div class="row" style="height:300px; overflow:auto;">
+                                <div class="panel panel-grey">
+                                    <div class="panel-heading">预算明细</div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>金额</th>
+                                                <th>工期</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="active">水电</td>
+                                                <td class="success">5000</td>
+                                                <td class="warning">3天</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="active">泥工</td>
+                                                <td class="success">6000</td>
+                                                <td class="warning">3天</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="active">防水</td>
+                                                <td class="success">10000</td>
+                                                <td class="warning">5天</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="active">总价</td>
+                                                <td class="success">21000</td>
+                                                <td class="warning">11天</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div id="tab3-wizard-custom-circle" class="tab-pane fadeIn">
-                            <h3 class="mbxl">Checking products</h3>
-                            <form action="#" class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="inputUsername" class="col-md-2 control-label">Product 1:</label>
-                                    <div class="col-md-10">
-                                        <input type="text" placeholder="Detail" class="inputUsername form-control" />
+                            <div class="col-md-12">
+                                <div id="accordion1" class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">施工进程</a><i class="indicator glyphicon glyphicon-chevron-down pull-right mts text-muted"></i>
+                                        </div>
+                                        <div id="collapseOne1" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                装修进行中...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo1">施工日志</a>
+                                            <i class="indicator glyphicon glyphicon-chevron-left pull-right mts text-muted"></i>
+                                        </div>
+                                        <div id="collapseTwo1" class="panel-collapse collapse">
+                                            <div class="panel-body" style="height:300px; overflow:auto;">
+                                                <div id="grid-layout-div" class="box jplist">
+                                                    <div class="list box text-shadow">
+                                                        <div class="list-item box">
+                                                            <!--<img/>-->
+                                                            <div class="img left" >
+                                                                <img src="vendors/jplist/html/img/thumbs/arch-1.jpg" alt="" title="">
+                                                            </div>
+                                                            <!--<data></data>-->
+                                                            <div >
+                                                                <p class="date">12/9/2015</p>
+                                                                <p class="title">刘明</p>
+                                                                <p class="desc">瓷砖装贴完毕</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="list-item box">
+                                                            <!--<img/>-->
+                                                            <div class="img left"><img src="vendors/jplist/html/img/thumbs/car-1.jpg" alt="" title="">
+                                                            </div>
+                                                            <!--<data></data>-->
+                                                            <div >
+                                                                <p class="date">12/11/2015</p>
+                                                                <p class="title">马克</p>
+                                                                <p class="desc">水电改造完成</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputUsername" class="col-md-2 control-label">Product 2:</label>
-                                    <div class="col-md-10">
-                                        <input type="text" placeholder="Detail" class="inputUsername form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputUsername" class="col-md-2 control-label">Product 3:</label>
-                                    <div class="col-md-10">
-                                        <input type="text" placeholder="Detail" class="inputUsername form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="selCountry" class="col-md-2 control-label">Check out method</label>
-                                    <div class="col-lg-3 col-md-5">
-                                        <select id="selCountry" class="form-control">
-                                            <option value="">Cash</option>
-                                            <option value="">Visa Card</option>
-                                            <option value="">Credit Card</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                         <div id="tab4-wizard-custom-circle" class="tab-pane fadeIn">
-                            <h3 class="mbxl">Thank you!</h3>
-                            <p>Congragulation! You have completed checkout steps.</p>
-                            <p>Thank you for use our products.</p>
+                            <h3 class="mbxl">谢谢!</h3>
+                            <p>本次交易公平、公开、公正</p>
+                            <p>感谢使用悠住!</p>
                         </div>
                         <div class="action text-right">
-                            <button type="button" name="previous" value="Previous" class="btn btn-info button-previous"><i class="fa fa-arrow-circle-o-left mrx"></i>Previous</button>
-                            <button type="button" name="next" value="Next" class="btn btn-info button-next mlm">Next<i class="fa fa-arrow-circle-o-right mlx"></i>
+                            <button type="button" name="previous" value="Previous" class="btn btn-info button-previous"><i class="fa fa-arrow-circle-o-left mrx"></i>上一步</button>
+                            <button type="button" name="next" value="Next" class="btn btn-info button-next mlm">下一步<i class="fa fa-arrow-circle-o-right mlx"></i>
                             </button>
                         </div>
                     </div>
