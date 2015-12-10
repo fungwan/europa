@@ -40,11 +40,6 @@
                 <a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">UZUOO</span><span style="display: none" class="logo-text-icon">µ</span></a>
             </div>
             <div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
-                <form id="topbar-search" action="#" method="GET" class="hidden-xs">
-                    <div class="input-group">
-                        <input type="text" placeholder="Search..." class="form-control" /><span class="input-group-btn"><a href="javascript:;" class="btn submit"><i class="fa fa-search"></i></a></span>
-                    </div>
-                </form>
                 <ul class="nav navbar navbar-top-links navbar-right mbn">
                     <li class="dropdown topbar-user">
                         <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle" />
@@ -71,7 +66,8 @@
                         <div class="info">
                             <p><%= username %></p>
                             <ul class="list-inline list-unstyled">
-                                <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a>
+                                <input id="useruuid" type="hidden" value=<%= uuid%>>
+                                <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modify_account_pw_dlg"><i class="fa fa-cog"></i></a>
                                 </li>
                                 <li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a>
                                 </li>
@@ -101,7 +97,7 @@
                             </li>
                             <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                             </li-->
-                            <li><a href="#"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
+                            <li><a href="/bills"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
                             </li>
                         </ul>
                     </li>
@@ -143,15 +139,6 @@
             <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
                 <div class="page-header pull-left">
                     <div class="page-title">系统日志</div>
-                </div>
-                <ol class="breadcrumb page-breadcrumb">
-                    <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                    <li><a href="#">Tables</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                    <li class="active">Filter Tables</li>
-                </ol>
-                <div class="btn btn-blue reportrange hide"><i class="fa fa-calendar"></i>&nbsp;<span></span>&nbsp;report&nbsp;<i class="fa fa-angle-down"></i>
-                    <input type="hidden" name="datestart" />
-                    <input type="hidden" name="endstart" />
                 </div>
                 <div class="clearfix"></div>
             </div>

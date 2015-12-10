@@ -159,7 +159,7 @@ exports.updateUserPWById = function(req,res){
                 var optionItem = {};
                 optionItem['path'] = putPath;
 
-                request.put(options,bodyString,callback);
+                request.put(optionItem,bodyString,callback);
             }
 
         }]

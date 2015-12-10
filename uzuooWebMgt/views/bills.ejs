@@ -8,23 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
-    <link rel="shortcut icon" href="images/icons/favicon.ico">
-    <link rel="apple-touch-icon" href="images/icons/favicon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/icons/favicon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/icons/favicon-114x114.png">
     <!--Loading bootstrap css-->
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
     <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
     <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
     <!--LOADING STYLESHEET FOR PAGE-->
-    <link type="text/css" rel="stylesheet" href="vendors/intro.js/introjs.css">
-    <link type="text/css" rel="stylesheet" href="vendors/calendar/zabuto_calendar.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/sco.message/sco.message.css">
-    <link type="text/css" rel="stylesheet" href="vendors/intro.js/introjs.css">
+
     <!--Loading style vendors-->
-    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
     <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css">
     <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
     <link type="text/css" rel="stylesheet" href="vendors/jquery-notific8/jquery.notific8.min.css">
@@ -38,9 +28,18 @@
 
 <body class=" ">
 <div>
-<!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
-<!--END BACK TO TOP-->
+
 <!--BEGIN TOPBAR-->
+
+<%
+
+    var uuid = userInfo.id;
+    var username = userInfo.username;
+    var user_role = userInfo.role;
+    var city = userInfo.city;
+
+%>
+
 <div id="header-topbar-option-demo" class="page-header-topbar">
 <nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;" class="navbar navbar-default navbar-static-top">
 <div class="navbar-header">
@@ -48,213 +47,11 @@
     </button><a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">UZUOO</span><span style="display: none" class="logo-text-icon">µ</span></a>
 </div>
 <div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
-<ul class="nav navbar-nav">
-    <li class="active"><a href="/">Dashboard</a>
-    </li>
-    <li><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">Layouts
-            &nbsp;<i class="fa fa-angle-down"></i></a>
-        <ul class="dropdown-menu">
-            <li><a href="layout-left-sidebar.html">Left Sidebar</a>
-            </li>
-            <li><a href="layout-right-sidebar.html">Right Sidebar</a>
-            </li>
-            <li><a href="layout-left-sidebar-collapsed.html">Left Sidebar Collasped</a>
-            </li>
-            <li><a href="layout-right-sidebar-collapsed.html">Right Sidebar Collasped</a>
-            </li>
-            <li class="dropdown-submenu"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">More Options</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Second level link</a>
-                    </li>
-                    <li class="dropdown-submenu"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">More Options</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Third level link</a>
-                            </li>
-                            <li><a href="#">Third level link</a>
-                            </li>
-                            <li><a href="#">Third level link</a>
-                            </li>
-                            <li><a href="#">Third level link</a>
-                            </li>
-                            <li><a href="#">Third level link</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Second level link</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li class="mega-menu-dropdown"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">UI Elements
-            &nbsp;<i class="fa fa-angle-down"></i></a>
-        <ul class="dropdown-menu">
-            <li>
-                <div class="mega-menu-content">
-                    <div class="row">
-                        <ul class="col-md-4 mega-menu-submenu">
-                            <li>
-                                <h3>Neque porro quisquam</h3>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
-                            </li>
-                        </ul>
-                        <ul class="col-md-4 mega-menu-submenu">
-                            <li>
-                                <h3>Neque porro quisquam</h3>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
-                            </li>
-                        </ul>
-                        <ul class="col-md-4 mega-menu-submenu">
-                            <li>
-                                <h3>Neque porro quisquam</h3>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </li>
-    <li class="mega-menu-dropdown mega-menu-full"><a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">Extras
-            &nbsp;<i class="fa fa-angle-down"></i></a>
-        <ul class="dropdown-menu">
-            <li>
-                <div class="mega-menu-content">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <ul class="col-md-4 mega-menu-submenu">
-                                <li>
-                                    <h3>Neque porro quisquam</h3>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
-                                </li>
-                            </ul>
-                            <ul class="col-md-4 mega-menu-submenu">
-                                <li>
-                                    <h3>Neque porro quisquam</h3>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
-                                </li>
-                            </ul>
-                            <ul class="col-md-4 mega-menu-submenu">
-                                <li>
-                                    <h3>Neque porro quisquam</h3>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Lorem ipsum dolor sit amet</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Consectetur adipisicing elit</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>At vero eos et accusamus et iusto</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Nam libero tempore cum soluta</a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i>Et harum quidem rerum facilis est</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-5 document-demo">
-                            <ul class="col-md-4 mega-menu-submenu">
-                                <li><a href="#"><i class="fa fa-info-circle"></i><span>Introduction</span></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-download"></i><span>Installation</span></a>
-                                </li>
-                            </ul>
-                            <ul class="col-md-4 mega-menu-submenu">
-                                <li><a href="#"><i class="fa fa-cog"></i><span>T3 Settings</span></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-desktop"></i><span>Layout System</span></a>
-                                </li>
-                            </ul>
-                            <ul class="col-md-4 mega-menu-submenu">
-                                <li><a href="#"><i class="fa fa-magic"></i><span>Customization</span></a>
-                                </li>
-                                <li><a href="#"><i class="fa fa-question-circle"></i><span>FAQs</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </li>
-</ul>
-<form id="topbar-search" action="#" method="GET" class="hidden-xs">
-    <div class="input-group">
-        <input type="text" placeholder="Search..." class="form-control" /><span class="input-group-btn"><a href="javascript:;" class="btn submit"><i class="fa fa-search"></i></a></span>
-    </div>
-</form>
 <ul class="nav navbar navbar-top-links navbar-right mbn">
     <li class="dropdown topbar-user">
-        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">Fung Wan</span>&nbsp;<span class="caret"></span>
+        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs"><%= username %></span>&nbsp;<span class="caret"></span>
         </a>
         <ul class="dropdown-menu dropdown-user pull-right">
-            <!--
-            <li><a href="extra-profile.html"><i class="fa fa-user"></i>My Profile</a>
-            </li>
-            <li><a href="page-calendar.html"><i class="fa fa-calendar"></i>My Calendar</a>
-            </li>
-            <li><a href="email-inbox.html"><i class="fa fa-envelope"></i>My Inbox<span class="badge badge-danger">3</span></a>
-            </li>
-            <li><a href="#"><i class="fa fa-tasks"></i>My Tasks<span class="badge badge-success">7</span></a>
-            </li>
-            <li class="divider"></li>
-            <li><a href="extra-lock-screen.html"><i class="fa fa-lock"></i>Lock Screen</a>
-            </li> !-->
             <li><a href="/logout"><i class="fa fa-key"></i>Log Out</a>
             </li>
         </ul>
@@ -275,13 +72,10 @@
                 <div class="thumb"><img src="/images/avatar/128.jpg" alt="" class="img-circle" />
                 </div>
                 <div class="info">
-                    <p>Fung Wan</p>
+                    <p><%= username %></p>
                     <ul class="list-inline list-unstyled">
-                        <!--li><a href="extra-profile.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a>
-                        </li>
-                        <li><a href="email-inbox.html" data-hover="tooltip" title="Mail"><i class="fa fa-envelope"></i></a>
-                        </li-->
-                        <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a>
+                        <input id="useruuid" type="hidden" value=<%= uuid%>>
+                        <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modify_account_pw_dlg"><i class="fa fa-cog"></i></a>
                         </li>
                         <li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a>
                         </li>
@@ -307,11 +101,9 @@
 
             <li class="active"><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="active"><a href="/orders"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
+                    <li ><a href="/orders"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
                     </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
-                    <li><a href="#"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
+                    <li class="active"><a href="/bills"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
                     </li>
                 </ul>
             </li>
@@ -342,808 +134,134 @@
 
             <li><a href="/history"><i class="fa fa-file-o fa-fw"><div class="icon-bg bg-green"></div></i><span class="menu-title">系统日志</span></a>
             </li>
-            <!--li><a href="#"><i class="fa fa-database fa-fw"><div class="icon-bg bg-red"></div></i><span class="menu-title">Data Grids</span><span class="fa arrow"></span><span class="label label-yellow">Hot</span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="#"><i class="fa fa-th-large"></i><span class="submenu-title">Layout Examples</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="grid-layout-div.html"><i class="fa fa-angle-right"></i><span class="submenu-title">DIVs Layout</span></a>
-                            </li>
-                            <li><a href="grid-layout-table-1.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Table Demo 1</span></a>
-                            </li>
-                            <li><a href="grid-layout-table-2.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Table Demo 2</span></a>
-                            </li>
-                            <li><a href="grid-layout-2-table.html"><i class="fa fa-angle-right"></i><span class="submenu-title">2 Tables on the Page</span></a>
-                            </li>
-                            <li><a href="grid-layout-ul-li.html"><i class="fa fa-angle-right"></i><span class="submenu-title">UL LI</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">Actions Examples</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="grid-filter-with-ul-li.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Filters With UL/LI</span></a>
-                            </li>
-                            <li><a href="grid-filter-with-select.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Filters With SELECT</span></a>
-                            </li>
-                            <li><a href="grid-double-sort.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Double Sort</span></a>
-                            </li>
-                            <li><a href="grid-deep-linking.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Deep Linking</span></a>
-                            </li>
-                            <li><a href="grid-pagination-only.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Pagination Only</span></a>
-                            </li>
-                            <li><a href="grid-without-item-per-page.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Without "Items per Page"</span></a>
-                            </li>
-                            <li><a href="grid-hidden-sort.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Hidden Sort</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-table"></i><span class="submenu-title">jPList with jQuery UI</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="grid-range-slider.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Range Slider</span></a>
-                            </li>
-                            <li><a href="grid-datepicker.html"><i class="fa fa-angle-right"></i><span class="submenu-title">Date Picker Filter</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li-->
-
-
-            <!--li><a href="#"><i class="fa fa-sitemap fa-fw"><div class="icon-bg bg-dark"></div></i><span class="menu-title">Multi-Level Dropdown</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Second Level Item</span></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Second Level Item</span></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-angle-right"></i><span class="submenu-title">Third Level</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title"> Third Level Item</span></a>
-                            </li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i><span class="submenu-title">Third Level Item</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li-->
-            <!--li.charts-sum<div id="ajax-loaded-data-sidebar"></div>-->
         </ul>
     </div>
 </nav>
 <!--BEGIN PAGE WRAPPER-->
 <div id="page-wrapper">
-<!--BEGIN TITLE & BREADCRUMB PAGE-->
-<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
-    <div class="page-header pull-left">
-        <div class="page-title">订单管理</div>
+    <!--BEGIN TITLE & BREADCRUMB PAGE-->
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">订单台账</div>
+        </div>
+        <div class="clearfix"></div>
     </div>
-    <ol class="breadcrumb page-breadcrumb">
-        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-        <li><a href="#">Tables</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-        <li class="active">Sample Tables</li>
-    </ol>
-    <div class="btn btn-blue reportrange hide"><i class="fa fa-calendar"></i>&nbsp;<span></span>&nbsp;report&nbsp;<i class="fa fa-angle-down"></i>
-        <input type="hidden" name="datestart" />
-        <input type="hidden" name="endstart" />
-    </div>
-    <div class="clearfix"></div>
-</div>
-<!--END TITLE & BREADCRUMB PAGE-->
-<!--BEGIN CONTENT-->
-<div class="page-content">
-<div class="row">
-<div class="col-lg-12">
-<div class="portlet box">
-<div class="portlet-header">
-    <div class="caption">所有订单</div>
-    <div class="actions"><a href="#" class="btn btn-info btn-xs"><i class="fa fa-plus"></i>&nbsp;
-            New Customer</a>&nbsp;
-        <div class="btn-group"><a href="#" data-toggle="dropdown" class="btn btn-warning btn-xs dropdown-toggle"><i class="fa fa-wrench"></i>&nbsp;
-                Tools</a>
-            <ul class="dropdown-menu pull-right">
-                <li><a href="#">Export to Excel</a>
-                </li>
-                <li><a href="#">Export to CSV</a>
-                </li>
-                <li><a href="#">Export to XML</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="#">Print Invoices</a>
-                </li>
-            </ul>
+    <!--END TITLE & BREADCRUMB PAGE-->
+    <!--BEGIN CONTENT-->
+    <div class="page-content">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-blue">
+                    <div class="panel-heading">银行流水单</div>
+                    <div class="panel-body">
+                         <div id="flip-scroll">
+                            <table class="table table-bordered table-striped table-condensed cf">
+                                <thead class="cf">
+                                    <tr>
+                                        <th>日期</th>
+                                        <th>区域</th>
+                                        <th class="numeric">支付编号</th>
+                                        <th class="numeric">订单ID</th>
+                                        <th>工种付款项</th>
+                                        <th class="numeric">支付金额</th>
+                                        <th class="numeric">渠道</th>
+                                        <th class="numeric">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2015-12-10</td>
+                                        <td>成都 </td>
+                                        <td class="numeric">12565845</td>
+                                        <td class="numeric">6598545</td>
+                                        <td class="numeric">水电改造</td>
+                                        <td class="numeric">2000</td>
+                                        <td class="numeric">支付宝</td>
+                                        <td class="numeric">已到账</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">系统入账</a>
+                    </li>
+                    <li><a href="#profile" data-toggle="tab">系统出账</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <div class="panel panel-green">
+                            <div class="panel-body">
+                                 <div id="flip-scroll">
+                                    <table class="table table-bordered table-striped table-condensed cf">
+                                        <thead class="cf">
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>区域</th>
+                                                <th class="numeric">订单号</th>
+                                                <th>工种付款项</th>
+                                                <th class="numeric">支付金额</th>
+                                                <th class="numeric">渠道</th>
+                                                <th class="numeric">状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2015-12-10</td>
+                                                <td>成都 </td>
+                                                <td class="numeric">6598545</td>
+                                                <td class="numeric">水电改造</td>
+                                                <td class="numeric">2000</td>
+                                                <td class="numeric">支付宝</td>
+                                                <td class="numeric">已到账</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div id="profile" class="tab-pane fade">
+                        <div class="panel panel-red">
+                            <div class="panel-body">
+                                 <div id="flip-scroll">
+                                    <table class="table table-bordered table-striped table-condensed cf">
+                                        <thead class="cf">
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>区域</th>
+                                                <th class="numeric">订单号</th>
+                                                <th>工种付款项</th>
+                                                <th class="numeric">支付金额</th>
+                                                <th class="numeric">渠道</th>
+                                                <th class="numeric">状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2015-12-10</td>
+                                                <td>成都 </td>
+                                                <td class="numeric">6598545</td>
+                                                <td class="numeric">水电改造</td>
+                                                <td class="numeric">2000</td>
+                                                <td class="numeric">支付宝</td>
+                                                <td class="numeric">已到账</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>     
         </div>
     </div>
-</div>
-<div class="portlet-body">
-<div class="row mbm">
-    <div class="col-lg-12">
-        <div style="display: none;" class="alert alert-danger tb-alert-error">
-            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-        <div style="display: none" class="alert alert-success tb-alert-success">
-            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">&times;</button>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-    </div>
-</div>
-<textarea style="display: none;" class="gw-row">
-    <tr>
-        <td>{checkbox}</td>
-        <td>{index}</td>
-        <td>{name}</td>
-        <td>{country}</td>
-        <td>{gender}</td>
-        <td>{order}</td>
-        <td>{date}</td>
-        <td>{price}</td>
-        <td>{status}</td>
-        <td>
-            <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-            </button>&nbsp;
-            <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-            </button>
-        </td>
-    </tr>
-</textarea>
-<div class="row mbm">
-    <div class="col-lg-6">
-        <div class="pagination-panel">Page &nbsp;
-            <a href="#" class="btn btn-sm btn-default btn-prev gw-prev"><i class="fa fa-angle-left"></i></a>&nbsp;
-            <input type="text" maxlenght="5" value="1" class="pagination-panel-input form-control input-mini input-inline input-sm text-center gw-page" />&nbsp;<a href="#" class="btn btn-sm btn-default btn-prev gw-next"><i class="fa fa-angle-right"></i></a>&nbsp; of 6 | View &nbsp;
-            <select class="form-control input-xsmall input-sm input-inline gw-pageSize">
-                <option value="20" selected="selected">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="-1">All</option>
-            </select>&nbsp; records | Found total 58 records</div>
-    </div>
-    <div class="col-lg-6">
-        <div class="tb-group-actions pull-right"><span>10 records selected:</span>
-            <select class="table-group-action-select form-control input-inline input-small input-sm mlm">
-                <option value="0">Select...</option>
-                <option value="1">Cancel</option>
-                <option value="2">Hold</option>
-                <option value="3">On Hold</option>
-                <option value="4">Close</option>
-            </select>&nbsp;
-            <button class="btn btn-sm btn-primary submit-action"><i class="fa fa-check"></i>&nbsp; Submit
-            </button>
-        </div>
-    </div>
-</div>
-<table class="table table-hover table-striped table-bordered table-advanced tablesorter">
-<thead>
-<tr>
-    <th width="3%">
-        <input type="checkbox" class="checkall" />
-    </th>
-    <th width="8%">Rec #</th>
-    <th>Username</th>
-    <th width="10%">Country</th>
-    <th width="10%">Gender</th>
-    <th width="8%">Order</th>
-    <th width="15%">Date</th>
-    <th width="10%">Price</th>
-    <th width="10%">Status</th>
-    <th width="12%">Actions</th>
-</tr>
-<tr role="row" class="filter">
-    <td></td>
-    <td>
-        <input type="text" class="form-control form-filter input-sm" />
-    </td>
-    <td>
-        <input type="text" class="form-control form-filter input-sm" />
-    </td>
-    <td>
-        <select class="form-control input-sm">
-            <option value="">Country</option>
-            <option value="0">United States</option>
-            <option value="1">France</option>
-            <option value="2">Spain</option>
-        </select>
-    </td>
-    <td>
-        <select class="form-control input-sm">
-            <option value="">Gender</option>
-            <option value="0">Male</option>
-            <option value="1">Female</option>
-        </select>
-    </td>
-    <td>
-        <div class="mbs">
-            <input type="text" placeholder="From" class="form-control input-sm mbs" />
-        </div>
-        <input type="text" placeholder="To" class="form-control input-sm" />
-    </td>
-    <td>
-        <div data-date-format="dd-mm-yyyy" class="input-group date datepicker-filter input-group-sm mbs">
-            <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-        </div>
-        <div data-date-format="dd-mm-yyyy" class="input-group date datepicker-filter input-group-sm">
-            <input type="text" readonly="" class="form-control" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-        </div>
-    </td>
-    <td>
-        <div class="mbs">
-            <input type="text" placeholder="From" class="form-control input-sm mbs" />
-        </div>
-        <input type="text" placeholder="To" class="form-control input-sm" />
-    </td>
-    <td>
-        <select class="form-control input-sm">
-            <option value="">Select...</option>
-            <option value="pending">Pending</option>
-            <option value="closed">Closed</option>
-            <option value="hold">On Hold</option>
-        </select>
-    </td>
-    <td>
-        <div class="mbs">
-            <button class="btn btn-xs btn-success filter-submit"><i class="fa fa-search"></i>&nbsp; Search
-            </button>
-        </div>
-        <button class="btn btn-xs btn-info filter-cancel"><i class="fa fa-times"></i>&nbsp; Reset
-        </button>
-    </td>
-</tr>
-</thead>
-<tbody>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>1</td>
-    <td>Henry</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>32</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-success">Approved</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>2</td>
-    <td>John</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>45</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-info">Pending</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>3</td>
-    <td>Larry</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>40</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-warning">Suspended</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>4</td>
-    <td>Lahm</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>15</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-danger">Blocked</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>5</td>
-    <td>Henry</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>32</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-success">Approved</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>6</td>
-    <td>John</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>41</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-info">Pending</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>7</td>
-    <td>Larry</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>43</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-warning">Suspended</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>8</td>
-    <td>Lahm</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>15</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-danger">Blocked</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>9</td>
-    <td>Henry</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>45</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-success">Approved</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>10</td>
-    <td>John</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>35</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-info">Pending</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>11</td>
-    <td>Larry</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>36</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-warning">Suspended</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>12</td>
-    <td>Lahm</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>17</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-danger">Blocked</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>13</td>
-    <td>Henry</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>68</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-success">Approved</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>14</td>
-    <td>John</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>36</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-info">Pending</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>15</td>
-    <td>Larry</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>26</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-warning">Suspended</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>16</td>
-    <td>Lahm</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>62</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-danger">Blocked</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>17</td>
-    <td>Henry</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>84</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-success">Approved</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>18</td>
-    <td>John</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>64</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-info">Pending</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>19</td>
-    <td>Larry</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>21</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-warning">Suspended</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>20</td>
-    <td>Lahm</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>18</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-danger">Blocked</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>21</td>
-    <td>Henry</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>32</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-success">Approved</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>22</td>
-    <td>John</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>52</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-info">Pending</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>23</td>
-    <td>Larry</td>
-    <td>United States</td>
-    <td>Female</td>
-    <td>55</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-warning">Suspended</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-<tr>
-    <td>
-        <input type="checkbox" />
-    </td>
-    <td>24</td>
-    <td>Lahm</td>
-    <td>United States</td>
-    <td>Male</td>
-    <td>32</td>
-    <td>20-05-2014</td>
-    <td>$240.50</td>
-    <td><span class="label label-sm label-danger">Blocked</span>
-    </td>
-    <td>
-        <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp; Edit
-        </button>&nbsp;
-        <button type="button" class="btn btn-danger btn-xs mbs"><i class="fa fa-trash-o"></i>&nbsp; Delete
-        </button>
-    </td>
-</tr>
-</tbody>
-</table>
-<div class="row mbm">
-    <div class="col-lg-6">
-        <div class="pagination-panel">Page &nbsp;
-            <a href="#" class="btn btn-sm btn-default btn-prev gw-prev"><i class="fa fa-angle-left"></i></a>&nbsp;
-            <input type="text" maxlenght="5" value="1" class="pagination-panel-input form-control input-mini input-inline input-sm text-center gw-page" />&nbsp;<a href="#" class="btn btn-sm btn-default btn-prev gw-next"><i class="fa fa-angle-right"></i></a>&nbsp; of 6 | View &nbsp;
-            <select class="form-control input-xsmall input-sm input-inline gw-pageSize">
-                <option value="20" selected="selected">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="150">150</option>
-                <option value="-1">All</option>
-            </select>&nbsp; records | Found total 58 records</div>
-    </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!--END CONTENT-->
-</div>
-<!--BEGIN FOOTER-->
-<div id="footer">
-    <div class="copyright">2014 © &mu;Admin - Responsive Multi-Style Admin Template</div>
-</div>
-<!--END FOOTER-->
-<!--END PAGE WRAPPER-->
-</div>
-</div>
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/jquery-ui.js"></script>
-<!--loading bootstrap js-->
-<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
-<script src="js/html5shiv.js"></script>
-<script src="js/respond.min.js"></script>
-<script src="vendors/metisMenu/jquery.metisMenu.js"></script>
-<script src="vendors/slimScroll/jquery.slimscroll.js"></script>
-<script src="vendors/jquery-cookie/jquery.cookie.js"></script>
-<script src="vendors/iCheck/icheck.min.js"></script>
-<script src="vendors/iCheck/custom.min.js"></script>
-<script src="vendors/jquery-notific8/jquery.notific8.min.js"></script>
-<script src="vendors/jquery-highcharts/highcharts.js"></script>
-<script src="js/jquery.menu.js"></script>
-<script src="vendors/jquery-pace/pace.min.js"></script>
-<script src="vendors/holder/holder.js"></script>
-<script src="vendors/responsive-tabs/responsive-tabs.js"></script>
-<script src="vendors/jquery-news-ticker/jquery.newsTicker.min.js"></script>
-<script src="vendors/moment/moment.js"></script>
-<script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!--CORE JAVASCRIPT-->
-<script src="js/main.js"></script>
-<!--LOADING SCRIPTS FOR PAGE-->
-<script src="vendors/jquery-tablesorter/jquery.tablesorter.js"></script>
-<script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script src="js/table-sample.js"></script>
-<script type="text/javascript">
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-145464-14', 'auto');
-    ga('send', 'pageview');
-</script>
-</body>
 
-</html>
+
+
+<%- include footer %>

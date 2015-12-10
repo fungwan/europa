@@ -44,10 +44,19 @@ module.exports = function(app,acl) {
         users.getProcess(req,res);
     });
 
-    //system log
+    //orders
     app.get('/orders', checkLogin);
     app.get('/orders', function (req, res) {
         res.render('orders',
+            {
+                userInfo:req.session.user
+            });
+    });
+
+    //bills
+    app.get('/bills', checkLogin);
+    app.get('/bills', function (req, res) {
+        res.render('bills',
             {
                 userInfo:req.session.user
             });

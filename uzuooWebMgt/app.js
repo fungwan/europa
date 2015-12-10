@@ -27,8 +27,6 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/users', users);
-
 app.use(session({
     secret: settings.cookieSecret,
     key: settings.db,//cookie name

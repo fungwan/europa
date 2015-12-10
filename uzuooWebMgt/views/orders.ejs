@@ -14,6 +14,7 @@
     <!--LOADING STYLESHEET FOR PAGE-->
     <link type="text/css" rel="stylesheet" href="vendors/jquery-bootstrap-wizard/custom.css">
     <link type="text/css" rel="stylesheet" href="vendors/jquery-steps/css/jquery.steps.css">
+     <link type="text/css" rel="stylesheet" href="vendors/jplist/html/css/jplist-custom.css">
     <!--Loading style vendors-->
     <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
     <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css">
@@ -117,7 +118,7 @@ var city = userInfo.city;
                     </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
-                    <li><a href="#"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
+                    <li><a href="/bills"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
                     </li>
                 </ul>
             </li>
@@ -275,7 +276,7 @@ var city = userInfo.city;
                             <td><span class="label label-sm label-info">Pending</span>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-archive"></i>&nbsp; 详情
+                                <button type="button" data-target="#modal-wide-width" data-toggle="modal" class="btn btn-default btn-xs mbs"><i class="fa fa-archive"></i>&nbsp; 详情
                                 </button>&nbsp;
                             </td>
                         </tr>
@@ -312,5 +313,8 @@ var city = userInfo.city;
 <script src="vendors/jquery-steps/js/jquery.steps.min.js"></script>
 <script src="vendors/jquery-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script src="js/form-wizard.js"></script>
+
+<script src="vendors/jplist/html/js/jplist.min.js"></script>
+<script src="js/jplist.js"></script>
 
 <script src="custom/orders.js"></script>
