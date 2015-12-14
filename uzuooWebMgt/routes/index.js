@@ -2,6 +2,7 @@ var login = require('../models/login');
 var logout = require('../models/logout');
 var users = require('../models/users');
 var history = require('../models/history');
+var customer = require('../models/forApp/customer');
 
 module.exports = function(app,acl) {
 
@@ -112,6 +113,12 @@ module.exports = function(app,acl) {
 
     app.post('/doDelLogsById', function (req, res) {
         history.delLogsById(req,res);
+    });
+
+    //action for ajax request about app
+
+    app.post('/doUpdateCustomerById', function (req, res) {
+        customer.updateCustomerById(req,res);
     });
 
 };

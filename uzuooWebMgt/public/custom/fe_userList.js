@@ -62,7 +62,7 @@ $(document).ready(function(){
     $("#uzLeader-btn").click(function(){
 
         //遍历表格的每行的选中状态 uz-table 误删
-        $("#uz-table tr").each(function(){
+        $("#edit_worker_table tr").each(function(){
             var text = $(this).children("td:first").find('input').is(':checked');// .text();
             if(text){
                 alert("有个勾勾是选中的...");
@@ -79,8 +79,8 @@ $(document).ready(function(){
     });
 
     //工人信息表中的头像处理
-    var offsetX=20-$("#table-row-tab").offset().left;
-    var offsetY=20-$("#table-row-tab").offset().top;
+    var offsetX=20-$("#table-table-tab").offset().left;
+    var offsetY=70-$("#table-table-tab").offset().top;
     var size=4.2*$('#workerAvater_tbody tr td img').width();
     $("#workerAvater_tbody tr td img").mouseover(function(event) {
         var $target=$(event.target);
@@ -91,7 +91,7 @@ $(document).ready(function(){
             "top":event.pageX+offsetX,
             "left":event.pageY+offsetY,
             "position":"absolute"
-        }).appendTo($("#table-row-tab"));}
+        }).appendTo($("#table-table-tab"));}
     }).mouseout(function() {
         $("#tip").remove();
     }).mousemove(function(event) {
@@ -102,7 +102,143 @@ $(document).ready(function(){
             });
     });
 
+    $('#input-upload').change(function() {
+        previewImage(this);
+    });
 
+    //图片上传预览
+    function previewImage(file)
+    {
+        var MAXWIDTH  = 260;
+        var MAXHEIGHT = 180;
+        var div = document.getElementById('preview');
+        if (file.files && file.files[0])
+        {
+            div.innerHTML ='<img id=imghead>';
+            var img = document.getElementById('imghead');
+            img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+                //img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+            }
+            var reader = new FileReader();
+            reader.onload = function(evt){img.src = evt.target.result;}
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imghead>';
+            var img = document.getElementById('imghead');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+        }
+    }
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight )
+        {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+
+            if( rateWidth > rateHeight )
+            {
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else
+            {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+
+    //表单每行的编辑
+    $(".btn-default.btn-xs").click(function(){
+        
+        $('#edit_worker_dlg').modal('show');
+        var workerName = this.parentNode.parentNode.cells[2].innerText;
+        var imgSrc = this.parentNode.parentNode.cells[3].children[0].currentSrc;
+        var workerPhone = this.parentNode.parentNode.cells[5].innerText;
+
+        $("#inputWorkerName").val(workerName);
+        $("#inputWorkerPhone").val(workerPhone);        
+        $("#imghead").attr({src:imgSrc});
+
+
+        // $("#accountEdit").val(this.parentNode.id);
+        // $("#edit_city_div").citySelect({
+        //     prov:locationArray[0],
+        //     city:locationArray[1]
+        // });
+        // if(role !== '4'){
+        //     $("#edit_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
+        //         "&nbsp;<span class='badge badge-default'>地推</span></label> <label> " +
+        //         "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
+        //         "<span class='badge badge-blue'>客服</span></label> <label> " +
+        //         "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
+        //         "<span class='badge badge-info'>财务</span></label> <label> " +
+        //         "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
+        //         "<span class='badge badge-warning'>运营</span></label>");
+        // }else{
+        //     $("#edit_roleRadio_div").html("<label> " +
+        //         "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='4' />&nbsp;" +
+        //         "<span class='badge badge-primary'>超级管理员</span></label>");
+        // }
+        // $("input[name='optionsRadios'][value="+ role +"]").attr("checked",true);
+
+    });
+
+    //表单每行的编辑
+    $("#update_worker_btn").click(function(){
+        
+        var imgSrc = $("#imghead").attr("src");
+        console.log(imgSrc);
+
+        $.post("/doUpdateCustomerById",
+            {
+                id:'1111111',
+                content:{
+                    imgData:imgSrc
+                }
+            },
+            function (data) {
+                $("#edit_worker_dlg").modal("hide");
+            }
+        );
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    //These code have been abolished....
     //处理可编辑列表
     oTable = $('#edit_worker_table').dataTable({
           "paginate": false,
@@ -210,6 +346,6 @@ $(document).ready(function(){
         rTds[7].innerHTML = aData[7] ;
         rTds[8].innerHTML = '<a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;<a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>';
         oTable.fnDraw();
-    }
+    }*/
 });
 
