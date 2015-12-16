@@ -105,7 +105,7 @@ exports.getToken = function(cb){
                     _expireTime = tokenObject.expired_in;
                     cb(null,_token);
                 }else{
-                    //进一步判断refreshToken是否过期,这一步可能是refresh_token已经过期
+                    //refresh_token或已过期
                     var tokenOptionItem = {};
                     tokenOptionItem['path'] = '/v1/applications/' + appId + '/accessToken';
 

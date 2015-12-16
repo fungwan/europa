@@ -2,6 +2,7 @@ var login = require('../models/login');
 var logout = require('../models/logout');
 var users = require('../models/users');
 var history = require('../models/history');
+var customer = require('../models/forApp/customer');
 
 module.exports = function(app,acl) {
 
@@ -31,11 +32,7 @@ module.exports = function(app,acl) {
     //front end user
     app.get('/customer', checkLogin);
     app.get('/customer', function (req, res) {
-        res.render('front_end_users',
-            {
-                userInfo:req.session.user
-            }
-        );
+        customer.getProcess(req,res);
     });
 
     //background user
@@ -112,6 +109,16 @@ module.exports = function(app,acl) {
 
     app.post('/doDelLogsById', function (req, res) {
         history.delLogsById(req,res);
+    });
+
+    //action for ajax request about app
+
+    app.get('/doFindWorkersByPage', function (req, res) {
+        customer.findWorkersByPage(req,res);
+    });
+
+    app.post('/doUpdateWorkersById', function (req, res) {
+        customer.updateWorkersById(req,res);
     });
 
 };

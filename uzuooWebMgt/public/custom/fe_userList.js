@@ -20,8 +20,81 @@ $(document).ready(function(){
     });
 
     //各tab页中的分页处理
+    var currpage = 1;
+
+    //初始化页面table数据，绑定每行响应事件
+    var first = false;
+    function initialData(curr){
+        $.get("/doFindWorkersByPage",{ page: curr},
+            function(data){
+                if(data.result === 'success'){
+                    var pages = data.pages;
+                    var contentArray = data.content;
+                    if(contentArray.length === 0 && currpage > 1){
+                        initialData(currpage - 1);
+                        return;
+                    }
+                    warpHtml(contentArray);
+
+                    laypage({
+                        cont: $('#uzWorkerPage'),
+                        pages: pages,
+                        skip: true,
+                        skin: 'yahei',
+                        curr: curr,//view上显示的页数是索引加1
+                        groups: 5,
+                        hash: false,
+                        jump: function(obj){//一定要加上first的判断，否则会一直刷新
+                            currpage = obj.curr;
+                            if(!first){
+                                first = true;
+                            }else{
+                                initialData(obj.curr);
+                                first = false;
+                            }
+                        }
+                    });
+                }
+            }
+        );
+    }
+
+    function warpHtml(contentArray){
+
+        $("#edit_worker_table tbody").empty();
+        for(x in contentArray){
+
+            var userInfo = contentArray[x];
+            var isVerified = '';
+            isVerified = userInfo['verified'];
+            var verifiedValue = '';
+            if(isVerified === '0'){
+                verifiedValue = '未审核';
+            }else if(isVerified === '1'){
+                verifiedValue = '<span class="label label-sm label-success">' + '审核通过</span>';
+            }
+
+            var trHtml = '<tr>';
+            trHtml += '<td><input type="checkbox" class="checkbox" /></td>';
+            trHtml += '<td>' + userInfo['name'] +'</td>';//用户名
+            trHtml += '<td>' + userInfo['name'] +'</td>';//真实姓名
+            trHtml += '<td><img src=\"' + userInfo['avatar'] + '\" width="35px" height="35px"></td>';
+            trHtml += '<td>' + userInfo['regions'][0] + '</td>';
+            trHtml += '<td>' + userInfo['name'] +'</td>';//联系方式
+            trHtml += '<td>' + userInfo['categories'][0]['role_name'] +'</td>';//工种
+            trHtml += '<td>'+ verifiedValue + '</td>';//审核状态
+            trHtml += '<td workerDetails=' + userInfo['href'] + '>';
+            trHtml += '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;';
+            trHtml += '</td></tr>';
+
+            $("#edit_worker_table tbody").prepend(trHtml);//append
+        }
+    }
+
+   // initialData(1);//0表示第一页
+
     laypage({
-        cont: $('#uzUserPage'), //容器。值支持id名、原生dom对象，jquery对象,
+        cont: $('#uzWorkerPage'), //容器。值支持id名、原生dom对象，jquery对象,
         pages: 100,
         skip: true, //是否开启跳页
         skin: 'yahei',
@@ -34,7 +107,7 @@ $(document).ready(function(){
     });
 
     laypage({
-        cont: $('#uzLeaderPage'), //容器。值支持id名、原生dom对象，jquery对象,
+        cont: $('#uzUserPage'), //容器。值支持id名、原生dom对象，jquery对象,
         pages: 100,
         skip: true, //是否开启跳页
         skin: 'yahei',
@@ -62,7 +135,7 @@ $(document).ready(function(){
     $("#uzLeader-btn").click(function(){
 
         //遍历表格的每行的选中状态 uz-table 误删
-        $("#uz-table tr").each(function(){
+        $("#edit_worker_table tr").each(function(){
             var text = $(this).children("td:first").find('input').is(':checked');// .text();
             if(text){
                 alert("有个勾勾是选中的...");
@@ -79,8 +152,8 @@ $(document).ready(function(){
     });
 
     //工人信息表中的头像处理
-    var offsetX=20-$("#table-row-tab").offset().left;
-    var offsetY=20-$("#table-row-tab").offset().top;
+    var offsetX=20-$("#table-table-tab").offset().left;
+    var offsetY=70-$("#table-table-tab").offset().top;
     var size=4.2*$('#workerAvater_tbody tr td img').width();
     $("#workerAvater_tbody tr td img").mouseover(function(event) {
         var $target=$(event.target);
@@ -91,7 +164,7 @@ $(document).ready(function(){
             "top":event.pageX+offsetX,
             "left":event.pageY+offsetY,
             "position":"absolute"
-        }).appendTo($("#table-row-tab"));}
+        }).appendTo($("#table-table-tab"));}
     }).mouseout(function() {
         $("#tip").remove();
     }).mousemove(function(event) {
@@ -102,7 +175,144 @@ $(document).ready(function(){
             });
     });
 
+    $('#input-upload').change(function() {
+        previewImage(this);
+    });
 
+    //图片上传预览
+    function previewImage(file)
+    {
+        var MAXWIDTH  = 260;
+        var MAXHEIGHT = 180;
+        var div = document.getElementById('preview');
+        if (file.files && file.files[0])
+        {
+            div.innerHTML ='<img id=imghead>';
+            var img = document.getElementById('imghead');
+            img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+                //img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+            }
+            var reader = new FileReader();
+            reader.onload = function(evt){img.src = evt.target.result;}
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imghead>';
+            var img = document.getElementById('imghead');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+        }
+    }
+
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight )
+        {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+
+            if( rateWidth > rateHeight )
+            {
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else
+            {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+
+    //表单每行的编辑
+    $(".btn-default.btn-xs").click(function(){
+        
+        $('#edit_worker_dlg').modal('show');
+        var workerName = this.parentNode.parentNode.cells[2].innerText;
+        var imgSrc = this.parentNode.parentNode.cells[3].children[0].currentSrc;
+        var workerPhone = this.parentNode.parentNode.cells[5].innerText;
+
+        $("#inputWorkerName").val(workerName);
+        $("#inputWorkerPhone").val(workerPhone);        
+        $("#imghead").attr({src:imgSrc});
+
+
+        // $("#accountEdit").val(this.parentNode.id);
+        // $("#edit_city_div").citySelect({
+        //     prov:locationArray[0],
+        //     city:locationArray[1]
+        // });
+        // if(role !== '4'){
+        //     $("#edit_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
+        //         "&nbsp;<span class='badge badge-default'>地推</span></label> <label> " +
+        //         "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
+        //         "<span class='badge badge-blue'>客服</span></label> <label> " +
+        //         "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
+        //         "<span class='badge badge-info'>财务</span></label> <label> " +
+        //         "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
+        //         "<span class='badge badge-warning'>运营</span></label>");
+        // }else{
+        //     $("#edit_roleRadio_div").html("<label> " +
+        //         "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='4' />&nbsp;" +
+        //         "<span class='badge badge-primary'>超级管理员</span></label>");
+        // }
+        // $("input[name='optionsRadios'][value="+ role +"]").attr("checked",true);
+
+    });
+
+    //表单每行的编辑
+    $("#update_worker_btn").click(function(){
+        
+        var imgSrc = $("#imghead").attr("src");
+        console.log(imgSrc);
+
+        $.post("/doUpdateWorkersById",
+            {
+                id:'1111111',
+                content:{
+                    imgData:imgSrc
+                }
+            },
+            function (data) {
+                $("#edit_worker_dlg").modal("hide");
+            }
+        );
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    //These code have been abolished....
     //处理可编辑列表
     oTable = $('#edit_worker_table').dataTable({
           "paginate": false,
@@ -210,6 +420,6 @@ $(document).ready(function(){
         rTds[7].innerHTML = aData[7] ;
         rTds[8].innerHTML = '<a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;<a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>';
         oTable.fnDraw();
-    }
+    }*/
 });
 

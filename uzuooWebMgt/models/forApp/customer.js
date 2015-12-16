@@ -3,195 +3,165 @@
  */
 
 var request = require('./requestForGo.js');
-var jsonConvert = require('../lib/jsonFormat.js');
-var settings = require('../conf/settings');
+var tokenMgt = require('./tokenMgt');
+var jsonConvert = require('../../lib/jsonFormat.js');
+var settings = require('../../conf/settings');
 var async = require('async');
-var connectAddr = "http://" + settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
+var fs = require("fs");
+
+var qiniu = require('qiniu');
+//Qn1ZHcP_WhGVHH3xW-tnsxMkJZTVydj4Fy3zLYj1
+//DrKZUYTpYBApJAFBRSH5u7xaXd4xaSto9uq1eZfw
+
+
+//aYJyH8km-caWa-XaBxW9oL1MjFiJTN-rrYsBRRzA
+//MTlZJIlIc3mM378_-bVBHWFU4aA2KjIFJ-nFT60U
+
+qiniu.conf.ACCESS_KEY = '5yc6AUXYdTdFoEDnqLPxC8vfB4AxkOAERBEtJcZ-'
+qiniu.conf.SECRET_KEY = '7IDegFrh_gk9EVE9Ak_XDkgA1hkTWn3eOoy25tq7'
+var qiniuToken = uptoken('fungwan');//uzuoo-photos
 
 exports.getProcess = function(req,res){
 
-    res.render('background_users.ejs',
+    res.render('front_end_users.ejs',
         {
             userInfo:req.session.user
         });
 };
 
-exports.createAccount = function(req,res){
 
-    var content = req.body;
+function uploadFile(localFile, key, uptoken,cb) {
+    var extra = new qiniu.io.PutExtra();
+    //extra.params = params;
+    //extra.mimeType = mimeType;
+    //extra.crc32 = crc32;
+    //extra.checkCrc = checkCrc;
 
-    var bodyString = JSON.stringify(content);
+    qiniu.io.putFile(uptoken, key, localFile, extra, function(err, ret) {
+        if(!err) {
+            console.log(ret.key, ret.hash);
+            // ret.key & ret.hash
 
-    var optionItem = {};
-    optionItem['path'] = '/users';
+            cb(null,'success');
 
-    request.post(optionItem,bodyString,function(err,results){
-        if(err === null){
-            res.json({ result: 'success',
-                content:results});
+            fs.unlinkSync(localFile);
+        } else {
+            // 上传失败， 处理返回代码
+            console.log(err);
 
-            //操作留痕
-            var logString = JSON.stringify({
-                'username':'fengyun',
-                'operator_date':new Date().getTime(),
-                'role':'4',
-                'action':'创建了账户'
-            });
-
-            var logOptionItem = {};
-            logOptionItem['path'] = '/logs';
-            request.post(logOptionItem,logString,function(err,results){
-                if(err === null){
-                    res.json({ result: 'success',
-                        content:results});
-                }else{
-                    res.json({ result: 'fail',
-                        content:err});
-                }
-            });
-
-        }else{
-            res.json({ result: 'fail',
-                content:err});
+            cb(err,'fail');
         }
     });
-};
+}
 
-exports.delUsersById = function(req,res){
+function uptoken(bucketname) {
+    var putPolicy = new qiniu.rs.PutPolicy(bucketname);
+    //putPolicy.callbackUrl = callbackUrl;
+    //putPolicy.callbackBody = callbackBody;
+    //putPolicy.returnUrl = returnUrl;
+    //putPolicy.returnBody = returnBody;
+    //putPolicy.asyncOps = asyncOps;
+    putPolicy.expires = 30 * 24 * 3600;
 
-    var idArray = req.body.ids;
-    async.map(idArray, function(item, callback) {
-
-        var delIdPath = '/users(' + item + ')';
-        var optionItem = {};
-        optionItem['path'] = delIdPath;
-        request.del(optionItem,callback);
-
-    }, function(err,results) {
-        if(err !== null){
-            res.json({
-                    result: 'fail',
-                    content:err}
-            );
-        }else{
-            res.json({
-                    result: 'success',
-                    content: 'ok'}
-            );
-        }
-    });
-};
+    return putPolicy.token();
+}
 
 
-exports.delUsersByUuId = function(req,res){
-
-    var idArray = req.body.ids;
-    async.map(idArray, function(item, callback) {
-
-        var delIdPath = '/v1/users?uuid=' + item + '';
-        var optionItem = {};
-        optionItem['path'] = delIdPath;
-        request.del(optionItem,callback);
-
-    }, function(err,results) {
-        if(err !== null){
-            res.json({
-                    result: 'fail',
-                    content:err}
-            );
-        }else{
-            res.json({
-                    result: 'success',
-                    content: 'ok'}
-            );
-        }
-    });
-};
-
-exports.updateUserById = function(req,res){
+exports.updateWorkersById = function(req,res){
 
     var content = req.body.content;
-
-    var putPath = '/users(' + req.body.id + ')';
-
-    var bodyString = JSON.stringify(content);
+    var imgData = content.imgData;
 
     var optionItem = {};
+    var putPath = '/users(' + req.body.id + ')';
     optionItem['path'] = putPath;
 
-    request.put(optionItem,bodyString,function(err,results){
-        if(err === null){
-            res.json({ result: 'success',
-                content:results});
-        }else{
-            res.json({ result: 'fail',
-                content:err});
-        }
-    });
-};
+    if(imgData.search(/^data:image\/\w+;base64,/) === -1){
+        //图片不用更新上传,只更新其他数据
 
-exports.updateUserPWById = function(req,res){
-
-    var content = req.body.content;
-    var oldPW = content.oldPW;
-
-    async.auto({
-        judge_pw:function(callback){
-
-            var options = connectAddr + '/users(' + req.body.id + ')' ;
-            request.get(options,callback);
-        },
-        update_PW : ['judge_pw',function(callback, results){
-
-            var jsonObj = jsonConvert.stringToJson(results.judge_pw);
-            var pw_db = jsonObj['password'];
-            if(oldPW !== pw_db){
-
-                callback('old_pw_error','old_pw_error');
-
+        res.json({ result: 'success',
+            content:''});
+    }else{
+        var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+        var dataBuffer = new Buffer(base64Data, 'base64');
+        var workerId = req.body.id;
+        var savePath = workerId + '.jpg';
+        fs.writeFile(savePath, dataBuffer, function(err) {
+            if(err){
+                res.json({ result: 'fail',
+                    content:err});
             }else{
-                var putPath = '/users(' + req.body.id + ')';
 
-                var afterData = {
-                    password : content.newPW
-                }
-                var bodyString = JSON.stringify(afterData);
-                var optionItem = {};
-                optionItem['path'] = putPath;
+                uploadFile(savePath,workerId+'.jpg',qiniuToken,function(err,results){
+                    if(err === null){
+                        content.imgData = 'http://7xooab.com1.z0.glb.clouddn.com/boy.jpeg';
+                        var bodyString = JSON.stringify(content);
 
-                request.put(options,bodyString,callback);
+                        request.post(optionItem,bodyString,function(err,results){
+                            if(err === null){
+                                res.json({ result: 'success',
+                                    content:results});
+                            }else{
+                                res.json({ result: 'fail',
+                                    content:err});
+                            }
+                        });
+
+                    }else{
+                        delete content.imgData;//图片上传失败。不更新db数据
+                        var bodyString = JSON.stringify(content);
+
+                        request.post(optionItem,bodyString,function(err,results){
+                             if(err === null){
+                                 res.json({ result: 'success',
+                                     content:results});
+                             }else{
+                                 res.json({ result: 'fail',
+                                     content:err});
+                             }
+                        });
+                    }
+                });
             }
-
-        }]
-    },function(err,results){
-        if(err !== null){
-            res.json({
-                result: 'fail',
-                content:err});
-        }else{
-            res.json({
-                result: 'success',
-                content:'密码更新成功'});
-        }
-    });
+        });
+    }
 };
 
-exports.findUsersByPage = function(req,res){
+exports.findWorkersByPage = function(req,res){
 
     var currPage = req.query.page - 1;
 
     async.auto(
         {
-            get_all: function (callback) {
-                var options = connectAddr + '/users?$count=true';
-                request.get(options,callback);
-            },
-            get_currPage: function (callback) {
+            get_token:function(callback){
 
+                tokenMgt.getToken(function(err,token){
+                    if(err === null){
+                        callback(null,token);
+                    }else{
+                        callback(err,'can not get token...');
+                    }
+                });
+            },
+            get_all: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var path = '/v1/workers?'+'accessToken=' + token + '&filter='+'verified::1';
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }],
+            get_currPage: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
                 var skipValue = currPage * 10;
-                var options = connectAddr + '/users?$top=10&$skip=' + skipValue;//
-                request.get(options,callback);
-            }
+                var path = '/v1/workers?'+'accessToken=' + token + '&filter='+'verified::1&limit=10&offset='+ skipValue;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
         },
         function(err, results) {
             if(err !== null){
@@ -200,7 +170,16 @@ exports.findUsersByPage = function(req,res){
             }else{
 
 
-                var allUserCounts = jsonConvert.stringToJson(results.get_all)['@odata.count'];
+                var workersArray = jsonConvert.stringToJson(results.get_all)['workers'];
+                if(workersArray === null){//db里面一个工人也没有.
+                    res.json({
+                            result: 'success',
+                            pages:1,
+                            content:[]}
+                    );
+                    return;
+                }
+                var allUserCounts = jsonConvert.stringToJson(results.get_all)['workers'].length;
 
                 //get product list
                 var pageCounts = 1;
@@ -210,7 +189,7 @@ exports.findUsersByPage = function(req,res){
                 }
 
                 //第一页用户数组
-                var userArray = jsonConvert.stringToJson(results.get_currPage)['value'];
+                var userArray = jsonConvert.stringToJson(results.get_currPage)['workers'];
 
                 res.json({
                         result: 'success',
@@ -222,28 +201,28 @@ exports.findUsersByPage = function(req,res){
     );
 };
 
-exports.findUserByName = function(req,res){
-
-    var username = req.query.username;
-    var options = connectAddr + '/users?$filter=username eq ' + '\'' + username + '\'' ;
-
-    request.get(options,function(err,results){
-        if(err === null){
-            var jsonObj = jsonConvert.stringToJson(results);
-            var array = jsonObj['value'];
-            if(array.length === 0){
-                //no user in db
-                res.json({ result: 'success',
-                    content:''});
-            }else{
-
-                res.json({ result: 'fail',
-                    content:'user has been exist...'});
-            }
-        }else{
-            res.json({ result: 'fail',
-                content:err});
-        }
-    });
-
-};
+//exports.findUserByName = function(req,res){
+//
+//    var username = req.query.username;
+//    var options = connectAddr + '/users?$filter=username eq ' + '\'' + username + '\'' ;
+//
+//    request.get(options,function(err,results){
+//        if(err === null){
+//            var jsonObj = jsonConvert.stringToJson(results);
+//            var array = jsonObj['value'];
+//            if(array.length === 0){
+//                //no user in db
+//                res.json({ result: 'success',
+//                    content:''});
+//            }else{
+//
+//                res.json({ result: 'fail',
+//                    content:'user has been exist...'});
+//            }
+//        }else{
+//            res.json({ result: 'fail',
+//                content:err});
+//        }
+//    });
+//
+//};

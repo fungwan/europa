@@ -28,7 +28,12 @@
     <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
     <link type="text/css" rel="stylesheet" href="css/laypage.css">
 </head>
-
+<style type="text/css">
+    #preview{width:200px;height:200px;/*border:1px solid #000;*/overflow:hidden;}
+    #imghead {
+        max-width:200px;_width:expression(this.width > 200 ? "200px" : this.width);
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
+</style>  
 <body class=" ">
 <div>
 <%
@@ -157,15 +162,117 @@
                     <div id="table-action" class="row">
                         <div class="col-lg-12">
                             <ul id="tableactiondTab" class="nav nav-tabs">
-                                <li id="houseOwner"  class="active"><a href="#table-table-tab" data-toggle="tab">业主信息</a>
+                                <li id="worker" class="active"><a href="#table-table-tab" data-toggle="tab">工人信息</a>
                                 </li>
-                                <li id="worker"><a href="#table-row-tab" data-toggle="tab">工人信息</a>
+                                <li id="houseOwner" ><a href="#table-row-tab" data-toggle="tab">业主信息</a>
                                 </li>
-                                <li id="business"><a href="#table-panel-tab" data-toggle="tab">商家信息</a>
-                                </li>
+                                <!--li id="business"><a href="#table-panel-tab" data-toggle="tab">商家信息</a>
+                                </li-->
                             </ul>
                             <div id="tableactionTabContent" class="tab-content">
                                 <div id="table-table-tab" class="tab-pane fade in active">
+                                    <div class="row mbl">
+                                        <div class="col-lg-3">
+                                            <div class="input-group input-group-sm mbs">
+                                                <input type="text" placeholder="Enter here..." class="form-control"><span class="input-group-btn"><button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Search</button></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="tb-group-actions pull-right">
+                                                <button id="uzLeader-btn" class="btn btn-sm btn-warning"><i class="fa fa-check"></i>&nbsp; 审核
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <table  id="edit_worker_table" class="table table-hover table-striped table-bordered table-advanced tablesorter mbn">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="3%" class="sorting_disabled">
+                                                            <input type="checkbox" class="checkall" />
+                                                        </th>
+                                                        <th width="5%">用户名</th>
+                                                        <th width="5%">真实姓名</th>
+                                                        <th width="5%">身份证照</th>
+                                                        <th width="5%">城市</th>
+                                                        <th width="10%">联系方式</th>
+                                                        <th width="7%">工种</th>
+                                                        <th width="8%">
+                                                            <select data-style="btn-grey" class="selectpicker form-control">
+                                                                <option>审核状态</option>
+                                                                <option>未审核</option>
+                                                                <option>审核失败</option>
+                                                                <option>已通过</option>
+                                                            </select>
+                                                        </th>
+                                                        <th width="3%"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="workerAvater_tbody" style="">
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" class="checkbox" />
+                                                        </td>
+                                                        <td>叫我升哥</td>
+                                                        <td>茅以升</td>
+                                                        <td>
+                                                            <img src="http://7u2nix.com1.z0.glb.clouddn.com/1111111.jpg" width="35px" height="35px">
+                                                        </td>
+                                                        <td>杭州</td>
+                                                        <td>13981967875</td>
+                                                        <td>工长</td>
+                                                        <td><span class="label label-sm label-success">已通过</span></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-default btn-xs" data-target="#edit_worker_dlg"><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
+                                                            <!--a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
+                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a-->
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" class="checkbox" />
+                                                        </td>
+                                                        <td>天下第一刀</td>
+                                                        <td>鲁班</td>
+                                                        <td><img src="http://7u2nix.com1.z0.glb.clouddn.com/1111111.jpg" width="35px" height="35px"></td>
+                                                        <td>天津</td>
+                                                        <td>18856985412</td>
+                                                        <td>木工</td>
+                                                        <td><span class="label label-sm label-info">未审核</span>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-default btn-xs" data-target="#edit_worker_dlg" ><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
+                                                            <!--a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
+                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a-->
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" class="checkbox" />
+                                                        </td>
+                                                        <td>小可爱</td>
+                                                        <td>羽田爱</td>
+                                                        <td><img src="images/avatar/128.jpg" width="35px" height="35px"></td>
+                                                        <td>大阪</td>
+                                                        <td>18856985412</td>
+                                                        <td>保洁</td>
+                                                        <td><span class="label label-sm label-primary">审核失败</span>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-default btn-xs" data-target="#edit_worker_dlg" ><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
+                                                            <!--a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
+                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a-->
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                            <div id="uzWorkerPage"></div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div id="table-row-tab" class="tab-pane fade">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="table-container">
@@ -208,108 +315,8 @@
                                                 <div id="uzUserPage"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div id="table-row-tab" class="tab-pane fade">
-                                    <div class="row mbl">
-                                        <div class="col-lg-3">
-                                            <div class="input-group input-group-sm mbs">
-                                                <input type="text" placeholder="Enter here..." class="form-control"><span class="input-group-btn"><button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Search</button></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-9">
-                                            <div class="tb-group-actions pull-right">
-                                                <button class="btn btn-sm btn-warning"><i class="fa fa-check"></i>&nbsp; 审核
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <table  id="edit_worker_table" class="table table-hover table-striped table-bordered table-advanced tablesorter mbn">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="3%" class="sorting_disabled">
-                                                            <input type="checkbox" class="checkall" />
-                                                        </th>
-                                                        <th width="5%">用户名</th>
-                                                        <th width="5%">真实姓名</th>
-                                                        <th width="5%">头像</th>
-                                                        <th width="5%">城市</th>
-                                                        <th width="10%">联系方式</th>
-                                                        <th width="7%">工种</th>
-                                                        <th width="8%">
-                                                            <select data-style="btn-grey" class="selectpicker form-control">
-                                                                <option>审核状态</option>
-                                                                <option>未审核</option>
-                                                                <option>审核失败</option>
-                                                                <option>已通过</option>
-                                                            </select>
-                                                        </th>
-                                                        <th width="3%"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="workerAvater_tbody" style="">
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" class="checkbox" />
-                                                        </td>
-                                                        <td>叫我升哥</td>
-                                                        <td>茅以升</td>
-                                                        <td>
-                                                            <img src="images/avatar/128.jpg" width="35px" height="35px">
-                                                        </td>
-                                                        <td>杭州</td>
-                                                        <td>13981967875</td>
-                                                        <td>工长</td>
-                                                        <td><span class="label label-sm label-success">已通过</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
-                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" class="checkbox" />
-                                                        </td>
-                                                        <td>天下第一刀</td>
-                                                        <td>鲁班</td>
-                                                        <td><img src="images/avatar/128.jpg" width="35px" height="35px"></td>
-                                                        <td>天津</td>
-                                                        <td>18856985412</td>
-                                                        <td>木工</td>
-                                                        <td><span class="label label-sm label-info">未审核</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
-                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" class="checkbox" />
-                                                        </td>
-                                                        <td>小可爱</td>
-                                                        <td>羽田爱</td>
-                                                        <td><img src="images/avatar/128.jpg" width="35px" height="35px"></td>
-                                                        <td>大阪</td>
-                                                        <td>18856985412</td>
-                                                        <td>保洁</td>
-                                                        <td><span class="label label-sm label-primary">审核失败</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
-                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <br>
-                                            <div id="uzLeaderPage"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </div>                                    
+                                </div>                                                              
                                 <div id="table-panel-tab" class="tab-pane fade">
                                     <div class="row">
                                         <div class="col-lg-12">
@@ -317,9 +324,6 @@
                                                     <table class="table table-hover table-striped table-bordered table-advanced tablesorter mbn">
                                                         <thead>
                                                             <tr>
-                                                                <!--th width="3%">
-                                                                    <input type="checkbox" class="checkall" />
-                                                                </th-->
                                                                 <th width="9%">Record #</th>
                                                                 <th>Username</th>
                                                                 <th width="10%">Country</th>
@@ -334,9 +338,6 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <!--td>
-                                                                    <input type="checkbox" />
-                                                                </td-->
                                                                 <td>1</td>
                                                                 <td>Henry</td>
                                                                 <td>United States</td>
@@ -347,14 +348,11 @@
                                                                 <td><span class="label label-sm label-success">Approved</span>
                                                                 </td>
                                                                 <td>
-                                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; Edit
+                                                                    <button type="button" class="btn btn-default btn-xs" data-target="#modal-custom-dialog" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp; Edit
                                                                     </button>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <!--td>
-                                                                    <input type="checkbox" />
-                                                                </td-->
                                                                 <td>2</td>
                                                                 <td>John</td>
                                                                 <td>United States</td>
@@ -383,7 +381,96 @@
                     </div>
                 </div>
                 <!--END CONTENT-->
-            </div>
+
+                <div aria-hidden="true" id="edit_worker_dlg" tabindex="-1"  class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                                    <h4 class="modal-title">编辑个人信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="#">
+                                        <div class="form-body pal">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="input-icon right"><i class="fa fa-user"></i>
+                                                            <input id="inputWorkerName" type="text" placeholder="Name" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="input-icon right"><i class="fa fa-briefcase"></i>
+                                                            <input id="inputCompany" type="text" placeholder="Company" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="input-icon right"><i class="fa fa-envelope"></i>
+                                                            <input id="inputEmail" type="text" placeholder="E-mail" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div class="input-icon right"><i class="fa fa-phone"></i>
+                                                            <input id="inputWorkerPhone" type="text" placeholder="Phone" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <select class="form-control">
+                                                            <option>Interested in</option>
+                                                            <option value="design">Design</option>
+                                                            <option value="development">Development</option>
+                                                            <option value="illustration">Illustration</option>
+                                                            <option value="brading">Branding</option>
+                                                            <option value="video">Video</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <select class="form-control">
+                                                            <option>Budget</option>
+                                                            <option value="0">Less than 5000$</option>
+                                                            <option value="1">5000$ - 10000$</option>
+                                                            <option value="2">10000$ - 20000$</option>
+                                                            <option value="3">More than 20000$</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <!--input id="inputIncludeFile" type="file" placeholder="Inlcude some file" /-->
+                                                <div id="preview"><img id="imghead" border=0 src="images/avatar/128.jpg" width="100" height="100" /></div>
+                                                <input id="input-upload" type="file" />                                                
+                                            </div>
+                                            <!--div class="form-group mbn">
+                                                <textarea rows="5" placeholder="Tell us about your project" class="form-control"></textarea>
+                                            </div-->
+                                        </div>
+                                        <div class="form-actions text-right pal">
+                                             <!--button class="btn btn-info">取消</button-->    
+                                             <button id="update_worker_btn" class="btn btn-primary">更新</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 <%- include footer %>
 <script src="vendors/DataTables/media/js/jquery.dataTables.js"></script>
 <script src="vendors/DataTables/jquery.jeditable.js"></script>
