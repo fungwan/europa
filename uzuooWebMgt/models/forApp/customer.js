@@ -136,17 +136,105 @@ exports.findWorkersByPage = function(req,res){
             get_token:function(callback){
 
                 tokenMgt.getToken(function(err,token){
-                    if(err === null){
+                    if(!err){
                         callback(null,token);
                     }else{
                         callback(err,'can not get token...');
                     }
                 });
             },
+            get_roleAndRegions:['get_token',function(callback,results){
+
+                var token = results.get_token;
+
+                async.parallel([ //找施工区域
+                    function(cb) {
+
+                        var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
+                        var regionsItem = {};
+                        regionsItem['path'] = regionsPath;
+
+                        //通过国家Get所有省份
+                        request.get(regionsItem,function(err,data){
+
+                            if(err !== null){
+                                cb(err,{});
+                                return;
+                            }
+
+                            var regionsMap = {};
+
+                            //取到省份组
+                            var provincesArray = jsonConvert.stringToJson(data)['provinces'];
+                            for(y in provincesArray){
+
+                                regionsMap[provincesArray[y]['id']] = provincesArray[y]['name'];
+                                var citiesArray = provincesArray[y]['cities'];
+                                for(z in citiesArray){
+
+                                    //取到城市组
+                                    regionsMap[citiesArray[z]['id']] = citiesArray[z]['name'];
+                                    var regionsArray = citiesArray[z]['regions'];
+
+                                    //取到区域
+                                    var regionsNameArray = [];
+                                    for(index in regionsArray){
+                                        regionsMap[regionsArray[index]['id']] = regionsArray[index]['name'];//取到区域
+                                    }
+                                }
+                            }
+
+                            cb(null,regionsMap);
+
+                        });
+                    },
+                    //找到工人对应角色
+                    function(cb) {
+                        var rolesMap = {};
+
+                        var roleArray = [];
+                        var rolePath = '/v1/workers/roles?'+'accessToken=' + token;
+
+                        var roleItem = {};
+                        roleItem['path'] = rolePath;
+
+                        //获取所有角色组
+                        request.get(roleItem,function(err,data){
+                            if(err !== null){
+                                cb(err,{});
+                                return;
+                            }
+
+                            var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
+                            for(x in array){
+                                var roleItem = array[x];
+                                rolesMap[roleItem['id']] = roleItem['name'];//取到角色
+                                var craftArray = roleItem['crafts'];
+                                for(y in craftArray){
+                                    rolesMap[craftArray[y]['id']] = craftArray[y]['name'];//取到细项
+                                }
+                            }
+
+                            cb(null,rolesMap);
+                        });
+                    }
+                ],function (err, resultsEx){
+                    if(!err){
+                        var regionsMap = resultsEx[0];
+                        var rolesMap = resultsEx[1];
+                        var localData = [];
+                        localData.push(regionsMap);
+                        localData.push(rolesMap);
+                        callback(null,localData);
+                    }else{
+                        callback(null,[]);
+                    }
+                });
+            }],
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter='+'verified::1';
+                var path = '/v1/workers?'+'accessToken=' + token + '&filter=all';
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -156,10 +244,11 @@ exports.findWorkersByPage = function(req,res){
 
                 var token = results.get_token;
                 var skipValue = currPage * 10;
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter='+'verified::1&limit=10&offset='+ skipValue;
+
+                //获取工人信息
+                var path = '/v1/workers?'+'accessToken=' + token + '&filter='+'all&limit=10&offset='+ skipValue;
                 var optionItem = {};
                 optionItem['path'] = path;
-
                 request.get(optionItem,callback);
             }]
         },
@@ -169,7 +258,7 @@ exports.findWorkersByPage = function(req,res){
                     content:err});
             }else{
 
-
+                var token = results.get_token;
                 var workersArray = jsonConvert.stringToJson(results.get_all)['workers'];
                 if(workersArray === null){//db里面一个工人也没有.
                     res.json({
@@ -179,7 +268,7 @@ exports.findWorkersByPage = function(req,res){
                     );
                     return;
                 }
-                var allUserCounts = jsonConvert.stringToJson(results.get_all)['workers'].length;
+                var allUserCounts = workersArray.length;
 
                 //get product list
                 var pageCounts = 1;
@@ -189,16 +278,189 @@ exports.findWorkersByPage = function(req,res){
                 }
 
                 //第一页用户数组
-                var userArray = jsonConvert.stringToJson(results.get_currPage)['workers'];
+                var workerArray = jsonConvert.stringToJson(results.get_currPage)['workers'];
+                var workerArrayEx = [];
 
-                res.json({
-                        result: 'success',
-                        pages:pageCounts,
-                        content:userArray}
-                );
+                var regionsAndRolesArray = results.get_roleAndRegions;
+                var regionsMap = regionsAndRolesArray[0];
+                var rolesMap = regionsAndRolesArray[1];
+
+                var counts = 0;
+
+                //串行查找每个工人的区域、角色和详情
+                async.eachSeries(workerArray, function(item, callback) {
+                    //console.log('1.3 enter: ' + item.name);
+                    ++counts;
+                    var workerItemObj = item;
+                    var workerDetailLink = workerItemObj['href'];
+                    var pos = workerDetailLink.lastIndexOf('/');
+                    var workerId = workerDetailLink.substr(pos+1);
+
+                    var workerIdPath = '/v1/workers/'+ workerId +'?accessToken=' + token;
+
+                    var workerItem = {};
+                    workerItem['path'] = workerIdPath;
+
+                    //获取指定workerID的相关信息,取全名
+                    request.get(workerItem,function(err,data){
+                        if(err !== null){
+                            callback(err, '');
+                            return;
+                        }
+
+                        var firstName = jsonConvert.stringToJson(data)['first_name'];
+                        var lastName = jsonConvert.stringToJson(data)['last_name'];
+                        item['fullName'] = firstName+lastName;
+                        item['workerId'] = workerId;
+                        item['verify_photo'] = jsonConvert.stringToJson(data)['verify_photo'];
+                        item['phone'] = jsonConvert.stringToJson(data)['phone'];
+                        item['id_card_no'] = jsonConvert.stringToJson(data)['id_card_no'];//身份证
+                        item['username'] = jsonConvert.stringToJson(data)['user_name'];
+
+                        var regionsArray = workerItemObj['regions'];
+                        var tmp = [];
+                        for(x in regionsArray){
+                            tmp.push(regionsMap[regionsArray[x]]);
+                        }
+                        item['regionsValuesArray'] = tmp;
+
+                        var rolesArray = workerItemObj['categories'];
+                        var tmp2 = [];
+                        for(y in rolesArray){
+                            tmp2.push(rolesMap[rolesArray[y]['role_id']]);
+                        }
+
+                        item['rolesValuesArray'] = tmp2;
+
+                        callback(null, workerItemObj);
+                        workerArrayEx.push(item);
+                        if(counts === workerArrayEx.length){
+                            res.json({ result: 'success',
+                                pages:pageCounts,
+                                content:workerArrayEx});
+                        }
+                    });
+
+                }, function(err,resultsEx) {
+                    //console.log(resultsEx);
+                    //console.log('1.3 err: ' + err);
+                    if(err){
+                        res.json({ result: 'fail',
+                            content:[]});
+                    }
+                });
             }
         }
     );
+};
+
+
+exports.findHouseOwnersByPage = function(req,res){
+
+    var currPage = req.query.page - 1;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (err === null) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_all: ['get_token',function (callback,results) {
+
+            var token = results.get_token;
+            var path = '/v1/houseOwners?'+'accessToken=' + token + '&filter=all';
+            var optionItem = {};
+            optionItem['path'] = path;
+
+            request.get(optionItem,callback);
+
+            }],
+            get_currPage: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var skipValue = currPage * 10;
+
+                //获取工人信息
+                var path = '/v1/houseOwners?'+'accessToken=' + token + '&filter='+'all&limit=10&offset='+ skipValue;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+
+            }]
+        },function(err,results){
+            var houseownersArray = jsonConvert.stringToJson(results.get_all)['houseowners'];
+            if(houseownersArray === null){//db里面一个屋主也没有.
+                res.json({
+                        result: 'success',
+                        pages:1,
+                        content:[]}
+                );
+                return;
+            }
+            var allUserCounts = houseownersArray.length;
+
+            //get product list
+            var pageCounts = 1;
+            if(allUserCounts > 0){
+                var over = (allUserCounts) % 10;
+                over > 0 ? pageCounts = parseInt((allUserCounts) / 10) + 1 :  pageCounts = parseInt((allUserCounts) / 10) ;
+            }
+
+            //第一页用户数组
+            var houseownersArray = jsonConvert.stringToJson(results.get_currPage)['houseowners'];
+
+            res.json({ result: 'success',
+                pages:pageCounts,
+                content:houseownersArray});
+        }
+    )
+}
+
+exports.verifiedById = function(req,res){
+
+    var idArray = req.body.ids;
+    var verifiedContent = req.body.content;
+
+    tokenMgt.getToken(function (err, token) {
+        if (err === null) {
+            async.map(idArray, function(item, callback) {
+
+                var path = '/v1/workers/' + item + '/verificationStatus?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content = {
+                    verified:verifiedContent.verified
+                };
+
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }, function(err,results) {
+                if(!err){
+                    res.json({
+                            result: 'success',
+                            content: 'ok'}
+                    );
+                }else{
+                    res.json({
+                            result: 'fail',
+                            content:err}
+                    );
+                }
+            });
+        } else {
+            callback(err, 'can not get token...');
+        }
+    });
+
+
 };
 
 //exports.findUserByName = function(req,res){

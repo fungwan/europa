@@ -179,7 +179,9 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="tb-group-actions pull-right">
-                                                <button id="uzLeader-btn" class="btn btn-sm btn-warning"><i class="fa fa-check"></i>&nbsp; 审核
+                                                <button id="verifiedSC-btn" class="btn btn-sm btn-warning"><i class="fa fa-check"></i>&nbsp; 审核成功
+                                                </button>
+                                                <button id="verifiedFA-btn" class="btn btn-sm btn-primary"><i class="fa fa-times"></i>&nbsp; 审核失败
                                                 </button>
                                             </div>
                                         </div>
@@ -195,7 +197,7 @@
                                                         <th width="5%">用户名</th>
                                                         <th width="5%">真实姓名</th>
                                                         <th width="5%">身份证照</th>
-                                                        <th width="5%">城市</th>
+                                                        <th width="5%">区域</th>
                                                         <th width="10%">联系方式</th>
                                                         <th width="7%">工种</th>
                                                         <th width="8%">
@@ -210,61 +212,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="workerAvater_tbody" style="">
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" class="checkbox" />
-                                                        </td>
-                                                        <td>叫我升哥</td>
-                                                        <td>茅以升</td>
-                                                        <td>
-                                                            <img src="http://7u2nix.com1.z0.glb.clouddn.com/1111111.jpg" width="35px" height="35px">
-                                                        </td>
-                                                        <td>杭州</td>
-                                                        <td>13981967875</td>
-                                                        <td>工长</td>
-                                                        <td><span class="label label-sm label-success">已通过</span></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-default btn-xs" data-target="#edit_worker_dlg"><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
-                                                            <!--a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
-                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a-->
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" class="checkbox" />
-                                                        </td>
-                                                        <td>天下第一刀</td>
-                                                        <td>鲁班</td>
-                                                        <td><img src="http://7u2nix.com1.z0.glb.clouddn.com/1111111.jpg" width="35px" height="35px"></td>
-                                                        <td>天津</td>
-                                                        <td>18856985412</td>
-                                                        <td>木工</td>
-                                                        <td><span class="label label-sm label-info">未审核</span>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-default btn-xs" data-target="#edit_worker_dlg" ><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
-                                                            <!--a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
-                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a-->
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" class="checkbox" />
-                                                        </td>
-                                                        <td>小可爱</td>
-                                                        <td>羽田爱</td>
-                                                        <td><img src="images/avatar/128.jpg" width="35px" height="35px"></td>
-                                                        <td>大阪</td>
-                                                        <td>18856985412</td>
-                                                        <td>保洁</td>
-                                                        <td><span class="label label-sm label-primary">审核失败</span>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-default btn-xs" data-target="#edit_worker_dlg" ><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
-                                                            <!--a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;
-                                                            <a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a-->
-                                                        </td>
-                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                             <br>
@@ -276,15 +224,14 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="table-container">
-                                                <table class="table table-hover table-striped table-bordered table-advanced tablesorter display dataTable no-footer">
+                                                <table id="edit_houseOwner_table" class="table table-hover table-striped table-bordered table-advanced tablesorter display dataTable no-footer">
                                                     <thead>
                                                         <tr>
+                                                            <th width="10%">昵称</th>
                                                             <th width="10%">用户名</th>
-                                                            <th width="10%">城市</th>
+                                                            <th width="10%">真实姓名</th>
                                                             <th width="10%">联系方式</th>
                                                             <th width="7%">邮箱地址</th>
-                                                            <th width="12%">最近登录时间</th>
-                                                            <th width="6%"></th>
                                                         </tr>
                                                         <tbody>
                                                             <tr>
@@ -293,10 +240,10 @@
                                                                 <td>13882568547</td>
                                                                 <td>andy@qq.com</td>
                                                                 <td>20-05-2014</td>
-                                                                <td>
+                                                                <!--td>
                                                                     <button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
                                                                     </button>
-                                                                </td>
+                                                                </td-->
                                                             </tr>
                                                             <tr>
                                                                 <td>刘春萍</td>
@@ -304,10 +251,6 @@
                                                                 <td>15869877412</td>
                                                                 <td>candy@163.com</td>
                                                                 <td>20-05-2014</td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
-                                                                    </button>
-                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </thead>

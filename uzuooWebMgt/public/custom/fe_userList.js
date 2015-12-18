@@ -9,6 +9,7 @@ $(document).ready(function(){
 
     $("#houseOwner").on('click',function (e) {
         //alert('业主');
+        initialHouseData(currHousePage);
     });
 
     $("#worker").on('click',function (e) {
@@ -58,7 +59,7 @@ $(document).ready(function(){
             }
         );
     }
-
+    initialData(1);//0表示第一页
     function warpHtml(contentArray){
 
         $("#edit_worker_table tbody").empty();
@@ -68,56 +69,131 @@ $(document).ready(function(){
             var isVerified = '';
             isVerified = userInfo['verified'];
             var verifiedValue = '';
-            if(isVerified === '0'){
-                verifiedValue = '未审核';
-            }else if(isVerified === '1'){
+            if(isVerified === 0){
+                verifiedValue = '<span class="label label-sm label-warning">' + '未审核</span>';
+            }else if(isVerified === 1){
                 verifiedValue = '<span class="label label-sm label-success">' + '审核通过</span>';
+            }else if(isVerified === 2){
+                verifiedValue = '<span class="label label-sm label-primary">' + '审核失败</span>';
             }
+
+            var id = userInfo['id_card_no'];
+            var verify_photo = userInfo['verify_photo'];
+            var fullName = userInfo['fullName'];
+            var username = userInfo['username'];
 
             var trHtml = '<tr>';
             trHtml += '<td><input type="checkbox" class="checkbox" /></td>';
-            trHtml += '<td>' + userInfo['name'] +'</td>';//用户名
-            trHtml += '<td>' + userInfo['name'] +'</td>';//真实姓名
-            trHtml += '<td><img src=\"' + userInfo['avatar'] + '\" width="35px" height="35px"></td>';
-            trHtml += '<td>' + userInfo['regions'][0] + '</td>';
-            trHtml += '<td>' + userInfo['name'] +'</td>';//联系方式
-            trHtml += '<td>' + userInfo['categories'][0]['role_name'] +'</td>';//工种
+            trHtml += '<td>' + username +'</td>';//用户名
+
+
+            var regionsValue = userInfo['regionsValuesArray'].join(",");
+            var rolesValue = userInfo['rolesValuesArray'].join(",");
+
+            trHtml += '<td>' + fullName +'</td>';//真实姓名
+            trHtml += '<td><img src=\"' + verify_photo + '\" width="35px" height="35px"></td>';
+            trHtml += '<td>' + regionsValue + '</td>';
+            trHtml += '<td>' + userInfo['phone'] +'</td>';//联系方式
+            trHtml += '<td>' + rolesValue +'</td>';//工种
             trHtml += '<td>'+ verifiedValue + '</td>';//审核状态
-            trHtml += '<td workerDetails=' + userInfo['href'] + '>';
+            trHtml += '<td id=\'' + userInfo['workerId'] + '\' workerDetails=' + userInfo['href'] + '>';
             trHtml += '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;';
             trHtml += '</td></tr>';
 
             $("#edit_worker_table tbody").prepend(trHtml);//append
+
+            //表单每行的编辑
+            $(".btn-default.btn-xs").click(function(){
+
+                $('#edit_worker_dlg').modal('show');
+                var workerName = this.parentNode.parentNode.cells[2].innerText;
+                var imgSrc = this.parentNode.parentNode.cells[3].children[0].currentSrc;
+                var workerPhone = this.parentNode.parentNode.cells[5].innerText;
+
+                $("#inputWorkerName").val(workerName);
+                $("#inputWorkerPhone").val(workerPhone);
+                $("#imghead").attr({src:imgSrc});
+
+
+                // $("#accountEdit").val(this.parentNode.id);
+                // $("#edit_city_div").citySelect({
+                //     prov:locationArray[0],
+                //     city:locationArray[1]
+                // });
+                // if(role !== '4'){
+                //     $("#edit_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
+                //         "&nbsp;<span class='badge badge-default'>地推</span></label> <label> " +
+                //         "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
+                //         "<span class='badge badge-blue'>客服</span></label> <label> " +
+                //         "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
+                //         "<span class='badge badge-info'>财务</span></label> <label> " +
+                //         "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
+                //         "<span class='badge badge-warning'>运营</span></label>");
+                // }else{
+                //     $("#edit_roleRadio_div").html("<label> " +
+                //         "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='4' />&nbsp;" +
+                //         "<span class='badge badge-primary'>超级管理员</span></label>");
+                // }
+                // $("input[name='optionsRadios'][value="+ role +"]").attr("checked",true);
+
+            });
         }
     }
 
-   // initialData(1);//0表示第一页
+    var currHousePage = 1;
+    var houseFirst = false;
+    function initialHouseData(curr){
+        $.get("/doFindHouseOwnersByPage",{ page: curr},
+            function(data){
+                if(data.result === 'success'){
+                    var pages = data.pages;
+                    var contentArray = data.content;
+                    if(contentArray.length === 0 && currpage > 1){
+                        initialData(currpage - 1);
+                        return;
+                    }
+                    warpHouseOwnerHtml(contentArray);
 
-    laypage({
-        cont: $('#uzWorkerPage'), //容器。值支持id名、原生dom对象，jquery对象,
-        pages: 100,
-        skip: true, //是否开启跳页
-        skin: 'yahei',
-        groups: 5, //连续显示分页数
-        hash: false, //会对url追加#!laypage_
-        jump: function(obj){
-            //$('#view6').html('看看URL的变化。通过hash，你可以记录当前页。当前正处于第'+obj.curr+'页');
-            //alert(obj.curr);
-        }
-    });
+                    laypage({
+                        cont: $('#uzUserPage'), //容器。值支持id名、原生dom对象，jquery对象,
+                        pages: pages,
+                        skip: true, //是否开启跳页
+                        skin: 'yahei',
+                        groups: 5, //连续显示分页数
+                        hash: false, //会对url追加#!laypage_
+                        jump: function(obj){
+                            currHousePage = obj.curr;
+                            if(!houseFirst){
+                                houseFirst = true;
+                            }else{
+                                initialHouseData(obj.curr);
+                                houseFirst = false;
+                            }
+                        }
+                    });
+                }
+            }
+        );
+    }
 
-    laypage({
-        cont: $('#uzUserPage'), //容器。值支持id名、原生dom对象，jquery对象,
-        pages: 100,
-        skip: true, //是否开启跳页
-        skin: 'yahei',
-        groups: 5, //连续显示分页数
-        hash: false, //会对url追加#!laypage_
-        jump: function(obj){
-            //$('#view6').html('看看URL的变化。通过hash，你可以记录当前页。当前正处于第'+obj.curr+'页');
-            //alert(obj.curr);
+    function warpHouseOwnerHtml(contentArray){
+
+        $("#edit_houseOwner_table tbody").empty();
+        for(x in contentArray){
+
+            var userInfo = contentArray[x];
+            var trHtml = '<tr>';
+            trHtml += '<td>' + userInfo['nick_name'] +'</td>';//昵称
+            trHtml += '<td>' + userInfo['user_name'] + '</td>';
+            trHtml += '<td>' + userInfo['first_name']+userInfo['last_name']+'</td>';//真实姓名
+            //trHtml += '<td><img src=\"' + verify_photo + '\" width="35px" height="35px"></td>';
+            trHtml += '<td>' + userInfo['phone'] +'</td>';//联系方式
+            trHtml += '<td>' + userInfo['email'] +'</td>';//邮箱
+            trHtml += '</tr>';
+
+            $("#edit_houseOwner_table tbody").prepend(trHtml);//append
         }
-    });
+    }
 
     laypage({
         cont: $('#uzBusinessPage'), //容器。值支持id名、原生dom对象，jquery对象,
@@ -132,22 +208,52 @@ $(document).ready(function(){
         }
     });
 
-    $("#uzLeader-btn").click(function(){
+    function verifiedWorker(idArray,isVerified){
+        if(idArray.length === 0){
+            return;
+        }else{
+            //执行post请求验证对应的用户
+            $.post("/doVerifiedById",
+                {
+                    ids:idArray,
+                    content:{
+                        verified:isVerified
+                    }
+                },
+                function (data) {
+                    initialData(currHousePage);
+                }
+            );
 
-        //遍历表格的每行的选中状态 uz-table 误删
+        }
+    }
+
+    $("#verifiedSC-btn").click(function(){
+        var userIdArray = [];
         $("#edit_worker_table tr").each(function(){
             var text = $(this).children("td:first").find('input').is(':checked');// .text();
             if(text){
-                alert("有个勾勾是选中的...");
+                var id = $(this).children("td").eq(8).attr("id");
+                userIdArray.push(id);
             }
 
         });
 
-//    $("#uz-table tr").each(function(){
-//        var text = $(this).children("td").eq(2).text();//$(this).children("td:first").text();
-//        alert(text);
-//
-//    });
+        verifiedWorker(userIdArray,1);
+    });
+
+    $("#verifiedFA-btn").click(function(){
+        var userIdArray = [];
+        $("#edit_worker_table tr").each(function(){
+            var text = $(this).children("td:first").find('input').is(':checked');// .text();
+            if(text){
+                var id = $(this).children("td").eq(8).attr("id");
+                userIdArray.push(id);
+            }
+
+        });
+
+        verifiedWorker(userIdArray,2);
 
     });
 
@@ -236,42 +342,6 @@ $(document).ready(function(){
         param.top = Math.round((maxHeight - param.height) / 2);
         return param;
     }
-
-    //表单每行的编辑
-    $(".btn-default.btn-xs").click(function(){
-        
-        $('#edit_worker_dlg').modal('show');
-        var workerName = this.parentNode.parentNode.cells[2].innerText;
-        var imgSrc = this.parentNode.parentNode.cells[3].children[0].currentSrc;
-        var workerPhone = this.parentNode.parentNode.cells[5].innerText;
-
-        $("#inputWorkerName").val(workerName);
-        $("#inputWorkerPhone").val(workerPhone);        
-        $("#imghead").attr({src:imgSrc});
-
-
-        // $("#accountEdit").val(this.parentNode.id);
-        // $("#edit_city_div").citySelect({
-        //     prov:locationArray[0],
-        //     city:locationArray[1]
-        // });
-        // if(role !== '4'){
-        //     $("#edit_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
-        //         "&nbsp;<span class='badge badge-default'>地推</span></label> <label> " +
-        //         "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
-        //         "<span class='badge badge-blue'>客服</span></label> <label> " +
-        //         "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
-        //         "<span class='badge badge-info'>财务</span></label> <label> " +
-        //         "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
-        //         "<span class='badge badge-warning'>运营</span></label>");
-        // }else{
-        //     $("#edit_roleRadio_div").html("<label> " +
-        //         "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='4' />&nbsp;" +
-        //         "<span class='badge badge-primary'>超级管理员</span></label>");
-        // }
-        // $("input[name='optionsRadios'][value="+ role +"]").attr("checked",true);
-
-    });
 
     //表单每行的编辑
     $("#update_worker_btn").click(function(){

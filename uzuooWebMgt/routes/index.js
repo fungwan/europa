@@ -121,6 +121,13 @@ module.exports = function(app,acl) {
         customer.updateWorkersById(req,res);
     });
 
+    app.get('/doFindHouseOwnersByPage', function (req, res) {
+        customer.findHouseOwnersByPage(req,res);
+    });
+
+    app.post('/doVerifiedById', function (req, res) {
+        customer.verifiedById(req,res);
+    });
 };
 
 function checkLogin(req, res, next) {
