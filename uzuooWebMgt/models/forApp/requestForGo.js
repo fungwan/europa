@@ -7,6 +7,7 @@
 
 var http = require('http');
 var settings = require('../../conf/settings');
+var jsonConvert = require('../../lib/jsonFormat.js');
 
 var hostIp =  settings.appCloudMgtIpAddr;
 var hostPort = settings.appCloudPortAddr;
@@ -34,7 +35,12 @@ exports.get = function(optionItem,cb){
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
         res.on('data', function(data) {
-            return cb(null,data);
+            var resultData = jsonConvert.stringToJson(data);
+            if(resultData['status'] === undefined){
+                return cb(null,data);
+            }else{
+                return cb(resultData['status'],resultData['message']);
+            }
         });
     });
 
@@ -61,9 +67,20 @@ exports.post = function(optionItem,contents,cb){
     options['path'] = optionItem['path'];
 
     var req = http.request(options, function(res) {
+
         res.setEncoding('utf8');
+
+        if(res.statusCode === 200){
+            return cb(null,'');
+        }
+
         res.on('data', function(data) {
-            return cb(null,data);
+            var resultData = jsonConvert.stringToJson(data);
+            if(resultData['status'] === undefined){
+                return cb(null,data);
+            }else{
+                return cb(resultData['status'],resultData['message']);
+            }
         });
     });
 

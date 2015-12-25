@@ -35,6 +35,12 @@ module.exports = function(app,acl) {
         customer.getProcess(req,res);
     });
 
+    //front end user
+    app.get('/todoVerifiedCustomer', checkLogin);
+    app.get('/todoVerifiedCustomer', function (req, res) {
+        customer.getTodoVerifiedPageProcess(req,res);
+    });
+
     //background user
     app.get('/users', checkLogin);
     app.get('/users', function (req, res) {
@@ -117,8 +123,8 @@ module.exports = function(app,acl) {
         customer.findWorkersByPage(req,res);
     });
 
-    app.post('/doUpdateWorkersById', function (req, res) {
-        customer.updateWorkersById(req,res);
+    app.post('/doUpdateWorkerProfileById', function (req, res) {
+        customer.updateWorkerProfileById(req,res);
     });
 
     app.get('/doFindHouseOwnersByPage', function (req, res) {
@@ -127,6 +133,18 @@ module.exports = function(app,acl) {
 
     app.post('/doVerifiedById', function (req, res) {
         customer.verifiedById(req,res);
+    });
+
+    app.get('/doFindWorkerById', function (req, res) {
+        customer.findWorkerById(req,res);
+    });
+
+    app.get('/doFindWorkersByFilters', function (req, res) {
+        customer.findWorkersByFilters(req,res);
+    });
+
+    app.post('/doChangeWorkerRole', function (req, res) {
+        customer.changeWorkerRole(req,res);
     });
 };
 

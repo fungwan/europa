@@ -27,4 +27,8 @@ $(document).ready(function() {
             this.innerHTML = '更多搜索条件<i class="fa fa-sort-desc"></i>';
         }
     });
+
+//    $("a").click(function(){
+//        alert('ds');
+//    });
 });

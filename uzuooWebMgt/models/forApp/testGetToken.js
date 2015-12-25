@@ -8,12 +8,12 @@ var jsonConvert = require('../../lib/jsonFormat.js');
 var async = require('async');
 
 var _token = '';
-//tokenMgt.getToken(function(err,token){
-//    if(err === null){
-//        console.log(token);
-//        _token = token;
-//    }
-//});
+tokenMgt.getToken(function(err,token){
+    if(err === null){
+        console.log(token);
+        _token = token;
+    }
+});
 
 
 //tokenMgt.getToken(function(err,token){
@@ -23,7 +23,7 @@ var _token = '';
 //});
 
 
-var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTMwMTg4OTQsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.lnLOypzXxoYoHFDetQ5axUvo5Gu5_cECo3tZabyDZg0';
+var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTMwOTA3MjMsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.Spow1TJPgNgO2iaDyibzoh6FnHbCWoC_kqW7wE-ukrE';
 
 //获取工人信息
 var path = '/v1/workers?'+'accessToken=' + token + '&filter=all'+'&limit=10&offset=0';//verified::0
@@ -166,12 +166,16 @@ optionItem1['path'] = path2;
 //regionsItem['path'] = regionsPath;
 //
 ////通过国家Get所有省份
-request.get(optionItem1,function(err,data){
-    console.log(data);
-    var rolesArray = jsonConvert.stringToJson(data);
-    console.log(rolesArray);
-
-});
+//request.get(optionItem,function(err,data){
+//    console.log(err);
+//    console.log(data);
+//    if(err){
+//        return;
+//    }
+//    var rolesArray = jsonConvert.stringToJson(data);
+//    console.log(rolesArray);
+//
+//});
 
 var accountID = 'f20ac872-2ef1-4663-bbf9-a709602f90a2';
 

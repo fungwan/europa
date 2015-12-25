@@ -56,9 +56,11 @@ $(function(){
 
                 if(jsonObj.result === 'fail'){
                     $("#logon_info").css({"display":"block","color":"red"});
-                    $("#logon_info").text('密码错误，请重试!');
-                }
-                else{
+                    $("#logon_info").text(jsonObj.content);
+                }else if(jsonObj.result === 'serverError'){
+                    $("#logon_info").css({"display":"block","color":"red"});
+                    $("#logon_info").text(jsonObj.content.code);
+                }else{
 
                     if ($("#ck_rmbUser").attr("checked")) {
                         var str_username = $("#username").val();

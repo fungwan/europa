@@ -44,7 +44,7 @@ exports.postProcess = function(req,res){
             }
         }else{
             res.send(jsonConvert.jsonToString({
-                result:'fail',
+                result:'serverError',
                 content:err
             }));
         }

@@ -9,8 +9,6 @@
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
     <!--Loading bootstrap css-->
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
     <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
     <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
@@ -29,9 +27,9 @@
     <link type="text/css" rel="stylesheet" href="css/laypage.css">
 </head>
 <style type="text/css">
-    #preview{width:200px;height:200px;/*border:1px solid #000;*/overflow:hidden;}
+    #preview{width:256px;height:256px;border:1px solid #000;overflow:hidden;}
     #imghead {
-        max-width:200px;_width:expression(this.width > 200 ? "200px" : this.width);
+        max-width:256px;_width:expression(this.width > 256 ? "256px" : this.width);
         filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);}
 </style>  
 <body class=" ">
@@ -98,8 +96,8 @@
                 <ul class="nav nav-second-level">
                     <li class="active"><a href="/customer"><i class="fa fa-tablet"></i><span class="submenu-title">悠住用户</span></a>
                     </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
+                    <li><a href="/todoVerifiedCustomer"><i class="fa fa-tablet"></i><span class="submenu-title">待认证用户</span></a>
+                    </li>
                     <li><a href="/users"><i class="fa fa-desktop"></i><span class="submenu-title">后台用户</span></a>
                     </li>
                 </ul>
@@ -161,7 +159,7 @@
                 <div class="page-content">
                     <div id="table-action" class="row">
                         <div class="col-lg-12">
-                            <ul id="tableactiondTab" class="nav nav-tabs">
+                            <ul id="tableAllUserTab" class="nav nav-tabs">
                                 <li id="worker" class="active"><a href="#table-table-tab" data-toggle="tab">工人信息</a>
                                 </li>
                                 <li id="houseOwner" ><a href="#table-row-tab" data-toggle="tab">业主信息</a>
@@ -172,18 +170,24 @@
                             <div id="tableactionTabContent" class="tab-content">
                                 <div id="table-table-tab" class="tab-pane fade in active">
                                     <div class="row mbl">
-                                        <div class="col-lg-3">
-                                            <div class="input-group input-group-sm mbs">
-                                                <input type="text" placeholder="Enter here..." class="form-control"><span class="input-group-btn"><button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle">Search</button></span>
+                                        <div class="col-lg-6">
+                                            <div class="tb-group-actions pull-left">
+                                                <select id="keyWord-sel" data-style="btn-grey" >
+                                                    <option value="phone">电话号码</option>
+                                                    <option value="id_card_no">身份证</option>
+                                                    <option value="name">姓名</option>
+                                                </select>
+                                                <input id="exactSearch-input" type="text" placeholder="输入对应关键字查找..." />
+                                                <button id="exactSearch-btn" type="button" >查找</button>
                                             </div>
                                         </div>
-                                        <div class="col-lg-9">
-                                            <div class="tb-group-actions pull-right">
+                                        <div class="col-lg-6">
+                                            <!--div class="tb-group-actions pull-right">
                                                 <button id="verifiedSC-btn" class="btn btn-sm btn-warning"><i class="fa fa-check"></i>&nbsp; 审核成功
                                                 </button>
                                                 <button id="verifiedFA-btn" class="btn btn-sm btn-primary"><i class="fa fa-times"></i>&nbsp; 审核失败
                                                 </button>
-                                            </div>
+                                            </div-->
                                         </div>
                                     </div>
                                     <div class="row">
@@ -194,20 +198,22 @@
                                                         <th width="3%" class="sorting_disabled">
                                                             <input type="checkbox" class="checkall" />
                                                         </th>
-                                                        <th width="5%">用户名</th>
                                                         <th width="5%">真实姓名</th>
-                                                        <th width="5%">身份证照</th>
-                                                        <th width="5%">区域</th>
-                                                        <th width="10%">联系方式</th>
-                                                        <th width="7%">工种</th>
+                                                        <th width="5%">身份证号</th>
+                                                        <th width="5%">联系方式</th>
                                                         <th width="8%">
-                                                            <select data-style="btn-grey" class="selectpicker form-control">
-                                                                <option>审核状态</option>
-                                                                <option>未审核</option>
-                                                                <option>审核失败</option>
-                                                                <option>已通过</option>
+                                                            <select id="verified-sel" data-style="btn-grey" class="selectpicker form-control">
+                                                                <option value="all">所有认证状态</option>
+                                                                <option value="0">未认证</option>
+                                                                <option value="1">待认证</option>
+                                                                <option value="2">认证通过</option>
+                                                                <option value="3">认证驳回</option>
                                                             </select>
                                                         </th>
+                                                        <th width="5%">城市</th>
+                                                        <th width="10%">区域</th>
+                                                        <th width="7%">第一工种</th>
+                                                        <th width="7%">第二工种</th>
                                                         <th width="3%"></th>
                                                     </tr>
                                                 </thead>
@@ -234,7 +240,7 @@
                                                             <th width="7%">邮箱地址</th>
                                                         </tr>
                                                         <tbody>
-                                                            <tr>
+                                                            <!--tr>
                                                                 <td>冯云</td>
                                                                 <td>射洪</td>
                                                                 <td>13882568547</td>
@@ -243,7 +249,7 @@
                                                                 <!--td>
                                                                     <button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
                                                                     </button>
-                                                                </td-->
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>刘春萍</td>
@@ -251,7 +257,7 @@
                                                                 <td>15869877412</td>
                                                                 <td>candy@163.com</td>
                                                                 <td>20-05-2014</td>
-                                                            </tr>
+                                                            </tr-->
                                                         </tbody>
                                                     </thead>
                                                 </table>
@@ -325,96 +331,274 @@
                 </div>
                 <!--END CONTENT-->
 
-                <div aria-hidden="true" id="edit_worker_dlg" tabindex="-1"  class="modal fade">
+                <div  aria-hidden="false" style="display:none;" id="edit_worker_dlg" tabindex="-1"  data-backdrop="static" class="modal fade in">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                                    <h4 class="modal-title">编辑个人信息</h4>
+                                <div class="modal-header modal-header-primary">
+                                    <button type="button" name='close-workerDetailDialog-btn' data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                                    <h4 class="modal-title">编辑</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="#">
-                                        <div class="form-body pal">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="input-icon right"><i class="fa fa-user"></i>
-                                                            <input id="inputWorkerName" type="text" placeholder="Name" class="form-control" />
+                                    <div class="tabbable tabs-left">
+                                        <ul id="edit_workerDetail_tab" class="nav nav-tabs">
+                                            <li ><a href="#edit_worker_basicInfo" data-toggle="tab">基础资料</a>
+                                            </li>
+                                            <li ><a href="#edit_worker_roleInfo" data-toggle="tab">工种信息</a>
+                                            </li>
+                                            <li ><a href="#edit_worker_accountInfo" data-toggle="tab">账户信息</a>
+                                            </li>
+                                            <!--li ><a href="#edit_worker_verifiedInfo" data-toggle="tab">认证信息</a>
+                                            </li-->
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="edit_worker_basicInfo" class="tab-pane fade in active">
+                                                <div >
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="input-icon right"><i class="fa fa-user"></i>
+                                                                    <input id="inputWorkerFullName-readOnly" type="text" placeholder="Name" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
+                                                                    <input id="inputWorkerPhone" type="text" placeholder="Phone" class="form-control">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="input-icon right"><i class="fa fa-briefcase"></i>
-                                                            <input id="inputCompany" type="text" placeholder="Company" class="form-control" />
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="input-icon right"><i class="fa fa-credit-card"></i>
+                                                                    <input id="inputCardNumber-readOnly" type="text" placeholder="Card number" class="form-control">
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div class="input-icon right"><i class="fa fa-map-marker"></i>
+                                                                    <input id="inputWorkerCity" type="text" placeholder="" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <a href="#"><span id="workerScore" class="badge badge-warning pull-right"></span>星级:</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>评价:</label>
+                                                                好评<span id="review-good-span" class="badge badge-success"></span>
+                                                                中评<span id="review-notBad-span" class="badge badge-default"></span>
+                                                                差评<span id="review-bad-span" class="badge badge-primary"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <div ><img id="showVerifiedPic-img" border=0 src="images/avatar/128.jpg" width="100" height="100" /></div>
+                                                                <span id="verifiedInfo-span" class="label label-sm label-success"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <button id="scene-verified_btn" data-target="#verified-dialog" data-toggle="modal" class="btn btn-info">现场认证</button>
+                                                        <!--button id="update_workerProfile_btn" class="btn btn-success">更新资料</button-->
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="input-icon right"><i class="fa fa-envelope"></i>
-                                                            <input id="inputEmail" type="text" placeholder="E-mail" class="form-control" />
+                                            <div id="edit_worker_roleInfo" class="tab-pane fade">
+                                                <form action="#">
+                                                    <div class="form-body pal">
+                                                        <div id="showRoles" class="row">
+                                                            <!--div class="col-md-6">
+                                                                <input type="text" class="form-control" value="工长" disabled>
+                                                                <button type="button"><i class="fa fa-edit"></i></button>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="text" class="form-control" value="工人" disabled>
+                                                                <button type="button" ><i class="fa fa-edit"></i></button>
+                                                            </div-->
+                                                        </div>
+                                                        <div id="showAllRoles" class="row">
+                                                            <!--div class="col-md-12">
+                                                                <select id="select-role" class="form-control">
+                                                                    <option>角色</option>
+                                                                    <option value="0">设计师</option>
+                                                                    <option value="1">工长</option>
+                                                                    <option value="2">泥工</option>
+                                                                    <option value="3">保洁</option>
+                                                                </select>
+                                                                <div id="editCraftsItem">
+                                                                    <input id="minimal-checkbox-1" tabindex="5" type="checkbox" />&nbsp;
+                                                                    <label for="minimal-checkbox-1">特工</label>
+                                                                    <input id="minimal-checkbox-2" tabindex="5" type="checkbox" />&nbsp;
+                                                                    <label for="minimal-checkbox-2">开荒</label>
+                                                                </div>
+                                                            </div-->
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="input-icon right"><i class="fa fa-phone"></i>
-                                                            <input id="inputWorkerPhone" type="text" placeholder="Phone" class="form-control" />
+                                                </form>
+                                            </div>
+                                            <div id="edit_worker_accountInfo" class="tab-pane fade">
+                                                <form action="#">
+                                                    <div class="list-group">
+                                                        <a href="#" class="list-group-item active">账户余额
+                                                            <span class="badge badge-info pull-right">4000</span>
+                                                        </a>
+                                                        <a href="#" class="list-group-item">保证金
+                                                            <span class="badge badge-warning pull-right">2000</span>
+                                                        </a>
+                                                        <a href="#" class="list-group-item">优惠券
+                                                            <span class="badge badge-danger pull-right">300</span>
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!--div id="edit_worker_verifiedInfo" class="tab-pane fade">
+                                                <form action="#">
+                                                    <div class="form-body pal">
+                                                        <div class="row" style="height:250px; overflow:auto;">
+                                                            <div class="panel panel-yellow">
+                                                                <div class="panel-heading">认证记录</div>
+                                                                <div class="panel-body">
+                                                                    <table class="table table-hover table-bordered">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>认证时间</th>
+                                                                            <th>认证信息</th>
+                                                                            <th>认证结果</th>
+                                                                            <th>备注</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputMessage" class="control-label">原因说明:</label>
+                                                            <textarea rows="5" class="form-control"></textarea>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <hr/>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <select class="form-control">
-                                                            <option>Interested in</option>
-                                                            <option value="design">Design</option>
-                                                            <option value="development">Development</option>
-                                                            <option value="illustration">Illustration</option>
-                                                            <option value="brading">Branding</option>
-                                                            <option value="video">Video</option>
-                                                        </select>
+                                                    <div class="form-actions text-right pal">
+                                                        <button id="edit-verifiedFA-btn" class="btn btn-primary">驳回认证</button>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <select class="form-control">
-                                                            <option>Budget</option>
-                                                            <option value="0">Less than 5000$</option>
-                                                            <option value="1">5000$ - 10000$</option>
-                                                            <option value="2">10000$ - 20000$</option>
-                                                            <option value="3">More than 20000$</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <!--input id="inputIncludeFile" type="file" placeholder="Inlcude some file" /-->
-                                                <div id="preview"><img id="imghead" border=0 src="images/avatar/128.jpg" width="100" height="100" /></div>
-                                                <input id="input-upload" type="file" />                                                
-                                            </div>
-                                            <!--div class="form-group mbn">
-                                                <textarea rows="5" placeholder="Tell us about your project" class="form-control"></textarea>
+                                                </form>
                                             </div-->
                                         </div>
-                                        <div class="form-actions text-right pal">
-                                             <!--button class="btn btn-info">取消</button-->    
-                                             <button id="update_worker_btn" class="btn btn-primary">更新</button>
-                                        </div>
-                                    </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" name='close-workerDetailDialog-btn' data-dismiss="modal" class="btn btn-default">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
 
+                <div id="verified-dialog" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-primary">
+                                <button type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                                <h4 class="modal-title">现场认证</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right"><i class="fa fa-user"></i>
+                                                <input id="inputWorkerFirstName" type="text" value="姓" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right"><i class="fa fa-user"></i>
+                                                <input id="inputWorkerLastName" type="text" value="名" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="input-icon right"><i class="fa fa-credit-card"></i>
+                                                <input id="inputCardNumber" type="text" placeholder="Card number" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-body pal">
+                                                <div class="form-group">
+                                                    <div id="preview">
+                                                        <img id="imghead" border=1 src="images/avatar/defaultVerifiedImg.png" width="256" height="256" />
+                                                    </div>
+                                                </div>
+                                                <input id="input-upload" type="file" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- end -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal">
+                                            <div class="form-body pal">
+                                                <div class="row" style="height:150px; overflow:auto;">
+                                                    <div class="panel panel-yellow">
+                                                        <!--div class="panel-heading">认证记录</div-->
+                                                        <div class="panel-body">
+                                                            <table class="table table-hover table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>申请日期</th>
+                                                                    <th>认证结果</th>
+                                                                    <th>驳回理由</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>2015/12/12</td>
+                                                                    <td><span class="label label-sm label-primary">失败</span></td>
+                                                                    <td class="success">无法看清号码</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td >2015/12/12</td>
+                                                                    <td><span class="label label-sm label-primary">失败</span></td>
+                                                                    <td class="success">不是免冠照</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="form-actions text-right pal">
+                                    <button id="update_workerProfile_btn" class="btn btn-pink">通过认证</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 <%- include footer %>
 <script src="vendors/DataTables/media/js/jquery.dataTables.js"></script>
 <script src="vendors/DataTables/jquery.jeditable.js"></script>
-<script src="custom/fe_userList.js"></script>
+<script src="custom/fe_userList_worker.js"></script>
+<script src="custom/fe_userList_houseOwner.js"></script>

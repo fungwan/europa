@@ -25,13 +25,7 @@ function getAccessTokenByRefreshToken(refreshToken){
 
 }
 
-exports.setTokenExpireStates = function(flag){
-
-    _tokenIsExpire = flag;
-};
-
-exports.getToken = function(cb){
-
+function _getToken(cb){
     if(_token === ''){
 
         // step 1: get nonce
@@ -139,4 +133,40 @@ exports.getToken = function(cb){
         });
     }
 
+}
+
+exports.setTokenExpireStates = function(flag){
+
+    _tokenIsExpire = flag;
 };
+
+exports.getQiniuToken = function(cb){
+
+    _getToken(function(err,token){
+
+        if(err === null){
+            var qiniuOptionItem = {};
+            qiniuOptionItem['path'] = '/v1/applications/uploadToken?accessToken='+ token;
+            var expireTime = new Date().getTime() + 3600;
+            var bodyInfo = JSON.stringify({
+                'scope':'uzuoo-photos',
+                'deadline':expireTime
+            });
+
+            request.post(qiniuOptionItem,bodyInfo,function(err,results){
+                if(err !== null){
+                    cb(err,false);
+                }else{
+                    var tokenObject = jsonConvert.stringToJson(results);
+                    var qiniuToken = tokenObject['upload_token'];
+                    cb(null,qiniuToken);
+                }
+
+            });
+        }else{
+            cb(err,'get token wrong...');
+        }
+    });
+};
+
+exports.getToken = _getToken;
