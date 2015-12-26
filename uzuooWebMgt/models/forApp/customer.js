@@ -6,6 +6,7 @@ var request = require('./requestForGo.js');
 var tokenMgt = require('./tokenMgt');
 var jsonConvert = require('../../lib/jsonFormat.js');
 var settings = require('../../conf/settings');
+var logger = require('../../lib/log.js').logger;
 var async = require('async');
 var fs = require("fs");
 
@@ -203,97 +204,7 @@ exports.findWorkersByPage = function(req,res){
 
                 var token = results.get_token;
 
-                async.parallel([ //找施工区域
-                    function(cb) {
-
-                        var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
-                        var regionsItem = {};
-                        regionsItem['path'] = regionsPath;
-
-                        //通过国家Get所有省份
-                        request.get(regionsItem,function(err,data){
-
-                            if(err !== null){
-                                cb(err,{});
-                                return;
-                            }
-
-                            var regionsMap = {};
-
-                            //取到省份组
-                            var provincesArray = jsonConvert.stringToJson(data)['provinces'];
-                            for(y in provincesArray){
-
-                                regionsMap[provincesArray[y]['id']] = provincesArray[y]['name'];
-                                var citiesArray = provincesArray[y]['cities'];
-                                for(z in citiesArray){
-
-                                    //取到城市组
-                                    regionsMap[citiesArray[z]['id']] = citiesArray[z]['name'];
-                                    var regionsArray = citiesArray[z]['regions'];
-
-                                    //取到区域
-                                    var regionsNameArray = [];
-                                    for(index in regionsArray){
-                                        var tmpObj = {};
-                                        tmpObj['name'] = regionsArray[index]['name'];
-                                        tmpObj['parent'] = citiesArray[z]['name'];
-                                        regionsMap[regionsArray[index]['id']] = tmpObj;//取到区域
-                                    }
-                                }
-                            }
-
-                            var tmpRegions = [];
-                            tmpRegions.push(provincesArray);
-                            tmpRegions.push(regionsMap);
-                            cb(null,tmpRegions);
-
-                        });
-                    },
-                    //找到工人对应角色
-                    function(cb) {
-                        var rolesMap = {};
-
-                        var roleArray = [];
-                        var rolePath = '/v1/workers/roles?'+'accessToken=' + token;
-
-                        var roleItem = {};
-                        roleItem['path'] = rolePath;
-
-                        //获取所有角色组
-                        request.get(roleItem,function(err,data){
-                            if(err !== null){
-                                cb(err,{});
-                                return;
-                            }
-
-                            var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
-                            for(x in array){
-                                var roleItem = array[x];
-                                rolesMap[roleItem['id']] = roleItem['name'];//取到角色
-                                var craftArray = roleItem['crafts'];
-                                for(y in craftArray){
-                                    rolesMap[craftArray[y]['id']] = craftArray[y]['name'];//取到细项
-                                }
-                            }
-                            var tmpRoles = [];
-                            tmpRoles.push(array);
-                            tmpRoles.push(rolesMap);
-                            cb(null,tmpRoles);
-                        });
-                    }
-                ],function (err, resultsEx){
-                    if(!err){
-                        var regionsArray = resultsEx[0];//包含源对象和warp后的map对象
-                        var rolesArray = resultsEx[1];//同上
-                        var localData = [];
-                        localData.push(regionsArray);
-                        localData.push(rolesArray);
-                        callback(null,localData);
-                    }else{
-                        callback(null,[]);
-                    }
-                });
+                getroleAndRegions(token,callback);
             }],
             get_all: ['get_token',function (callback,results) {
 
@@ -346,6 +257,13 @@ exports.findWorkersByPage = function(req,res){
                 var workerArrayEx = [];
 
                 var regionsAndRolesArray = results.get_roleAndRegions;
+                if(regionsAndRolesArray.length === 0){
+                    res.json({ result: 'fail',
+                        pages:1,
+                        content:'',
+                        additionalData:''});
+                    return;
+                }
                 var regionsMap = regionsAndRolesArray[0][1];
                 var rolesMap = regionsAndRolesArray[1][1];
 
@@ -386,69 +304,6 @@ exports.findWorkersByPage = function(req,res){
                     pages:pageCounts,
                     content:workerArrayEx,
                     additionalData:regionsAndRolesArray});
-
-                //串行查找每个工人的区域、角色和详情
-                /*async.eachSeries(workerArray, function(item, callback) {
-                    //console.log('1.3 enter: ' + item.name);
-                    ++counts;
-                    var workerItemObj = item;
-                    var workerDetailLink = workerItemObj['href'];
-                    var pos = workerDetailLink.lastIndexOf('/');
-                    var workerId = workerDetailLink.substr(pos+1);
-
-                    var workerIdPath = '/v1/workers/'+ workerId +'?accessToken=' + token;
-
-                    var workerItem = {};
-                    workerItem['path'] = workerIdPath;
-
-                    //获取指定workerID的相关信息,取全名
-                    request.get(workerItem,function(err,data){
-                        if(err !== null){
-                            callback(err, '');
-                            return;
-                        }
-
-                        var firstName = jsonConvert.stringToJson(data)['first_name'];
-                        var lastName = jsonConvert.stringToJson(data)['last_name'];
-                        item['fullName'] = firstName+lastName;
-                        item['workerId'] = workerId;
-                        item['verify_photo'] = jsonConvert.stringToJson(data)['verify_photo'];
-                        item['phone'] = jsonConvert.stringToJson(data)['phone'];
-                        item['id_card_no'] = jsonConvert.stringToJson(data)['id_card_no'];//身份证
-                        item['username'] = jsonConvert.stringToJson(data)['user_name'];
-
-                        var regionsArray = workerItemObj['regions'];
-                        var tmp = [];
-                        for(x in regionsArray){
-                            tmp.push(regionsMap[regionsArray[x]]);
-                        }
-                        item['regionsValuesArray'] = tmp;
-
-                        var rolesArray = workerItemObj['categories'];
-                        var tmp2 = [];
-                        for(y in rolesArray){
-                            tmp2.push(rolesMap[rolesArray[y]['role_id']]);
-                        }
-
-                        item['rolesValuesArray'] = tmp2;
-
-                        callback(null, workerItemObj);
-                        workerArrayEx.push(item);
-                        if(counts === workerArrayEx.length){
-                            res.json({ result: 'success',
-                                pages:pageCounts,
-                                content:workerArrayEx});
-                        }
-                    });
-
-                }, function(err,resultsEx) {
-                    //console.log(resultsEx);
-                    //console.log('1.3 err: ' + err);
-                    if(err){
-                        res.json({ result: 'fail',
-                            content:[]});
-                    }
-                });*/
             }
         }
     );
@@ -510,98 +365,7 @@ exports.findWorkersByFilters = function(req,res){
 
                 var token = results.get_token;
 
-                async.parallel([ //找施工区域
-                    function(cb) {
-
-                        var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
-                        var regionsItem = {};
-                        regionsItem['path'] = regionsPath;
-
-                        //通过国家Get所有省份
-                        request.get(regionsItem,function(err,data){
-
-                            if(err !== null){
-                                cb(err,{});
-                                return;
-                            }
-
-                            var regionsMap = {};
-
-                            //取到省份组
-                            var provincesArray = jsonConvert.stringToJson(data)['provinces'];
-                            for(y in provincesArray){
-
-                                regionsMap[provincesArray[y]['id']] = provincesArray[y]['name'];
-                                var citiesArray = provincesArray[y]['cities'];
-                                for(z in citiesArray){
-
-                                    //取到城市组
-                                    regionsMap[citiesArray[z]['id']] = citiesArray[z]['name'];
-                                    var regionsArray = citiesArray[z]['regions'];
-
-                                    //取到区域
-                                    var regionsNameArray = [];
-                                    for(index in regionsArray){
-
-                                        var tmpObj = {};
-                                        tmpObj['name'] = regionsArray[index]['name'];
-                                        tmpObj['parent'] = citiesArray[z]['name'];
-                                        regionsMap[regionsArray[index]['id']] = tmpObj;//取到区域
-                                    }
-                                }
-                            }
-
-                            var tmpRegions = [];
-                            tmpRegions.push(provincesArray);
-                            tmpRegions.push(regionsMap);
-                            cb(null,tmpRegions);
-
-                        });
-                    },
-                    //找到工人对应角色
-                    function(cb) {
-                        var rolesMap = {};
-
-                        var roleArray = [];
-                        var rolePath = '/v1/workers/roles?'+'accessToken=' + token;
-
-                        var roleItem = {};
-                        roleItem['path'] = rolePath;
-
-                        //获取所有角色组
-                        request.get(roleItem,function(err,data){
-                            if(err !== null){
-                                cb(err,{});
-                                return;
-                            }
-
-                            var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
-                            for(x in array){
-                                var roleItem = array[x];
-                                rolesMap[roleItem['id']] = roleItem['name'];//取到角色
-                                var craftArray = roleItem['crafts'];
-                                for(y in craftArray){
-                                    rolesMap[craftArray[y]['id']] = craftArray[y]['name'];//取到细项
-                                }
-                            }
-                            var tmpRoles = [];
-                            tmpRoles.push(array);
-                            tmpRoles.push(rolesMap);
-                            cb(null,tmpRoles);
-                        });
-                    }
-                ],function (err, resultsEx){
-                    if(!err){
-                        var regionsArray = resultsEx[0];//包含源对象和warp后的map对象
-                        var rolesArray = resultsEx[1];//同上
-                        var localData = [];
-                        localData.push(regionsArray);
-                        localData.push(rolesArray);
-                        callback(null,localData);
-                    }else{
-                        callback(null,[]);
-                    }
-                });
+                getroleAndRegions(token,callback);
             }],
             get_all: ['get_token',function (callback,results) {
 
@@ -612,7 +376,7 @@ exports.findWorkersByFilters = function(req,res){
 
                 request.get(optionItem,callback);
             }],
-            get_currPage: ['get_token',function (callback,results) {
+            get_currPage: ['get_token','get_roleAndRegions',function (callback,results) {
 
                 var token = results.get_token;
                 var skipValue = currPage * 10;
@@ -654,6 +418,14 @@ exports.findWorkersByFilters = function(req,res){
                 var workerArrayEx = [];
 
                 var regionsAndRolesArray = results.get_roleAndRegions;
+                if(regionsAndRolesArray.length === 0){
+                    res.json({ result: 'fail',
+                        pages:1,
+                        content:'',
+                        additionalData:''});
+                    return;
+                }
+
                 var regionsMap = regionsAndRolesArray[0][1];
                 var rolesMap = regionsAndRolesArray[1][1];
 
@@ -722,7 +494,7 @@ exports.changeWorkerRole = function(req,res){
                 optionItem['path'] = path;
 
                 var content ={};
-                content['role'] = roleArray;
+                content['roles'] = roleArray;
                 var bodyString = JSON.stringify(content);
 
                 request.post(optionItem,bodyString,callback);
@@ -839,12 +611,112 @@ exports.verifiedById = function(req,res){
                 }
             });
         } else {
-            callback(err, 'can not get token...');
+            res.json({
+                    result: 'fail',
+                    content:err}
+            );
         }
     });
 
 
 };
+
+function getroleAndRegions(token,callback){
+
+    async.parallel([ //找施工区域
+        function(cb) {
+
+            var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
+            var regionsItem = {};
+            regionsItem['path'] = regionsPath;
+
+            //通过国家Get所有省份
+            request.get(regionsItem,function(err,data){
+
+                if(err !== null){
+                    cb(err,{});
+                    return;
+                }
+
+                var regionsMap = {};
+
+                //取到省份组
+                var provincesArray = jsonConvert.stringToJson(data)['provinces'];
+                for(y in provincesArray){
+
+                    regionsMap[provincesArray[y]['id']] = provincesArray[y]['name'];
+                    var citiesArray = provincesArray[y]['cities'];
+                    for(z in citiesArray){
+
+                        //取到城市组
+                        regionsMap[citiesArray[z]['id']] = citiesArray[z]['name'];
+                        var regionsArray = citiesArray[z]['regions'];
+
+                        //取到区域
+                        var regionsNameArray = [];
+                        for(index in regionsArray){
+
+                            var tmpObj = {};
+                            tmpObj['name'] = regionsArray[index]['name'];
+                            tmpObj['parent'] = citiesArray[z]['name'];
+                            regionsMap[regionsArray[index]['id']] = tmpObj;//取到区域
+                        }
+                    }
+                }
+
+                var tmpRegions = [];
+                tmpRegions.push(provincesArray);
+                tmpRegions.push(regionsMap);
+                cb(null,tmpRegions);
+
+            });
+        },
+        //找到工人对应角色
+        function(cb) {
+            var rolesMap = {};
+
+            var roleArray = [];
+            var rolePath = '/v1/workers/roles?'+'accessToken=' + token;
+
+            var roleItem = {};
+            roleItem['path'] = rolePath;
+
+            //获取所有角色组
+            request.get(roleItem,function(err,data){
+                if(err !== null){
+                    cb(err,{});
+                    return;
+                }
+
+                var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
+                for(x in array){
+                    var roleItem = array[x];
+                    rolesMap[roleItem['id']] = roleItem['name'];//取到角色
+                    var craftArray = roleItem['crafts'];
+                    for(y in craftArray){
+                        rolesMap[craftArray[y]['id']] = craftArray[y]['name'];//取到细项
+                    }
+                }
+                var tmpRoles = [];
+                tmpRoles.push(array);
+                tmpRoles.push(rolesMap);
+                cb(null,tmpRoles);
+            });
+        }
+    ],function (err, resultsEx){
+        if(!err){
+            var regionsArray = resultsEx[0];//包含源对象和warp后的map对象
+            var rolesArray = resultsEx[1];//同上
+            var localData = [];
+            localData.push(regionsArray);
+            localData.push(rolesArray);
+            callback(null,localData);
+        }else{
+            logger.error(err + 'customer-区域和角色获取错误...');
+            callback(null,[]);
+        }
+    });
+}
 
 //exports.findUserByName = function(req,res){
 //

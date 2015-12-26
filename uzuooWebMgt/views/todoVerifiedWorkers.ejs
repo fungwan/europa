@@ -199,190 +199,104 @@
         </div>
     </div>
     </div>
-    <!--Modal Confirm-->
-    <div id="modal-confirm" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">你确定删除吗?</div>
-                <div class="modal-footer">
-                    <input type="hidden" value="">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
-                    <button id="btn-del" type="button" data-dismiss="modal" class="btn btn-primary">确定</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="modal-confirm-all" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">你确定删除吗?</div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
-                    <button id="btn-delAll" type="button" data-dismiss="modal" class="btn btn-primary">确定</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div aria-hidden="true" id="create_account_dlg" tabindex="-1"  class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="row">
 
-                    <!-- start -->
-                    <div class="col-lg-12" style="height:10%">
-                        <div class="portlet box portlet-blue">
-                            <div class="portlet-header">
-                                <div class="caption">创建用户</div>
+    <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 class="modal-title">立即认证</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-user"></i>
+                                    <input id="inputWorkerFirstName-readOnly" type="text" value="姓" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-user"></i>
+                                    <input id="inputWorkerLastName-readOnly" type="text" value="名" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-credit-card"></i>
+                                    <input id="inputCardNumber-readOnly" type="text" placeholder="Card number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
+                                    <input id="inputPhone-readOnly" type="text"  class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <form class="form-horizontal">
-                            <div class="form-body pal">
-                                <div class="form-group">
-                                    <label for="inputUsername" class="col-md-3 control-label">账号名 <span class="require">*</span>
-                                    </label>
-                                    <div class="col-md-9">
-                                        <div class="input-icon">
-                                            <i class="fa fa-user"></i> <input id="create_account_name_input" name="create_account_name_input" class="form-control input-sm" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputUsername" class="col-md-3 control-label">初始密码 <span class="require">*</span>
-                                    </label>
-                                    <div class="col-md-9">
-                                        <div class="input-icon">
-                                            <i class="fa fa-eye-slash"></i> <input id="create_account_password_input" name="create_account_password_input" class="form-control input-sm" type="password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputUsername" class="col-md-3 control-label">确认密码 <span class="require">*</span>
-                                    </label>
-                                    <div class="col-md-9">
-                                        <div class="input-icon">
-                                            <i class="fa fa-eye-slash"></i> <input id="create_account_confirm_password_input" name="create_account_confirm_password_input" class="form-control input-sm" type="password">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">城市</label>
-                                    <div class="col-md-9">
-                                        <div id="create_city_div">
-                                            <select id="create-pro-sel" class="prov"></select>
-                                            <select id="create-city-sel" class="city" disabled="disabled"></select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">职位</label>
-                                    <div class="col-md-9">
-                                        <div id="roleRadio" class="radio">
-                                            <label>
-                                                <input id="optionsRadios25" type="radio" name="optionsRadios" value="0" checked="checked" />&nbsp; 地推</label>
-                                            <label>
-                                                <input id="optionsRadios26" type="radio" name="optionsRadios" value="1"  />&nbsp; 客服</label>
-                                            <label>
-                                                <input id="optionsRadios27" type="radio" name="optionsRadios" value="2"  />&nbsp; 财务</label>
-                                            </label>
-                                            <label>
-                                                <input id="optionsRadios27" type="radio" name="optionsRadios" value="2"  />&nbsp; 运营</label>
-                                            </label>
-                                        </div>
-                                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div>
+                                    <img id="showVerifiedPic-img" border=1 src="images/avatar/defaultVerifiedImg.png" width="256" height="256" />
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <!-- end -->
-                </div>
-                <div class="modal-footer">
-                    <div id="create_conference_footer">
-                        <div class="col-md-6">
-                            <p class="text-left" style="display:none;" id="create_account_error_tooltip_p">
-                                <span class="label label-danger" id="create_account_error_tooltip_span"></span>
-                            </p>
                         </div>
                         <div class="col-md-6">
-
-                            <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
-                            <button type="button" id="create_account_create_btn" class="btn btn-primary" disabled >确定</button><!--disabled -->
+                            <div class="text-left pal">
+                                <button id="edit-verifiedSC-btn" class="btn btn-success">通过认证</button>
+                            </div>
                         </div>
+                        <!-- end -->
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div aria-hidden="true" id="edit_account_dlg" tabindex="-1"  class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="row">
-
-                    <!-- start -->
-                    <div class="col-lg-12" style="height:10%">
-                        <div class="portlet box portlet-blue">
-                            <div class="portlet-header">
-                                <div class="caption">编辑用户</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-left pal">
+                                <button id="edit-verifiedFA-btn" class="btn btn-primary">驳回认证</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputMessage" class="control-label">原因说明:</label>
+                                <textarea id="verifiedFailReason-text" rows="5" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <form class="form-horizontal">
-                            <div class="form-body pal">
-                                <div class="form-group">
-                                    <label for="inputUsername" class="col-md-3 control-label">账号名 <span class="require">*</span>
-                                    </label>
-                                    <div class="col-md-9">
-                                        <div class="input-icon">
-                                            <input id="accountEdit" value="" style="display: none">
-                                            <i class="fa fa-user"></i> <input id="modify_account_name_input" name="modify_account_name_input" class="form-control input-sm" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">城市</label>
-                                    <div class="col-md-9">
-                                        <div id="edit_city_div">
-                                            <select id="edit-pro-sel" class="prov"></select>
-                                            <select id="edit-city-sel" class="city" disabled="disabled"></select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">职位</label>
-                                    <div class="col-md-9">
-                                        <div id="edit_roleRadio_div">
-                                            <!--label>
-                                                <input id="optionsRadios28" type="radio" name="optionsRadios1" value="0"   checked="checked" />&nbsp; 客服</label>
-                                            <label>
-                                                <input id="optionsRadios29" type="radio" name="optionsRadios1" value="1"  />&nbsp; 财务</label>
-                                            <label>
-                                                <input id="optionsRadios30" type="radio" name="optionsRadios1" value="2"  />&nbsp; 运营</label>
-                                            </label-->
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="row" style="height:150px; overflow:auto;">
+                        <div class="panel panel-yellow">
+                            <!--div class="panel-heading">认证记录</div-->
+                            <div class="panel-body">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>申请日期</th>
+                                        <th>认证结果</th>
+                                        <th>驳回理由</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>2015/12/12</td>
+                                        <td><span class="label label-sm label-primary">失败</span></td>
+                                        <td class="success">无法看清号码</td>
+                                    </tr>
+                                    <tr>
+                                        <td >2015/12/12</td>
+                                        <td><span class="label label-sm label-primary">失败</span></td>
+                                        <td class="success">不是免冠照</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
-                    </div>
-                    <!-- end -->
-                </div>
-                <div class="modal-footer">
-                    <div id="modify_conference_footer">
-                        <div class="col-md-6">
-                            <p class="text-left" style="display:none;" id="modify_account_error_tooltip_p">
-                                <span class="label label-danger" id="modify_account_error_tooltip_span"></span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-
-                            <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
-                            <button type="button" id="update_account_update_btn" class="btn btn-primary">更新</button><!--disabled -->
                         </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                    </div>
             </div>
         </div>
     </div>

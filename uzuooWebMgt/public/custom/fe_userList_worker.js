@@ -4,10 +4,8 @@
 
 var currpage = 1;
 var screeningCurrpage=1;
-var isShowScreeningData=false;//是否显示筛选后的数据页面
+var isEditWorkerData=false;//是否显示筛选后的数据页面
 var globalFilterStr = ''//全局筛选条件
-var firstPagination = false;
-var firstScreeningPagination = false;
 
 var regionsArray = [];//所有区域，包含源对象和map对象，索引0是源对象、1是封装后的map对象
 var rolesArray = [];//所有角色，包含源对象和map对象,索引0是源对象、1是封装后的map对象
@@ -152,43 +150,11 @@ $(document).ready(function(){
     //初始化页面table数据，绑定每行响应事件
     function initialData(curr){
 
-        isShowScreeningData = false;
+        globalFilterStr = 'all';
 
-        $.get("/doFindWorkersByPage",{ page: curr},
-            function(data){
-                if(data.result === 'success'){
-                    var pages = data.pages;
-                    var contentArray = data.content;
-                    rolesArray = data.additionalData[1];
-
-                    if(contentArray.length === 0 && currpage > 1){
-                        initialData(currpage - 1);
-                        return;
-                    }
-                    warpHtml(contentArray);
-
-                    laypage({
-                        cont: $('#uzWorkerPage'),
-                        pages: pages,
-                        skip: true,
-                        skin: 'yahei',
-                        curr: curr,//view上显示的页数是索引加1
-                        groups: 5,
-                        hash: false,
-                        jump: function(obj){//一定要加上first的判断，否则会一直刷新
-                            currpage = obj.curr;
-                            if(!firstPagination){
-                                firstPagination = true;
-                            }else{
-                                initialData(obj.curr);
-                                firstPagination = false;
-                            }
-                        }
-                    });
-                }
-            }
-        );
+        screeningWorkers(curr,'all');
     }
+
     initialData(1);//表示第一页
 
     function warpHtml(contentArray){
@@ -247,10 +213,10 @@ $(document).ready(function(){
 
             $('#edit_worker_dlg').modal('show');
             $('#edit_workerDetail_tab a:first').tab('show');
-            var verifiedInfo = this.parentNode.parentNode.cells[4].innerText;
-            $("#verifiedInfo-span").text(verifiedInfo);
+
             curr_edit_workerId = this.parentNode.id;
             var workerHref = this.parentNode.abbr;
+
             /*var isShowBasicInfo = false;
             if(verifiedInfo.indexOf('已经认证') !== -1){
                 isShowBasicInfo = true;
@@ -267,11 +233,13 @@ $(document).ready(function(){
                 //$("#edit_worker_basicInfo").parent().attr("disabled",true);
             }*/
 
-            var workerName = this.parentNode.parentNode.cells[1].innerText;
             var workerPhone = this.parentNode.parentNode.cells[3].innerText;
+            var verifiedInfo = this.parentNode.parentNode.cells[4].innerText;
+            var city = this.parentNode.parentNode.cells[5].innerText + ' ' + this.parentNode.parentNode.cells[6].innerText;
 
-            $("#inputWorkerFullName-readOnly").val(workerName);
             $("#inputWorkerPhone").val(workerPhone);
+            $("#inputWorkerCity").val(city);
+            $("#verifiedInfo-span").text(verifiedInfo);
 
             //获取相应的单个工人详情
             $.get("/doFindWorkerById",
@@ -284,6 +252,8 @@ $(document).ready(function(){
                         return;
                     }
                     workerRolesArray = data.content['category'];
+                    var workerName = data.content['first_name'] + data.content['last_name'];
+                    $("#inputWorkerFullName-readOnly").val(workerName);
                     $("#workerScore").text(data.content['score']);
                     var imgHref = 'http://7xooab.com1.z0.glb.clouddn.com/' + data.content['verify_photo'];
                     $("#showVerifiedPic-img").attr({src:imgHref});
@@ -291,7 +261,6 @@ $(document).ready(function(){
                     $("#review-good-span").text(data.content['review']['good']);
                     $("#review-notBad-span").text(data.content['review']['not_bad']);
                     $("#review-bad-span").text(data.content['review']['bad']);
-                    $("#inputWorkerCity").val(userInfo['city'] +' '+userInfo['regionsValuesArray'].join(","));
                 }
             );
         });
@@ -451,16 +420,15 @@ $(document).ready(function(){
     }
 
 
-    /*$("button[name='close-workerDetailDialog-btn']").click(function(){
-        if(!isShowScreeningData){
-            initialData(currpage);
-        }else{
+    $("button[name='close-workerDetailDialog-btn']").click(function(){
+        if(isEditWorkerData){
             screeningWorkers(currpage,globalFilterStr);
+            isEditWorkerData = false;
         }
-    });*/
+    });
 
     $("#update_workerProfile_btn").click(function(){
-
+        isEditWorkerData = true;
         var imgSrc = $("#imghead").attr("src");
         console.log(imgSrc);
 
@@ -483,7 +451,7 @@ $(document).ready(function(){
 
     });
 
-    function verifiedWorker(idArray,isVerified,msg){
+    /*function verifiedWorker(idArray,isVerified,msg){
 
         console.log(typeof isVerified);
         if(idArray.length === 0){
@@ -505,9 +473,9 @@ $(document).ready(function(){
             );
 
         }
-    }
+    }*/
 
-    $("#verifiedSC-btn").click(function(){
+    /*$("#verifiedSC-btn").click(function(){
         var userIdArray = [];
         $("#edit_worker_table tr").each(function(){
             var text = $(this).children("td:first").find('input').is(':checked');// .text();
@@ -534,12 +502,11 @@ $(document).ready(function(){
 
         verifiedWorker(userIdArray,3,'看不清楚身份证号码...');
 
-    });
+    });*/
 
     function screeningWorkers(cur,filterStr){
 
-        isShowScreeningData = true;
-
+        var firstScreeningPagination = false;
         $.get("/doFindWorkersByFilters",
             {
                 page: 1,
@@ -549,7 +516,9 @@ $(document).ready(function(){
                 if(data.result === 'success'){
                     var pages = data.pages;
                     var contentArray = data.content;
-                    rolesArray = data.additionalData[1];
+                    if(contentArray.length !== 0){
+                        rolesArray = data.additionalData[1];
+                    }
 
                     if(contentArray.length === 0 && screeningCurrpage > 1){
                         screeningWorkers(screeningCurrpage - 1);
@@ -580,7 +549,7 @@ $(document).ready(function(){
         );
     }
 
-    /*$("#exactSearch-btn").click(function(){
+    $("#exactSearch-btn").click(function(){
         var selectObj = $('#keyWord-sel>option:selected');
         var selected = selectObj.get(0).value;
         var keyWords = $('#exactSearch-input').val();
@@ -595,7 +564,7 @@ $(document).ready(function(){
         }
         globalFilterStr = filterStr;
         screeningWorkers(1,filterStr);
-    });*/
+    });
 
     $("#verified-sel").change(function () {
         var selectObj = $('#verified-sel>option:selected');

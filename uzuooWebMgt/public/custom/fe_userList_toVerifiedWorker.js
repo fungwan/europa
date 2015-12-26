@@ -11,7 +11,7 @@ var firstScreeningPagination = false;
 
 var regionsArray = [];//所有区域，包含源对象和map对象，索引0是源对象、1是封装后的map对象
 var rolesArray = [];//所有角色，包含源对象和map对象,索引0是源对象、1是封装后的map对象
-var workerRolesArray = [];//当前选取的工人角色
+
 var curr_edit_workerId = '';
 
 $(document).ready(function(){
@@ -87,21 +87,11 @@ $(document).ready(function(){
         }
 
         //表单每行的编辑
-        /*$(".btn-default.btn-xs").click(function(){
+        $(".btn-default.btn-xs").click(function(){
 
-            $('#edit_worker_dlg').modal('show');
-            $('#edit_workerDetail_tab a:first').tab('show');
-            var verifiedInfo = this.parentNode.parentNode.cells[4].innerText;
-            $("#verifiedInfo-span").text(verifiedInfo);
             curr_edit_workerId = this.parentNode.id;
+            $('#verified_worker_dlg').modal('show');
             var workerHref = this.parentNode.abbr;
-
-            var workerName = this.parentNode.parentNode.cells[1].innerText;
-            var workerPhone = this.parentNode.parentNode.cells[3].innerText;
-
-            $("#inputWorkerFullName-readOnly").val(workerName);
-            $("#inputWorkerPhone").val(workerPhone);
-
             //获取相应的单个工人详情
             $.get("/doFindWorkerById",
                 {
@@ -112,18 +102,16 @@ $(document).ready(function(){
                     if(data.result === 'fail'){
                         return;
                     }
-                    workerRolesArray = data.content['category'];
-                    $("#workerScore").text(data.content['score']);
+                    $("#inputWorkerFirstName-readOnly").val(data.content['first_name']);
+                    $("#inputWorkerLastName-readOnly").val(data.content['last_name']);
+                    $("#inputPhone-readOnly").val(data.content['phone']);
+                    $("#inputCardNumber-readOnly").val(data.content['id_card_no']);
+
                     var imgHref = 'http://7xooab.com1.z0.glb.clouddn.com/' + data.content['verify_photo'];
                     $("#showVerifiedPic-img").attr({src:imgHref});
-                    $("#inputCardNumber-readOnly").val(data.content['id_card_no']);
-                    $("#review-good-span").text(data.content['review']['good']);
-                    $("#review-notBad-span").text(data.content['review']['not_bad']);
-                    $("#review-bad-span").text(data.content['review']['bad']);
-                    $("#inputWorkerCity").val(userInfo['city'] +' '+userInfo['regionsValuesArray'].join(","));
                 }
             );
-        });*/
+        });
     }
 
     function verifiedWorker(idArray,isVerified,msg){
@@ -150,32 +138,21 @@ $(document).ready(function(){
         }
     }
 
-    $("#verifiedSC-btn").click(function(){
+    $("#edit-verifiedSC-btn").click(function(){
         var userIdArray = [];
-        $("#edit_worker_table tr").each(function(){
-            var text = $(this).children("td:first").find('input').is(':checked');// .text();
-            if(text){
-                var id = $(this).children("td").eq(9).attr("id");
-                userIdArray.push(id);
-            }
 
-        });
-
+        userIdArray.push(curr_edit_workerId);
         verifiedWorker(userIdArray,2,'');
     });
 
-    $("#verifiedFA-btn").click(function(){
+    $("#edit-verifiedFA-btn").click(function(){
         var userIdArray = [];
-        $("#edit_worker_table tr").each(function(){
-            var text = $(this).children("td:first").find('input').is(':checked');// .text();
-            if(text){
-                var id = $(this).children("td").eq(9).attr("id");
-                userIdArray.push(id);
-            }
 
-        });
+        userIdArray.push(curr_edit_workerId);
 
-        verifiedWorker(userIdArray,3,'看不清楚身份证号码...');
+        var reason = $("#verifiedFailReason-text").text();
+
+        verifiedWorker(userIdArray,3,reason);
 
     });
 
