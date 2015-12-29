@@ -5,7 +5,7 @@
 var currpage = 1;
 var screeningCurrpage=1;
 var isEditWorkerData=false;//是否显示筛选后的数据页面
-var globalFilterStr = ''//全局筛选条件
+var globalFilterArray = ''//全局筛选条件
 
 var regionsArray = [];//所有区域，包含源对象和map对象，索引0是源对象、1是封装后的map对象
 var rolesArray = [];//所有角色，包含源对象和map对象,索引0是源对象、1是封装后的map对象
@@ -38,7 +38,7 @@ function editRole(index,roleId){
                     selectCraftsHtml += '<input id=\'' + craftsArray[y]['id'] +  '\' type="checkbox" checked/>'
                 }
 
-                selectCraftsHtml += '<label for=\'' + craftsArray[y]['id'] +  '\' >' + rolesArray[1][cId] + '</label>';
+                selectCraftsHtml += '<label for=\'' + craftsArray[y]['id'] +  '\' >' + craftsArray[y]['name'] + '</label>';
             }
 
             selectCraftsHtml += '</div></div>';
@@ -144,18 +144,44 @@ function editRole(index,roleId){
 $(document).ready(function(){
 
     $("#worker").on('click',function (e) {
-        //alert('工人');
     });
 
-    //初始化页面table数据，绑定每行响应事件
+    $.getJSON("/doGetRoleAndRegionsInfo",function(data){
+
+        if(data.result === 'fail'){
+            return;
+        }else{
+            var regionsAndRolesArray = data.content.get_roleAndRegions;
+            regionsArray = regionsAndRolesArray[0];
+            rolesArray = regionsAndRolesArray[1];
+
+            //初始化城市区域控件,包含所有省份组
+            var originalRegions = regionsArray[0];
+            for(x in originalRegions){
+                $("#province-sel").append("<option value=\""+originalRegions[x].id+"\">"+regionsArray[1][originalRegions[x].id].name+"</option>");
+            }
+
+            //初始化角色控件,包含所有第一级工种
+            var originalRoles = rolesArray[0];
+            for(y in originalRoles){
+                $("#roles-sel").append("<option value=\""+originalRoles[y].id+"\">"+originalRoles[y].name+"</option>");
+            }
+
+            $("#verifedStates-div").append("认证状态 : <input id=\"workerVerified-0\" value=\"0\" type=\"checkbox\" /><label >未认证</label>");
+            $("#verifedStates-div").append("<input id=\"workerVerified-1\" value=\"1\" type=\"checkbox\" /><label >待认证</label>");
+            $("#verifedStates-div").append("<input id=\"workerVerified-2\" value=\"2\" type=\"checkbox\" /><label >已认证</label>");
+            $("#verifedStates-div").append("<input id=\"workerVerified-3\" value=\"3\" type=\"checkbox\" /><label >驳回认证</label>");
+
+            initialData(1);//表示第一页
+        }
+    });
+
+
     function initialData(curr){
 
-        globalFilterStr = 'all';
-
-        screeningWorkers(curr,'all');
+        globalFilterArray = ['all'];
+        screeningWorkers(curr,['all']);
     }
-
-    initialData(1);//表示第一页
 
     function warpHtml(contentArray){
 
@@ -176,13 +202,23 @@ $(document).ready(function(){
                 verifiedValue = '<span class="label label-sm label-primary">' + '认证驳回</span>';
             }
 
-
+            var workerDetailLink = userInfo['href'];
+            var pos = workerDetailLink.lastIndexOf('/');
+            var workerId = workerDetailLink.substr(pos+1);
             var identification  = userInfo['id_card_no'];
             var verify_photo = 'http://7xooab.com1.z0.glb.clouddn.com/' + userInfo['verify_photo'];
             var fullName = userInfo['first_name'] + userInfo['last_name'];
             var username = userInfo['username'];
-            var regionsValue = userInfo['regionsValuesArray'].join(",");
-            var rolesArray = userInfo['rolesValuesArray'];//.join(",");
+
+            var originalRegionsArray = userInfo['regions'];
+            var regionsStr = '';
+            var cityStr = '';
+
+            var regionsMap = regionsArray[1];
+            for(x in originalRegionsArray){
+                regionsStr += regionsMap[originalRegionsArray[x]]['name'] + ' ';
+                cityStr = regionsMap[originalRegionsArray[x]]['parent'];
+            }
 
             var trHtml = '<tr>';
             trHtml += '<td><input type="checkbox" class="checkbox" /></td>';
@@ -190,18 +226,20 @@ $(document).ready(function(){
             trHtml += '<td>' + identification +'</td>';//身份证号
             trHtml += '<td>' + userInfo['phone'] +'</td>';//联系方式
             trHtml += '<td>'+ verifiedValue + '</td>';//审核状态
-            trHtml += '<td>'+ userInfo['city'] + '</td>';//城市
-            //trHtml += '<td><img src=\"' + verify_photo + '\" width="35px" height="35px"></td>';
-            trHtml += '<td>' + regionsValue + '</td>';//区域
-            if(rolesArray[0] === undefined)
+            trHtml += '<td>'+ cityStr + '</td>';//城市
+            trHtml += '<td>' + regionsStr + '</td>';//区域
+
+            var originalCategoryArray = userInfo['categories'];
+            var rolesMap = rolesArray[1];
+            if(originalCategoryArray[0] === undefined)
                 trHtml += '<td></td>';
             else
-                trHtml += '<td>' + rolesArray[0] +'</td>';//第一工种
-            if(rolesArray[1] === undefined)
+                trHtml += '<td>' + rolesMap[originalCategoryArray[0]['role_id']] +'</td>';//第一工种
+            if(originalCategoryArray[1] === undefined)
                 trHtml += '<td></td>';
             else
-                trHtml += '<td>' + rolesArray[1] +'</td>';//第二工种
-            trHtml += '<td id=\'' + userInfo['workerId'] + '\' abbr=' + userInfo['href'] + '>';
+                trHtml += '<td>' + rolesMap[originalCategoryArray[1]['role_id']] +'</td>';//第二工种
+            trHtml += '<td id=\'' + workerId + '\' abbr=' + userInfo['href'] + '>';
             trHtml += '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 更多</button>&nbsp;';
             trHtml += '</td></tr>';
 
@@ -268,7 +306,7 @@ $(document).ready(function(){
         $('#edit_workerDetail_tab a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
             // 获取先前选项卡的名称
-            var previousTab = $(e.relatedTarget).text();
+            //var previousTab = $(e.relatedTarget).text();
 
             // 获取已激活选项卡的名称
             var activeTab = $(e.target).text();
@@ -277,16 +315,30 @@ $(document).ready(function(){
                 var showRolesHtml = '';
                 for( x in workerRolesArray){
                     var id = workerRolesArray[x]['role_id'];
-//                    if(workerRolesArray[x]['role_name'] !== undefined){
-//                        delete workerRolesArray[x]['role_name'];
-//                    }
                     showRolesHtml += '<div class="col-md-6">';
                     showRolesHtml += '<input type="text" class="form-control" value="' + workerRolesArray[x]['role_name'] + '" disabled>';
                     showRolesHtml += '<button type="button"  onclick="editRole(' + x + ',\'' + workerRolesArray[x]['role_id'] +'\'' +')' +"\"><i class=\"fa fa-edit\"></i></button>";
                     showRolesHtml += '</div>'
                 }
                 $("#showRoles").append(showRolesHtml);
-            }
+            }else if(activeTab === '账户信息'){
+                //获取相应的单个专业版的个人账户信息
+                $.get("/doGetCapitalAccountById",
+                    {
+                        id:curr_edit_workerId
+                    }
+                    ,function(data){
+                        if(data.result === 'success'){
+                            var workerAccountObj = data.content;
+                            var balance = workerAccountObj.balance / 100;
+                            var mBalance = workerAccountObj.margin_balance;
+                            $("#balance-span").text(balance);//余额
+                            $("#systemMarginBalance-span").text(mBalance.system / 100);
+                            $("#ownMarginBalance-span").text(mBalance.owns / 100);
+                        }
+                    }
+                )
+             }
         });
 
         $("#edit-verifiedSC-btn").click(function(){
@@ -422,7 +474,7 @@ $(document).ready(function(){
 
     $("button[name='close-workerDetailDialog-btn']").click(function(){
         if(isEditWorkerData){
-            screeningWorkers(currpage,globalFilterStr);
+            screeningWorkers(currpage,globalFilterArray);
             isEditWorkerData = false;
         }
     });
@@ -504,21 +556,18 @@ $(document).ready(function(){
 
     });*/
 
-    function screeningWorkers(cur,filterStr){
+    function screeningWorkers(cur,filterArray){
 
         var firstScreeningPagination = false;
         $.get("/doFindWorkersByFilters",
             {
                 page: 1,
-                filters:filterStr
+                filters:filterArray
             },
             function(data){
                 if(data.result === 'success'){
                     var pages = data.pages;
                     var contentArray = data.content;
-                    if(contentArray.length !== 0){
-                        rolesArray = data.additionalData[1];
-                    }
 
                     if(contentArray.length === 0 && screeningCurrpage > 1){
                         screeningWorkers(screeningCurrpage - 1);
@@ -539,7 +588,7 @@ $(document).ready(function(){
                             if(!firstScreeningPagination){
                                 firstScreeningPagination = true;
                             }else{
-                                screeningWorkers(obj.curr,filterStr);
+                                screeningWorkers(obj.curr,filterArray);
                                 firstScreeningPagination = false;
                             }
                         }
@@ -562,8 +611,116 @@ $(document).ready(function(){
         }else if(selected === 'name'){
             filterStr = 'name::' + keyWords;
         }
-        globalFilterStr = filterStr;
-        screeningWorkers(1,filterStr);
+
+        var arrayTmp = [];
+        arrayTmp.push(filterStr);
+
+        globalFilterArray = arrayTmp;
+        screeningWorkers(1,arrayTmp);
+    });
+
+    $("#more_find_link").click(function(){
+        if(this.parentNode.attributes['0']['value'] === '0'){
+            this.innerHTML = '精简筛选条件<i class="fa fa-sort-asc"></i>';
+            $("#more_find_div").css({"display":"block"});
+            this.parentNode.attributes['0']['value'] = '1';
+        }else{
+            $("#more_find_div").css({"display":"none"});
+            this.parentNode.attributes['0']['value'] = '0';
+            this.innerHTML = '更多搜索条件<i class="fa fa-sort-desc"></i>';
+        }
+    });
+
+    $("#screen-btn").click(function(){
+
+        //获取所有的筛选条件
+        var filterStr = '';
+
+        //获取选取的城市
+        var selectedCity='';
+        var regionsStr = '';
+        var selectObj = $('#city_sel>option:selected');
+        if(selectObj.get(0) !== undefined && selectObj.get(0).value !== ''){
+            selectedCity = selectObj.get(0).value;
+            //TODO
+            //console.log(selectedCity);
+
+            //获取选取的区域
+            var regionsFlag = false;
+            $("#regions-div > input").each(function(index,$this){
+                if($this.checked){
+                    regionsFlag = true;
+                    regionsStr += $this.id;
+                    regionsStr += '|'
+                }
+            });
+
+            if(regionsFlag){
+                regionsStr = regionsStr.substr(0,regionsStr.length-1);
+                regionsStr = 'regions::' + regionsStr;
+            }
+        }
+
+        //获取选取的大工种
+        var selectedRole = '';
+        var craftsStr = '';
+        var selectRoleObj = $('#roles-sel>option:selected');
+        if(selectRoleObj.get(0).value !== ''){
+            selectedRole = selectRoleObj.get(0).value;
+            selectedRole = 'roles::' + selectedRole;
+
+            //获取选取的工种细项
+            craftsStr = '';
+            var craftsFlag = false;
+            $("#crafts-div > input").each(function(index,$this){
+                if($this.checked){
+                    craftsFlag = true;
+                    craftsStr += $this.id;
+                    craftsStr += '|'
+                }
+            });
+            if(craftsFlag){
+                craftsStr = craftsStr.substr(0,craftsStr.length-1);
+                craftsStr = 'crafts::' + craftsStr;
+            }
+        }
+
+        //获取选取的认证状态
+        var verifiedStr = '';
+        $("#verifedStates-div > input").each(function(index,$this){
+            if($this.checked){
+                verifiedStr += $this.value;
+                verifiedStr += '|';
+            }
+        });
+        verifiedStr = verifiedStr.substr(0,verifiedStr.length-1);
+        verifiedStr = 'verified::' + verifiedStr;
+
+        var arrayTmp = [];
+        //将所有筛选条件组合
+        if(selectedCity !== ''){
+            //arrayTmp.push(selectedCity);
+        }
+
+        if(regionsStr !== ''){
+            arrayTmp.push(regionsStr);
+        }
+
+        if(selectedRole !== ''){
+            arrayTmp.push(selectedRole);
+        }
+
+        if(craftsStr !== ''){
+            arrayTmp.push(craftsStr);
+        }
+
+        if(verifiedStr !== ''){
+            arrayTmp.push(verifiedStr);
+        }
+
+        globalFilterArray = arrayTmp;
+        console.log(globalFilterArray);
+        screeningWorkers(1,arrayTmp);
     });
 
     $("#verified-sel").change(function () {
@@ -575,154 +732,73 @@ $(document).ready(function(){
         }else{
             filterStr = 'verified::' + selected;
         }
-        globalFilterStr = filterStr;
-        screeningWorkers(1,filterStr);
+        var arrayTmp = [];
+        arrayTmp.push(filterStr);
+
+        globalFilterArray = arrayTmp;
+        screeningWorkers(1,arrayTmp);
     });
 
+    $("#province-sel").change(function () {
+        var province = $("#province-sel").val();
+        if(province === ''){
+            $("#city_sel").empty();
+            $("#regions-div").empty();
+            return;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    //These code have been abolished....
-    //处理可编辑列表
-    oTable = $('#edit_worker_table').dataTable({
-          "paginate": false,
-          "sort": false,
-          "searching":false,
-          "pageLength":false,
-          "pagingType":false,
-          "info":false
-    });
-
-    var nEditing = null;
-
-    $('#edit_worker_table').on('click', 'a.edit', function (e) {
-        e.preventDefault();
-        var nRow = $(this).parents('tr')[0];
-        if (nEditing !== null && nEditing != nRow) {
-            rollbackRow(oTable, nEditing);
-            editRow(oTable, nRow);
-            nEditing = nRow;
-        } else if (nEditing == nRow && this.innerHTML == "保存") {
-            saveRow(oTable, nEditing);
-            nEditing = null;
-        } else {
-            editRow(oTable, nRow);
-            nEditing = nRow;
+        var citiesArray = regionsArray[1][province]['children'];
+        $("#city_sel").append("<option value=\""+"\">"+"-- 请选择城市  --"+"</option>");
+        for(x in citiesArray){
+            $("#city_sel").append("<option value=\""+citiesArray[x].id+"\">"+citiesArray[x].name+"</option>");
         }
     });
 
-    function editRow(oTable, nRow) {
+    $("#city_sel").change(function () {
+        var cities = $("#city_sel").val();
+        if(cities === ''){
+            $("#regions-div").empty();
+            return;
+        }
+        var regionsMapTmp = regionsArray[1];
+        var reObj = regionsMapTmp[cities];
+        var reArray = reObj['children'];
 
-        //ajax get cell work info
-        var aData = oTable.fnGetData(nRow);
-        var rTds = $('>td', nRow);
-        rTds[1].innerHTML = '<input type="text" style="width:90px" value="' + aData[1] + '">';
-        rTds[2].innerHTML = '<input type="text" style="width:90px" value="' + aData[2] + '">';
-        rTds[4].innerHTML = '<input type="text" style="width:60px" value="' + aData[4] + '">';
-        rTds[5].innerHTML = '<input type="text" style="width:90px" value="'  + aData[5] + '">';
-        rTds[6].innerHTML = '<input type="text" style="width:90px" value="'  + aData[6] + '">';
-
-        var oldString = aData[7];
-        var statusStartPos = oldString.indexOf('>');
-        var statusEndPos = oldString.lastIndexOf('<');
-        var statusStr = oldString.substring(statusStartPos+1,statusEndPos);
-
-        if(statusStr === '未审核'){
-            rTds[7].innerHTML = '<select><option selected>未审核</option><option>审核失败</option><option>已通过</option></select>';
-        }else if(statusStr === '审核失败'){
-            rTds[7].innerHTML = '<select><option>未审核</option><option selected>审核失败</option><option>已通过</option></select>';
-        }else if(statusStr === '已通过'){
-            rTds[7].innerHTML = '<select><option>未审核</option><option>审核失败</option><option selected>已通过</option></select>';
+        var regionsHtml = '';
+        for(x in reArray){
+            var rId = reArray[x]['id'];
+            var rName = reArray[x]['name'];
+            regionsHtml += '<input id=\'' + rId +  '\' type="checkbox" />'
+            regionsHtml += '<label for=\'' + rId +  '\' >' + rName+ '</label>';
         }
 
-        rTds[8].innerHTML = '<a class="edit" href="">保存</a><a class="cancel" href="">取消</a>';
-    }
-
-    function saveRow(oTable, nRow) {
-        var rSelect = $('select', nRow);
-        var rInputs = $('input', nRow);
-        var rTds = $('>td', nRow);
-        rTds[1].innerHTML = rInputs[1].value;
-        rTds[2].innerHTML = rInputs[2].value;
-        rTds[4].innerHTML = rInputs[3].value;
-        rTds[5].innerHTML = rInputs[4].value;
-        rTds[6].innerHTML = rInputs[5].value;
-        if(rSelect[0].value === '未审核'){
-            rTds[7].innerHTML = '<span class="label label-sm label-info">未审核</span>';
-        }else if(rSelect[0].value === '审核失败'){
-            rTds[7].innerHTML = '<span class="label label-sm label-primary">审核失败</span>';
-        }else if(rSelect[0].value === '已通过'){
-            rTds[7].innerHTML = '<span class="label label-sm label-success">已通过</span>';
-        }
-        rTds[8].innerHTML = '<a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;<a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>';
-
-        oTable._fnReDraw();
-    }
-
-//    $('#edit_worker_table').on('click', 'a.delete', function (e) {
-//        e.preventDefault();
-//        if (confirm("Are you sure to delete this row ?") == false) {
-//            return;
-//        }
-//        var nRow = $(this).parents('tr')[0];
-//        oTable.fnDeleteRow(nRow);
-//    });
-
-    $('#edit_worker_table').on('click', 'a.cancel', function (e) {
-        e.preventDefault();
-        if ($(this).attr("data-mode") == "new") {
-            var nRow = $(this).parents('tr')[0];
-            oTable.fnDeleteRow(nRow);
-        } else {
-            rollbackRow(oTable, nEditing);
-            nEditing = null;
-        }
+        $("#regions-div").append(regionsHtml);
     });
 
-    function rollbackRow(oTable, nRow) {
-        var aData = oTable.fnGetData(nRow);
-        var rTds = $('>td', nRow);
-        rTds[1].innerHTML = aData[1] ;
-        rTds[2].innerHTML = aData[2] ;
-        rTds[4].innerHTML = aData[4] ;
-        rTds[5].innerHTML = aData[5] ;
-        rTds[6].innerHTML = aData[6] ;
-        rTds[7].innerHTML = aData[7] ;
-        rTds[8].innerHTML = '<a href="javascript:;" class="edit"><i class="fa fa-edit"></i>&nbsp; 编辑</a>&nbsp;<a href="javascript:;" class="more"><i class="fa fa-ellipsis-h"></i>&nbsp; 更多</a>';
-        oTable.fnDraw();
-    }*/
+    $("#roles-sel").change(function () {
+        var rolesId = $("#roles-sel").val();
+        if(rolesId === ''){
+            $("#crafts-div").empty();
+            return;
+        }
+
+        var craftsHtml = '细项：';
+        var originalRoles = rolesArray[0];
+        for(index in originalRoles){
+            if(originalRoles[index].id === rolesId){
+                var crafties = originalRoles[index].crafts;
+                for(z in crafties){
+                    var cId = crafties[z]['id'];
+                    var cName = crafties[z]['name'];
+                    craftsHtml += '<input id=\'' + cId +  '\' type="checkbox" />'
+                    craftsHtml += '<label for=\'' + cId +  '\' >' + cName+ '</label>';
+                }
+
+                break;
+            }
+        }
+
+        $("#crafts-div").append(craftsHtml);
+    });
 });
 

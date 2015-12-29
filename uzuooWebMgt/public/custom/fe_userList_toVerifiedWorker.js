@@ -5,7 +5,7 @@
 var currpage = 1;
 var screeningCurrpage=1;
 var isShowScreeningData=false;//是否显示筛选后的数据页面
-var globalFilterStr = ''//全局筛选条件
+var globalFilterArray = ''//全局筛选条件
 var firstPagination = false;
 var firstScreeningPagination = false;
 
@@ -23,7 +23,7 @@ $(document).ready(function(){
 
         $.get("/doFindWorkersByFilters",{
                 page: curr,
-                filters:'verified::1'
+                filters:['verified::1']
             },
             function(data){
                 if(data.result === 'success'){
@@ -71,9 +71,6 @@ $(document).ready(function(){
             var verify_photo = 'http://7xooab.com1.z0.glb.clouddn.com/' + userInfo['verify_photo'];
             var fullName = userInfo['first_name'] + userInfo['last_name'];
             var username = userInfo['username'];
-            var regionsValue = userInfo['regionsValuesArray'].join(",");
-            var rolesArray = userInfo['rolesValuesArray'];//.join(",");
-
             var trHtml = '<tr>';
             trHtml += '<td><input type="checkbox" class="checkbox" /></td>';
             trHtml += '<td>' + fullName +'</td>';//真实姓名
@@ -169,7 +166,7 @@ $(document).ready(function(){
         }else if(selected === 'name'){
             filterStr = 'name::' + keyWords;
         }
-        globalFilterStr = filterStr;
+        globalFilterArray = filterStr;
         screeningWorkers(1,filterStr);
     });*/
 });

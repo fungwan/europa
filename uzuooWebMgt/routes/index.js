@@ -119,6 +119,10 @@ module.exports = function(app,acl) {
 
     //action for ajax request about app
 
+    app.get('/doGetRoleAndRegionsInfo', function (req, res) {
+        customer.getRoleAndRegions(req,res);
+    });
+
     app.get('/doFindWorkersByPage', function (req, res) {
         customer.findWorkersByPage(req,res);
     });
@@ -145,6 +149,10 @@ module.exports = function(app,acl) {
 
     app.post('/doChangeWorkerRole', function (req, res) {
         customer.changeWorkerRole(req,res);
+    });
+
+    app.get('/doGetCapitalAccountById', function (req, res) {
+        customer.getCapitalAccountById(req,res);
     });
 };
 

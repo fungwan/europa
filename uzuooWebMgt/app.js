@@ -34,7 +34,9 @@ app.use(session({
     store: new MongoStore({
         db: settings.db,
         host: settings.host,
-        port: settings.port
+        port: settings.port,
+        username:settings.username,
+        password:settings.password
     }),
     resave: false,
     saveUninitialized: true
@@ -42,7 +44,7 @@ app.use(session({
 
 
 var mongodb = require('mongodb');
-mongodb.connect("mongodb://127.0.0.1:27017/UZUOO-WEB-Service", function(error, db) {
+mongodb.connect("mongodb://adminWeb:uzuooweb123@121.196.226.183:27017/UZUOO-WEB-Service", function(error, db) {//mongodb://username:password@ip:port/dbName
     var mongoBackend = new acl.mongodbBackend(db, 'acl_');
     acl = new acl(mongoBackend);
 

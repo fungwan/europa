@@ -36,6 +36,9 @@ exports.get = function(optionItem,cb){
         res.setEncoding('utf8');
         res.on('data', function(data) {
             var resultData = jsonConvert.stringToJson(data);
+            if(resultData === null){
+                return cb('json format wrong...','');
+            }
             if(resultData['status'] === undefined){
                 return cb(null,data);
             }else{

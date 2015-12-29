@@ -4,9 +4,13 @@
 exports.mongodb = {
     cookieSecret: 'uzuooWebServiceDb',
     db: 'UZUOO-WEB-Service',
-    host: 'localhost',
-    port: 27017
+    host: '121.196.226.183',
+    port: 27017,
+    username:'adminWeb',
+    password:'uzuooweb123'
 };
+
+exports.mongodbConnectUrl = 'mongodb://adminWeb:uzuooweb123@121.196.226.183:27017/';
 
 exports.bmpMgtIpAddr = '127.0.0.1';
 exports.bmpMgtPortAddr = 3000;

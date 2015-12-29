@@ -347,7 +347,8 @@ exports.findWorkerById = function(req,res){
 
 exports.findWorkersByFilters = function(req,res){
     var currPage = req.query.page - 1;
-    var filters = req.query.filters;
+    var filterArray = req.query.filters;
+    var filters = filterArray.join(",");
 
     async.auto(
         {
@@ -361,12 +362,12 @@ exports.findWorkersByFilters = function(req,res){
                     }
                 });
             },
-            get_roleAndRegions:['get_token',function(callback,results){
+            /*get_roleAndRegions:['get_token',function(callback,results){
 
                 var token = results.get_token;
 
                 getroleAndRegions(token,callback);
-            }],
+            }],*/
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
@@ -376,7 +377,7 @@ exports.findWorkersByFilters = function(req,res){
 
                 request.get(optionItem,callback);
             }],
-            get_currPage: ['get_token','get_roleAndRegions',function (callback,results) {
+            get_currPage: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
                 var skipValue = currPage * 10;
@@ -415,9 +416,13 @@ exports.findWorkersByFilters = function(req,res){
 
                 //第一页用户数组
                 var workerArray = jsonConvert.stringToJson(results.get_currPage)['workers'];
+                res.json({ result: 'success',
+                    pages:pageCounts,
+                    content:workerArray});
+
                 var workerArrayEx = [];
 
-                var regionsAndRolesArray = results.get_roleAndRegions;
+                /*var regionsAndRolesArray = results.get_roleAndRegions;
                 if(regionsAndRolesArray.length === 0){
                     res.json({ result: 'fail',
                         pages:1,
@@ -461,10 +466,11 @@ exports.findWorkersByFilters = function(req,res){
                     workerArrayEx.push(item);
                 }
 
-                res.json({ result: 'success',
-                    pages:pageCounts,
-                    content:workerArrayEx,
-                    additionalData:regionsAndRolesArray});
+                 res.json({ result: 'success',
+                 pages:pageCounts,
+                 content:workerArrayEx,
+                 additionalData:regionsAndRolesArray});*/
+
             }
         }
     );
@@ -644,12 +650,21 @@ function getroleAndRegions(token,callback){
                 var provincesArray = jsonConvert.stringToJson(data)['provinces'];
                 for(y in provincesArray){
 
-                    regionsMap[provincesArray[y]['id']] = provincesArray[y]['name'];
+                    //regionsMap[provincesArray[y]['id']] = provincesArray[y]['name'];//if it is sichuan
+                    var tmp2Obj = {};
+                    tmp2Obj['name'] = provincesArray[y]['name'];
+                    regionsMap[provincesArray[y]['id']] = tmp2Obj;
+                    regionsMap[provincesArray[y]['id']]['children'] = provincesArray[y]['cities'];
+
                     var citiesArray = provincesArray[y]['cities'];
                     for(z in citiesArray){
 
                         //取到城市组
-                        regionsMap[citiesArray[z]['id']] = citiesArray[z]['name'];
+                        var tmp4Obj = {};
+                        tmp4Obj['name'] = citiesArray[z]['name'];
+                        regionsMap[citiesArray[z]['id']] = tmp4Obj;
+                        regionsMap[citiesArray[z]['id']]['children'] = citiesArray[z]['regions'];
+
                         var regionsArray = citiesArray[z]['regions'];
 
                         //取到区域
@@ -659,6 +674,7 @@ function getroleAndRegions(token,callback){
                             var tmpObj = {};
                             tmpObj['name'] = regionsArray[index]['name'];
                             tmpObj['parent'] = citiesArray[z]['name'];
+
                             regionsMap[regionsArray[index]['id']] = tmpObj;//取到区域
                         }
                     }
@@ -718,6 +734,72 @@ function getroleAndRegions(token,callback){
     });
 }
 
+exports.getRoleAndRegions = function(req,res){
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_roleAndRegions: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+
+                getroleAndRegions(token, callback);
+            }]
+        },function(err,result){
+            if(err === null){
+                res.json({
+                    result: 'success',
+                    content: result})
+            }else{
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+exports.getCapitalAccountById = function(req,res){
+    var workerId = req.query.id;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_capitalAccount:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/v1/capitalAccount/' + workerId +'?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var capitalAccountInfo = jsonConvert.stringToJson(results.get_capitalAccount);
+                res.json({ result: 'success',
+                    content:capitalAccountInfo});
+            }else{
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+}
 //exports.findUserByName = function(req,res){
 //
 //    var username = req.query.username;
