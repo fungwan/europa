@@ -44,7 +44,7 @@ app.use(session({
 
 
 var mongodb = require('mongodb');
-mongodb.connect("mongodb://adminWeb:uzuooweb123@121.196.226.183:27017/UZUOO-WEB-Service", function(error, db) {//mongodb://username:password@ip:port/dbName
+mongodb.connect(settings.url, function(error, db) {//mongodb://username:password@ip:port/dbName
     var mongoBackend = new acl.mongodbBackend(db, 'acl_');
     acl = new acl(mongoBackend);
 

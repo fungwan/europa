@@ -292,10 +292,13 @@ $(document).ready(function(){
                     workerRolesArray = data.content['category'];
                     var workerName = data.content['first_name'] + data.content['last_name'];
                     $("#inputWorkerFullName-readOnly").val(workerName);
+                    $("#inputWorkerFirstName").val(data.content['first_name']);
+                    $("#inputWorkerLastName").val(data.content['last_name']);
                     $("#workerScore").text(data.content['score']);
                     var imgHref = 'http://7xooab.com1.z0.glb.clouddn.com/' + data.content['verify_photo'];
                     $("#showVerifiedPic-img").attr({src:imgHref});
                     $("#inputCardNumber-readOnly").val(data.content['id_card_no']);
+                    $("#inputCardNumber").val(data.content['id_card_no']);
                     $("#review-good-span").text(data.content['review']['good']);
                     $("#review-notBad-span").text(data.content['review']['not_bad']);
                     $("#review-bad-span").text(data.content['review']['bad']);
@@ -415,8 +418,8 @@ $(document).ready(function(){
         //图片上传预览
         function previewImage(file)
         {
-            var MAXWIDTH  = 260;
-            var MAXHEIGHT = 180;
+            var MAXWIDTH  = 256;
+            var MAXHEIGHT = 256;
             var div = document.getElementById('preview');
             if (file.files && file.files[0])
             {

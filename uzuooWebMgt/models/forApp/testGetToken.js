@@ -8,12 +8,12 @@ var jsonConvert = require('../../lib/jsonFormat.js');
 var async = require('async');
 
 var _token = '';
-tokenMgt.getToken(function(err,token){
-    if(err === null){
-        console.log(token);
-        _token = token;
-    }
-});
+//tokenMgt.getToken(function(err,token){
+//    if(err === null){
+//        console.log(token);
+//        _token = token;
+//    }
+//});
 
 
 //tokenMgt.getToken(function(err,token){
@@ -23,10 +23,10 @@ tokenMgt.getToken(function(err,token){
 //});
 
 
-var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTMwOTA3MjMsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.Spow1TJPgNgO2iaDyibzoh6FnHbCWoC_kqW7wE-ukrE';
+var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTQwNDg1MzMsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.Z3vCCKxsBd5QO361hwB2mOut-WhI9cF43ll3Sfyfgao';
 
 //获取工人信息
-var path = '/v1/workers?'+'accessToken=' + token + '&filter=all'+'&limit=10&offset=0';//verified::0
+var path = '/v1/workers?'+'accessToken=' + _token + '&filter=all';//+'&limit=10&offset=0';//verified::0
 
 //获取业主信息
 var path2 = '/v1/houseOwners?'+'accessToken=' + token + '&filter='+'all';//+'&limit=10&offset=0';
@@ -37,129 +37,6 @@ optionItem['path'] = path;
 var optionItem1 = {};
 optionItem1['path'] = path2;
 
-/*request.get(optionItem,function(err,data){
-
-    if(err){
-
-        console.log(err);
-
-    }else{
-
-        console.log(data);
-
-        var workerArray = jsonConvert.stringToJson(data)['workers'];//包含每一个工人的信息 ok
-        var workerArrayEx = [];
-
-        var counts = 0;
-        for(x in workerArray){
-
-            var workerItemObj = workerArray[x];
-            async.parallel([
-                //找施工区域
-                function(cb) {
-                    var regionsIdArray = workerArray[x]['regions'];
-
-                    var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
-                    var regionsItem = {};
-                    regionsItem['path'] = regionsPath;
-
-                    //通过国家Get所有省份
-                    request.get(regionsItem,function(err,data){
-
-                        if(err !== null){
-                            cb(err,[]);
-                            return;
-                        }
-
-                        //取到省份组，并遍历省份组
-                        var provincesArray = jsonConvert.stringToJson(data)['provinces'];
-                        for(y in provincesArray){
-
-                            //取到城市组，并遍历城市组
-                            var citiesArray = provincesArray[y]['cities'];
-                            for(z in citiesArray){
-
-                                //取到区域组
-                                var regionsArray = citiesArray[z]['regions'];
-
-                                //遍历区域组,根据对应id找到相应区域
-
-                                var regionsNameArray = [];
-                                for(index in regionsArray){
-                                    if(regionsIdArray.indexOf(regionsArray[index]['id'] ) > -1){
-
-                                        regionsNameArray.push(regionsArray[index]['name']);
-                                    }
-                                }
-                            }
-                        }
-
-                        cb(null,regionsNameArray);
-
-                    });
-                },
-
-                //找到工人对应角色
-                function(cb) {
-                    //取到角色组,它里面为对象数组
-                    var categoriesObjArray = workerArray[x]['categories'];
-                    var categoriesArray = [];
-                    for(h in categoriesObjArray){
-                        var tempId = categoriesObjArray[h]['role_id'];
-                        categoriesArray.push(tempId);
-                    }
-                    var roleArray = [];
-                    var rolePath = '/v1/workers/roles?'+'accessToken=' + token;
-
-                    var roleItem = {};
-                    roleItem['path'] = rolePath;
-
-                    //获取所有角色组
-                    request.get(roleItem,function(err,data){
-                        if(err !== null){
-                            cb(err,[]);
-                            return;
-                        }
-
-                        var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
-                        for(x in array){
-                            var roleItem = array[x];
-
-                            var id = roleItem['id'];
-                            if(categoriesArray.indexOf(id)>-1){//存在
-                                roleArray.push(roleItem['name']);
-                            }
-                        }
-
-                        cb(null,roleArray);
-                    });
-                },
-                //找到工人对应全名
-                function(cb){
-
-                }
-            ], function (err, results) {
-                ++counts;
-                if(!err) {
-                    var regionsArray = results[0];
-                    var rolesArray = results[1];
-                    workerItemObj['regionsValuesArray'] = regionsArray;
-                    workerItemObj['rolesValuesArray'] = rolesArray;
-                    //将每一项整理好的worker再push到worksArray
-                    workerArrayEx.push(workerItemObj);
-                    if(counts === workerArray.length){
-                        console.log(workerArrayEx);
-                    }
-
-                }else{
-                    console.error('err: ', err);
-                }
-
-            });
-
-        }
-    }
-});*/
 
 //var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
 //var regionsItem = {};
@@ -250,21 +127,151 @@ var bodyString4 = JSON.stringify(content4);
 
 
 //通知工人
-var postPath5 = '/v1/workers/' + accountID +'/verificationStatus?accessToken=' + token ;
+var fengyunId = 'a4789e6f-dab4-40a4-a8bd-745e9a85fa92';
+var postPath5 = '/v1/workers/' + fengyunId +'/verification?accessToken=' + token ;
 var optionItem6 = {};
 optionItem6['path'] = postPath5;
 
 var content5 = {
-    verified:'1'
+    first_name:'张',
+    last_name:'国荣',
+    id_card_no:'3232',
+    verify_photo:'fdasfsd'
 };
 
 var bodyString5 = JSON.stringify(content5);
 
-//request.post(optionItem6,bodyString5,function(err,data){
-//
-//    if(err){
-//        console.log(err);
-//    }else{
-//        console.log(data);
-//    }
-//});
+request.post(optionItem6,bodyString5,function(err,data){
+
+    if(err){
+        console.log(err);
+    }else{
+        console.log(data);
+    }
+});
+
+
+
+/*request.get(optionItem,function(err,data){
+
+ if(err){
+
+ console.log(err);
+
+ }else{
+
+ console.log(data);
+
+ var workerArray = jsonConvert.stringToJson(data)['workers'];//包含每一个工人的信息 ok
+ var workerArrayEx = [];
+
+ var counts = 0;
+ for(x in workerArray){
+
+ var workerItemObj = workerArray[x];
+ async.parallel([
+ //找施工区域
+ function(cb) {
+ var regionsIdArray = workerArray[x]['regions'];
+
+ var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
+ var regionsItem = {};
+ regionsItem['path'] = regionsPath;
+
+ //通过国家Get所有省份
+ request.get(regionsItem,function(err,data){
+
+ if(err !== null){
+ cb(err,[]);
+ return;
+ }
+
+ //取到省份组，并遍历省份组
+ var provincesArray = jsonConvert.stringToJson(data)['provinces'];
+ for(y in provincesArray){
+
+ //取到城市组，并遍历城市组
+ var citiesArray = provincesArray[y]['cities'];
+ for(z in citiesArray){
+
+ //取到区域组
+ var regionsArray = citiesArray[z]['regions'];
+
+ //遍历区域组,根据对应id找到相应区域
+
+ var regionsNameArray = [];
+ for(index in regionsArray){
+ if(regionsIdArray.indexOf(regionsArray[index]['id'] ) > -1){
+
+ regionsNameArray.push(regionsArray[index]['name']);
+ }
+ }
+ }
+ }
+
+ cb(null,regionsNameArray);
+
+ });
+ },
+
+ //找到工人对应角色
+ function(cb) {
+ //取到角色组,它里面为对象数组
+ var categoriesObjArray = workerArray[x]['categories'];
+ var categoriesArray = [];
+ for(h in categoriesObjArray){
+ var tempId = categoriesObjArray[h]['role_id'];
+ categoriesArray.push(tempId);
+ }
+ var roleArray = [];
+ var rolePath = '/v1/workers/roles?'+'accessToken=' + token;
+
+ var roleItem = {};
+ roleItem['path'] = rolePath;
+
+ //获取所有角色组
+ request.get(roleItem,function(err,data){
+ if(err !== null){
+ cb(err,[]);
+ return;
+ }
+
+ var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
+ for(x in array){
+ var roleItem = array[x];
+
+ var id = roleItem['id'];
+ if(categoriesArray.indexOf(id)>-1){//存在
+ roleArray.push(roleItem['name']);
+ }
+ }
+
+ cb(null,roleArray);
+ });
+ },
+ //找到工人对应全名
+ function(cb){
+
+ }
+ ], function (err, results) {
+ ++counts;
+ if(!err) {
+ var regionsArray = results[0];
+ var rolesArray = results[1];
+ workerItemObj['regionsValuesArray'] = regionsArray;
+ workerItemObj['rolesValuesArray'] = rolesArray;
+ //将每一项整理好的worker再push到worksArray
+ workerArrayEx.push(workerItemObj);
+ if(counts === workerArray.length){
+ console.log(workerArrayEx);
+ }
+
+ }else{
+ console.error('err: ', err);
+ }
+
+ });
+
+ }
+ }
+ });*/

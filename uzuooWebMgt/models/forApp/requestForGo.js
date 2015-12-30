@@ -34,13 +34,19 @@ exports.get = function(optionItem,cb){
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
-        res.on('data', function(data) {
-            var resultData = jsonConvert.stringToJson(data);
+
+        var recv = '';
+        res.on('data', function(chunk) {
+            recv += chunk;
+        });
+
+        res.on('end', function () {
+            var resultData = jsonConvert.stringToJson(recv);
             if(resultData === null){
                 return cb('json format wrong...','');
             }
             if(resultData['status'] === undefined){
-                return cb(null,data);
+                return cb(null,recv);
             }else{
                 return cb(resultData['status'],resultData['message']);
             }

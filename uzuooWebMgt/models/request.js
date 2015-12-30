@@ -16,9 +16,15 @@ exports.get = function(options,cb){
 
     http.get(options, function(res) {
         res.setEncoding('utf8');
-        res.on('data', function(data) {
-            return cb(null,data);
+        var recv = '';
+        res.on('data', function(chunk) {
+            recv += chunk;
         });
+
+        res.on('end', function () {
+            return cb(null,recv);
+        });
+
     }).on('error',function(e){
         return cb(e, e.message);
     });
