@@ -36,6 +36,11 @@ exports.get = function(optionItem,cb){
         res.setEncoding('utf8');
 
         var recv = '';
+
+        if(res.statusCode === 403){
+            return cb(403,'token is expire...');
+        }
+
         res.on('data', function(chunk) {
             recv += chunk;
         });
@@ -43,7 +48,7 @@ exports.get = function(optionItem,cb){
         res.on('end', function () {
             var resultData = jsonConvert.stringToJson(recv);
             if(resultData === null){
-                return cb('json format wrong...','');
+                return cb('requestForGo---json format wrong...',recv);
             }
             if(resultData['status'] === undefined){
                 return cb(null,recv);
@@ -78,6 +83,10 @@ exports.post = function(optionItem,contents,cb){
     var req = http.request(options, function(res) {
 
         res.setEncoding('utf8');
+
+        if(res.statusCode === 403){
+            return cb(403,'token is expire...');
+        }
 
         if(res.statusCode === 200){
             return cb(null,'');

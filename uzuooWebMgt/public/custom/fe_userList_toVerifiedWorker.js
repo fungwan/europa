@@ -29,7 +29,7 @@ $(document).ready(function(){
                 if(data.result === 'success'){
                     var pages = data.pages;
                     var contentArray = data.content;
-                    rolesArray = data.additionalData[1];
+                    //rolesArray = data.additionalData[1];
 
                     if(contentArray.length === 0 && currpage > 1){
                         initialData(currpage - 1);
@@ -67,6 +67,9 @@ $(document).ready(function(){
         for(x in contentArray){
 
             var userInfo = contentArray[x];
+            var workerDetailLink = userInfo['href'];
+            var pos = workerDetailLink.lastIndexOf('/');
+            var workerId = workerDetailLink.substr(pos+1);
             var identification  = userInfo['id_card_no'];
             var verify_photo = 'http://7xooab.com1.z0.glb.clouddn.com/' + userInfo['verify_photo'];
             var fullName = userInfo['first_name'] + userInfo['last_name'];
@@ -76,7 +79,7 @@ $(document).ready(function(){
             trHtml += '<td>' + fullName +'</td>';//真实姓名
             trHtml += '<td>' + identification +'</td>';//身份证号
             trHtml += '<td>' + userInfo['phone'] +'</td>';//联系方式
-            trHtml += '<td id=\'' + userInfo['workerId'] + '\' abbr=' + userInfo['href'] + '>';
+            trHtml += '<td id=\'' + workerId + '\' abbr=' + userInfo['href'] + '>';
             trHtml += '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 点击认证</button>&nbsp;';
             trHtml += '</td></tr>';
 
@@ -147,7 +150,7 @@ $(document).ready(function(){
 
         userIdArray.push(curr_edit_workerId);
 
-        var reason = $("#verifiedFailReason-text").text();
+        var reason = $("#verifiedFailReason-text").val();
 
         verifiedWorker(userIdArray,3,reason);
 

@@ -155,6 +155,8 @@ $(document).ready(function(){
             regionsArray = regionsAndRolesArray[0];
             rolesArray = regionsAndRolesArray[1];
 
+            initialData(1);//表示第一页
+
             //初始化城市区域控件,包含所有省份组
             var originalRegions = regionsArray[0];
             for(x in originalRegions){
@@ -172,7 +174,6 @@ $(document).ready(function(){
             $("#verifedStates-div").append("<input id=\"workerVerified-2\" value=\"2\" type=\"checkbox\" /><label >已认证</label>");
             $("#verifedStates-div").append("<input id=\"workerVerified-3\" value=\"3\" type=\"checkbox\" /><label >驳回认证</label>");
 
-            initialData(1);//表示第一页
         }
     });
 

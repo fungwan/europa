@@ -3,6 +3,7 @@ var logout = require('../models/logout');
 var users = require('../models/users');
 var history = require('../models/history');
 var customer = require('../models/forApp/customer');
+var feedbacks = require('../models/forApp/feedbacks');
 
 module.exports = function(app,acl) {
 
@@ -33,6 +34,11 @@ module.exports = function(app,acl) {
     app.get('/customer', checkLogin);
     app.get('/customer', function (req, res) {
         customer.getProcess(req,res);
+    });
+
+    app.get('/customerFeedbacks', checkLogin);
+    app.get('/customerFeedbacks', function (req, res) {
+        feedbacks.getProcess(req,res);
     });
 
     //front end user
@@ -153,6 +159,11 @@ module.exports = function(app,acl) {
 
     app.get('/doGetCapitalAccountById', function (req, res) {
         customer.getCapitalAccountById(req,res);
+    });
+
+    app.get('/doGetFeedbacks', checkLogin);
+    app.get('/doGetFeedbacks', function (req, res) {
+        feedbacks.getFeedbacks(req,res);
     });
 };
 

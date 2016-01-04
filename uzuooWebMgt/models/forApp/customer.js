@@ -98,6 +98,11 @@ exports.updateWorkerProfileById = function(req,res){
             request.post(verifiedItem,verifiedString,function(err,results){
                 if(err === null){
                 }else{
+
+                    if(err === 403){
+                        tokenMgt.setTokenExpireStates(true);
+                    }
+
                     console.error(err);
                 }
             });
@@ -118,6 +123,11 @@ exports.updateWorkerProfileById = function(req,res){
                         res.json({ result: 'success',
                             content:results});
                     }else{
+
+                        if(err === 403){
+                            tokenMgt.setTokenExpireStates(true);
+                        }
+
                         res.json({ result: 'fail',
                             content:err});
                     }
@@ -152,6 +162,11 @@ exports.updateWorkerProfileById = function(req,res){
                                             res.json({ result: 'success',
                                                 content:results});
                                         }else{
+
+                                            if(err === 403){
+                                                tokenMgt.setTokenExpireStates(true);
+                                            }
+
                                             res.json({ result: 'fail',
                                                 content:err});
                                         }
@@ -166,6 +181,11 @@ exports.updateWorkerProfileById = function(req,res){
                                             res.json({ result: 'success',
                                                 content:results});
                                         }else{
+
+                                            if(err === 403){
+                                                tokenMgt.setTokenExpireStates(true);
+                                            }
+
                                             res.json({ result: 'fail',
                                                 content:err});
                                         }
@@ -229,6 +249,11 @@ exports.findWorkersByPage = function(req,res){
         },
         function(err, results) {
             if(err !== null){
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
                 res.json({ result: 'fail',
                     content:err});
             }else{
@@ -339,6 +364,11 @@ exports.findWorkerById = function(req,res){
                 res.json({ result: 'success',
                     content:workerInfo});
             }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
                 res.json({ result: 'fail',
                     content:{}});
             }
@@ -391,6 +421,11 @@ exports.findWorkersByFilters = function(req,res){
         },
         function(err, results) {
             if(err !== null){
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
                 res.json({ result: 'fail',
                     content:err});
             }else{
@@ -510,6 +545,11 @@ exports.changeWorkerRole = function(req,res){
                 res.json({ result: 'success',
                     content:''});
             }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
                 res.json({ result: 'fail',
                     content:results});
             }
@@ -554,6 +594,20 @@ exports.findHouseOwnersByPage = function(req,res){
 
             }]
         },function(err,results){
+
+            if(err !== null){
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    pages:1,
+                    content:[]});
+
+                return;
+            }
+
+
             var houseownersArray = jsonConvert.stringToJson(results.get_all)['houseowners'];
             if(houseownersArray === null){//db里面一个屋主也没有.
                 res.json({
@@ -605,6 +659,11 @@ exports.verifiedById = function(req,res){
 
             }, function(err,results) {
                 if(!err){
+
+                    if(err === 403){
+                        tokenMgt.setTokenExpireStates(true);
+                    }
+
                     res.json({
                             result: 'success',
                             content: 'ok'}
@@ -728,7 +787,10 @@ function getroleAndRegions(token,callback){
             localData.push(rolesArray);
             callback(null,localData);
         }else{
-            logger.error(err + 'customer-区域和角色获取错误...');
+            if(err === 403){
+                tokenMgt.setTokenExpireStates(true);
+            }
+            logger.error(err + 'customer-区域和角色获取错误...' + resultsEx);
             callback(null,[]);
         }
     });
@@ -795,6 +857,11 @@ exports.getCapitalAccountById = function(req,res){
                 res.json({ result: 'success',
                     content:capitalAccountInfo});
             }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
                 res.json({ result: 'fail',
                     content:{}});
             }

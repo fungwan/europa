@@ -60,7 +60,7 @@ function _getToken(cb){
                             _expireTime = tokenObject.expired_in;
                             cb(null,_token);
                         }else{
-                            cb(tokenObject.code,false);
+                            cb(tokenObject.status,false);
                             console.error(results);
                         }
 
@@ -97,6 +97,7 @@ function _getToken(cb){
                     _token = tokenObject.access_token;
                     _refreshToken = tokenObject.refresh_token;
                     _expireTime = tokenObject.expired_in;
+                    _tokenIsExpire = false;
                     cb(null,_token);
                 }else{
                     //refresh_token或已过期
@@ -117,6 +118,7 @@ function _getToken(cb){
                                 _token = tokenObject.access_token;
                                 _refreshToken = tokenObject.refresh_token;
                                 _expireTime = tokenObject.expired_in;
+                                _tokenIsExpire = false;
                                 cb(null,_token);
                             }else{
                                 cb(tokenObject.code,false);

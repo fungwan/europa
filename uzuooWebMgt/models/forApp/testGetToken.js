@@ -10,7 +10,7 @@ var async = require('async');
 var _token = '';
 //tokenMgt.getToken(function(err,token){
 //    if(err === null){
-//        console.log(token);
+//        console.log('token:' + token);
 //        _token = token;
 //    }
 //});
@@ -23,8 +23,8 @@ var _token = '';
 //});
 
 
-var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTQwNDg1MzMsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.Z3vCCKxsBd5QO361hwB2mOut-WhI9cF43ll3Sfyfgao';
-
+var token = '1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTQ0ODY4NTMsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.VR7SIti0m79D4z7BEQkOj5Kkxl5HpoGjl1Xy731EXYM';
+//var token = 'fdsafasfad';
 //获取工人信息
 var path = '/v1/workers?'+'accessToken=' + _token + '&filter=all';//+'&limit=10&offset=0';//verified::0
 
@@ -38,20 +38,37 @@ var optionItem1 = {};
 optionItem1['path'] = path2;
 
 
-//var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
-//var regionsItem = {};
-//regionsItem['path'] = regionsPath;
-//
-////通过国家Get所有省份
-//request.get(optionItem,function(err,data){
-//    console.log(err);
-//    console.log(data);
-//    if(err){
-//        return;
+var regionsPath = '/v1/workers/roles?'+'accessToken=' + token;
+var regionsItem = {};
+regionsItem['path'] = regionsPath;
+
+//通过国家Get所有省份
+request.get(regionsItem,function(err,data){
+    console.log(err);
+    console.log(data);
+    if(err){
+        return;
+    }
+    var rolesArray = jsonConvert.stringToJson(data);
+    console.log(rolesArray);
+
+});
+
+
+var tokenOptionItem = {};
+tokenOptionItem['path'] = '/v1/applications/' + 'f4db49f7-3e49-403a-8beb-980498607fcf' + '/accessToken';
+
+var challengeInfo = JSON.stringify({
+    'grant_type':'refresh_token',
+    'refresh_token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTQ0ODY4NTMsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.VR7SIti0m79D4z7BEQkOj5Kkxl5HpoGjl1Xy731EXYx'
+});
+
+//request.post(tokenOptionItem,challengeInfo,function(err,results) {
+//    if (err !== null) {
+//        cb(err, false);
+//    } else {
+//        console.log(results);
 //    }
-//    var rolesArray = jsonConvert.stringToJson(data);
-//    console.log(rolesArray);
-//
 //});
 
 var accountID = 'f20ac872-2ef1-4663-bbf9-a709602f90a2';
@@ -141,14 +158,14 @@ var content5 = {
 
 var bodyString5 = JSON.stringify(content5);
 
-request.post(optionItem6,bodyString5,function(err,data){
-
-    if(err){
-        console.log(err);
-    }else{
-        console.log(data);
-    }
-});
+//request.post(optionItem6,bodyString5,function(err,data){
+//
+//    if(err){
+//        console.log(err);
+//    }else{
+//        console.log(data);
+//    }
+//});
 
 
 
