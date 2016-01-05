@@ -54,6 +54,10 @@ function _getToken(cb){
                         cb(err,false);
                     }else{
                         var tokenObject = jsonConvert.stringToJson(results);
+                        if(tokenObject === null){
+                            cb('get token error',false);
+                            return;
+                        }
                         if(tokenObject.code === undefined){
                             _token = tokenObject.access_token;
                             _refreshToken = tokenObject.refresh_token;
@@ -93,9 +97,12 @@ function _getToken(cb){
                 cb(err,false);
             }else{
                 var tokenObject = jsonConvert.stringToJson(results);
+                if(tokenObject === null){
+                    cb('get token error',false);
+                    return;
+                }
                 if(tokenObject.code === undefined){
                     _token = tokenObject.access_token;
-                    _refreshToken = tokenObject.refresh_token;
                     _expireTime = tokenObject.expired_in;
                     _tokenIsExpire = false;
                     cb(null,_token);
@@ -114,6 +121,10 @@ function _getToken(cb){
                             cb(err,false);
                         }else{
                             var tokenObject = jsonConvert.stringToJson(results);
+                            if(tokenObject === null){
+                                cb('get token error',false);
+                                return;
+                            }
                             if(tokenObject.code === undefined){
                                 _token = tokenObject.access_token;
                                 _refreshToken = tokenObject.refresh_token;

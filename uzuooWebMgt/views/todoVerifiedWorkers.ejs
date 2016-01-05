@@ -21,6 +21,13 @@
     <link type="text/css" rel="stylesheet" href="css/themes/style1/orange-blue.css" id="theme-change" class="style-change color-change">
     <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
     <link type="text/css" rel="stylesheet" href="css/laypage.css">
+
+    <style type="text/css">
+        #tinymask{position:absolute; display:none; top:0; left:0; height:100%; width:100%; background:#000000; z-index:1500;}
+        #tinybox{position:absolute; display:none; padding:5px; background:#ffffff url(images/other/preload.gif) no-repeat 50% 50%; border:10px solid #e3e3e3; z-index:2000;}
+        #tinycontent{background:#ffffff; font-size:1.1em;position: absolute;top: -10px;right: -10px;}
+    </style>
+
 </head>
 
 <body class=" ">
@@ -151,6 +158,9 @@
     <div class="page-header pull-left">
         <div class="page-title">待认证行业用户</div>
     </div>
+
+    <!--div class="divcss5_list_title"><b>图片</b><button id="click_test2">fd</button></div-->
+
     <div class="clearfix"></div>
 </div>
 <!--END TITLE & BREADCRUMB PAGE-->
@@ -199,11 +209,11 @@
     </div>
     </div>
 
-    <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  class="modal fade">
+    <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  data-backdrop="static" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
-                    <button type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <button name='close-todoVerifiedDialog-btn' type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
                     <h4 class="modal-title">立即认证</h4>
                 </div>
                 <div class="modal-body">
@@ -241,7 +251,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div>
-                                    <img id="showVerifiedPic-img" border=1 src="images/avatar/defaultVerifiedImg.png" width="256" height="256" />
+                                    <a id="zoomVerifiedImg" href="javacript:void(0);" >
+                                        <img id="showVerifiedPic-img" border=1 src="images/avatar/defaultVerifiedImg.png" width="256" height="256" />
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -294,7 +306,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                        <button name='close-todoVerifiedDialog-btn' type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
                     </div>
             </div>
         </div>
@@ -313,5 +325,6 @@
 <script src="vendors/DataTables/media/js/dataTables.bootstrap.js"></script>
 <script src="vendors/DataTables/jquery.jeditable.js"></script>
 <script src="js/table-editable.js"></script>
+<script src="lib/tinybox.js"></script>
 <script src="custom/fe_userList_toVerifiedWorker.js"></script>
 

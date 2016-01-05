@@ -1,7 +1,6 @@
 /**
- * Created by Administrator on 2015/12/31.
+ * Created by Administrator on 2016/1/5.
  */
-
 
 var request = require('./requestForGo.js');
 var tokenMgt = require('./tokenMgt');
@@ -16,13 +15,15 @@ var uuid = require('node-uuid');
 
 exports.getProcess = function(req,res){
 
-    res.render('customer_feedbacks.ejs',
+    res.render('orders.ejs',
         {
             userInfo:req.session.user
         });
 };
 
-exports.getFeedbacks = function(req,res){
+exports.getOrderById = function(req,res){
+
+    var orderId = req.query.id;
 
     async.auto(
         {
@@ -36,23 +37,23 @@ exports.getFeedbacks = function(req,res){
                     }
                 });
             },
-            get_feedbacks: ['get_token', function (callback, results) {
+            get_order: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var feedbacksPath = '/v1/feedbacks?'+'accessToken=' + token;
+                var orderPath = '/v1/orders/' + orderId +'?accessToken=' + token;
 
                 var item = {};
-                item['path'] = feedbacksPath;
+                item['path'] = orderPath;
                 request.get(item,callback);
             }]
         },function(err,result){
             if(err === null){
 
-                var feedbackArray = jsonConvert.stringToJson(result.get_feedbacks)['feedbacks'];
+                var orderObject = jsonConvert.stringToJson(result.get_order);
 
                 res.json({
                     result: 'success',
-                    content: feedbackArray})
+                    content: orderObject})
             }else{
 
                 if(err === 403){

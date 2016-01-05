@@ -4,6 +4,7 @@ var users = require('../models/users');
 var history = require('../models/history');
 var customer = require('../models/forApp/customer');
 var feedbacks = require('../models/forApp/feedbacks');
+var orders = require('../models/forApp/orders');
 
 module.exports = function(app,acl) {
 
@@ -56,10 +57,7 @@ module.exports = function(app,acl) {
     //orders
     app.get('/orders', checkLogin);
     app.get('/orders', function (req, res) {
-        res.render('orders',
-            {
-                userInfo:req.session.user
-            });
+        orders.getProcess(req,res);
     });
 
     //bills
@@ -164,6 +162,11 @@ module.exports = function(app,acl) {
     app.get('/doGetFeedbacks', checkLogin);
     app.get('/doGetFeedbacks', function (req, res) {
         feedbacks.getFeedbacks(req,res);
+    });
+
+    app.get('/doGetOrderById', checkLogin);
+    app.get('/doGetOrderById', function (req, res) {
+        orders.getOrderById(req,res);
     });
 };
 

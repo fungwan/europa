@@ -211,21 +211,30 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="input-icon right"><i class="fa fa-user"></i>
-                                    <input id="inputWorkerFirstName" type="text" value="姓" class="form-control" />
+                                    <input id="inputWorkerFullName-readOnly" type="text" placeholder="Name" class="form-control" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <div class="input-icon right"><i class="fa fa-user"></i>
-                                    <input id="inputWorkerLastName" type="text" value="名" class="form-control" />
+                                <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
+                                    <input id="inputWorkerPhone" type="text" placeholder="Phone" class="form-control">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <div class="input-icon right"><i class="fa fa-credit-card"></i>
-                                    <input id="inputCardNumber" type="text" placeholder="Card number" class="form-control">
+                                    <input id="inputCardNumber-readOnly" type="text" placeholder="Card number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-map-marker"></i>
+                                    <input id="inputWorkerCity" type="text" placeholder="" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -306,5 +315,5 @@
 <script src="vendors/DataTables/jquery.jeditable.js"></script>
 <script src="js/table-editable.js"></script>
 
-<script src="custom/feedback.js"></script>
+<script src="custom/fe_feedback.js"></script>
 

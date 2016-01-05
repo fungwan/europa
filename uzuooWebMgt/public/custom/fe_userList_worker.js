@@ -160,7 +160,7 @@ $(document).ready(function(){
             //初始化城市区域控件,包含所有省份组
             var originalRegions = regionsArray[0];
             for(x in originalRegions){
-                $("#province-sel").append("<option value=\""+originalRegions[x].id+"\">"+regionsArray[1][originalRegions[x].id].name+"</option>");
+                $("#province-sel").append("<option value=\""+originalRegions[x].id+"\">"+originalRegions[x].name+"</option>");
             }
 
             //初始化角色控件,包含所有第一级工种
@@ -283,7 +283,7 @@ $(document).ready(function(){
             //获取相应的单个工人详情
             $.get("/doFindWorkerById",
                 {
-                    href:workerHref
+                    id:curr_edit_workerId
                 },
                 function (data) {
 
@@ -697,8 +697,10 @@ $(document).ready(function(){
                 verifiedStr += '|';
             }
         });
-        verifiedStr = verifiedStr.substr(0,verifiedStr.length-1);
-        verifiedStr = 'verified::' + verifiedStr;
+        if(verifiedStr !== ''){
+            verifiedStr = verifiedStr.substr(0,verifiedStr.length-1);
+            verifiedStr = 'verified::' + verifiedStr;
+        }
 
         var arrayTmp = [];
         //将所有筛选条件组合

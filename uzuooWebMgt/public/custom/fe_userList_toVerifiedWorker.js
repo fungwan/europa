@@ -3,15 +3,9 @@
  */
 
 var currpage = 1;
-var screeningCurrpage=1;
-var isShowScreeningData=false;//是否显示筛选后的数据页面
-var globalFilterArray = ''//全局筛选条件
 var firstPagination = false;
-var firstScreeningPagination = false;
-
-var regionsArray = [];//所有区域，包含源对象和map对象，索引0是源对象、1是封装后的map对象
-var rolesArray = [];//所有角色，包含源对象和map对象,索引0是源对象、1是封装后的map对象
-
+var popImg = '';//弹出图片
+var isEditWorkerData = false;
 var curr_edit_workerId = '';
 
 $(document).ready(function(){
@@ -95,20 +89,22 @@ $(document).ready(function(){
             //获取相应的单个工人详情
             $.get("/doFindWorkerById",
                 {
-                    href:workerHref
+                    id:curr_edit_workerId
                 },
                 function (data) {
 
                     if(data.result === 'fail'){
                         return;
                     }
+                    var imgHref = 'http://7xooab.com1.z0.glb.clouddn.com/' + data.content['verify_photo'];
+
+                    popImg = "<img width='554' height='344' src=\'" + imgHref + '\'/>';
+
+                    $("#showVerifiedPic-img").attr({src:imgHref});
                     $("#inputWorkerFirstName-readOnly").val(data.content['first_name']);
                     $("#inputWorkerLastName-readOnly").val(data.content['last_name']);
                     $("#inputPhone-readOnly").val(data.content['phone']);
                     $("#inputCardNumber-readOnly").val(data.content['id_card_no']);
-
-                    var imgHref = 'http://7xooab.com1.z0.glb.clouddn.com/' + data.content['verify_photo'];
-                    $("#showVerifiedPic-img").attr({src:imgHref});
                 }
             );
         });
@@ -142,7 +138,13 @@ $(document).ready(function(){
         var userIdArray = [];
 
         userIdArray.push(curr_edit_workerId);
-        verifiedWorker(userIdArray,2,'');
+
+        var msg = '恭喜您已通过悠住认证，请登录app查看和抢单.';
+
+        verifiedWorker(userIdArray,2,msg);
+        isEditWorkerData = true;
+
+        $("#verified_worker_dlg").modal("hide");
     });
 
     $("#edit-verifiedFA-btn").click(function(){
@@ -154,6 +156,21 @@ $(document).ready(function(){
 
         verifiedWorker(userIdArray,3,reason);
 
+        isEditWorkerData = true;
+
+        $("#verified_worker_dlg").modal("hide");
+
+    });
+
+    $("#zoomVerifiedImg").click(function(){
+        TINY.box.show(popImg,0,0,0,1)
+    });
+
+    $("button[name='close-todoVerifiedDialog-btn']").click(function(){
+        if(isEditWorkerData){
+            initialData(currpage);
+            isEditWorkerData = false;
+        }
     });
 
     /*$("#exactSearch-btn").click(function(){
@@ -173,4 +190,6 @@ $(document).ready(function(){
         screeningWorkers(1,filterStr);
     });*/
 });
+
+
 

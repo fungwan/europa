@@ -5,7 +5,18 @@
 
 $(document).ready(function(){
 
-    $.get("/doGetFeedbacks",
+    $.getJSON("/doGetRoleAndRegionsInfo",function(data){
+
+        if(data.result === 'fail'){
+            return;
+        }else{
+            var regionsAndRolesArray = data.content.get_roleAndRegions;
+
+            console.log(regionsAndRolesArray);
+        }
+    });
+
+    /*$.get("/doGetFeedbacks",
         function (data) {
 
             if(data.result === 'success'){
@@ -17,7 +28,7 @@ $(document).ready(function(){
             }
 
         }
-    );
+    );*/
 
     function warpHtml(feedbackArray) {
 
@@ -65,11 +76,49 @@ $(document).ready(function(){
         $('#show_account_dlg').modal('show');
 
         //alert('显示对应的账号信息' + $this.currentTarget.parentNode.id);
+
+        $.get("/doFindWorkerById",
+            {
+                id:'20b3dd1c-5b2d-4de4-ba1b-356053726e27'
+            },
+            function (data) {
+
+                if(data.result === 'fail'){
+                    return;
+                }
+
+                console.log(data.content);
+                $('#show_account_dlg').modal('show');
+                /*var imgHref = 'http://7xooab.com1.z0.glb.clouddn.com/' + data.content['verify_photo'];
+
+                //popImg = "<img width='554' height='344' src=\'" + imgHref + '\'/>';
+
+                $("#showVerifiedPic-img").attr({src:imgHref});
+                $("#inputWorkerFirstName-readOnly").val(data.content['first_name']);
+                $("#inputWorkerLastName-readOnly").val(data.content['last_name']);
+                $("#inputPhone-readOnly").val(data.content['phone']);
+                $("#inputCardNumber-readOnly").val(data.content['id_card_no']);*/
+            }
+        );
+
     });
 
     $('a[name="feedback_order"]').click(function($this){
         //alert('显示对应的订单信息' + $this.currentTarget.parentNode.id);
-        $('#show_order_dlg').modal('show');
+
+        $.get("/doGetOrderById",{id:'20a43c70-5446-4dad-8943-3b9770066609'},
+            function (data) {
+
+                if(data.result === 'success'){
+
+                    console.log(data.content);
+                    $('#show_order_dlg').modal('show');
+                }
+
+            }
+        );
+
     });
+
 });
 

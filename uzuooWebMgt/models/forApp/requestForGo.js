@@ -8,6 +8,7 @@
 var http = require('http');
 var settings = require('../../conf/settings');
 var jsonConvert = require('../../lib/jsonFormat.js');
+var logger = require('../../lib/log.js').logger;
 
 var hostIp =  settings.appCloudMgtIpAddr;
 var hostPort = settings.appCloudPortAddr;
@@ -37,23 +38,17 @@ exports.get = function(optionItem,cb){
 
         var recv = '';
 
-        if(res.statusCode === 403){
-            return cb(403,'token is expire...');
-        }
-
         res.on('data', function(chunk) {
             recv += chunk;
         });
 
         res.on('end', function () {
-            var resultData = jsonConvert.stringToJson(recv);
-            if(resultData === null){
-                return cb('requestForGo---json format wrong...',recv);
-            }
-            if(resultData['status'] === undefined){
+
+            if(res.statusCode === 200){
                 return cb(null,recv);
             }else{
-                return cb(resultData['status'],resultData['message']);
+                logger.debug('requestForGo----Get请求错误...' + recv);
+                return cb(res.statusCode,'');
             }
         });
     });
@@ -84,21 +79,18 @@ exports.post = function(optionItem,contents,cb){
 
         res.setEncoding('utf8');
 
-        if(res.statusCode === 403){
-            return cb(403,'token is expire...');
-        }
-
         if(res.statusCode === 200){
             return cb(null,'');
         }
 
-        res.on('data', function(data) {
-            var resultData = jsonConvert.stringToJson(data);
-            if(resultData['status'] === undefined){
-                return cb(null,data);
-            }else{
-                return cb(resultData['status'],resultData['message']);
+        res.on('data', function(recv) {
+
+            if(res.statusCode === 403 || res.statusCode === 404 || res.statusCode === 500){
+                logger.debug('requestForGo----POST请求错误...' + recv);
+                return cb(res.statusCode,'');
             }
+
+            return cb(null,recv);
         });
     });
 

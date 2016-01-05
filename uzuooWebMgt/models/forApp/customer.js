@@ -204,7 +204,7 @@ exports.updateWorkerProfileById = function(req,res){
     });
 };
 
-exports.findWorkersByPage = function(req,res){
+/*exports.findWorkersByPage = function(req,res){
 
     var currPage = req.query.page - 1;
 
@@ -332,11 +332,11 @@ exports.findWorkersByPage = function(req,res){
             }
         }
     );
-};
+};*/
 
 exports.findWorkerById = function(req,res){
 
-    var workerHref = req.query.href;
+    var workerId = req.query.id;
 
     async.auto(
         {
@@ -352,7 +352,7 @@ exports.findWorkerById = function(req,res){
             },
             get_workerInfo:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = workerHref +'?accessToken=' + token;
+                var path = '/v1/workers/' + workerId +'?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
