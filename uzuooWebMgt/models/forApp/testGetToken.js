@@ -26,7 +26,7 @@ var _token = '';
 var token = '1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NTQ0ODY4NTMsImlkIjoiZjM2NzMwNzUtOWY1Ni00NWFmLTkwOGQtYjJhMWYzYjVlNmI5IiwidHlwZSI6ImFwcGxpY2F0aW9uIn0.VR7SIti0m79D4z7BEQkOj5Kkxl5HpoGjl1Xy731EXYM';
 //var token = 'fdsafasfad';
 //获取工人信息
-var path = '/v1/workers?'+'accessToken=' + _token + '&filter=all';//+'&limit=10&offset=0';//verified::0
+var path = '/v1/workers?'+'accessToken=' + token + '&filter=all';//+'&limit=10&offset=0';//verified::0
 
 //获取业主信息
 var path2 = '/v1/houseOwners?'+'accessToken=' + token + '&filter='+'all';//+'&limit=10&offset=0';

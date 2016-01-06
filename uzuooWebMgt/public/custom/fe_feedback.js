@@ -12,7 +12,7 @@ $(document).ready(function(){
         }else{
             var regionsAndRolesArray = data.content.get_roleAndRegions;
 
-            console.log(regionsAndRolesArray);
+            //console.log(regionsAndRolesArray);
         }
     });
 
@@ -87,23 +87,19 @@ $(document).ready(function(){
                     return;
                 }
 
-                console.log(data.content);
+                $("#inputWorkerFullName-readOnly").val(data.content['first_name'] + data.content['last_name']);
+                $("#inputWorkerPhone-readOnly").val(data.content['phone']);
+                $("#inputCardNumber-readOnly").val(data.content['id_card_no']);
+
                 $('#show_account_dlg').modal('show');
-                /*var imgHref = 'http://7xooab.com1.z0.glb.clouddn.com/' + data.content['verify_photo'];
 
-                //popImg = "<img width='554' height='344' src=\'" + imgHref + '\'/>';
-
-                $("#showVerifiedPic-img").attr({src:imgHref});
-                $("#inputWorkerFirstName-readOnly").val(data.content['first_name']);
-                $("#inputWorkerLastName-readOnly").val(data.content['last_name']);
-                $("#inputPhone-readOnly").val(data.content['phone']);
-                $("#inputCardNumber-readOnly").val(data.content['id_card_no']);*/
             }
         );
 
     });
 
     $('a[name="feedback_order"]').click(function($this){
+
         //alert('显示对应的订单信息' + $this.currentTarget.parentNode.id);
 
         $.get("/doGetOrderById",{id:'20a43c70-5446-4dad-8943-3b9770066609'},
@@ -111,7 +107,26 @@ $(document).ready(function(){
 
                 if(data.result === 'success'){
 
-                    console.log(data.content);
+                    var houseInfo = data.content['house_info'];
+                    $("#houseOwnerAddress").val(houseInfo['address']);
+                    $("#houseAcreage").val(houseInfo['type'] + ' ' + houseInfo['acreage'] + '平');
+
+                    var houseOwnerId = data.content['account_id'];
+
+                    $.get("/doFindHouseOwnersById",{id:houseOwnerId},
+                        function(data2){
+
+                            if(data2.result === 'success'){
+
+                                console.log(data2.content);
+
+                                $("#houseOwnerNickName").val(data2.content['nick_name']);
+                                $("#houseOwnerUserName").val(data2.content['first_name'] + data2.content['last_name']);
+                                $("#houseOwnerPhone").val(data2.content['phone']);
+                            }
+                        }
+                    );
+
                     $('#show_order_dlg').modal('show');
                 }
 

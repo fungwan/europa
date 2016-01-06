@@ -636,6 +636,46 @@ exports.findHouseOwnersByPage = function(req,res){
     )
 }
 
+exports.findHouseOwnersById = function(req,res){
+
+    var houseOwnerId = req.query.id;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_houseOwnerInfo:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/v1/houseOwners/' + houseOwnerId +'?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var houseOwnerInfo = jsonConvert.stringToJson(results.get_houseOwnerInfo);
+                res.json({ result: 'success',
+                    content:houseOwnerInfo});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+}
 exports.verifiedById = function(req,res){
 
     var idArray = req.body.ids;
@@ -650,7 +690,8 @@ exports.verifiedById = function(req,res){
                 optionItem['path'] = path;
 
                 var content = {
-                    verified:parseInt(verifiedContent.verified)
+                    verified:parseInt(verifiedContent.verified),
+                    reason:verifiedContent.reason
                 };
 
                 var bodyString = JSON.stringify(content);

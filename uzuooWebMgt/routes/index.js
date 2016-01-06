@@ -127,10 +127,6 @@ module.exports = function(app,acl) {
         customer.getRoleAndRegions(req,res);
     });
 
-    app.get('/doFindWorkersByPage', function (req, res) {
-        customer.findWorkersByPage(req,res);
-    });
-
     app.post('/doUpdateWorkerProfileById', function (req, res) {
         customer.updateWorkerProfileById(req,res);
     });
@@ -168,6 +164,12 @@ module.exports = function(app,acl) {
     app.get('/doGetOrderById', function (req, res) {
         orders.getOrderById(req,res);
     });
+
+    app.get('/doFindHouseOwnersById', checkLogin);
+    app.get('/doFindHouseOwnersById', function (req, res) {
+        customer.findHouseOwnersById(req,res);
+    });
+    //findHouseOwnersById
 };
 
 function checkLogin(req, res, next) {
