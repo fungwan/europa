@@ -401,7 +401,7 @@ exports.findWorkersByFilters = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter=' + filters;
+                var path = '/v1/workers?'+'accessToken=' + token + '&filter=' + filters;// + '&countOnly=true';
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -676,6 +676,7 @@ exports.findHouseOwnersById = function(req,res){
             }
         })
 }
+
 exports.verifiedById = function(req,res){
 
     var idArray = req.body.ids;

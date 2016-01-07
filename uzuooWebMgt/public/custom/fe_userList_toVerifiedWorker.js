@@ -86,6 +86,7 @@ $(document).ready(function(){
             curr_edit_workerId = this.parentNode.id;
             $('#verified_worker_dlg').modal('show');
             var workerHref = this.parentNode.abbr;
+            $("#showVerifiedPic-img").attr("src", "images/avatar/avatar_loading.gif");
             //获取相应的单个工人详情
             $.get("/doFindWorkerById",
                 {
@@ -171,6 +172,10 @@ $(document).ready(function(){
             initialData(currpage);
             isEditWorkerData = false;
         }
+    });
+
+    $("#showVerifiedPic-img").error( function(e){
+        $(this).attr("src", "images/avatar/defaultVerifiedImg.png");
     });
 
     /*$("#exactSearch-btn").click(function(){

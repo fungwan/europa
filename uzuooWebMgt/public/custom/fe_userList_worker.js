@@ -154,6 +154,7 @@ $(document).ready(function(){
             var regionsAndRolesArray = data.content.get_roleAndRegions;
             regionsArray = regionsAndRolesArray[0];
             rolesArray = regionsAndRolesArray[1];
+            console.log(rolesArray);
 
             initialData(1);//表示第一页
 
@@ -279,7 +280,7 @@ $(document).ready(function(){
             $("#inputWorkerPhone").val(workerPhone);
             $("#inputWorkerCity").val(city);
             $("#verifiedInfo-span").text(verifiedInfo);
-
+            $("#showVerifiedPic-img").attr("src", "images/avatar/avatar_loading.gif");
             //获取相应的单个工人详情
             $.get("/doFindWorkerById",
                 {
@@ -787,7 +788,7 @@ $(document).ready(function(){
             $("#crafts-div").empty();
             return;
         }
-
+        $("#crafts-div").empty();
         var craftsHtml = '细项：';
         var originalRoles = rolesArray[0];
         for(index in originalRoles){
@@ -805,6 +806,10 @@ $(document).ready(function(){
         }
 
         $("#crafts-div").append(craftsHtml);
+    });
+
+    $("#showVerifiedPic-img").error( function(e){
+        $(this).attr("src", "images/avatar/defaultVerifiedImg.png");
     });
 });
 

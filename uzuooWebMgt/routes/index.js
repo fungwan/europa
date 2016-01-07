@@ -61,9 +61,18 @@ module.exports = function(app,acl) {
     });
 
     //bills
-    app.get('/bills', checkLogin);
-    app.get('/bills', function (req, res) {
+    app.get('/billsMgtPage', checkLogin);
+    app.get('/billsMgtPage', function (req, res) {
         res.render('bills',
+            {
+                userInfo:req.session.user
+            });
+    });
+
+    //amount
+    app.get('/amountMgtPage', checkLogin);
+    app.get('/amountMgtPage', function (req, res) {
+        res.render('amountMgt',
             {
                 userInfo:req.session.user
             });
