@@ -808,10 +808,25 @@ function getroleAndRegions(token,callback){
                 var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
                 for(x in array){
                     var roleItem = array[x];
-                    rolesMap[roleItem['id']] = roleItem['name'];//取到角色
+                    var tmpObj = {};
+                    tmpObj['name'] = roleItem['name'];
+                    tmpObj['crafts'] = roleItem['crafts'];
+
+                    rolesMap[roleItem['id']] = tmpObj;//取到角色
                     var craftArray = roleItem['crafts'];
                     for(y in craftArray){
-                        rolesMap[craftArray[y]['id']] = craftArray[y]['name'];//取到细项
+
+                        var tmpObj2 = {};
+                        tmpObj2['name'] = craftArray[y]['name'];
+                        tmpObj2['earnest'] = craftArray[y]['earnest'];
+                        tmpObj2['need_trustee'] = craftArray[y]['need_trustee'];
+                        tmpObj2['commission_basic'] = craftArray[y]['commission_basic'];
+                        tmpObj2['commission_float'] = craftArray[y]['commission_float'];
+                        tmpObj2['margin_rate'] = craftArray[y]['margin_rate'];
+                        tmpObj2['margin_up_threshold'] = craftArray[y]['margin_up_threshold'];
+                        tmpObj2['margin_down_threshold'] = craftArray[y]['margin_down_threshold'];
+
+                        rolesMap[craftArray[y]['id']] = tmpObj2;//取到细项
                     }
                 }
                 var tmpRoles = [];

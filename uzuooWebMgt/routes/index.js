@@ -5,6 +5,7 @@ var history = require('../models/history');
 var customer = require('../models/forApp/customer');
 var feedbacks = require('../models/forApp/feedbacks');
 var orders = require('../models/forApp/orders');
+var amount = require('../models/forApp/amount');
 
 module.exports = function(app,acl) {
 
@@ -179,6 +180,11 @@ module.exports = function(app,acl) {
         customer.findHouseOwnersById(req,res);
     });
     //findHouseOwnersById
+
+    app.post('/amount', checkLogin);
+    app.post('/amount', function (req, res) {
+        amount.postProcess(req,res);
+    });
 };
 
 function checkLogin(req, res, next) {

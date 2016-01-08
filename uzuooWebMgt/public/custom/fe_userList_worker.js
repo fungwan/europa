@@ -154,7 +154,6 @@ $(document).ready(function(){
             var regionsAndRolesArray = data.content.get_roleAndRegions;
             regionsArray = regionsAndRolesArray[0];
             rolesArray = regionsAndRolesArray[1];
-            console.log(rolesArray);
 
             initialData(1);//表示第一页
 
@@ -236,11 +235,11 @@ $(document).ready(function(){
             if(originalCategoryArray[0] === undefined)
                 trHtml += '<td></td>';
             else
-                trHtml += '<td>' + rolesMap[originalCategoryArray[0]['role_id']] +'</td>';//第一工种
+                trHtml += '<td>' + rolesMap[originalCategoryArray[0]['role_id']]['name'] +'</td>';//第一工种
             if(originalCategoryArray[1] === undefined)
                 trHtml += '<td></td>';
             else
-                trHtml += '<td>' + rolesMap[originalCategoryArray[1]['role_id']] +'</td>';//第二工种
+                trHtml += '<td>' + rolesMap[originalCategoryArray[1]['role_id']]['name'] +'</td>';//第二工种
             trHtml += '<td id=\'' + workerId + '\' abbr=' + userInfo['href'] + '>';
             trHtml += '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-angle-double-right"></i>&nbsp; 更多</button>&nbsp;';
             trHtml += '</td></tr>';
