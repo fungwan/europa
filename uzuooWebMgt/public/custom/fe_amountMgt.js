@@ -5,6 +5,7 @@
 var rolesArray = [];//所有角色，包含源对象和map对象,索引0是源对象、1是封装后的map对象
 var selectedRoleId = '';
 var selectedCraftsId = '';
+var referenceCount = 0;//针对
 
 $(document).ready(function(){
 
@@ -86,6 +87,27 @@ $(document).ready(function(){
 
     $("#updateAmountSet-btn").click(function(){
 
+        var f = $("#earnestSet-input").attr('format_verified');
+        var e = $("#margin_up_thresholdSet-input").attr('format_verified');
+        var n = $("#margin_down_thresholdSet-input").attr('format_verified');
+        if(f === "false" || e === "false" || n === "false"){
+            $("#updateAmountSet-btn").attr('disabled',true);
+            $("#amountSetResult-info").text('请再次检查所输入的正整数金额配置格式是否正确!');
+            return;
+        }
+
+        var g = $("#commission_basicSet-input").attr('format_verified');
+        var y = $("#commission_floatSet-input").attr('format_verified');
+        var u = $("#margin_rateSet-input").attr('format_verified');
+
+        if(g === "false" || y === "false" || u === "false"){
+            $("#updateAmountSet-btn").attr('disabled',true);
+            $("#amountSetResult-info").text('请再次检查所输入的比例金额配置格式是否正确!');
+            return;
+        }
+
+        $("#amountSetResult-info").text('');
+
         //$("#need_trustee-input").attr({"checked":"false"});
 
         /*var isNeedTrustee = $("#need_trustee-input").attr("checked");
@@ -114,24 +136,27 @@ $(document).ready(function(){
     });
 
     $("input[name='check_float-input']").blur(function($this){
-        console.log($this.target['value']);
+
         var floatInputVal = $this.target['value'];
         var floatInputNum = 0;
         var regFloat = /^[0-9]*\.?[0-9]{1,2}$/;
         if(!floatInputVal.match(regFloat)){
+            $this.target['attributes'][3].value = false;
             $("#updateAmountSet-btn").attr('disabled',true);
+            $("#amountSetResult-info").text('输入金额格式有误！如果为小数请保留小数点后两位！');
             return;
         }else{
-
+            $this.target['attributes'][3].value = true;
             floatInputNum = parseFloat(floatInputVal);
             $("#updateAmountSet-btn").attr('disabled',false);
         }
 
         if(floatInputNum > 100000000){
+            $this.target['attributes'][3].value = false;
             $("#updateAmountSet-btn").attr('disabled',true);
-            alert('金额超出限制...');
+            $("#amountSetResult-info").text('比例金额大小超出限制!');
             return;
-        }
+        }else{$this.target['attributes'][3].value = true;}
     });
 
     $("input[name='check_int-input']").blur(function($this){
@@ -140,18 +165,23 @@ $(document).ready(function(){
         var intInputNum = 0;
         var regInt = /^[0-9][0-9]*$/;
         if(!intInputVal.match(regInt)){
+            $this.target['attributes'][3].value = false;
             $("#updateAmountSet-btn").attr('disabled',true);
+            $("#amountSetResult-info").text('输入金额格式有误！应为正整数！');
             return;
         }else{
+            $this.target['attributes'][3].value = true;
             intInputNum = parseInt(intInputVal);
             $("#updateAmountSet-btn").attr('disabled',false);
         }
 
         if(intInputNum > 100000000){
+            $this.target['attributes'][3].value = false;
             $("#updateAmountSet-btn").attr('disabled',true);
             alert('金额超出限制...');
             return;
-        }
+        }else{$this.target['attributes'][3].value = true;}
+
     });
 
 

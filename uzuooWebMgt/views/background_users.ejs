@@ -98,7 +98,7 @@
                     </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
-                    <li class="active"><a href="/users"><i class="fa fa-desktop"></i><span class="submenu-title">后台用户</span></a>
+                    <li class="active"><a href="/webAdminPage"><i class="fa fa-desktop"></i><span class="submenu-title">后台用户</span></a>
                     </li>
                 </ul>
             </li>
@@ -187,8 +187,8 @@
                     </th>
                     <th width="10%" class="sorting">用户名</th>
                     <th width="10%" class="sorting">职位权限</th>
-                    <th width="10%" class="sorting">城市</th>
-                    <th width="5%" class="sorting"></th>
+                    <th width="5%" class="sorting">城市</th>
+                    <th width="10%" class="sorting"></th>
                 </tr>
 
                 </thead>
@@ -270,8 +270,11 @@
                                     <label class="col-md-3 control-label">城市</label>
                                     <div class="col-md-9">
                                         <div id="create_city_div">
-                                            <select id="create-pro-sel" class="prov"></select>
-                                            <select id="create-city-sel" class="city" disabled="disabled"></select>
+                                            <select id="create_province-sel" name="parent_selection">
+                                                <option value="">-- 请选择省份 --</option>
+                                            </select>
+                                            <select id="create_city-sel" name="child_selection" >
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -345,8 +348,8 @@
                                     <label class="col-md-3 control-label">城市</label>
                                     <div class="col-md-9">
                                         <div id="edit_city_div">
-                                            <select id="edit-pro-sel" class="prov"></select>
-                                            <select id="edit-city-sel" class="city" disabled="disabled"></select>
+                                            <select id="edit_province-sel" class="prov"></select>
+                                            <select id="edit_city-sel" class="city" ></select>
                                         </div>
                                     </div>
                                 </div>
@@ -401,7 +404,7 @@
 <script src="vendors/DataTables/jquery.jeditable.js"></script>
 <script src="js/table-editable.js"></script>
 
-<script src="lib/jquery.cityselect.js"></script>
+<!--script src="lib/jquery.cityselect.js"></script-->
 <script src="lib/uuid.js"></script>
 <script src="custom/bg_userList.js"></script>
 

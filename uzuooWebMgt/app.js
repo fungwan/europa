@@ -11,7 +11,6 @@ var settings = require('./conf/settings').mongodb;
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-var users = require('./routes/users');
 //var logger = require('./lib/log.js').logger;
 var acl = require('acl');
 var app = express();

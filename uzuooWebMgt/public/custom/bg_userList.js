@@ -2,12 +2,30 @@
  * Created by Administrator on 2015/11/25.
  */
 
+var regionsArray = [];//所有区域，包含源对象和map对象，索引0是源对象、1是封装后的map对象
 
 $(document).ready(function(){
 
-    $("#create_city_div").citySelect({
-        nodata:"none",
-        required:false
+//    $("#create_city_div").citySelect({
+//        nodata:"none",
+//        required:false
+//    });
+
+
+    $.getJSON("/doGetRoleAndRegionsInfo",function(data){
+
+        if(data.result === 'fail'){
+            return;
+        }else{
+            var regionsAndRolesArray = data.content.get_roleAndRegions;
+            regionsArray = regionsAndRolesArray[0];
+            initialData(1);//表示第一页
+            //初始化城市区域控件,包含所有省份组
+            var originalRegions = regionsArray[0];
+            for(x in originalRegions){
+                $("#create_province-sel").append("<option value=\""+originalRegions[x].id+"\">"+originalRegions[x].name+"</option>");
+            }
+        }
     });
 
     var currpage = 1;
@@ -28,34 +46,58 @@ $(document).ready(function(){
 
                     //表单每行的编辑
                     $(".btn-default.btn-xs").click(function(){
-
-                        $('#edit_account_dlg').modal('show');
+                        var userId = this.parentNode.id;
                         var username = this.parentNode.previousSibling.previousSibling.previousSibling.textContent;
-                        var location = this.parentNode.previousSibling.textContent;
-                        var locationArray = location.split(',');
-
                         var role = this.parentNode.abbr;
-                        $("#modify_account_name_input").val(username);
-                        $("#accountEdit").val(this.parentNode.id);
-                        $("#edit_city_div").citySelect({
-                            prov:locationArray[0],
-                            city:locationArray[1]
-                        });
-                        if(role !== '4'){
-                            $("#edit_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
-                                "&nbsp;<span class='badge badge-default'>地推</span></label> <label> " +
-                                "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
-                                "<span class='badge badge-blue'>客服</span></label> <label> " +
-                                "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
-                                "<span class='badge badge-info'>财务</span></label> <label> " +
-                                "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
-                                "<span class='badge badge-warning'>运营</span></label>");
-                        }else{
-                            $("#edit_roleRadio_div").html("<label> " +
-                                "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='4' />&nbsp;" +
-                                "<span class='badge badge-primary'>超级管理员</span></label>");
-                        }
-                        $("input[name='optionsRadios'][value="+ role +"]").attr("checked",true);
+                        $.get("/doFindUserById",{ id: userId},function(data){
+                                if(data.result === 'fail'){
+                                    return;
+                                }
+
+                                var userInfo = data.content;
+                                $('#edit_account_dlg').modal('show');
+                                $("#edit_province-sel").empty();$("#edit_city-sel").empty();
+                                var cityArray = userInfo['city'].split(',');
+                                var proIdStr = cityArray[0];var cityIdStr = cityArray[1];
+                                var originalRegions = regionsArray[0];
+                                for(x in originalRegions){
+                                    if(originalRegions[x].id === proIdStr){
+                                        $("#edit_province-sel").append("<option selected value="+originalRegions[x].id+">"+originalRegions[x].name+"</option>");
+                                    }else{
+                                        $("#edit_province-sel").append("<option value="+originalRegions[x].id+">"+originalRegions[x].name+"</option>");
+                                    }
+                                }
+
+                                var citiesArray = regionsArray[1][proIdStr]['children'];
+                                $("#edit_city-sel").append("<option value=\""+"\">"+"-- 请选择城市  --"+"</option>");
+                                for(x in citiesArray){
+                                    if(citiesArray[x].id === cityIdStr){
+                                        $("#edit_city-sel").append("<option selected value="+citiesArray[x].id+">"+citiesArray[x].name+"</option>");
+                                    }else{
+                                        $("#edit_city-sel").append("<option value="+citiesArray[x].id+">"+citiesArray[x].name+"</option>");
+                                    }
+                                }
+
+                                $("#modify_account_name_input").val(username);
+                                $("#accountEdit").val(userInfo['id']);
+                                if(role !== '4'){
+                                    $("#edit_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
+                                        "&nbsp;<span class='badge badge-default'>地推</span></label> <label> " +
+                                        "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
+                                        "<span class='badge badge-blue'>客服</span></label> <label> " +
+                                        "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
+                                        "<span class='badge badge-info'>财务</span></label> <label> " +
+                                        "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
+                                        "<span class='badge badge-warning'>运营</span></label>");
+                                }else{
+                                    $("#edit_roleRadio_div").html("<label> " +
+                                        "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='4' />&nbsp;" +
+                                        "<span class='badge badge-primary'>超级管理员</span></label>");
+                                }
+
+                                $("input[name='optionsRadios'][value="+ role +"]").attr("checked",true);
+                            }
+                        )
                     });
 
                     //表单每行的删除
@@ -87,8 +129,6 @@ $(document).ready(function(){
         );
     }
 
-    initialData(1);//0表示第一页
-
     function warpHtml(contentArray){
 
         $("#bgUsers-tab tbody").empty();
@@ -119,7 +159,8 @@ $(document).ready(function(){
             }
             trHtml += '<td>' + userInfo['username'] +'</td>';
             trHtml += '<td>' + roleValue + '</td>';
-            trHtml += '<td>' + userInfo['city'] + '</td>';
+            var cityArray = userInfo['city'].split(',');
+            trHtml += '<td>' + regionsArray[1][cityArray[1]].name + '</td>';
             trHtml += '<td id=\'' + userInfo['id'] +'\' abbr=' + role +'>';
             trHtml += '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;';
             if(userInfo['username'] !== 'admin') {
@@ -231,8 +272,8 @@ $(document).ready(function(){
             var hash = hex_md5(password);
             var uuidVaule = UUID.prototype.createUUID();
             var roleValue = $("#roleRadio").find("input:radio:checked").val();
-            var proValue = $("#create-pro-sel  option:selected").text();
-            var cityValue = $("#create-city-sel  option:selected").text();
+            var proValue = $("#create_province-sel  option:selected").val();
+            var cityValue = $("#create_city-sel  option:selected").val();
             var locationValue = '';
             if(proValue !== '' && cityValue !== ''){
                 locationValue = proValue + ',' + cityValue;
@@ -255,6 +296,7 @@ $(document).ready(function(){
                     $("#create_account_name_input").val("");
                     $("#create_account_password_input").val("");
                     $("#create_account_confirm_password_input").val("");
+                    $("#create_province-sel").empty();$("#create_city-sel").empty();
                     initialData(currpage);
             });
         }else{
@@ -268,8 +310,8 @@ $(document).ready(function(){
         var _username = $("#modify_account_name_input").val();
         var _userId = $("#accountEdit").val();
         var roleValue = $("#edit_roleRadio_div").find("input:radio:checked").val();
-        var proValue = $("#edit-pro-sel  option:selected").text();
-        var cityValue = $("#edit-city-sel  option:selected").text();
+        var proValue = $("#edit_province-sel  option:selected").val();
+        var cityValue = $("#edit_city-sel  option:selected").val();
         var locationValue = '';
         if(proValue !== '' && cityValue !== ''){
             locationValue = proValue + ',' + cityValue;
@@ -297,6 +339,34 @@ $(document).ready(function(){
             });
 
         $("#edit_account_dlg").modal("hide");
+    });
+
+    $("#create_province-sel").change(function () {
+        var province = $("#create_province-sel").val();
+        if(province === ''){
+            $("#create_city-sel").empty();
+            return;
+        }
+
+        var citiesArray = regionsArray[1][province]['children'];
+        $("#create_city-sel").append("<option value=\""+"\">"+"-- 请选择城市  --"+"</option>");
+        for(x in citiesArray){
+            $("#create_city-sel").append("<option value=" + citiesArray[x].id+ ">" + citiesArray[x].name +"</option>");
+        }
+    });
+
+    $("#edit_province-sel").change(function () {
+        var province = $("#edit_province-sel").val();
+        if(province === ''){
+            $("#edit_city-sel").empty();
+            return;
+        }
+
+        var citiesArray = regionsArray[1][province]['children'];
+        $("#edit_city-sel").append("<option value=\""+"\">"+"-- 请选择城市  --"+"</option>");
+        for(x in citiesArray){
+            $("#edit_city-sel").append("<option value="+citiesArray[x].id+">"+citiesArray[x].name+"</option>");
+        }
     });
 });
 

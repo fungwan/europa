@@ -82,32 +82,6 @@ exports.delUsersById = function(req,res){
     });
 };
 
-
-exports.delUsersByUuId = function(req,res){
-
-    var idArray = req.body.ids;
-    async.map(idArray, function(item, callback) {
-
-        var delIdPath = '/v1/users?uuid=' + item + '';
-        var optionItem = {};
-        optionItem['path'] = delIdPath;
-        request.del(optionItem,callback);
-
-    }, function(err,results) {
-        if(err !== null){
-            res.json({
-                    result: 'fail',
-                    content:err}
-            );
-        }else{
-            res.json({
-                    result: 'success',
-                    content: 'ok'}
-            );
-        }
-    });
-};
-
 exports.updateUserById = function(req,res){
 
     var content = req.body.content;
@@ -240,6 +214,29 @@ exports.findUserByName = function(req,res){
                 res.json({ result: 'fail',
                     content:'user has been exist...'});
             }
+        }else{
+            res.json({ result: 'fail',
+                content:err});
+        }
+    });
+
+};
+
+exports.findUserById = function(req,res){
+
+    var userId = req.query.id;
+    var options = connectAddr + '/users(' + userId + ')' ;
+
+    request.get(options,function(err,results){
+        if(err === null){
+            var jsonObj = jsonConvert.stringToJson(results);
+            if(jsonObj === null){
+                res.json({ result: 'fail',
+                    content:results});
+                return;
+            }
+            res.json({ result: 'success',
+                content:jsonObj});
         }else{
             res.json({ result: 'fail',
                 content:err});
