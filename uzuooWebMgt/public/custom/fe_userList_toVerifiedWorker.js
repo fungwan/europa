@@ -108,6 +108,34 @@ $(document).ready(function(){
                     $("#inputCardNumber-readOnly").val(data.content['id_card_no']);
                 }
             );
+
+            //获取相应的单个工人认证记录
+            $.get("/doGetVerifiedRecordById",
+                {
+                    id:curr_edit_workerId
+                },
+                function (data) {
+
+                    if(data.result === 'fail'){
+                        return;
+                    }
+
+                    $("#verifiedRecord-table tbody").empty();
+
+                    console.log(data.content);
+
+                    var verifiedArray = data.content;
+                    for(x in verifiedArray){
+
+                        var trHtml = '<tr>';
+                        trHtml += '<td>' + getConvertTime(verifiedArray[x]['apply_time']) +'</td>';//日期
+                        trHtml += '<td>' + verifiedArray[x]['verification_state'] +'</td>';//认证结果
+                        trHtml += '<td>' + verifiedArray[x]['description'] +'</td></tr>';//驳回原因
+
+                        $("#verifiedRecord-table tbody").append(trHtml);
+                    }
+                }
+            );
         });
     }
 

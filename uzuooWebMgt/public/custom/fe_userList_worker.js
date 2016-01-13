@@ -23,7 +23,7 @@ function editRole(index,roleId){
 
         var rId = firstItemArray[x]['id'];
         if(rId === roleId){
-            selectRolesHtml += '<option value=\'' + rId + '\' selected >' + rolesArray[1][rId] + '</option>';
+            selectRolesHtml += '<option value=\'' + rId + '\' selected >' + rolesArray[1][rId].name + '</option>';
 
             var craftsArray = firstItemArray[x]['crafts'];
 
@@ -44,7 +44,7 @@ function editRole(index,roleId){
             selectCraftsHtml += '</div></div>';
 
         }else{
-            selectRolesHtml += '<option value=\'' + rId + '\'>' + rolesArray[1][rId] + '</option>';
+            selectRolesHtml += '<option value=\'' + rId + '\'>' + rolesArray[1][rId].name + '</option>';
         }
     }
     selectRolesHtml += '</select>';
@@ -88,7 +88,7 @@ function editRole(index,roleId){
         for( x in workerRolesArray){
             var id = workerRolesArray[x]['role_id'];
             showRolesHtml += '<div class="col-md-6">';
-            showRolesHtml += '<input type="text" class="form-control" value="' + rolesArray[1][id] + '" disabled>';
+            showRolesHtml += '<input type="text" class="form-control" value="' + rolesArray[1][id].name+ '" disabled>';
             showRolesHtml += '<button type="button"  onclick="editRole(' + x + ',\'' + workerRolesArray[x]['role_id'] +'\'' +')' +"\"><i class=\"fa fa-edit\"></i></button>";
             showRolesHtml += '</div>'
         }
@@ -126,8 +126,8 @@ function editRole(index,roleId){
 
                 for(y in craftsArray){
                     var cId = craftsArray[y]['id'];
-                    selectCraftsHtml += '<input id=\'' + cId +  '\' type="checkbox" />'
-                    selectCraftsHtml += '<label for=\'' + cId +  '\' >' + rolesArray[1][cId] + '</label>';
+                    selectCraftsHtml += '<input id=\'' + cId +  '\' type="checkbox" />';
+                    selectCraftsHtml += '<label for=\'' + cId +  '\' >' + rolesArray[1][cId].name + '</label>';
                 }
 
                 selectCraftsHtml += '</div></div>';
@@ -305,6 +305,38 @@ $(document).ready(function(){
                     $("#review-bad-span").text(data.content['review']['bad']);
                 }
             );
+
+
+            $("#scene-verified_btn").click(function(){
+                $('#verified-dialog').modal('show');
+                //获取相应的单个工人的认证记录
+                $.get("/doGetVerifiedRecordById",
+                    {
+                        id:curr_edit_workerId
+                    },
+                    function (data) {
+
+                        if(data.result === 'fail'){
+                            return;
+                        }
+
+                        $("#verifiedRecord-table tbody").empty();
+
+                        console.log(data.content);
+
+                        var verifiedArray = data.content;
+                        for(x in verifiedArray){
+
+                            var trHtml = '<tr>';
+                            trHtml += '<td>' + getConvertTime(verifiedArray[x]['apply_time']) +'</td>';//日期
+                            trHtml += '<td>' + verifiedArray[x]['verification_state'] +'</td>';//认证结果
+                            trHtml += '<td>' + verifiedArray[x]['description'] +'</td></tr>';//驳回原因
+
+                            $("#verifiedRecord-table tbody").append(trHtml);
+                        }
+                    }
+                );
+            });
         });
 
         $('#edit_workerDetail_tab a[data-toggle="tab"]').on('show.bs.tab', function (e) {
@@ -565,7 +597,7 @@ $(document).ready(function(){
         var firstScreeningPagination = false;
         $.get("/doFindWorkersByFilters",
             {
-                page: 1,
+                page: cur,
                 filters:filterArray
             },
             function(data){
@@ -613,7 +645,7 @@ $(document).ready(function(){
         }else if(selected === 'id_card_no'){
             filterStr = 'id_card_no::' + keyWords;
         }else if(selected === 'name'){
-            filterStr = 'name::' + keyWords;
+            filterStr = 'fullname::' + keyWords;
         }
 
         var arrayTmp = [];
@@ -646,8 +678,7 @@ $(document).ready(function(){
         var selectObj = $('#city_sel>option:selected');
         if(selectObj.get(0) !== undefined && selectObj.get(0).value !== ''){
             selectedCity = selectObj.get(0).value;
-            //TODO
-            //console.log(selectedCity);
+            selectedCity = 'city::' + selectedCity;
 
             //获取选取的区域
             var regionsFlag = false;
@@ -705,7 +736,7 @@ $(document).ready(function(){
         var arrayTmp = [];
         //将所有筛选条件组合
         if(selectedCity !== ''){
-            //arrayTmp.push(selectedCity);
+            arrayTmp.push(selectedCity);
         }
 
         if(regionsStr !== ''){
@@ -812,3 +843,32 @@ $(document).ready(function(){
     });
 });
 
+function getConvertTime(timeStamp){
+
+    var myDate = new Date(timeStamp);
+    var year = myDate.getFullYear();
+    var month = parseInt(myDate.getMonth().toString()) + 1; //month是从0开始计数的，因此要 + 1
+    if (month < 10) {
+        month = "0" + month.toString();
+    }
+    var date = myDate.getDate();
+    if (date < 10) {
+        date = "0" + date.toString();
+    }
+    var hour = myDate.getHours();
+    if (hour < 10) {
+        hour = "0" + hour.toString();
+    }
+    var minute = myDate.getMinutes();
+    if (minute < 10) {
+        minute = "0" + minute.toString();
+    }
+    var second = myDate.getSeconds();
+    if (second < 10) {
+        second = "0" + second.toString();
+    }
+
+    var currentTime = year.toString() + "/" + month.toString() + "/" + date.toString() + " " + hour.toString() + ":" + minute.toString() + ":" + second.toString(); //以时间格式返回
+
+    return currentTime;
+}

@@ -21,12 +21,12 @@ $(document).ready(function(){
             rolesArray = regionsAndRolesArray[1];
             console.log(rolesArray);
 
-            warpHtml();
+            warpHtml('','');
 
         }
     });
 
-    function warpHtml() {
+    function warpHtml(roleId,craftsId) {
 
         $("#roles-ul").empty();
 
@@ -40,6 +40,45 @@ $(document).ready(function(){
             trHtml += '</li>';
 
             $("#roles-ul").append(trHtml);
+        }
+
+
+        if(roleId !== '' && craftsId !== ''){
+            var rolesMap = rolesArray[1];
+            var craftsArray = rolesMap[roleId]['crafts'];
+
+            for (x in craftsArray) {
+
+                var craftsInfo = craftsArray[x];
+
+                var trHtml = '<li id="';
+                trHtml += craftsInfo['id'] + '"' + "><a name=\"crafts\" href=\"javacript:void(0);\">" + craftsInfo['name'] +"</a>" ;
+                trHtml += '</li>';
+
+                $("#crafts-ul").append(trHtml);
+            }
+
+            var amountSetInfo = rolesArray[1][craftsId];
+
+            $("#amountSetting-div").css({"display":""});
+
+            //show amount info
+            var showRoleName = rolesArray[1][roleId]['name'];
+            var showCraftsName = rolesArray[1][craftsId]['name'];
+            $("#showRole-label").text(showRoleName + '-' + showCraftsName);
+            $("#earnestSet-input").val(amountSetInfo['earnest']);
+
+            $("#need_trustee-div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
+                "&nbsp;<span class='badge badge-default'>否</span></label> <label> " +
+                "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
+                "<span class='badge badge-blue'>是</span></label>");
+
+            $("input[name='optionsRadios'][value=\""+ amountSetInfo['need_trustee'] +"\"]").attr("checked",true);
+            $("#commission_basicSet-input").val(amountSetInfo['commission_basic']);
+            $("#commission_floatSet-input").val(amountSetInfo['commission_float']);
+            $("#margin_rateSet-input").val(amountSetInfo['margin_rate']);
+            $("#margin_up_thresholdSet-input").val(amountSetInfo['margin_up_threshold']);
+            $("#margin_down_thresholdSet-input").val(amountSetInfo['margin_down_threshold']);
         }
 
         $('a[name="roles"]').click(function($this){
@@ -76,6 +115,14 @@ $(document).ready(function(){
                 var showCraftsName = rolesArray[1][selectedCraftsId]['name'];
                 $("#showRole-label").text(showRoleName + '-' + showCraftsName);
                 $("#earnestSet-input").val(amountSetInfo['earnest']);
+
+                $("#need_trustee-div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
+                    "&nbsp;<span class='badge badge-default'>否</span></label> <label> " +
+                    "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
+                    "<span class='badge badge-blue'>是</span></label>");
+
+                $("input[name='optionsRadios'][value=\""+ amountSetInfo['need_trustee'] +"\"]").attr("checked",true);
+
                 $("#commission_basicSet-input").val(amountSetInfo['commission_basic']);
                 $("#commission_floatSet-input").val(amountSetInfo['commission_float']);
                 $("#margin_rateSet-input").val(amountSetInfo['margin_rate']);
@@ -108,31 +155,32 @@ $(document).ready(function(){
 
         $("#amountSetResult-info").text('');
 
-        //$("#need_trustee-input").attr({"checked":"false"});
-
-        /*var isNeedTrustee = $("#need_trustee-input").attr("checked");
-        if(isNeedTrustee){
-            alert('需要托管');
-        }*/
-
-        /*$.post("/amount",
+         var isTrusteeValue = $("#need_trustee-div").find("input:radio:checked").val();
+         var isTrusteeNum = parseInt(isTrusteeValue);
+         $.post("/amount",
             {
-                roleId:'',
-                craftId:'',
-                earnest:'',
-                need_trustee:'',
-                commssion_basic:'',
-                commssion_float:'',
-                margin_rate:'',
-                margin_up_threshold:'',
-                margin_down_threshold:''
+                roleId:selectedRoleId,
+                craftId:selectedCraftsId,
+                earnest:$("#earnestSet-input").val(),
+                need_trustee:isTrusteeNum,
+                commssion_basic:$("#commission_basicSet-input").val(),
+                commssion_float:$("#commission_floatSet-input").val(),
+                margin_rate:$("#margin_rateSet-input").val(),
+                margin_up_threshold:$("#margin_up_thresholdSet-input").val(),
+                margin_down_threshold:$("#margin_down_thresholdSet-input").val()
             },
             function (data) {
 
                 //console.log(data);
+                if(data.result === 'fail'){
+                    $("#amountSetResult-info").text('更新数据失败！');
+                    return;
+                }
+
+                warpHtml(selectedRoleId,selectedCraftsId)
 
             }
-        );*/
+        );
     });
 
     $("input[name='check_float-input']").blur(function($this){
@@ -148,6 +196,7 @@ $(document).ready(function(){
         }else{
             $this.target['attributes'][3].value = true;
             floatInputNum = parseFloat(floatInputVal);
+            $this.target['value'] = floatInputNum;
             $("#updateAmountSet-btn").attr('disabled',false);
         }
 
@@ -157,6 +206,8 @@ $(document).ready(function(){
             $("#amountSetResult-info").text('比例金额大小超出限制!');
             return;
         }else{$this.target['attributes'][3].value = true;}
+
+        $("#amountSetResult-info").text('');
     });
 
     $("input[name='check_int-input']").blur(function($this){
@@ -170,8 +221,11 @@ $(document).ready(function(){
             $("#amountSetResult-info").text('输入金额格式有误！应为正整数！');
             return;
         }else{
+
             $this.target['attributes'][3].value = true;
             intInputNum = parseInt(intInputVal);
+            $this.target['value'] = intInputNum;
+
             $("#updateAmountSet-btn").attr('disabled',false);
         }
 
@@ -181,6 +235,8 @@ $(document).ready(function(){
             alert('金额超出限制...');
             return;
         }else{$this.target['attributes'][3].value = true;}
+
+        $("#amountSetResult-info").text('');
 
     });
 
