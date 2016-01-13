@@ -48,7 +48,7 @@ exports.get = function(optionItem,cb){
                 return cb(null,recv);
             }else{
                 logger.debug('requestForGo----Get请求错误...' + recv);
-                return cb(res.statusCode,'');
+                return cb(res.statusCode,res.body);
             }
         });
     });
@@ -83,13 +83,12 @@ exports.post = function(optionItem,contents,cb){
             return cb(null,'');
         }
 
+        if(res.statusCode === 400 || res.statusCode === 403 || res.statusCode === 404 || res.statusCode === 500){
+            logger.debug('requestForGo----POST请求错误,url为：' + options['path']);
+            return cb(res.statusCode,res.body);
+        }
+
         res.on('data', function(recv) {
-
-            if(res.statusCode === 403 || res.statusCode === 404 || res.statusCode === 500){
-                logger.debug('requestForGo----POST请求错误...' + recv);
-                return cb(res.statusCode,'');
-            }
-
             return cb(null,recv);
         });
     });

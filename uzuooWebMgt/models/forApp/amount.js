@@ -31,24 +31,33 @@ exports.postProcess = function(req,res){
             update_amount: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var feedbacksPath = '/v1/feedbacks?'+'accessToken=' + token;
+                var rId = req.body.roleId;
+                var cId = req.body.craftId;
+
+                var updateAmountPath = ' /v1/workerRole/' + rId + '/craft/' + cId + '/setting?' +'accessToken=' + token;
 
                 var item = {};
-                item['path'] = feedbacksPath;
+                item['path'] = updateAmountPath;
 
                 var content = {
-                    verified:parseInt(verifiedContent.verified),
-                    reason:verifiedContent.reason
+                    earnest:parseInt(req.body.earnest),
+                    need_trustee:parseInt(req.body.need_trustee),
+                    commssion_basic:parseFloat(req.body.commssion_basic),
+                    commssion_float:parseFloat(req.body.commssion_float),
+                    margin_rate:parseFloat(req.body.margin_rate),
+                    margin_up_threshold:parseInt(req.body.margin_up_threshold),
+                    margin_down_threshold:parseInt(req.body.margin_down_threshold)
                 };
 
                 var bodyString = JSON.stringify(content);
 
-                request.post(optionItem,bodyString,callback);
+                request.post(item,bodyString,callback);
+
             }]
         },function(err,result){
             if(err === null){
 
-                var feedbackArray = jsonConvert.stringToJson(result.get_feedbacks)['update_amount'];
+                var feedbackArray = result.update_amount; //jsonConvert.stringToJson(result.update_amount);
 
                 res.json({
                     result: 'success',

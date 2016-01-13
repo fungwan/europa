@@ -28,8 +28,8 @@ module.exports = function(app,acl) {
     });
 
     //orders
-    app.get('/orders', checkLogin);
-    app.get('/orders', function (req, res) {
+    app.get('/showOrdersPage', checkLogin);
+    app.get('/showOrdersPage', function (req, res) {
         orders.getProcess(req,res);
     });
 
@@ -46,6 +46,22 @@ module.exports = function(app,acl) {
     app.get('/amountMgtPage', checkLogin);
     app.get('/amountMgtPage', function (req, res) {
         res.render('amountMgt',
+            {
+                userInfo:req.session.user
+            });
+    });
+
+    app.get('/activityMgtPage', checkLogin);
+    app.get('/activityMgtPage', function (req, res) {
+        res.render('activityMgt',
+            {
+                userInfo:req.session.user
+            });
+    });
+
+    app.get('/levelRulesMgtPage', checkLogin);
+    app.get('/levelRulesMgtPage', function (req, res) {
+        res.render('levelRulesMgt',
             {
                 userInfo:req.session.user
             });
@@ -69,6 +85,10 @@ module.exports = function(app,acl) {
         customer.verifiedById(req,res);
     });
 
+    app.get('/doGetVerifiedRecordById', function (req, res) {
+        customer.findVerifiedRecordById(req,res);
+    });
+
     app.get('/doFindWorkerById', function (req, res) {
         customer.findWorkerById(req,res);
     });
@@ -90,8 +110,13 @@ module.exports = function(app,acl) {
         feedbacks.getFeedbacks(req,res);
     });
 
-    app.get('/doGetOrderById', checkLogin);
-    app.get('/doGetOrderById', function (req, res) {
+    app.get('/orders', checkLogin);
+    app.get('/orders', function (req, res) {
+        orders.getOrders(req,res);
+    });
+
+    app.get('/orders/:id', checkLogin);
+    app.get('/orders/:id', function (req, res) {
         orders.getOrderById(req,res);
     });
 

@@ -112,9 +112,9 @@ var city = userInfo.city;
                 </ul>
             </li>
 
-            <li class="active"><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
+            <li ><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="active"><a href="/showOrdersPage"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
+                    <li ><a href="/showOrdersPage"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
                     </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
@@ -123,9 +123,9 @@ var city = userInfo.city;
                 </ul>
             </li>
 
-            <li><a href="#"><i class="fa fa-rss-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">活动信息管理</span><span class="fa arrow"></span></a>
+            <li class="active"><a href="#"><i class="fa fa-rss-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">活动信息管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="#"><i class="fa fa-table"></i><span class="submenu-title">活动查看</span></a>
+                    <li class="active"><a href="/activityMgtPage"><i class="fa fa-table"></i><span class="submenu-title">活动查看</span></a>
                     </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
@@ -158,7 +158,7 @@ var city = userInfo.city;
 <!--BEGIN TITLE & BREADCRUMB PAGE-->
 <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
     <div class="page-header pull-left">
-        <div class="page-title">订单查看</div>
+        <div class="page-title">活动查看</div>
     </div>
     <div class="clearfix"></div>
 </div>
@@ -169,18 +169,12 @@ var city = userInfo.city;
         <div class="col-lg-12">
             <div class="portlet box">
                 <div class="portlet-header">
-                    <div class="caption">所有订单</div>
+                    <div class="caption">所有活动</div>
                 </div>
                 <div class="portlet-body">
-                    <div class="row mbm">
+                    <!--div class="row mbm">
                         <div class="col-lg-3">
                             <div class="input-group input-group-sm mbs">
-                                <!--span class="input-group-btn">
-                                    <button type="button" data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Filter
-                                        &nbsp;<span class="caret">
-                                        </span>
-                                    </button>
-                                </span-->
                                 <input type="text" placeholder="输入订单号进行搜索" class="form-control" />
                                             <span class="input-group-btn">
                                                 <button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle">订单搜索</button>
@@ -192,7 +186,7 @@ var city = userInfo.city;
                                 <span data-value="0"><a id="more_find_link" value="true" href="javascript:;">更多搜索条件<i class="fa fa-sort-desc"></i></a></span>
                             </div>
                         </div>
-                    </div>
+                    </div-->
                     <div id="more_find_div" class="row mbm" style="display: none">
 
                         <div class="col-lg-6">
@@ -226,20 +220,17 @@ var city = userInfo.city;
 
                         </div>
                     </div>
-                    <table id="orders-table" class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                    <table class="table table-hover table-striped table-bordered table-advanced tablesorter">
                         <thead>
                         <tr>
                             <th width="3%">
                                 <input type="checkbox" class="checkall" />
                             </th>
-                            <th width="15%">时间</th>
-                            <th width="10%">区域</th>
-                            <th width="10%">订单号</th>
-                            <th width="10%">工种</th>
-                            <th width="10%">业主号码</th>
-                            <th width="10%">工长号码</th>
-                            <th width="10%">金额</th>
-                            <th width="10%">状态</th>
+                            <th width="15%">活动名</th>
+                            <th width="10%">启用状态</th>
+                            <th width="10%">细项工种</th>
+                            <th width="10%">开始时间</th>
+                            <th width="10%">结束时间</th>
                             <th width="12%"></th>
                         </tr>
                         </thead>
@@ -248,15 +239,12 @@ var city = userInfo.city;
                             <td>
                                 <input type="checkbox" />
                             </td>
-                            <td>20-05-2014</td>
-                            <td>Henry</td>
-                            <td>United States</td>
-                            <td>Male</td>
-                            <td>32</td>
-                            <td>125654</td>
-                            <td>$240.50</td>
-                            <td><span class="label label-sm label-success">Approved</span>
+                            <td>开业大酬宾</td>
+                            <td><span class="label label-sm label-success">进行中</span>
                             </td>
+                            <td>开荒</td>
+                            <td>20-05-2014</td>
+                            <td>20-06-2014</td>
                             <td id="ba62110f-5b9b-4993-973f-6a2ba3f417d2">
                                 <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-archive"></i>&nbsp; 详情
                                 </button>&nbsp;
@@ -266,15 +254,12 @@ var city = userInfo.city;
                             <td>
                                 <input type="checkbox" />
                             </td>
-                            <td>20-06-2014</td>
-                            <td>John</td>
-                            <td>United States</td>
-                            <td>Female</td>
-                            <td>45</td>
-                            <td>12364</td>
-                            <td>$240.50</td>
-                            <td><span class="label label-sm label-info">Pending</span>
+                            <td>上传案例送积分</td>
+                            <td><span class="label label-sm label-success">进行中</span>
                             </td>
+                            <td>水电</td>
+                            <td>20-05-2014</td>
+                            <td>20-06-2014</td>
                             <td id="ba62110f-5b9b-4993-973f-6a2ba3f417d2">
                                 <button type="button" class="btn btn-default btn-xs mbs"><i class="fa fa-archive"></i>&nbsp; 详情
                                 </button>&nbsp;
@@ -292,18 +277,7 @@ var city = userInfo.city;
 <!--END CONTENT-->
 </div>
 
-<div id="orderDetail-dlg" tabindex="-1" role="dialog" aria-labelledby="modal-wide-width-label" aria-hidden="true" class="modal fade">
-    <div class="modal-dialog modal-wide-width">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                <h4 id="modal-wide-width-label" class="modal-title">订单详情</h4>
-            </div>
-            <div class="modal-body"><%- include order_detail %></div>
 
-        </div>
-    </div>
-</div>
 
 <%- include footer %>
 
@@ -317,4 +291,3 @@ var city = userInfo.city;
 <script src="vendors/jplist/html/js/jplist.min.js"></script>
 <script src="js/jplist.js"></script>
 
-<script src="custom/fe_orders.js"></script>

@@ -401,7 +401,7 @@ exports.findWorkersByFilters = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter=' + filters;// + '&countOnly=true';
+                var path = '/v1/workers?'+'accessToken=' + token + '&filter=' + filters + '&countOnly=true';
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -413,7 +413,7 @@ exports.findWorkersByFilters = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter='+ filters + '&limit=10&offset='+ skipValue;
+                var path = '/v1/workers?'+ 'filter='+ filters + '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -431,8 +431,8 @@ exports.findWorkersByFilters = function(req,res){
             }else{
 
                 var token = results.get_token;
-                var workersArray = jsonConvert.stringToJson(results.get_all)['workers'];
-                if(workersArray === null){//db里面一个工人也没有.
+                var workersCounts = jsonConvert.stringToJson(results.get_all)['count'];
+                if(workersCounts === 0){//db里面一个工人也没有.
                     res.json({
                             result: 'success',
                             pages:1,
@@ -440,7 +440,7 @@ exports.findWorkersByFilters = function(req,res){
                     );
                     return;
                 }
-                var allUserCounts = workersArray.length;
+                var allUserCounts = workersCounts;
 
                 //get product list
                 var pageCounts = 1;
@@ -726,6 +726,53 @@ exports.verifiedById = function(req,res){
     });
 
 
+};
+
+exports.findVerifiedRecordById = function(req,res){
+
+    var userId = req.query.id;
+
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_verifiedRecord:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/v1/workers/' + userId + '/verification_logs?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var verifiedRecordArray = jsonConvert.stringToJson(results.get_verifiedRecord)['Verification_logs'];
+                if(verifiedRecordArray === null){
+                    verifiedRecordArray = [];
+                }
+
+                res.json({ result: 'success',
+                    content:verifiedRecordArray});
+
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
 };
 
 function getroleAndRegions(token,callback){

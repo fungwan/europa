@@ -25,56 +25,66 @@ function getAccessTokenByRefreshToken(refreshToken){
 
 }
 
+
+function firstGetAccessToken(cb){
+
+// step 1: get nonce
+    var nonceOptionItem = {};
+    nonceOptionItem['path'] = '/v1/applications/' + appId + '/nonce';
+    request.post(nonceOptionItem,'',function(err,results){
+        if(err !== null){
+            console.error(err);
+            cb(err,false);
+        }else{
+
+            var tokenObject = jsonConvert.stringToJson(results);
+            if(tokenObject === null){
+                cb('get nonce error',false);
+                return;
+            }
+            _nonce = tokenObject.nonce;
+            //TODO encrpt nonce using app key to generate challenge key
+
+            //step 3: get token
+            var tokenOptionItem = {};
+            tokenOptionItem['path'] = '/v1/applications/' + appId + '/accessToken';
+
+            var challengeInfo = JSON.stringify({
+                'grant_type':'challenge',
+                'challenge':_nonce
+            });
+
+            request.post(tokenOptionItem,challengeInfo,function(err,results){
+                if(err !== null){
+                    cb(err,false);
+                }else{
+                    var tokenObject = jsonConvert.stringToJson(results);
+                    if(tokenObject === null){
+                        cb('get token error',false);
+                        return;
+                    }
+                    if(tokenObject.code === undefined){
+                        _token = tokenObject.access_token;
+                        _refreshToken = tokenObject.refresh_token;
+                        _expireTime = tokenObject.expired_in;
+                        cb(null,_token);
+                    }else{
+                        cb(tokenObject.status,false);
+                        console.error(results);
+                    }
+
+                }
+
+            });
+
+        }
+    });
+}
+
 function _getToken(cb){
     if(_token === ''){
 
-        // step 1: get nonce
-        var nonceOptionItem = {};
-        nonceOptionItem['path'] = '/v1/applications/' + appId + '/nonce';
-        request.post(nonceOptionItem,'',function(err,results){
-            if(err !== null){
-                console.error(err);
-                cb(err,false);
-            }else{
-
-                _nonce = results.nonce;
-                //TODO encrpt nonce using app key to generate challenge key
-
-                //step 3: get token
-                var tokenOptionItem = {};
-                tokenOptionItem['path'] = '/v1/applications/' + appId + '/accessToken';
-
-                var challengeInfo = JSON.stringify({
-                    'grant_type':'challenge',
-                    'challenge':_nonce
-                });
-
-                request.post(tokenOptionItem,challengeInfo,function(err,results){
-                    if(err !== null){
-                        cb(err,false);
-                    }else{
-                        var tokenObject = jsonConvert.stringToJson(results);
-                        if(tokenObject === null){
-                            cb('get token error',false);
-                            return;
-                        }
-                        if(tokenObject.code === undefined){
-                            _token = tokenObject.access_token;
-                            _refreshToken = tokenObject.refresh_token;
-                            _expireTime = tokenObject.expired_in;
-                            cb(null,_token);
-                        }else{
-                            cb(tokenObject.status,false);
-                            console.error(results);
-                        }
-
-                    }
-
-                });
-
-            }
-        });
-
+        firstGetAccessToken(cb);
 
     }else if(_token !== '' && !_tokenIsExpire){
 
@@ -94,7 +104,8 @@ function _getToken(cb){
 
         request.post(tokenOptionItem,challengeInfo,function(err,results){
             if(err !== null){
-                cb(err,false);
+                //refresh_token或已过期
+                firstGetAccessToken(cb);
             }else{
                 var tokenObject = jsonConvert.stringToJson(results);
                 if(tokenObject === null){
@@ -107,38 +118,7 @@ function _getToken(cb){
                     _tokenIsExpire = false;
                     cb(null,_token);
                 }else{
-                    //refresh_token或已过期
-                    var tokenOptionItem = {};
-                    tokenOptionItem['path'] = '/v1/applications/' + appId + '/accessToken';
-
-                    var challengeInfo = JSON.stringify({
-                        'grant_type':'challenge',
-                        'challenge':_nonce
-                    });
-
-                    request.post(tokenOptionItem,challengeInfo,function(err,results){
-                        if(err !== null){
-                            cb(err,false);
-                        }else{
-                            var tokenObject = jsonConvert.stringToJson(results);
-                            if(tokenObject === null){
-                                cb('get token error',false);
-                                return;
-                            }
-                            if(tokenObject.code === undefined){
-                                _token = tokenObject.access_token;
-                                _refreshToken = tokenObject.refresh_token;
-                                _expireTime = tokenObject.expired_in;
-                                _tokenIsExpire = false;
-                                cb(null,_token);
-                            }else{
-                                cb(tokenObject.code,false);
-                                console.error(results);
-                            }
-
-                        }
-
-                    });
+                    cb('get token error',false);
                 }
 
             }

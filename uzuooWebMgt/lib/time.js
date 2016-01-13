@@ -66,7 +66,7 @@ exports.isFromBiggerThanTo = function(dtmfrom, dtmto){
 
 exports.getConvertTime = function(timeStamp){
 
-    var myDate = timeStamp;
+    var myDate = new Date(timeStamp);
     var year = myDate.getFullYear();
     var month = parseInt(myDate.getMonth().toString()) + 1; //month是从0开始计数的，因此要 + 1
     if (month < 10) {
