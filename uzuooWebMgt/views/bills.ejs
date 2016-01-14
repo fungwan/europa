@@ -155,34 +155,30 @@
                     <div class="panel-heading">账户明细表</div>
                     <div class="panel-body">
                          <div id="flip-scroll">
-                            <table class="table table-bordered table-striped table-condensed cf">
+                            <table id="tradeDetails-table" class="table table-bordered table-striped table-condensed cf">
                                 <thead class="cf">
                                     <tr>
-                                        <th>日期</th>
-                                        <th>区域</th>
-                                        <th class="numeric">支付编号</th>
-                                        <th class="numeric">订单ID</th>
-                                        <th>工种付款项</th>
-                                        <th class="numeric">支付金额</th>
-                                        <th class="numeric">渠道</th>
-                                        <th class="numeric">状态</th>
+                                        <th width="3%" class="sorting_disabled">
+                                            <input type="checkbox" class="checkall" />
+                                        </th>
+                                        <th width="5%">日期</th>
+                                        <th width="5%">城市</th>
+                                        <th width="10%">支付编号</th>
+                                        <th width="10%">订单编号</th>
+                                        <th width="10%" class="numeric">交易总额</th>
+                                        <th width="5%">支付来源</th>
+                                        <th width="10%" class="numeric">实际支付金额</th>
+                                        <th width="5%" >支付项</th>
+                                        <th width="10%" >支付明细</th>
+                                        <th width="10%">目标账户</th>
+                                        <th width="10%"class="numeric">入账金额</th>
+                                        <th >状态</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2015-12-10</td>
-                                        <td>成都 </td>
-                                        <td class="numeric">12565845</td>
-                                        <td class="numeric">6598545</td>
-                                        <td class="numeric">水电改造</td>
-                                        <td class="numeric">2000</td>
-                                        <td class="numeric">支付宝</td>
-                                        <td id="1" abbr='0' >
-                                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>&nbsp; 待确认</button>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
+                            <div id="billsPage"></div>
                         </div>
                     </div>
                 </div>
@@ -263,7 +259,8 @@
             </div-->
         </div>
     </div>
-
-
+</div>>
 
 <%- include footer %>
+
+<script src="custom/fe_billsMgt.js"></script>

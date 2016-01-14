@@ -27,6 +27,11 @@
     <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
     <link type="text/css" rel="stylesheet" href="css/laypage.css">
 </head>
+<style type="text/css">
+    #tinymask{position:absolute; display:none; top:0; left:0; height:100%; width:100%; background:#000000; z-index:1500;}
+    #tinybox{position:absolute; display:none; padding:5px; background:#ffffff url(images/other/preload.gif) no-repeat 50% 50%; border:10px solid #e3e3e3; z-index:2000;}
+    #tinycontent{background:#ffffff; font-size:1.1em;position: absolute;top: -10px;right: -10px;}
+</style>
 <body class=" ">
 <div>
 <%
@@ -316,5 +321,5 @@ var city = userInfo.city;
 
 <script src="vendors/jplist/html/js/jplist.min.js"></script>
 <script src="js/jplist.js"></script>
-
+<script src="lib/tinybox.js"></script>
 <script src="custom/fe_orders.js"></script>

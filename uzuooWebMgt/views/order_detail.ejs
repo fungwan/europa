@@ -35,7 +35,7 @@
                                 <li id="finishedOrder-li">
                                     <a href="#tab4-wizard-custom-circle" data-toggle="tab">
                                         <i class="glyphicon glyphicon-check"></i>
-                                        <p class="anchor">交易完成</p>
+                                        <p class="anchor">评价</p>
                                         <p class="description"></p>
                                     </a>
                                 </li>
@@ -50,11 +50,11 @@
                             <h3 class="mbxl">基本信息：</h3>
                             <form action="#" class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">客户姓名：<span id="customerName-span">冯云</span>
+                                    <label class="col-sm-3 control-label">客户姓名：<span id="customerName-span"></span>
                                     </label>
                                     <!--label class="col-sm-3 control-label" >联系电话：<span id="customerPhone-span">18180450714</span>
                                     </label-->
-                                    <label class="col-sm-6 control-label">房屋住址：<span id="customerAddress-span">武侯区天府四街仁美大源印象</span>
+                                    <label class="col-sm-6 control-label">房屋住址：<span id="customerAddress-span"></span>
                                     </label>
                                 </div>
                                 <!--div class="form-group">
@@ -65,7 +65,7 @@
                                     <label class="col-sm-3 control-label">候选者：
                                     </label>
                                     <label class="col-sm-6 control-label" style="position: relative;text-align: left">
-                                        <span id="candidates-span">贝聿铭,鲁班,茅以升</span></label>
+                                        <span id="candidates-span"></span></label>
                                 </div>
                             </form>
                         </div>
@@ -73,56 +73,30 @@
                             <h3 class="mbxl">合同信息</h3>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label class="col-sm-3 control-label">项目名称：<span>仁美大源印象</span>
+                                    <label class="col-sm-3 control-label">项目地址：<span id="projectAddress-span"></span>
                                     </label>
-                                    <label class="col-sm-3 control-label" >面积：<span>95平</span>
+                                    <label class="col-sm-3 control-label" >面积：<span id="houseAcreage-span"></span>
                                     </label>
-                                    <label class="col-sm-6 control-label">套型：<span>套三</span>
+                                    <label class="col-sm-6 control-label">套型：<span id="houseType-span"></span>
                                     </label>
-                                    <label class="col-sm-3 control-label">甲方：<span>冯云</span>
+                                    <label class="col-sm-3 control-label">甲方：<span id="houseName-span"></span>
                                     </label>
-                                    <label class="col-sm-3 control-label" >乙方：<span>悠住</span>
+                                    <label class="col-sm-3 control-label" >乙方：<span id="bidWorker-span"></span>
                                     </label>
-                                    <label class="col-sm-6 control-label">丙方：<span>贝聿铭</span>
+                                    <label class="col-sm-6 control-label">丙方：<span>悠住</span>
                                     </label>
                                 </div>
                             </div>
                             <br>
-                            <div class="row" style="height:300px; overflow:auto;">
-                                <div class="panel panel-grey">
-                                    <div class="panel-heading">预算明细</div>
-                                    <div class="panel-body">
-                                        <table class="table table-hover table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th>名称</th>
-                                                <th>金额</th>
-                                                <th>工期</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="active">水电</td>
-                                                <td class="success">5000</td>
-                                                <td class="warning">3天</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="active">泥工</td>
-                                                <td class="success">6000</td>
-                                                <td class="warning">3天</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="active">防水</td>
-                                                <td class="success">10000</td>
-                                                <td class="warning">5天</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="active">总价</td>
-                                                <td class="success">21000</td>
-                                                <td class="warning">11天</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                            <div class="row" style="height:200px; overflow:auto;">
+                                <div class="col-md-12"><span class="label label-default">报价单</span></div><br>
+                                <hr>
+                                <div id="quotationArray">
+                                    <div class="col-sm-6 col-md-3">
+                                        <label>工长还未上传报价单</label>
+                                        <!--a name="quotationImg"  href="javacript:void(0);" >
+                                            <img border=1 src="images/avatar/defaultVerifiedImg.png" width="128" height="128"/>
+                                        </a-->
                                     </div>
                                 </div>
                             </div>
@@ -131,11 +105,22 @@
                             <div class="col-md-12">
                                 <div id="accordion1" class="panel-group">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">施工进程</a><i class="indicator glyphicon glyphicon-chevron-down pull-right mts text-muted"></i>
+                                        <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">施工项</a><i class="indicator glyphicon glyphicon-chevron-down pull-right mts text-muted"></i>
                                         </div>
                                         <div id="collapseOne1" class="panel-collapse collapse in">
-                                            <div class="panel-body">
-                                                装修进行中...
+                                            <div class="panel-body" style="height:300px; overflow:auto;">
+                                                <table id="contractItem-table" class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>名称</th>
+                                                        <th>金额</th>
+                                                        <th>工期</th>
+                                                        <th>工段状态</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>

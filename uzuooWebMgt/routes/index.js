@@ -4,7 +4,9 @@ var route_users = require('./users');
 var customer = require('../models/forApp/customer');
 var feedbacks = require('../models/forApp/feedbacks');
 var orders = require('../models/forApp/orders');
+var contracts = require('../models/forApp/contracts');
 var amount = require('../models/forApp/amount');
+var bills = require('../models/forApp/bills');
 
 module.exports = function(app,acl) {
 
@@ -118,6 +120,33 @@ module.exports = function(app,acl) {
     app.get('/orders/:id', checkLogin);
     app.get('/orders/:id', function (req, res) {
         orders.getOrderById(req,res);
+    });
+
+    app.get('/contracts/:id', checkLogin);
+    app.get('/contracts/:id', function (req, res) {
+        contracts.getContractById(req,res);
+    });
+
+    app.get('/contracts/:id/items', checkLogin);
+    app.get('/contracts/:id/items', function (req, res) {
+        contracts.getContractItem(req,res);
+    });
+
+    app.get('/bills', checkLogin);
+    app.get('/bills', function (req, res) {
+        bills.getBills(req,res);
+    });
+
+    //第一次审核，行为为post
+    app.post('/bills/:id/billStatus', checkLogin);
+    app.post('/bills/:id/billStatus', function (req, res) {
+        bills.pendingBillById(req,res);
+    });
+
+    //承上，进行复核，行为为put，即将该支付订单的status更新
+    app.put('/bills/:id/billStatus', checkLogin);
+    app.put('/bills/:id/billStatus', function (req, res) {
+        bills.reviewBillById(req,res);
     });
 
     app.get('/doFindHouseOwnersById', checkLogin);
