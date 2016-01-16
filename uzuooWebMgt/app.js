@@ -13,6 +13,7 @@ var MongoStore = require('connect-mongo')(session);
 
 //var logger = require('./lib/log.js').logger;
 var acl = require('acl');
+var aclSetting = require('./models/acl_setting');
 var app = express();
 
 // view engine setup
@@ -47,18 +48,9 @@ mongodb.connect(settings.url, function(error, db) {//mongodb://username:password
     var mongoBackend = new acl.mongodbBackend(db, 'acl_');
     acl = new acl(mongoBackend);
 
-    acl.allow('guest', 'forums', 'view');
-    acl.addUserRoles('joed', 'guest');
+    aclSetting.set(acl);
 
     routes(app,acl);
-
-//    acl.isAllowed('joed', '/forums', 'view', function(err, res){
-//        if(res){
-//            console.log("User joed is allowed to view blogs");
-//        }else{
-//            console.log("no one");
-//        }
-//    });
 
 /// catch 404 and forward to error handler
     app.use(function(req, res, next) {
@@ -73,6 +65,13 @@ mongodb.connect(settings.url, function(error, db) {//mongodb://username:password
 // will print stacktrace
     if (app.get('env') === 'development') {
         app.use(function(err, req, res, next) {
+            if(err.errorCode === 403){
+                res.json({
+                    result: 'fail',
+                    content:'Permission Denied'});
+
+                return;
+            }
             res.status(err.status || 500);
             res.render('error', {
                 message: err.message,
@@ -84,6 +83,14 @@ mongodb.connect(settings.url, function(error, db) {//mongodb://username:password
 // production error handler
 // no stacktraces leaked to user
     app.use(function(err, req, res, next) {
+
+        if(err.errorCode === 403){
+            res.json({
+                result: 'fail',
+                content:403});
+
+            return;
+        }
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,

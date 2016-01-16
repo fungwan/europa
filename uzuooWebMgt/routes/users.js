@@ -46,7 +46,7 @@ module.exports = function(app,acl) {
     //action for ajax request about bg_users
 
     app.post('/doCreateAccount', function (req, res) {
-        users.createAccount(req,res);
+        users.createAccount(req,res,acl);
     });
 
     app.post('/doDelUsersById', function (req, res) {
@@ -54,14 +54,18 @@ module.exports = function(app,acl) {
     });
 
     app.post('/doUpdateUserById', function (req, res) {
-        users.updateUserById(req,res);
+        users.updateUserById(req,res,acl);
     });
 
     app.post('/doUpdateUserPWById', function (req, res) {
         users.updateUserPWById(req,res);
     });
 
-    app.get('/doFindUsersByPage', function (req, res) {
+    /*app.get('/doFindUsersByPage', function (req, res) {
+        users.findUsersByPage(req,res);
+    });*/
+
+    app.get('/users', acl.middleware(),function (req, res) {
         users.findUsersByPage(req,res);
     });
 
@@ -73,7 +77,11 @@ module.exports = function(app,acl) {
         users.findUserByName(req,res);
     });
 
-    app.get('/doFindLogsByPage', function (req, res) {
+    /*app.get('/doFindLogsByPage', function (req, res) {
+        history.findLogsByPage(req,res);
+    });*/
+
+    app.get('/logs', acl.middleware(),function (req, res) {
         history.findLogsByPage(req,res);
     });
 

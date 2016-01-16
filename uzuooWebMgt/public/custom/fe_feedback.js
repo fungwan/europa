@@ -122,7 +122,7 @@ $(document).ready(function(){
     }
 
     /*laypage({
-        cont: $('#feedbackPage'),
+        cont: $('#activityMgtPage'),
         pages: 10,
         skip: true,
         skin: 'yahei',

@@ -8,9 +8,9 @@
 var http = require('http');
 var settings = require('../conf/settings');
 
-var hostIp = settings.bmpMgtIpAddr;
+var hostIp = settings.bgMgtIpAddr;
 
-var hostPort = settings.bmpMgtPortAddr;
+var hostPort = settings.bgMgtPortAddr;
 
 exports.get = function(options,cb){
 

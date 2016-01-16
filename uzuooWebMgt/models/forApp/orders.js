@@ -42,7 +42,7 @@ exports.getOrders = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/v1/orders?'+'accessToken=' + token + '&filter=' + filters;// + '&countOnly=true';
+                var path = '/orders?'+'accessToken=' + token + '&filter=' + filters;// + '&countOnly=true';
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -54,7 +54,7 @@ exports.getOrders = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/v1/orders?'+'accessToken=' + token + '&filter='+ filters + '&limit=10&offset='+ skipValue;
+                var path = '/orders?'+'accessToken=' + token + '&filter='+ filters + '&limit=10&offset='+ skipValue;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -119,7 +119,7 @@ exports.getOrderById = function(req,res){
             get_order: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var orderPath = '/v1/orders/' + orderId +'?accessToken=' + token;
+                var orderPath = '/orders/' + orderId +'?accessToken=' + token;
 
                 var item = {};
                 item['path'] = orderPath;

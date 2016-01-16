@@ -281,10 +281,8 @@ $(document).ready(function(){
             $("#verifiedInfo-span").text(verifiedInfo);
             $("#showVerifiedPic-img").attr("src", "images/avatar/avatar_loading.gif");
             //获取相应的单个工人详情
-            $.get("/doFindWorkerById",
-                {
-                    id:curr_edit_workerId
-                },
+            $.get("/workers/" + curr_edit_workerId,
+
                 function (data) {
 
                     if(data.result === 'fail'){
@@ -310,10 +308,7 @@ $(document).ready(function(){
             $("#scene-verified_btn").click(function(){
                 $('#verified-dialog').modal('show');
                 //获取相应的单个工人的认证记录
-                $.get("/doGetVerifiedRecordById",
-                    {
-                        id:curr_edit_workerId
-                    },
+                $.get("/workers/" + curr_edit_workerId +'/verification_logs',
                     function (data) {
 
                         if(data.result === 'fail'){
@@ -359,10 +354,7 @@ $(document).ready(function(){
                 $("#showRoles").append(showRolesHtml);
             }else if(activeTab === '账户信息'){
                 //获取相应的单个专业版的个人账户信息
-                $.get("/doGetCapitalAccountById",
-                    {
-                        id:curr_edit_workerId
-                    }
+                $.get("/workers/" + curr_edit_workerId +'/capitalAccount'
                     ,function(data){
                         if(data.result === 'success'){
                             var workerAccountObj = data.content;
@@ -397,7 +389,7 @@ $(document).ready(function(){
                 return;
             }else{
                 //执行post请求验证对应的用户
-                $.post("/doVerifiedById",
+                $.post("/workers/verificationStatus",
                     {
                         ids:idArray,
                         content:{
@@ -595,7 +587,7 @@ $(document).ready(function(){
     function screeningWorkers(cur,filterArray){
 
         var firstScreeningPagination = false;
-        $.get("/doFindWorkersByFilters",
+        $.get("/workers",
             {
                 page: cur,
                 filters:filterArray
@@ -629,6 +621,17 @@ $(document).ready(function(){
                             }
                         }
                     });
+                }else{
+                    if(data.content === 'Permission Denied'){
+                        /*$(".page-content").empty();
+                        var permissonHtml = '<div class="col-lg-6"><div class="note note-warning">';
+                        permissonHtml += '<h3>警告! 你无权限查看当前页面！</h3><p>请联系管理员为其分配更高权限，方可查看该页信息！</p></div></div>';
+                        $(".page-content").append(permissonHtml);*/
+
+                        window.location.href="/permissionError";
+                    }
+
+                    console.log(data.content);
                 }
             }
         );

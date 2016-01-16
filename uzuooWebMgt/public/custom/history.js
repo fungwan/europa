@@ -10,7 +10,7 @@ $(document).ready(function(){
     //初始化页面table数据，绑定每行响应事件
     var first = false;
     function initialData(curr){
-        $.get("/doFindLogsByPage",{ page: curr},
+        $.get("/logs",{ page: curr},
             function(data){
                 if(data.result === 'success'){
                     var pages = data.pages;
@@ -45,6 +45,10 @@ $(document).ready(function(){
                             }
                         }
                     });
+                }else{
+                    if(data.content === 'Permission Denied'){
+                        window.location.href="/permissionError";
+                    }
                 }
             }
         );

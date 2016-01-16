@@ -75,6 +75,10 @@ $(document).ready(function() {
                             }
                         }
                     });
+                }else{
+                    if(data.content === 'Permission Denied'){
+                        window.location.href="/permissionError";
+                    }
                 }
             }
         );

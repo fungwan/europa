@@ -39,7 +39,7 @@ exports.getFeedbacks = function(req,res){
             get_feedbacks: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var feedbacksPath = '/v1/feedbacks?'+'accessToken=' + token;
+                var feedbacksPath = '/feedbacks?'+'accessToken=' + token;
 
                 var item = {};
                 item['path'] = feedbacksPath;

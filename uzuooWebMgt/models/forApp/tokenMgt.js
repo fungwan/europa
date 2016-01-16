@@ -30,7 +30,7 @@ function firstGetAccessToken(cb){
 
 // step 1: get nonce
     var nonceOptionItem = {};
-    nonceOptionItem['path'] = '/v1/applications/' + appId + '/nonce';
+    nonceOptionItem['path'] = '/applications/' + appId + '/nonce';
     request.post(nonceOptionItem,'',function(err,results){
         if(err !== null){
             console.error(err);
@@ -47,7 +47,7 @@ function firstGetAccessToken(cb){
 
             //step 3: get token
             var tokenOptionItem = {};
-            tokenOptionItem['path'] = '/v1/applications/' + appId + '/accessToken';
+            tokenOptionItem['path'] = '/applications/' + appId + '/accessToken';
 
             var challengeInfo = JSON.stringify({
                 'grant_type':'challenge',
@@ -95,7 +95,7 @@ function _getToken(cb){
         //用_refreshToken获取token
 
         var tokenOptionItem = {};
-        tokenOptionItem['path'] = '/v1/applications/' + appId + '/accessToken';
+        tokenOptionItem['path'] = '/applications/' + appId + '/accessToken';
 
         var challengeInfo = JSON.stringify({
             'grant_type':'refresh_token',
@@ -139,7 +139,7 @@ exports.getQiniuToken = function(cb){
 
         if(err === null){
             var qiniuOptionItem = {};
-            qiniuOptionItem['path'] = '/v1/applications/uploadToken?accessToken='+ token;
+            qiniuOptionItem['path'] = '/applications/uploadToken?accessToken='+ token;
             var expireTime = new Date().getTime() + 3600;
             var bodyInfo = JSON.stringify({
                 'scope':'uzuoo-photos',

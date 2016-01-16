@@ -92,7 +92,7 @@ exports.updateWorkerProfileById = function(req,res){
                 "reason" : ''
             });
 
-            var verifiedPath = '/v1/workers/' + req.body.id + '/verificationStatus?accessToken=' + token;
+            var verifiedPath = '/workers/' + req.body.id + '/verificationStatus?accessToken=' + token;
             var verifiedItem = {};
             verifiedItem['path'] = verifiedPath;
             request.post(verifiedItem,verifiedString,function(err,results){
@@ -108,7 +108,7 @@ exports.updateWorkerProfileById = function(req,res){
             });
 
             var optionItem = {};
-            var putPath = '/v1/workers/' + req.body.id + '/verification?accessToken=' + token;
+            var putPath = '/workers/' + req.body.id + '/verification?accessToken=' + token;
             optionItem['path'] = putPath;
 
             if(imgData.search(/^data:image\/\w+;base64,/) === -1){
@@ -229,7 +229,7 @@ exports.updateWorkerProfileById = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter=all';
+                var path = '/workers?'+'accessToken=' + token + '&filter=all';
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -241,7 +241,7 @@ exports.updateWorkerProfileById = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter='+'all&limit=10&offset='+ skipValue;
+                var path = '/workers?'+'accessToken=' + token + '&filter='+'all&limit=10&offset='+ skipValue;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -336,7 +336,7 @@ exports.updateWorkerProfileById = function(req,res){
 
 exports.findWorkerById = function(req,res){
 
-    var workerId = req.query.id;
+    var workerId = req.params.id;
 
     async.auto(
         {
@@ -352,7 +352,7 @@ exports.findWorkerById = function(req,res){
             },
             get_workerInfo:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/v1/workers/' + workerId +'?accessToken=' + token;
+                var path = '/workers/' + workerId +'?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -401,7 +401,7 @@ exports.findWorkersByFilters = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/v1/workers?'+'accessToken=' + token + '&filter=' + filters + '&countOnly=true';
+                var path = '/workers?'+'accessToken=' + token + '&filter=' + filters + '&countOnly=true';
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -413,7 +413,7 @@ exports.findWorkersByFilters = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/v1/workers?'+ 'filter='+ filters + '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
+                var path = '/workers?'+ 'filter='+ filters + '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -530,7 +530,7 @@ exports.changeWorkerRole = function(req,res){
             },
             put_workerRole:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/v1/workers/'+ id + '/roles?accessToken=' + token;
+                var path = '/workers/'+ id + '/roles?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -574,7 +574,7 @@ exports.findHouseOwnersByPage = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
             var token = results.get_token;
-            var path = '/v1/houseOwners?'+'accessToken=' + token + '&filter=all';
+            var path = '/houseOwners?'+'accessToken=' + token + '&filter=all';
             var optionItem = {};
             optionItem['path'] = path;
 
@@ -587,7 +587,7 @@ exports.findHouseOwnersByPage = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/v1/houseOwners?'+'accessToken=' + token + '&filter='+'all&limit=10&offset='+ skipValue;
+                var path = '/houseOwners?'+'accessToken=' + token + '&filter='+'all&limit=10&offset='+ skipValue;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -654,7 +654,7 @@ exports.findHouseOwnersById = function(req,res){
             },
             get_houseOwnerInfo:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/v1/houseOwners/' + houseOwnerId +'?accessToken=' + token;
+                var path = '/houseOwners/' + houseOwnerId +'?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -686,7 +686,7 @@ exports.verifiedById = function(req,res){
         if (err === null) {
             async.map(idArray, function(item, callback) {
 
-                var path = '/v1/workers/' + item + '/verificationStatus?accessToken=' + token;
+                var path = '/workers/' + item + '/verificationStatus?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -730,7 +730,7 @@ exports.verifiedById = function(req,res){
 
 exports.findVerifiedRecordById = function(req,res){
 
-    var userId = req.query.id;
+    var userId = req.params.id;
 
 
     async.auto(
@@ -747,7 +747,7 @@ exports.findVerifiedRecordById = function(req,res){
             },
             get_verifiedRecord:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/v1/workers/' + userId + '/verification_logs?accessToken=' + token;
+                var path = '/workers/' + userId + '/verification_logs?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -780,7 +780,7 @@ function getroleAndRegions(token,callback){
     async.parallel([ //找施工区域
         function(cb) {
 
-            var regionsPath = '/v1/countries/001/administrativeDivision?'+'accessToken=' + token;
+            var regionsPath = '/countries/001/administrativeDivision?'+'accessToken=' + token;
             var regionsItem = {};
             regionsItem['path'] = regionsPath;
 
@@ -840,7 +840,7 @@ function getroleAndRegions(token,callback){
             var rolesMap = {};
 
             var roleArray = [];
-            var rolePath = '/v1/workers/roles?'+'accessToken=' + token;
+            var rolePath = '/workers/roles?'+'accessToken=' + token;
 
             var roleItem = {};
             roleItem['path'] = rolePath;
@@ -934,7 +934,7 @@ exports.getRoleAndRegions = function(req,res){
 };
 
 exports.getCapitalAccountById = function(req,res){
-    var workerId = req.query.id;
+    var workerId = req.params.id;
 
     async.auto(
         {
@@ -950,7 +950,7 @@ exports.getCapitalAccountById = function(req,res){
             },
             get_capitalAccount:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/v1/capitalAccount/' + workerId +'?accessToken=' + token;
+                var path = '/capitalAccount/' + workerId +'?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);

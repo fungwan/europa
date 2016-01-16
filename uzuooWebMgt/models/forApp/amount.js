@@ -34,7 +34,7 @@ exports.postProcess = function(req,res){
                 var rId = req.body.roleId;
                 var cId = req.body.craftId;
 
-                var updateAmountPath = ' /v1/workerRole/' + rId + '/craft/' + cId + '/setting?' +'accessToken=' + token;
+                var updateAmountPath = ' /workerRole/' + rId + '/craft/' + cId + '/setting?' +'accessToken=' + token;
 
                 var item = {};
                 item['path'] = updateAmountPath;

@@ -12,6 +12,7 @@ var logger = require('../../lib/log.js').logger;
 
 var hostIp =  settings.appCloudMgtIpAddr;
 var hostPort = settings.appCloudPortAddr;
+var apiVersion = settings.apiVersion;
 
 var str = settings.apiKeyID + ':' + settings.apiKeySecret;
 var buffer = new Buffer(str);
@@ -31,7 +32,7 @@ exports.get = function(optionItem,cb){
         }
     };
 
-    options['path'] = optionItem['path'];
+    options['path'] = apiVersion + optionItem['path'];
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
@@ -73,7 +74,7 @@ exports.post = function(optionItem,contents,cb){
         }
     };
 
-    options['path'] = optionItem['path'];
+    options['path'] = apiVersion + optionItem['path'];
 
     var req = http.request(options, function(res) {
 
@@ -113,7 +114,7 @@ exports.put = function(optionItem,contents,cb){
         }
     };
 
-    options['path'] = optionItem['path'];
+    options['path'] = apiVersion + optionItem['path'];
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
@@ -142,7 +143,7 @@ exports.del = function(optionItem,cb){
         }
     };
 
-    options['path'] = optionItem['path'];
+    options['path'] = apiVersion + optionItem['path'];
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');

@@ -13,6 +13,11 @@ $(document).ready(function(){
     $.getJSON("/doGetRoleAndRegionsInfo",function(data){
 
         if(data.result === 'fail'){
+
+            if(data.content === 'Permission Denied'){
+                window.location.href="/permissionError";
+            }
+
             return;
         }else{
             var regionsAndRolesArray = data.content.get_roleAndRegions;

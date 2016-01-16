@@ -6,7 +6,7 @@ var request = require('./request.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
 var async = require('async');
-var connectAddr = "http://" + settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
+var connectAddr = "http://" + settings.bgMgtIpAddr + ':' + settings.bgMgtPortAddr;
 
 exports.getProcess = function(req,res){
 
@@ -16,7 +16,7 @@ exports.getProcess = function(req,res){
         });
 };
 
-exports.createAccount = function(req,res){
+exports.createAccount = function(req,res,acl){
 
     var content = req.body;
 
@@ -27,11 +27,18 @@ exports.createAccount = function(req,res){
 
     request.post(optionItem,bodyString,function(err,results){
         if(err === null){
+
+            var newUserInfo = JSON.parse(results);
+            var userId = newUserInfo['id'];
+
+            acl.addUserRoles(userId, content['role']);
+
+
             res.json({ result: 'success',
                 content:results});
 
             //操作留痕
-            var logString = JSON.stringify({
+            /*var logString = JSON.stringify({
                 'username':'fengyun',
                 'operator_date':new Date().getTime(),
                 'role':'4',
@@ -48,7 +55,7 @@ exports.createAccount = function(req,res){
                     res.json({ result: 'fail',
                         content:err});
                 }
-            });
+            });*/
 
         }else{
             res.json({ result: 'fail',
@@ -82,10 +89,10 @@ exports.delUsersById = function(req,res){
     });
 };
 
-exports.updateUserById = function(req,res){
+exports.updateUserById = function(req,res,acl){
 
     var content = req.body.content;
-
+    var userId = req.body.id;
     var putPath = '/users(' + req.body.id + ')';
 
     var bodyString = JSON.stringify(content);
@@ -95,6 +102,21 @@ exports.updateUserById = function(req,res){
 
     request.put(optionItem,bodyString,function(err,results){
         if(err === null){
+
+            acl.userRoles(userId,function(err, roles){
+                if(err){
+                    console.log('获取当前用户角色出错...' + err);
+                }else{
+                    acl.removeUserRoles( userId, roles, function(err){
+                        if(err){
+                            console.log('删除当前用户角色出错...' + err);
+                        }else{
+                            acl.addUserRoles(userId,content.role,function(err){});
+                        }
+                    } )
+                }
+            });
+
             res.json({ result: 'success',
                 content:results});
         }else{

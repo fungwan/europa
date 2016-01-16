@@ -6,11 +6,16 @@ var regionsArray = [];//所有区域，包含源对象和map对象，索引0是�
 
 $(document).ready(function(){
 
-//    $("#create_city_div").citySelect({
-//        nodata:"none",
-//        required:false
-//    });
-
+    $("#creat_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
+        "&nbsp;<span class='badge badge-default'>客服</span></label> <label> " +
+        "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
+        "<span class='badge badge-blue'>财务初审员</span></label> <label> " +
+        "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
+        "<span class='badge badge-info'>财务复核员</span></label> <label> " +
+        "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
+        "<span class='badge badge-info'>财务经理</span></label> <label> " +
+        "<input type='radio' name='optionsRadios' value='4' />&nbsp;" +
+        "<span class='badge badge-warning'>运营</span></label>");
 
     $.getJSON("/doGetRoleAndRegionsInfo",function(data){
 
@@ -33,7 +38,7 @@ $(document).ready(function(){
     //初始化页面table数据，绑定每行响应事件
     var first = false;
     function initialData(curr){
-        $.get("/doFindUsersByPage",{ page: curr},
+        $.get("/users",{ page: curr},
             function(data){
                 if(data.result === 'success'){
                     var pages = data.pages;
@@ -80,18 +85,20 @@ $(document).ready(function(){
 
                                 $("#modify_account_name_input").val(username);
                                 $("#accountEdit").val(userInfo['id']);
-                                if(role !== '4'){
+                                if(role !== '5'){
                                     $("#edit_roleRadio_div").html("<label> <input type='radio' name='optionsRadios' value='0' />" +
-                                        "&nbsp;<span class='badge badge-default'>地推</span></label> <label> " +
+                                        "&nbsp;<span class='badge badge-default'>客服</span></label> <label> " +
                                         "<input type='radio' name='optionsRadios' value='1' />&nbsp;" +
-                                        "<span class='badge badge-blue'>客服</span></label> <label> " +
+                                        "<span class='badge badge-blue'>财务初审员</span></label> <label> " +
                                         "<input type='radio' name='optionsRadios' value='2' />&nbsp;" +
-                                        "<span class='badge badge-info'>财务</span></label> <label> " +
+                                        "<span class='badge badge-info'>财务复核员</span></label> <label> " +
                                         "<input type='radio' name='optionsRadios' value='3' />&nbsp;" +
+                                        "<span class='badge badge-info'>财务经理</span></label> <label> " +
+                                        "<input type='radio' name='optionsRadios' value='4' />&nbsp;" +
                                         "<span class='badge badge-warning'>运营</span></label>");
                                 }else{
                                     $("#edit_roleRadio_div").html("<label> " +
-                                        "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='4' />&nbsp;" +
+                                        "<input id='edit_position_detail_waiter_radio' type='radio' name='optionsRadios' value='5' />&nbsp;" +
                                         "<span class='badge badge-primary'>超级管理员</span></label>");
                                 }
 
@@ -124,6 +131,10 @@ $(document).ready(function(){
                             }
                         }
                     });
+                }else{
+                    if(data.content === 'Permission Denied'){
+                        window.location.href="/permissionError";
+                    }
                 }
             }
         );
@@ -139,15 +150,17 @@ $(document).ready(function(){
             role = userInfo['role'];
             var roleValue = '';
             if(role === '0'){
-                roleValue = '地推';
-            }else if(role === '1'){
                 roleValue = '客服';
+            }else if(role === '1'){
+                roleValue = '财务初审员';
             }else if(role === '2'){
-                roleValue = '财务';
+                roleValue = '财务复核员';
             }else if(role === '3'){
-                roleValue = '运营';
+                roleValue = '财务经理';
             }else if(role === '4'){
-                roleValue = '超级管理员';
+                roleValue = '运营';
+            }else{
+                roleValue = '城市管理员';
             }
 
 
@@ -234,12 +247,28 @@ $(document).ready(function(){
             return;
         }
 
+        //只接收数字字母下划线
+        var reg = /^[a-zA-Z]+[a-zA-Z0-9_]*$/;
+        if(!reg.test(searchUsername)){
+            $("#create_account_create_btn").attr("disabled","disabled");
+            $("#create_account_error_tooltip_p").show();
+            $("#create_account_error_tooltip_span").html("用户名只能由数字字母下划线构成，且必须以字母开头...");
+            return;
+        }
+
+        if(searchUsername.length > 20){
+            $("#create_account_create_btn").attr("disabled","disabled");
+            $("#create_account_error_tooltip_p").show();
+            $("#create_account_error_tooltip_span").html("用户名长度超过20个字符...");
+            return;
+        }
         $.get("/doFindUserByName", { username: searchUsername},
             function(data){
                 var accountState = data.result;
                 if(accountState == 'success'){
                     $("#create_account_create_btn").removeAttr("disabled");
-
+                    $("#create_account_error_tooltip_p").hide();
+                    $("#create_account_error_tooltip_span").html("");
                 }else{
                     $("#create_account_create_btn").attr("disabled","disabled");
                     $("#create_account_error_tooltip_p").show();
@@ -248,7 +277,7 @@ $(document).ready(function(){
         });
     });
 
-    $("#create_account_name_input").focus(function(){
+    /*$("#create_account_name_input").focus(function(){
         $("#create_account_error_tooltip_p").hide();
         $("#create_account_error_tooltip_span").html("");
     });
@@ -261,7 +290,7 @@ $(document).ready(function(){
     $("#create_account_confirm_password_input").focus(function(){
         $("#create_account_error_tooltip_p").hide();
         $("#create_account_error_tooltip_span").html("");
-    });
+    });*/
 
     $("#create_account_create_btn").click(function(){
         var password = $("#create_account_password_input").val();
@@ -271,7 +300,7 @@ $(document).ready(function(){
             var username = $("#create_account_name_input").val();
             var hash = hex_md5(password);
             var uuidVaule = UUID.prototype.createUUID();
-            var roleValue = $("#roleRadio").find("input:radio:checked").val();
+            var roleValue = $("#creat_roleRadio_div").find("input:radio:checked").val();
             var proValue = $("#create_province-sel  option:selected").val();
             var cityValue = $("#create_city-sel  option:selected").val();
             var locationValue = '';
@@ -280,6 +309,12 @@ $(document).ready(function(){
             }else{
                 $("#create_account_error_tooltip_p").show();
                 $("#create_account_error_tooltip_span").html("请选择城市！");
+                return;
+            }
+
+            if(roleValue === undefined || roleValue === ''){
+                $("#create_account_error_tooltip_p").show();
+                $("#create_account_error_tooltip_span").html("请选择角色！");
                 return;
             }
 
@@ -296,13 +331,50 @@ $(document).ready(function(){
                     $("#create_account_name_input").val("");
                     $("#create_account_password_input").val("");
                     $("#create_account_confirm_password_input").val("");
-                    $("#create_province-sel").empty();$("#create_city-sel").empty();
+                    //$("#create_province-sel").empty();$("#create_city-sel").empty();
                     initialData(currpage);
             });
         }else{
             $("#create_account_error_tooltip_p").show();
             $("#create_account_error_tooltip_span").html("密码不能为空，并且密码必须一致！");
         }
+    });
+
+    $("#modify_account_name_input").blur(function(){
+        var searchUsername = $("#modify_account_name_input").val();
+        if(searchUsername.trim() == ""){
+            $("#modify_account_name_input").val("");
+            return;
+        }
+
+        //只接收数字字母下划线
+        var reg = /^[a-zA-Z]+[a-zA-Z0-9_]*$/;
+        if(!reg.test(searchUsername)){
+            $("#modify_account_create_btn").attr("disabled","disabled");
+            $("#modify_account_error_tooltip_p").show();
+            $("#modify_account_error_tooltip_span").html("用户名只能由数字字母下划线构成，且必须以字母开头...");
+            return;
+        }
+
+        if(searchUsername.length > 20){
+            $("#modify_account_create_btn").attr("disabled","disabled");
+            $("#modify_account_error_tooltip_p").show();
+            $("#modify_account_error_tooltip_span").html("用户名长度超过20个字符...");
+            return;
+        }
+
+        $.get("/doFindUserByName", { username: searchUsername},
+            function(data){
+                var accountState = data.result;
+                if(accountState == 'success'){
+                    $("#update_account_update_btn").removeAttr("disabled");
+
+                }else{
+                    $("#update_account_update_btn").attr("disabled","disabled");
+                    $("modify_account_error_tooltip_p").show();
+                    $("#modify_account_error_tooltip_span").html("账号已经存在！");
+                }
+            });
     });
 
     $("#update_account_update_btn").click(function(){

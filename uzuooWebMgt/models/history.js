@@ -6,7 +6,7 @@ var request = require('./request.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
 var async = require('async');
-var connectAddr = "http://" + settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
+var connectAddr = "http://" + settings.bgMgtIpAddr + ':' + settings.bgMgtPortAddr;
 
 exports.delLogsById = function(req,res){
 

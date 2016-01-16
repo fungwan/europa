@@ -35,6 +35,10 @@ $(document).ready(function(){
             function (data) {
 
                 if(data.result === 'fail'){
+
+                    if(data.content === 'Permission Denied'){
+                        window.location.href="/permissionError";
+                    }
                     return;
                 }
 

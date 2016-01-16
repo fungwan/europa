@@ -11,11 +11,12 @@ exports.mongodb = {
     url:'mongodb://adminWeb:uzuooweb123@121.196.226.183:27017/UZUOO-WEB-Service'
 };
 
-exports.bmpMgtIpAddr = '127.0.0.1';
-exports.bmpMgtPortAddr = 3000;
+exports.bgMgtIpAddr = '127.0.0.1';
+exports.bgMgtPortAddr = 3000;
 
 exports.appCloudMgtIpAddr = '121.196.226.183';
 exports.appCloudPortAddr = 80;
+exports.apiVersion = '/v1';
 
 exports.appID = 'f4db49f7-3e49-403a-8beb-980498607fcf';
 exports.apiKeyID = '4b7a7bf5-0b32-4361-8222-6eb3bab7e71e';

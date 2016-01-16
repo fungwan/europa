@@ -6,12 +6,19 @@ var feedbacks = require('../models/forApp/feedbacks');
 var orders = require('../models/forApp/orders');
 var contracts = require('../models/forApp/contracts');
 var amount = require('../models/forApp/amount');
+var activities = require('../models/forApp/activities');
 var bills = require('../models/forApp/bills');
 
 module.exports = function(app,acl) {
 
     route_users(app,acl);
 
+    app.get('/permissionError', function (req, res) {
+        res.render('permission_error',
+            {
+                userInfo:req.session.user
+            });
+    });
     //front end user
     app.get('/customer', checkLogin);
     app.get('/customer', function (req, res) {
@@ -71,39 +78,47 @@ module.exports = function(app,acl) {
 
     //action for ajax request about app
 
+    //action for houseOwner
+    app.get('/doFindHouseOwnersByPage', function (req, res) {
+        customer.findHouseOwnersByPage(req,res);
+    });
+
     app.get('/doGetRoleAndRegionsInfo', function (req, res) {
         customer.getRoleAndRegions(req,res);
+    });
+
+    //action for workers
+    app.get('/workers', acl.middleware(),function (req, res,next) {
+        customer.findWorkersByFilters(req,res);
+    });
+
+    app.get('/workers/:id',acl.middleware(1),function (req, res) {
+        customer.findWorkerById(req,res);
+    });
+
+    //批量执行认证动作
+    app.post('/workers/verificationStatus', function (req, res) {
+        customer.verifiedById(req,res);
+    });
+
+    app.get('/workers/:id/verification_logs', function (req, res) {
+        customer.findVerifiedRecordById(req,res);
     });
 
     app.post('/doUpdateWorkerProfileById', function (req, res) {
         customer.updateWorkerProfileById(req,res);
     });
 
-    app.get('/doFindHouseOwnersByPage', function (req, res) {
-        customer.findHouseOwnersByPage(req,res);
-    });
-
-    app.post('/doVerifiedById', function (req, res) {
-        customer.verifiedById(req,res);
-    });
-
-    app.get('/doGetVerifiedRecordById', function (req, res) {
-        customer.findVerifiedRecordById(req,res);
-    });
-
-    app.get('/doFindWorkerById', function (req, res) {
-        customer.findWorkerById(req,res);
-    });
-
-    app.get('/doFindWorkersByFilters', function (req, res) {
-        customer.findWorkersByFilters(req,res);
-    });
+    //提交worker的认证信息
+    /*app.post('/workers/:id/verification', function (req, res) {
+        customer.updateWorkerProfileById(req,res);
+    });*/
 
     app.post('/doChangeWorkerRole', function (req, res) {
         customer.changeWorkerRole(req,res);
     });
 
-    app.get('/doGetCapitalAccountById', function (req, res) {
+    app.get('/workers/:id/capitalAccount', function (req, res) {
         customer.getCapitalAccountById(req,res);
     });
 
@@ -113,12 +128,12 @@ module.exports = function(app,acl) {
     });
 
     app.get('/orders', checkLogin);
-    app.get('/orders', function (req, res) {
+    app.get('/orders', acl.middleware(),function (req, res) {
         orders.getOrders(req,res);
     });
 
     app.get('/orders/:id', checkLogin);
-    app.get('/orders/:id', function (req, res) {
+    app.get('/orders/:id', acl.middleware(1),function (req, res) {
         orders.getOrderById(req,res);
     });
 
@@ -133,19 +148,19 @@ module.exports = function(app,acl) {
     });
 
     app.get('/bills', checkLogin);
-    app.get('/bills', function (req, res) {
+    app.get('/bills', acl.middleware(),function (req, res,next) {
         bills.getBills(req,res);
     });
 
     //第一次审核，行为为post
     app.post('/bills/:id/billStatus', checkLogin);
-    app.post('/bills/:id/billStatus', function (req, res) {
+    app.post('/bills/:id/billStatus', acl.middleware(3),function (req, res) {
         bills.pendingBillById(req,res);
     });
 
     //承上，进行复核，行为为put，即将该支付订单的status更新
     app.put('/bills/:id/billStatus', checkLogin);
-    app.put('/bills/:id/billStatus', function (req, res) {
+    app.put('/bills/:id/billStatus', acl.middleware(3),function (req, res) {
         bills.reviewBillById(req,res);
     });
 
@@ -153,11 +168,22 @@ module.exports = function(app,acl) {
     app.get('/doFindHouseOwnersById', function (req, res) {
         customer.findHouseOwnersById(req,res);
     });
-    //findHouseOwnersById
 
+    //更改价格配置，保证金上下限等
     app.post('/amount', checkLogin);
     app.post('/amount', function (req, res) {
         amount.postProcess(req,res);
+    });
+
+    //获取所有活动列表
+    app.get('/activities', checkLogin);
+    app.get('/activities', function (req, res) {
+        activities.getActivities(req,res);
+    });
+
+    app.get('/activities/:id', checkLogin);
+    app.get('/activities/:id', function (req, res) {
+        activities.getActivityById(req,res);
     });
 };
 

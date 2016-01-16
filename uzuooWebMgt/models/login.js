@@ -6,7 +6,7 @@ var request = require('./request.js');
 var jsonConvert = require('../lib/jsonFormat.js');
 var settings = require('../conf/settings');
 
-var connectAddr = "http://" +settings.bmpMgtIpAddr + ':' + settings.bmpMgtPortAddr;
+var connectAddr = "http://" +settings.bgMgtIpAddr + ':' + settings.bgMgtPortAddr;
 
 exports.getProcess = function(req,res){
 
@@ -35,6 +35,7 @@ exports.postProcess = function(req,res){
                 }));
             }else{
                 //login success...
+                req.session.userId = array[0]['id'];
                 req.session.user = array[0];
                 res.send(jsonConvert.jsonToString({
                     result:'success',
