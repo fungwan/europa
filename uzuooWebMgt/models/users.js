@@ -70,6 +70,19 @@ exports.delUsersById = function(req,res){
     async.map(idArray, function(item, callback) {
 
         var delIdPath = '/users(' + item + ')';
+
+        acl.userRoles(item,function(err, roles){
+            if(err){
+                console.log('获取当前用户角色出错...' + err);
+            }else{
+                acl.removeUserRoles( item, roles, function(err){
+                    if(err){
+                        console.log('删除当前用户角色出错...' + err);
+                    }
+                } )
+            }
+        });
+
         var optionItem = {};
         optionItem['path'] = delIdPath;
         request.del(optionItem,callback);

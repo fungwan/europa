@@ -29,7 +29,7 @@ $(document).ready(function() {
             var regionsAndRolesArray = data.content.get_roleAndRegions;
             regionsArray = regionsAndRolesArray[0];
             rolesArray = regionsAndRolesArray[1];
-            warpHtml([]);
+            console.log(rolesArray);
             initialData(1);//表示第一页
         }
     });
@@ -50,12 +50,14 @@ $(document).ready(function() {
                 if(data.result === 'success'){
                     var pages = data.pages;
                     var contentArray = data.content;
+                    console.log(contentArray);
 
                     if(contentArray.length === 0 && screeningCurrpage > 1){
                         screeningWorkers(screeningCurrpage - 1);
                         return;
                     }
-                    //warpHtml(contentArray);
+
+                    warpHtml(contentArray);
 
                     laypage({
                         cont: $('#ordersPage'),
@@ -86,7 +88,7 @@ $(document).ready(function() {
 
     function warpHtml(contentArray){
 
-        //$("#orders-table tbody").empty();
+        $("#orders-table tbody").empty();
         for(x in contentArray){
 
             var orderInfo = contentArray[x];
@@ -94,6 +96,19 @@ $(document).ready(function() {
             var createTime = orderInfo['create_time'];
             var orderDetailHref = orderInfo['order_href'];
             var status = orderInfo['status'];
+            var areaId = orderInfo['region_id'];
+            var areaName = regionsArray[1][areaId]['name'];
+            var craftsArray = orderInfo['crafts'];
+            var craftsInfo = '';
+
+            for(c in craftsArray){
+                craftsInfo += rolesArray[1][craftsArray[c]].name;
+                craftsInfo += ' ';
+            }
+            var housePhone = orderInfo['house_owner_phone'];
+            var workerPhone = orderInfo['worker_phone'];
+            var orderAmount = orderInfo['amount'];
+
             var showStatusText = '';
             switch (status) {
                 case 0:
@@ -127,13 +142,13 @@ $(document).ready(function() {
             
             var trHtml = '<tr>';
             trHtml += '<td><input type="checkbox" class="checkbox" /></td>';
-            trHtml += '<td>' + createTime +'</td>';
-            trHtml += '<td>' + 'server not give us' + '</td>';
+            trHtml += '<td>' + getConvertTime(createTime*1000) +'</td>';
+            trHtml += '<td>' + areaName + '</td>';
             trHtml += '<td>' + orderId + '</td>';
-            trHtml += '<td>' + 'server not give us' + '</td>';
-            trHtml += '<td>' + 'server not give us' + '</td>';
-            trHtml += '<td>' + 'server not give us' + '</td>';
-            trHtml += '<td>' + 'server not give us' + '</td>';
+            trHtml += '<td>' + craftsInfo + '</td>';
+            trHtml += '<td>' + housePhone + '</td>';
+            trHtml += '<td>' + workerPhone + '</td>';
+            trHtml += '<td>' + orderAmount + '</td>';
             trHtml += '<td>' +  showStatusText + '</td>';
             trHtml += '<td id=\'' + orderId +'\'>';
             trHtml += '<button type="button" class="btn btn-default btn-xs"><i class="fa fa-archive"></i>&nbsp;详情</button>&nbsp;';
@@ -342,3 +357,33 @@ $(document).ready(function() {
         });
     }
 });
+
+function getConvertTime(timeStamp){
+
+    var myDate = new Date(timeStamp);
+    var year = myDate.getFullYear();
+    var month = parseInt(myDate.getMonth().toString()) + 1; //month是从0开始计数的，因此要 + 1
+    if (month < 10) {
+        month = "0" + month.toString();
+    }
+    var date = myDate.getDate();
+    if (date < 10) {
+        date = "0" + date.toString();
+    }
+    var hour = myDate.getHours();
+    if (hour < 10) {
+        hour = "0" + hour.toString();
+    }
+    var minute = myDate.getMinutes();
+    if (minute < 10) {
+        minute = "0" + minute.toString();
+    }
+    var second = myDate.getSeconds();
+    if (second < 10) {
+        second = "0" + second.toString();
+    }
+
+    var currentTime = year.toString() + "/" + month.toString() + "/" + date.toString() + " " + hour.toString() + ":" + minute.toString() + ":" + second.toString(); //以时间格式返回
+
+    return currentTime;
+};

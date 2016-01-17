@@ -62,7 +62,7 @@ exports.getOrders = function(req,res){
         },function(err,result){
             if(err === null){
 
-                var ordersArray = jsonConvert.stringToJson(results.get_all)['orders'];
+                var ordersArray = jsonConvert.stringToJson(result.get_all)['orders'];
                 if(ordersArray === null){//db里面一个工人也没有.
                     res.json({
                             result: 'success',
@@ -81,7 +81,7 @@ exports.getOrders = function(req,res){
                 }
 
                 //第一页用户数组
-                var orderArray = jsonConvert.stringToJson(results.get_currPage)['orders'];
+                var orderArray = jsonConvert.stringToJson(result.get_currPage)['orders'];
                 res.json({ result: 'success',
                     pages:pageCounts,
                     content:orderArray});

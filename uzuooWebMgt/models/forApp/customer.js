@@ -75,6 +75,28 @@ function uptoken(bucketname) {
     return putPolicy.token();
 }
 
+function verifiedSuccess(id,token){
+    //更新工人状态为已认证
+    var verifiedString = JSON.stringify({
+        "verified":	2,
+        "reason" : ''
+    });
+
+    var verifiedPath = '/workers/' + id + '/verificationStatus?accessToken=' + token;
+    var verifiedItem = {};
+    verifiedItem['path'] = verifiedPath;
+    request.post(verifiedItem,verifiedString,function(err,results){
+        if(err === null){
+        }else{
+
+            if(err === 403){
+                tokenMgt.setTokenExpireStates(true);
+            }
+
+            console.error(err);
+        }
+    });
+}
 
 exports.updateWorkerProfileById = function(req,res){
 
@@ -85,27 +107,6 @@ exports.updateWorkerProfileById = function(req,res){
         if(!err){
 
             //更新工人联系方式
-
-            //更新工人状态为已认证
-            var verifiedString = JSON.stringify({
-                "verified":	2,
-                "reason" : ''
-            });
-
-            var verifiedPath = '/workers/' + req.body.id + '/verificationStatus?accessToken=' + token;
-            var verifiedItem = {};
-            verifiedItem['path'] = verifiedPath;
-            request.post(verifiedItem,verifiedString,function(err,results){
-                if(err === null){
-                }else{
-
-                    if(err === 403){
-                        tokenMgt.setTokenExpireStates(true);
-                    }
-
-                    console.error(err);
-                }
-            });
 
             var optionItem = {};
             var putPath = '/workers/' + req.body.id + '/verification?accessToken=' + token;
@@ -120,6 +121,9 @@ exports.updateWorkerProfileById = function(req,res){
 
                 request.post(optionItem,bodyString,function(err,results){
                     if(err === null){
+
+                        verifiedSuccess(req.body.id,token);
+
                         res.json({ result: 'success',
                             content:results});
                     }else{
@@ -159,6 +163,9 @@ exports.updateWorkerProfileById = function(req,res){
 
                                     request.post(optionItem,bodyString,function(err,results){
                                         if(err === null){
+
+                                            verifiedSuccess(req.body.id,token);
+
                                             res.json({ result: 'success',
                                                 content:results});
                                         }else{
@@ -178,6 +185,9 @@ exports.updateWorkerProfileById = function(req,res){
 
                                     request.post(optionItem,bodyString,function(err,results){
                                         if(err === null){
+
+                                            verifiedSuccess(req.body.id,token);
+
                                             res.json({ result: 'success',
                                                 content:results});
                                         }else{

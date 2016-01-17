@@ -135,8 +135,12 @@ $(document).ready(function(){
                     for(x in verifiedArray){
 
                         var trHtml = '<tr>';
-                        trHtml += '<td>' + getConvertTime(verifiedArray[x]['apply_time']) +'</td>';//日期
-                        trHtml += '<td>' + verifiedArray[x]['verification_state'] +'</td>';//认证结果
+                        trHtml += '<td>' + getConvertTime(verifiedArray[x]['apply_time']*1000) +'</td>';//日期
+                        if(verifiedArray[x]['verification_state'] === 2){
+                            trHtml += '<td>' + '成功' +'</td>';//认证结果
+                        }else{
+                            trHtml += '<td>' + '失败' +'</td>';//认证结果
+                        }
                         trHtml += '<td>' + verifiedArray[x]['description'] +'</td></tr>';//驳回原因
 
                         $("#verifiedRecord-table tbody").append(trHtml);
