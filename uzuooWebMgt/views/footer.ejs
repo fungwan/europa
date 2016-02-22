@@ -1,0 +1,68 @@
+<div id="footer">
+    <div class="copyright">2015-2016 © &mu;uzuoo</div>
+</div>
+
+<div aria-hidden="true"  id="modify_account_pw_dlg" tabindex="-1"  class="modal fade ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#0a819c;color:white;" id="add_device_dlg_title">
+                <h4 id="modal-header-primary-label" class="modal-title" >修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" id="add_device_content_div">
+                        <form class="form-horizontal" id="modify_account_pw_form" action="#" method="POST">
+                            <div class="form-body pal">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">密码 <span class="require">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon">
+                                            <i class="fa fa-eye-slash"></i> <input id="old_account_password_input" name="old_account_password_input" class="form-control input-sm" type="password">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-3 control-label" style="color:red;display:none;text-align:left;" id="add_device_orders_error_label"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputUsername" class="col-md-3 control-label">新密码<span class="require">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon">
+                                            <i class="fa fa-eye-slash"></i> <input id="modify_account_password_input" name="modify_account_password_input" class="form-control input-sm" type="password">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-3 control-label" style="color:red;display:none;text-align:left;" id="add_device_mac_error_label"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputUsername" class="col-md-3 control-label">确认密码<span class="require">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon">
+                                            <i class="fa fa-eye-slash"></i> <input id="modify_account_confirm_password_input" name="modify_account_confirm_password_input" class="form-control input-sm" type="password">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-3 control-label" style="color:red;display:none;text-align:left;" id="add_device_mac_error_label"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div id="create_conference_footer">
+                    <div class="col-md-6">
+                        <p class="text-left" style="display:none;" id="modify_account_pw_error_tooltip_p">
+                            <span class="label label-danger" id="modify_account_pw_error_tooltip_span"></span>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+
+                        <button type="button" id="modify_account_pw_cancel_btn" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" id="modify_account_pw_btn" class="btn btn-primary" >更新</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+    <div class="page-header pull-left">
+        <div class="page-title">待认证行业用户</div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--END TITLE & BREADCRUMB PAGE-->
+<!--BEGIN CONTENT-->
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-green">
+                <!--div class="panel-heading">人员信息</div-->
+                <div class="panel-body">
+                    <div class="row mbl">
+                        <div class="col-lg-6">
+                            <div class="input-group input-group-sm mbs"><span class="input-group-btn">
+                            </span></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!--div class="tb-group-actions pull-right"><span></span>
+                                <button id="btn-allDel-warning" class="btn btn-primary " data-target="modal-confirm-all" data-toggle="modal" >
+                                    <!--i class="fa fa-check"&nbsp; ></i>删除
+                                </button>
+
+                                <button type="button" class="btn btn-blue " data-target="#create_account_dlg" data-toggle="modal" >
+                                    <!--i class="fa fa-check">&nbsp;</i>创建用户
+                                </button>
+                            </div-->
+                        </div>
+                    </div>
+                    <table id="todoVerifiedWorker-tab" class="table table-hover table-bordered table-advanced">
+                        <thead>
+                            <tr role="row" class="heading">
+                                <th width="3%" class="sorting_disabled">
+                                    <input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(workersInfo)" />
+                                </th>
+                                <th width="10%" class="sorting">姓名</th>
+                                <th width="10%" class="sorting">身份证号</th>
+                                <th width="10%" class="sorting">电话号码</th>
+                                <th width="5%" class="sorting"></th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="worker in workersInfo">
+                                <td><input type="checkbox" ng-model="worker.selected" class="checkbox" /></td>
+                                <td ng-bind="worker.first_name + worker.last_name"></td>
+                                <td ng-bind="worker.id_card_no"></td>
+                                <td ng-bind="worker.phone"></td>
+                                <td>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="onShowverifiedDlg(worker)"><i class="fa fa-angle-double-right"></i>&nbsp; 点击认证</button>&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="todoVerifiedWorkerPage"></div>
+                </div>
+            </div>
+        </div>
+
+        <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  data-backdrop="static" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button name='close-todoVerifiedDialog-btn' type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 class="modal-title">立即认证</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-user"></i>
+                                        <input ng-model="selectWorker.first_name" type="text" value="姓" class="form-control" disabled="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-user"></i>
+                                        <input ng-model="selectWorker.last_name" type="text" value="名" class="form-control" disabled="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-credit-card"></i>
+                                        <input ng-model="selectWorker.id_card_no" type="text" placeholder="Card number" class="form-control" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
+                                        <input ng-model="selectWorker.phone" type="text"  class="form-control" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div>
+                                        <a id="zoomVerifiedImg" href="javacript:void(0);" >
+                                            <img id="showVerifiedPic-img" border=1 src="{{selectWorker.imgHref}}" width="256" height="256" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-left pal">
+                                    <button ng-click="onVerify()" class="btn btn-success">通过认证</button>
+                                </div>
+                            </div>
+                            <!-- end -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-left pal">
+                                    <button ng-click="onRejectVerify()" class="btn btn-primary">驳回认证</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="inputMessage" class="control-label">驳回的原因说明:</label>
+                                    <textarea rows="5" class="form-control" ng-model='selectWorker.virifiedDescriptive'></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="height:150px; overflow:auto;">
+                            <div class="panel panel-yellow">
+                                <!--div class="panel-heading">认证记录</div-->
+                                <div class="panel-body">
+                                    <table id="verifiedRecord-table" class="table table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>申请日期</th>
+                                            <th>认证结果</th>
+                                            <th>驳回理由</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="verifiedLog in selectWorker.verifiedLogsArray">
+                                                <td ng-bind="timeToStr(verifiedLog.apply_time*1000)">2015/12/12</td>
+                                                <td ng-bind="verifyStatus(verifiedLog.verification_state)">失败</td>
+                                                <td  ng-bind="verifiedLog.description">无法看清号码</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button name='close-todoVerifiedDialog-btn' type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

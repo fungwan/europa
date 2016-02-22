@@ -1,0 +1,118 @@
+<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+    <div class="page-header pull-left">
+        <div class="page-title">订单查看</div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--END TITLE & BREADCRUMB PAGE-->
+<!--BEGIN CONTENT-->
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="portlet box">
+                <div class="portlet-header">
+                    <div class="caption">所有订单</div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row mbm">
+                        <div class="col-lg-3">
+                            <div class="input-group input-group-sm mbs">
+                                <input type="text" placeholder="输入订单号进行搜索" ng-model="searchFilter.orderId" class="form-control" />
+                                            <span class="input-group-btn">
+                                                <button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle" ng-click="onSearch()">订单搜索</button>
+                                            </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div style="position: relative;top: 6px">
+                                <span data-value="0"><a href="javascript:;" ng-click="onClickMore()">{{moreLinkStr}}<i ng-class="{true: 'fa fa-sort-desc', false: 'fa fa-sort-asc'}[moreLink]"class="fa fa-sort-desc"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="more_find_div" class="row mbm" ng-show="!moreLink">
+
+                        <div class="col-lg-6">
+                            <div class="input-group input-group-sm mbs">
+                                <div style="float: left ; position: relative;top: 6px"><span>成交时间:</span></div>
+                                <div  style="float: left" data-date-format="yyyy/mm/dd" class="input-group date datepicker-filter input-group-sm mbs">
+                                    <input id="startDate-input" type="text" readonly="" bs-datepicker="" ng-model="searchFilter.startDate" class="form-control">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                                <div style="float: left">
+                                    <div style="position: relative;top: 5px">-</div>
+                                </div>
+                                <div  style="float: left" data-date-format="yyyy/mm/dd" class="input-group date datepicker-filter input-group-sm mbs">
+                                    <input id="endDate-input" type="text" readonly="" bs-datepicker="" ng-model="searchFilter.endDate"  class="form-control">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            工长姓名:<input type="text" ng-model="searchFilter.workerName">
+                        </div>
+
+                        <div class="col-lg-3">
+                            交易状态:<input type="text" ng-model="searchFilter.stutus">
+                        </div>
+
+                        <div class="col-lg-12">
+
+                            <button type="button" class="btn btn-orange btn-sm" ng-click="onSearch()">搜索</button>
+
+                        </div>
+                    </div>
+                    <table id="orders-table" class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                        <thead>
+                        <tr>
+                            <th width="3%">
+                                <input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(ordersInfo)" />
+                            </th>
+                            <th width="15%">时间</th>
+                            <th width="10%">区域</th>
+                            <th width="10%">订单号</th>
+                            <th width="10%">工种</th>
+                            <th width="10%">业主号码</th>
+                            <th width="10%">工长号码</th>
+                            <th width="10%">金额</th>
+                            <th width="10%">状态</th>
+                            <th width="12%"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="order in ordersInfo">
+                                <td><input type="checkbox" ng-model="order.selected" class="checkbox" /></td>
+                                <td ng-bind="timeToStr(order.create_time*1000)"></td>
+                                <td ng-bind="getRegionStr(order.region_id)"></td>
+                                <td ng-bind="getOrderId(order)"></td>
+                                <td ng-bind="getCraftsInfo(order)"></td>
+                                <td ng-bind="order.house_owner_phone"></td>
+                                <td ng-bind="order.worker_phone"></td>
+                                <td ng-bind="order.amount"></td>
+                                <td ng-bind="getStatus(order.status)"></td>
+                                <td>
+                                    <button type="button" data-target="#orderDetail-dlg" data-toggle="modal" class="btn btn-default btn-xs" ng-click="onShowOrderDetail(order)"><i class="fa fa-archive"></i>&nbsp;详情</button>&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <div id="ordersPage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="orderDetail-dlg" tabindex="-1" role="dialog" aria-labelledby="modal-wide-width-label" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog modal-wide-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 id="modal-wide-width-label" class="modal-title">订单详情</h4>
+            </div>
+            <div class="modal-body"><%- include order_detail %></div>
+
+        </div>
+    </div>
+</div>

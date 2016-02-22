@@ -1,0 +1,27 @@
+{
+    "name": "uzuooWeb",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www"
+    },
+    "dependencies": {
+        "express": "~4.2.0",
+        "static-favicon": "~1.0.0",
+        "morgan": "~1.0.0",
+        "cookie-parser": "~1.0.1",
+        "body-parser": "~1.0.0",
+        "debug": "~0.7.4",
+        "ejs": "~0.8.5",
+        "mongodb": "2.0.49",
+        "express-session": "1.12.1",
+        "connect-mongo": "0.8.2",
+        "log4js":"0.6.22",
+        "acl":"0.4.9",
+        "request": "2.67.0",
+        "async":"0.9.0",
+	    "qiniu":"6.1.9",
+        "node-uuid":"1.4.7"
+ 
+    }
+}

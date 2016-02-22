@@ -1,0 +1,180 @@
+
+<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+    <div class="page-header pull-left">
+        <div class="page-title">客户反馈</div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--END TITLE & BREADCRUMB PAGE-->
+<!--BEGIN CONTENT-->
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    反馈信息
+                </div>
+                <div class="panel-body">
+                    <div class="row mbl">
+                        <div class="col-lg-6">
+                            <div class="input-group input-group-sm mbs">
+                                <span class="input-group-btn"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="feedbacks-table" class="table table-hover table-bordered table-advanced">
+                        <thead>
+                        <tr role="row" class="heading">
+                            <th width="3%" class="sorting_disabled"> <input type="checkbox" class="checkall" /> </th>
+                            <th width="10%" class="sorting">时间</th>
+                            <th width="10%" class="sorting">反馈信息</th>
+                            <th width="10%" class="sorting">所属账号</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="feedbackInfo in feedbackInfoArray">
+                                <td><input type="checkbox" class="checkbox"></td>
+                                <td ng-bind="timeToStr(feedbackInfo['create_time'] * 1000)">2016/02/20 23:17:35</td>
+                                <td>
+                                    <a ng-show="!feedbackInfo['type']" href="" ng-click="onShowOrderInfo(feedbackInfo)">该订单无法联系到业主</a>
+                                    <span ng-show="feedbackInfo['type']" ng-bind="feedbackInfo['content']"  >反馈内容</span>
+                                </td>
+                                <td>
+                                    <a ng-bind="feedbackInfo['account_id']" href="" ng-click="onShowUserInfo(feedbackInfo)">268101b1c</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="feedbackPage"></div>
+                </div>
+            </div>
+        </div>
+        <div aria-hidden="true" id="show_account_dlg" tabindex="-1" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 class="modal-title">账户信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-user"></i>
+                                        <input readonly value={{workerInfo.name}} id="inputWorkerFullName-readOnly" type="text" placeholder="Name" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-mobile-phone"></i>
+                                        <input readonly value={{workerInfo.phone}} id="inputWorkerPhone-readOnly" type="text" placeholder="Phone" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-credit-card"></i>
+                                        <input readonly value={{workerInfo.card}} id="inputCardNumber-readOnly" type="text" placeholder="Card number" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!--div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="input-icon right"><i class="fa fa-map-marker"></i>
+                                                        <input id="inputWorkerCity-readOnly" type="text" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div-->
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <div class="col-md-12">
+                                    <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div aria-hidden="true" id="show_order_dlg" tabindex="-1" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 class="modal-title">订单信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel ">
+                                    <div class="panel-body pan">
+                                        <form action="#" class="form-horizontal">
+                                            <div class="form-body pal">
+                                                <div class="form-group">
+                                                    <label for="houseOwnerNickName" class="col-md-3 control-label">客户昵称： </label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-icon">
+                                                            <i class="fa fa-user"></i>
+                                                            <input readonly value="{{orderInfo.houseOwnerNickName}}" id="houseOwnerNickName" type="text" placeholder="" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="houseOwnerUserName" class="col-md-3 control-label">客户真实姓名： </label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-icon">
+                                                            <i class="fa fa-user"></i>
+                                                            <input readonly value="{{orderInfo.houseOwnerUserName}}" id="houseOwnerUserName" type="text" placeholder="" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="houseOwnerPhone" class="col-md-3 control-label">手机号码：</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-icon">
+                                                            <i class="fa fa-mobile"></i>
+                                                            <input readonly value="{{orderInfo.houseOwnerPhone}}" id="houseOwnerPhone" type="text" placeholder="" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="houseOwnerAddress" class="col-md-3 control-label">房屋地址：<span class="require">*</span> </label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-icon right">
+                                                            <i class="fa fa-location-arrow"></i>
+                                                            <input readonly value="{{orderInfo.houseOwnerAddress}}" id="houseOwnerAddress" type="text" placeholder="Address" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mbn">
+                                                    <label for="houseAcreage" class="col-md-3 control-label">户型面积：</label>
+                                                    <div class="col-md-9">
+                                                        <input readonly value="{{orderInfo.houseAcreage}}" id="houseAcreage" type="text" placeholder="" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <div class="col-md-12">
+                                    <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

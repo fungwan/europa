@@ -1,0 +1,140 @@
+<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+    <div class="page-header pull-left">
+        <div class="page-title">星级积分管理</div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--END TITLE & BREADCRUMB PAGE-->
+<!--BEGIN CONTENT-->
+<div class="page-content">
+    <div id="table-action" class="row">
+        <div class="col-lg-12">
+            <ul id="tableAllUserTab" class="nav nav-tabs">
+                <li id="score" class="active"><a data-target="#table-table-tab" href="#" data-toggle="tab">积分规则</a> </li>
+                <li id="level"><a data-target="#table-row-tab" href="#" data-toggle="tab">星级规则</a> </li>
+                <!--li id="business"><a href="#table-panel-tab" data-toggle="tab">商家信息</a>
+               </li-->
+            </ul>
+            <div id="tableactionTabContent" class="tab-content">
+                <!-- 工人信息 -->
+                <div id="table-table-tab" class="tab-pane fade in active">
+                    <div class="row mbl">
+                        <div class="col-lg-6">
+                            <select ng-model="selectRole" ng-options="role.name for role in originalRoles"  ng-change="originalRoleSelect()">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-green">
+                                <!--div class="panel-heading">
+                                </div-->
+                                <div class="panel-body pan">
+                                    <form action="#" class="form-horizontal">
+                                        <div class="form-body pal">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">评价积分： </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputGood" class="col-md-3 control-label">好评 <span class="require">*</span> </label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(scoreRules.score_inc_by_good)" ng-model="scoreRules.score_inc_by_good" id="inputGood" type="text"  class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">分</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputNotbad" class="col-md-3 control-label">中评 <span class="require">*</span> </label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(scoreRules.score_inc_by_normal)" ng-model="scoreRules.score_inc_by_normal" id="inputNotbad" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label for="inputGood" class="col-md-3 control-label">分</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputBad" class="col-md-3 control-label">差评 <span class="require">*</span> </label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(scoreRules.score_inc_by_bad)" ng-model="scoreRules.score_inc_by_bad" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">分</label>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">交易积分： </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="inputGood" class="col-md-3 control-label">每  </label>
+                                                <div class="col-md-5">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)" ng-model="scoreRules.score_inc_by_pay" id="inputGood" type="text"  class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">元交易额，计1分</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions bottom pull-right">
+                                            <div class="col-md-offset-3 col-md-9 ">
+                                                <!--button type="submit" class="btn btn-primary">Send</button-->&nbsp;
+                                                <button ng-disabled="checkInputScoreSyntaxStatus" ng-click="updateScoreRules()" type="button" class="btn btn-green">更新</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 业主信息 -->
+                <div id="table-row-tab" class="tab-pane fade">
+                    <div class="row mbl">
+                        <!--div class="col-lg-6">
+                            <select id="keyWord-sel" class="selectpicker form-control" data-style="btn-grey">
+                                <option value="phone">电话号码</option>
+                                <option value="id_card_no">身份证</option>
+                                <option value="name">姓名</option>
+                                <option value="">-- 请选择大工种 --</option>
+                            </select>
+                        </div-->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-container">
+                                <table id="edit_houseOwner_table" class="table table-hover table-striped table-bordered table-advanced tablesorter display dataTable no-footer">
+                                    <thead>
+                                    <tr>
+                                        <th width="10%">每个星级对应的分值上限</th>
+                                        <th width="10%">分值上限对应的星级描述</th>
+                                        <th width="10%">参考年限</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="rules in levelRulesArray">
+                                           <td ng-show="rules.level">
+                                               <input ng-blur="onEditThreshold($index,rules.threshold)" ng-model="rules.threshold">
+                                           </td><!-- 分段上限 -->
+                                           <td ng-show="rules.level"ng-bind="translateDesc[rules.level].starDesc"></td><!-- 星级描述 -->
+                                           <td ng-show="rules.level" ng-bind="translateDesc[rules.level].yearRecom">a</td><!-- 参考年限 -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="pull-right">
+                                <div class="col-md-offset-3 col-md-9 ">
+                                    <button type="button" ng-click="updateLevelRules()" ng-disabled="checkInputSyntaxStatus" class="btn btn-green">更新</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
