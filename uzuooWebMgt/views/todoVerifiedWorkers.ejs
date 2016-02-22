@@ -1,332 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>悠住后台管理系统</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="cache-control" content="no-cache">
-    <!--Loading bootstrap css-->
-    <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
-    <!--LOADING STYLESHEET FOR PAGE-->
-    <!--Loading style vendors-->
-    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
-    <link type="text/css" rel="stylesheet" href="vendors/jquery-notific8/jquery.notific8.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/bootstrap-daterangepicker/daterangepicker-bs3.css">
-    <!--Loading style-->
-    <link type="text/css" rel="stylesheet" href="css/themes/style1/orange-blue.css" class="default-style">
-    <link type="text/css" rel="stylesheet" href="css/themes/style1/orange-blue.css" id="theme-change" class="style-change color-change">
-    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
-    <link type="text/css" rel="stylesheet" href="css/laypage.css">
-
-    <style type="text/css">
-        #tinymask{position:absolute; display:none; top:0; left:0; height:100%; width:100%; background:#000000; z-index:1500;}
-        #tinybox{position:absolute; display:none; padding:5px; background:#ffffff url(images/other/preload.gif) no-repeat 50% 50%; border:10px solid #e3e3e3; z-index:2000;}
-        #tinycontent{background:#ffffff; font-size:1.1em;position: absolute;top: -10px;right: -10px;}
-    </style>
-
-</head>
-
-<body class=" ">
-<div>
-<!--BEGIN TOPBAR-->
-<%
-
-    var uuid = userInfo.id;
-    var username = userInfo.username;
-    var user_role = userInfo.role;
-    var city = userInfo.city;
-
-%>
-<div id="header-topbar-option-demo" class="page-header-topbar">
-<nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;" class="navbar navbar-default navbar-static-top">
-<div class="navbar-header">
-    <a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">UZUOO</span>
-        <span style="display: none" class="logo-text-icon">µ</span>
-    </a>
-</div>
-<div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
-<form id="topbar-search" action="#" method="GET" class="hidden-xs">
-    <div class="input-group">
-        <input type="text" placeholder="Search..." class="form-control" /><span class="input-group-btn"><a href="javascript:;" class="btn submit"><i class="fa fa-search"></i></a></span>
-    </div>
-</form>
-<ul class="nav navbar navbar-top-links navbar-right mbn">
-    <li class="dropdown topbar-user">
-        <a data-hover="dropdown" href="#" class="dropdown-toggle">
-            <img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;
-            <span class="hidden-xs"><%= username %></span>&nbsp;
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu dropdown-user pull-right">
-            <li><a href="/logout"><i class="fa fa-key"></i>Log Out</a>
-            </li>
-        </ul>
-    </li>
-</ul>
-</div>
-</nav>
-
-
-</div>
-<!--END TOPBAR-->
-<div id="wrapper">
-<!--BEGIN SIDEBAR MENU-->
-<nav id="sidebar" role="navigation" class="navbar-default navbar-static-side">
-    <div class="sidebar-collapse menu-scroll">
-        <ul id="side-menu" class="nav">
-            <li class="user-panel">
-                <div class="thumb"><img src="/images/avatar/128.jpg" alt="" class="img-circle" />
-                </div>
-                <div class="info">
-                    <p><%= username %></p>
-                    <ul class="list-inline list-unstyled">
-                        <input id="useruuid" type="hidden" value=<%= uuid%>>
-                        <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modify_account_pw_dlg"><i class="fa fa-cog"></i></a>
-                        </li>
-                        <li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </li>
-
-            <li >
-                <a href="/"><i class="fa fa-home fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">悠住</span></a>
-            </li>
-
-            <li class="active"><a href="#"><i class="fa fa-user fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">用户管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/customer"><i class="fa fa-tablet"></i><span class="submenu-title">悠住用户</span></a>
-                    </li>
-                    <li class="active"><a href="/todoVerifiedCustomer"><i class="fa fa-tablet"></i><span class="submenu-title">待认证用户</span></a>
-                    </li>
-                    <li><a href="/webAdminPage"><i class="fa fa-desktop"></i><span class="submenu-title">后台用户</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/showOrdersPage"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
-                    </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
-                    <li><a href="/billsMgtPage"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li><a href="#"><i class="fa fa-rss-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">活动信息管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/activityMgtPage"><i class="fa fa-table"></i><span class="submenu-title">活动查看</span></a>
-                    </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
-                    <li><a href="#"><i class="fa fa-pencil-square-o"></i><span class="submenu-title">信息发布</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li><a href="#"><i class="fa fa-trello fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">运营管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/customerFeedbacks"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">客户反馈</span></a>
-                    </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
-                    <li><a href="#"><i class="fa fa-money"></i><span class="submenu-title">优惠券使用统计</span></a>
-                    </li>
-                    <li><a href="/amountMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">价格管理</span></a>
-                    </li>
-                    <li><a href="/levelRulesMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">星级积分管理</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li><a href="/history"><i class="fa fa-file-o fa-fw"><div class="icon-bg bg-green"></div></i><span class="menu-title">系统日志</span></a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<!--END SIDEBAR MENU-->
-
-<!--BEGIN PAGE WRAPPER-->
-<div id="page-wrapper">
-<!--BEGIN TITLE & BREADCRUMB PAGE-->
 <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
     <div class="page-header pull-left">
         <div class="page-title">待认证行业用户</div>
     </div>
-
-    <!--div class="divcss5_list_title"><b>图片</b><button id="click_test2">fd</button></div-->
-
     <div class="clearfix"></div>
 </div>
 <!--END TITLE & BREADCRUMB PAGE-->
 <!--BEGIN CONTENT-->
 <div class="page-content">
-<div class="row">
-<div class="col-lg-12">
-    <div class="panel panel-green">
-        <!--div class="panel-heading">人员信息</div-->
-        <div class="panel-body">
-            <div class="row mbl">
-                <div class="col-lg-6">
-                    <div class="input-group input-group-sm mbs"><span class="input-group-btn">
-                    </span></div>
-                </div>
-                <div class="col-lg-6">
-                    <!--div class="tb-group-actions pull-right"><span></span>
-                        <button id="btn-allDel-warning" class="btn btn-primary " data-target="modal-confirm-all" data-toggle="modal" >
-                            <!--i class="fa fa-check"&nbsp; ></i>删除
-                        </button>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-green">
+                <!--div class="panel-heading">人员信息</div-->
+                <div class="panel-body">
+                    <div class="row mbl">
+                        <div class="col-lg-6">
+                            <div class="input-group input-group-sm mbs"><span class="input-group-btn">
+                            </span></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!--div class="tb-group-actions pull-right"><span></span>
+                                <button id="btn-allDel-warning" class="btn btn-primary " data-target="modal-confirm-all" data-toggle="modal" >
+                                    <!--i class="fa fa-check"&nbsp; ></i>删除
+                                </button>
 
-                        <button type="button" class="btn btn-blue " data-target="#create_account_dlg" data-toggle="modal" >
-                            <!--i class="fa fa-check">&nbsp;</i>创建用户
-                        </button>
-                    </div-->
+                                <button type="button" class="btn btn-blue " data-target="#create_account_dlg" data-toggle="modal" >
+                                    <!--i class="fa fa-check">&nbsp;</i>创建用户
+                                </button>
+                            </div-->
+                        </div>
+                    </div>
+                    <table id="todoVerifiedWorker-tab" class="table table-hover table-bordered table-advanced">
+                        <thead>
+                            <tr role="row" class="heading">
+                                <th width="3%" class="sorting_disabled">
+                                    <input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(workersInfo)" />
+                                </th>
+                                <th width="10%" class="sorting">姓名</th>
+                                <th width="10%" class="sorting">身份证号</th>
+                                <th width="10%" class="sorting">电话号码</th>
+                                <th width="5%" class="sorting"></th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="worker in workersInfo">
+                                <td><input type="checkbox" ng-model="worker.selected" class="checkbox" /></td>
+                                <td ng-bind="worker.first_name + worker.last_name"></td>
+                                <td ng-bind="worker.id_card_no"></td>
+                                <td ng-bind="worker.phone"></td>
+                                <td>
+                                    <button type="button" class="btn btn-default btn-xs" ng-click="onShowverifiedDlg(worker)"><i class="fa fa-angle-double-right"></i>&nbsp; 点击认证</button>&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="todoVerifiedWorkerPage"></div>
                 </div>
             </div>
-            <table id="todoVerifiedWorker-tab" class="table table-hover table-bordered table-advanced">
-                <thead>
-                <tr role="row" class="heading">
-                    <th width="3%" class="sorting_disabled">
-                        <input type="checkbox" class="checkall" />
-                    </th>
-                    <th width="10%" class="sorting">姓名</th>
-                    <th width="10%" class="sorting">身份证号</th>
-                    <th width="10%" class="sorting">电话号码</th>
-                    <th width="5%" class="sorting"></th>
-                </tr>
-
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-            <div id="todoVerifiedWorkerPage"></div>
         </div>
-    </div>
-    </div>
 
-    <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  data-backdrop="static" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button name='close-todoVerifiedDialog-btn' type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 class="modal-title">立即认证</h4>
+        <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  data-backdrop="static" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button name='close-todoVerifiedDialog-btn' type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                        <h4 class="modal-title">立即认证</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-user"></i>
+                                        <input ng-model="selectWorker.first_name" type="text" value="姓" class="form-control" disabled="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-user"></i>
+                                        <input ng-model="selectWorker.last_name" type="text" value="名" class="form-control" disabled="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-credit-card"></i>
+                                        <input ng-model="selectWorker.id_card_no" type="text" placeholder="Card number" class="form-control" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
+                                        <input ng-model="selectWorker.phone" type="text"  class="form-control" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div>
+                                        <a id="zoomVerifiedImg" href="javacript:void(0);" >
+                                            <img id="showVerifiedPic-img" border=1 src="{{selectWorker.imgHref}}" width="256" height="256" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-left pal">
+                                    <button ng-click="onVerify()" class="btn btn-success">通过认证</button>
+                                </div>
+                            </div>
+                            <!-- end -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-left pal">
+                                    <button ng-click="onRejectVerify()" class="btn btn-primary">驳回认证</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="inputMessage" class="control-label">驳回的原因说明:</label>
+                                    <textarea rows="5" class="form-control" ng-model='selectWorker.virifiedDescriptive'></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="height:150px; overflow:auto;">
+                            <div class="panel panel-yellow">
+                                <!--div class="panel-heading">认证记录</div-->
+                                <div class="panel-body">
+                                    <table id="verifiedRecord-table" class="table table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>申请日期</th>
+                                            <th>认证结果</th>
+                                            <th>驳回理由</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="verifiedLog in selectWorker.verifiedLogsArray">
+                                                <td ng-bind="timeToStr(verifiedLog.apply_time*1000)">2015/12/12</td>
+                                                <td ng-bind="verifyStatus(verifiedLog.verification_state)">失败</td>
+                                                <td  ng-bind="verifiedLog.description">无法看清号码</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button name='close-todoVerifiedDialog-btn' type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="input-icon right"><i class="fa fa-user"></i>
-                                    <input id="inputWorkerFirstName-readOnly" type="text" value="姓" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="input-icon right"><i class="fa fa-user"></i>
-                                    <input id="inputWorkerLastName-readOnly" type="text" value="名" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="input-icon right"><i class="fa fa-credit-card"></i>
-                                    <input id="inputCardNumber-readOnly" type="text" placeholder="Card number" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
-                                    <input id="inputPhone-readOnly" type="text"  class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div>
-                                    <a id="zoomVerifiedImg" href="javacript:void(0);" >
-                                        <img id="showVerifiedPic-img" border=1 src="images/avatar/defaultVerifiedImg.png" width="256" height="256" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-left pal">
-                                <button id="edit-verifiedSC-btn" class="btn btn-success">通过认证</button>
-                            </div>
-                        </div>
-                        <!-- end -->
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="text-left pal">
-                                <button id="edit-verifiedFA-btn" class="btn btn-primary">驳回认证</button>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="inputMessage" class="control-label">驳回的原因说明:</label>
-                                <textarea id="verifiedFailReason-text" rows="5" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="height:150px; overflow:auto;">
-                        <div class="panel panel-yellow">
-                            <!--div class="panel-heading">认证记录</div-->
-                            <div class="panel-body">
-                                <table id="verifiedRecord-table" class="table table-hover table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>申请日期</th>
-                                        <th>认证结果</th>
-                                        <th>驳回理由</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>2015/12/12</td>
-                                        <td><span class="label label-sm label-primary">失败</span></td>
-                                        <td class="success">无法看清号码</td>
-                                    </tr>
-                                    <tr>
-                                        <td >2015/12/12</td>
-                                        <td><span class="label label-sm label-primary">失败</span></td>
-                                        <td class="success">不是免冠照</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button name='close-todoVerifiedDialog-btn' type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
-                    </div>
             </div>
+
         </div>
     </div>
-
 </div>
-</div>
-</div>
-<!--END CONTENT-->
-</div>
-
-
-<%- include footer %>
-
-<script src="vendors/DataTables/media/js/jquery.dataTables.js"></script>
-<script src="vendors/DataTables/media/js/dataTables.bootstrap.js"></script>
-<script src="vendors/DataTables/jquery.jeditable.js"></script>
-<script src="js/table-editable.js"></script>
-<script src="lib/tinybox.js"></script>
-<script src="custom/fe_userList_toVerifiedWorker.js"></script>
-

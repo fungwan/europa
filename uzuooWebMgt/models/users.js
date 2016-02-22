@@ -31,31 +31,15 @@ exports.createAccount = function(req,res,acl){
             var newUserInfo = JSON.parse(results);
             var userId = newUserInfo['id'];
 
-            acl.addUserRoles(userId, content['role']);
+            acl.addUserRoles(userId, String(content['role']),function(err){
+                if(err){
+                    console.log(err);
+                }
+            });
 
 
             res.json({ result: 'success',
                 content:results});
-
-            //操作留痕
-            /*var logString = JSON.stringify({
-                'username':'fengyun',
-                'operator_date':new Date().getTime(),
-                'role':'4',
-                'action':'创建了账户'
-            });
-
-            var logOptionItem = {};
-            logOptionItem['path'] = '/logs';
-            request.post(logOptionItem,logString,function(err,results){
-                if(err === null){
-                    res.json({ result: 'success',
-                        content:results});
-                }else{
-                    res.json({ result: 'fail',
-                        content:err});
-                }
-            });*/
 
         }else{
             res.json({ result: 'fail',
@@ -64,7 +48,7 @@ exports.createAccount = function(req,res,acl){
     });
 };
 
-exports.delUsersById = function(req,res){
+exports.delUsersById = function(req,res,acl){
 
     var idArray = req.body.ids;
     async.map(idArray, function(item, callback) {
@@ -124,7 +108,7 @@ exports.updateUserById = function(req,res,acl){
                         if(err){
                             console.log('删除当前用户角色出错...' + err);
                         }else{
-                            acl.addUserRoles(userId,content.role,function(err){});
+                            acl.addUserRoles(userId,String(content.role),function(err){});
                         }
                     } )
                 }

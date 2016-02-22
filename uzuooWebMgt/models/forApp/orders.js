@@ -24,8 +24,8 @@ exports.getProcess = function(req,res){
 exports.getOrders = function(req,res){
 
     var currPage = req.query.page - 1;
-    var filterArray = req.query.filters;
-    var filters = filterArray.join(",");
+    //var filterArray = req.query.filters;
+    var filters = req.query.filters;
 
     async.auto(
         {

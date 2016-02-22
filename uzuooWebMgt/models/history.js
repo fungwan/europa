@@ -132,3 +132,45 @@ exports.findLogsByDate = function(req,res){
         }
     );
 };
+
+var recordFun = {
+
+    'workers':{
+        'GET':'查看了工人信息'
+    },
+    'orders':{
+        'GET':'查看了订单信息'
+    }
+
+};
+
+exports.addLogs = function(req,res,next){
+
+    var str = req.url;
+    var resource = str.substr(1,str.indexOf('?',0)-1);
+    var action = req.method;
+    var webUsr = req.session.user;
+    if(recordFun[resource] === undefined){
+        next();
+        return;
+    }
+
+    var operatorDesc = recordFun[resource][action];
+
+    var logString = JSON.stringify({
+         'username':webUsr.username,
+         'operator_date':new Date().getTime(),
+         'role':webUsr.role,
+         'action':operatorDesc
+     });
+
+     var logOptionItem = {};
+     logOptionItem['path'] = '/logs';
+     request.post(logOptionItem,logString,function(err,results){
+         if(err !== null){
+            console.log('日志插入出错，路径为:' + resource+'，方式为:' + action);
+         }
+     });
+
+    next();
+};

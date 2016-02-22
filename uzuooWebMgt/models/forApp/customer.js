@@ -19,10 +19,10 @@ var qiniu = require('qiniu');
 //aYJyH8km-caWa-XaBxW9oL1MjFiJTN-rrYsBRRzA
 //MTlZJIlIc3mM378_-bVBHWFU4aA2KjIFJ-nFT60U
 
-qiniu.conf.ACCESS_KEY = 'Qn1ZHcP_WhGVHH3xW-tnsxMkJZTVydj4Fy3zLYj1'
-qiniu.conf.SECRET_KEY = 'DrKZUYTpYBApJAFBRSH5u7xaXd4xaSto9uq1eZfw'
+qiniu.conf.ACCESS_KEY = settings.qiniuAccessKey;
+qiniu.conf.SECRET_KEY = settings.qiniuSecretKey;
 var qiniuToken = uptoken('uzuoo-photos');//uzuoo-photos
-
+//console.log(qiniuToken);
 exports.getProcess = function(req,res){
 
     res.render('front_end_users.ejs',
@@ -72,7 +72,7 @@ function uptoken(bucketname) {
     //putPolicy.asyncOps = asyncOps;
     putPolicy.expires = 30 * 24 * 3600;
 
-    return putPolicy.token();
+    return putPolicy;
 }
 
 function verifiedSuccess(id,token){
@@ -156,7 +156,7 @@ exports.updateWorkerProfileById = function(req,res){
 
                             //qiniuToken为我自己生成
                             var qiniuFileName = uuid.v1();
-                            uploadFile(savePath,qiniuFileName,qiniuToken,function(err,results){
+                            uploadFile(savePath,qiniuFileName,qiniuToken.token(),function(err,results){
                                 if(err === null){
                                     content.verify_photo = qiniuFileName;
                                     var bodyString = JSON.stringify(content);
@@ -387,8 +387,8 @@ exports.findWorkerById = function(req,res){
 
 exports.findWorkersByFilters = function(req,res){
     var currPage = req.query.page - 1;
-    var filterArray = req.query.filters;
-    var filters = filterArray.join(",");
+    var filters = req.query.filters;
+   // var filters = filterArray.join(",");
 
     async.auto(
         {
@@ -648,7 +648,7 @@ exports.findHouseOwnersByPage = function(req,res){
 
 exports.findHouseOwnersById = function(req,res){
 
-    var houseOwnerId = req.query.id;
+    var houseOwnerId = req.params.id;
 
     async.auto(
         {

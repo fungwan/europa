@@ -104,3 +104,55 @@ exports.getActivityById = function(req,res){
         }
     );
 };
+
+exports.setActivityStatus = function(req,res){
+
+    var status = req.body.enabled;
+    var activityId = req.body.id;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            set_activity: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+                var path = '/activities/' + activityId + '/enable?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content = {
+                    enabled:status//parseInt(verifiedContent.verified)
+                };
+
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                res.json({
+                    result: 'success',
+                    content: ''})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};

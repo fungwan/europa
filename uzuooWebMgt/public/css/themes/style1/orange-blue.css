@@ -1693,7 +1693,7 @@ ol.list-indicators li.active {
     text-decoration: underline;
 }
 #signin-page {
-    background: url('http://swlabs.co/madmin/code/images/bg/1.jpg') center center fixed;
+    background: url('../../../images/1.jpg') center center fixed;
     -moz-background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;

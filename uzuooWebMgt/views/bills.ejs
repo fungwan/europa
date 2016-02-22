@@ -1,268 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>悠住后台管理系统</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT">
-    <!--Loading bootstrap css-->
-    <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
-    <!--LOADING STYLESHEET FOR PAGE-->
-
-    <!--Loading style vendors-->
-
-    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
-    <link type="text/css" rel="stylesheet" href="vendors/jquery-notific8/jquery.notific8.min.css">
-    <link type="text/css" rel="stylesheet" href="vendors/bootstrap-daterangepicker/daterangepicker-bs3.css">
-    <!--Loading style-->
-    <link type="text/css" rel="stylesheet" href="css/themes/style1/orange-blue.css" class="default-style">
-    <link type="text/css" rel="stylesheet" href="css/themes/style1/orange-blue.css" id="theme-change" class="style-change color-change">
-    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
-    <link type="text/css" rel="stylesheet" href="css/laypage.css">
-</head>
-
-<body class=" ">
-<div>
-
-<!--BEGIN TOPBAR-->
-
-<%
-
-    var uuid = userInfo.id;
-    var username = userInfo.username;
-    var user_role = userInfo.role;
-    var city = userInfo.city;
-
-%>
-
-<div id="header-topbar-option-demo" class="page-header-topbar">
-<nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;" class="navbar navbar-default navbar-static-top">
-<div class="navbar-header">
-    <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-    </button><a id="logo" href="/" class="navbar-brand"><span class="fa fa-rocket"></span><span class="logo-text">UZUOO</span><span style="display: none" class="logo-text-icon">µ</span></a>
-</div>
-<div class="topbar-main"><a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
-<ul class="nav navbar navbar-top-links navbar-right mbn">
-    <li class="dropdown topbar-user">
-        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="/images/avatar/48.jpg" alt="" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs"><%= username %></span>&nbsp;<span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu dropdown-user pull-right">
-            <li><a href="/logout"><i class="fa fa-key"></i>Log Out</a>
-            </li>
-        </ul>
-    </li>
-</ul>
-</div>
-</nav>
-
-
-</div>
-<!--END TOPBAR-->
-<div id="wrapper">
-<!--BEGIN SIDEBAR MENU-->
-<nav id="sidebar" role="navigation" class="navbar-default navbar-static-side">
-    <div class="sidebar-collapse menu-scroll">
-        <ul id="side-menu" class="nav">
-            <li class="user-panel">
-                <div class="thumb"><img src="/images/avatar/128.jpg" alt="" class="img-circle" />
-                </div>
-                <div class="info">
-                    <p><%= username %></p>
-                    <ul class="list-inline list-unstyled">
-                        <input id="useruuid" type="hidden" value=<%= uuid%>>
-                        <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modify_account_pw_dlg"><i class="fa fa-cog"></i></a>
-                        </li>
-                        <li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </li>
-
-            <li >
-                <a href="/"><i class="fa fa-home fa-fw"><div class="icon-bg bg-orange"></div></i><span class="menu-title">悠住</span></a>
-            </li>
-
-            <li ><a href="#"><i class="fa fa-user fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">用户管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/customer"><i class="fa fa-tablet"></i><span class="submenu-title">悠住用户</span></a>
-                    </li>
-                    <li><a href="/todoVerifiedCustomer"><i class="fa fa-tablet"></i><span class="submenu-title">待认证用户</span></a>
-                    </li>
-                    <li ><a href="/webAdminPage"><i class="fa fa-desktop"></i><span class="submenu-title">后台用户</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="active"><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/showOrdersPage"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
-                    </li>
-                    <li class="active"><a href="/billsMgtPage"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li><a href="#"><i class="fa fa-rss-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">活动信息管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/activityMgtPage"><i class="fa fa-table"></i><span class="submenu-title">活动查看</span></a>
-                    </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
-                    <li><a href="#"><i class="fa fa-pencil-square-o"></i><span class="submenu-title">信息发布</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li><a href="#"><i class="fa fa-trello fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">运营管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="/customerFeedbacks"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">客户反馈</span></a>
-                    </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
-                    <li><a href="#"><i class="fa fa-money"></i><span class="submenu-title">优惠券使用统计</span></a>
-                    </li>
-                    <li><a href="/amountMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">价格管理</span></a>
-                    </li>
-                    <li><a href="/levelRulesMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">星级积分管理</span></a>
-                    </li>
-                </ul>
-            </li>
-
-            <li><a href="/history"><i class="fa fa-file-o fa-fw"><div class="icon-bg bg-green"></div></i><span class="menu-title">系统日志</span></a>
-            </li>
-        </ul>
+<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+    <div class="page-header pull-left">
+        <div class="page-title">订单台账</div>
     </div>
-</nav>
-<!--BEGIN PAGE WRAPPER-->
-<div id="page-wrapper">
-    <!--BEGIN TITLE & BREADCRUMB PAGE-->
-    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
-        <div class="page-header pull-left">
-            <div class="page-title">订单台账</div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!--END TITLE & BREADCRUMB PAGE-->
-    <!--BEGIN CONTENT-->
-    <div class="page-content">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-blue">
-                    <div class="panel-heading">账户明细表</div>
-                    <div class="panel-body">
-                         <div id="flip-scroll">
-                            <table id="tradeDetails-table" class="table table-bordered table-striped table-condensed cf">
-                                <thead class="cf">
-                                    <tr>
-                                        <th width="3%" class="sorting_disabled">
-                                            <input type="checkbox" class="checkall" />
-                                        </th>
-                                        <th width="5%">日期</th>
-                                        <th width="5%">城市</th>
-                                        <th width="10%">支付编号</th>
-                                        <th width="10%">订单编号</th>
-                                        <th width="10%" class="numeric">交易总额</th>
-                                        <th width="5%">支付来源</th>
-                                        <th width="10%" class="numeric">实际支付金额</th>
-                                        <th width="5%" >支付项</th>
-                                        <th width="10%" >支付明细</th>
-                                        <th width="10%">目标账户</th>
-                                        <th width="10%"class="numeric">入账金额</th>
-                                        <th >状态</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                            <div id="billsPage"></div>
-                        </div>
+    <div class="clearfix"></div>
+</div>
+<!--END TITLE & BREADCRUMB PAGE-->
+<!--BEGIN CONTENT-->
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-blue">
+                <div class="panel-heading">账户明细表</div>
+                <div class="panel-body">
+                    <div id="flip-scroll">
+                        <table id="tradeDetails-table" class="table table-bordered table-striped table-condensed cf">
+                            <thead class="cf">
+                            <tr>
+                                <th width="3%" class="sorting_disabled">
+                                    <input type="checkbox" class="checkall" />
+                                </th>
+                                <th width="5%">日期</th>
+                                <th width="5%">城市</th>
+                                <th width="10%">支付编号</th>
+                                <th width="10%">订单编号</th>
+                                <th width="10%" class="numeric">交易总额</th>
+                                <th width="5%">支付来源</th>
+                                <th width="10%" class="numeric">实际支付金额</th>
+                                <th width="5%" >支付项</th>
+                                <th width="10%" >支付明细</th>
+                                <th width="10%">目标账户</th>
+                                <th width="10%"class="numeric">入账金额</th>
+                                <th >状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="billInfo in billsArray">
+                                    <td><input type="checkbox" class="checkbox" /></td>
+                                    <td ng-bind="timeToStr(billInfo.create_time*1000)"></td>
+                                    <td ng-bind="getCityAndRegionStr(billInfo.city).city"></td>
+                                    <td ng-bind="billInfo.contract_item_no"></td>
+                                    <td ng-bind="billInfo.order_no"></td>
+                                    <td ng-bind="billInfo.amount"></td>
+                                    <td ng-bind="billInfo['source'][0].Capital_account_id"></td>
+                                    <td ng-bind="billInfo.actual_pay"></td>
+                                    <td ng-bind="billInfo.type"></td>
+                                    <td ng-bind="billInfo.detail"></td>
+                                    <td ng-bind="billInfo['target'][0].Capital_account_id"></td>
+                                    <td ng-bind="billInfo.arrival_amount"></td>
+                                    <td>
+                                        <button ng-click="checkBill(billInfo)" ng-show="billInfo.status != 2" type="button" name="pendingBill-btn" ng-class="{0:'btn btn-info btn-xs',1:'btn btn-warning btn-xs'}[billInfo.status]">
+                                            <i ng-class="{0:'fa fa-circle-o',1:'fa fa-check-circle-o'}[billInfo.status]"></i>&nbsp; <span ng-bind="getPayStatus(billInfo.status)"></span>
+                                        </button>&nbsp;
+
+                                        <span ng-show="billInfo.status == 2" class="label label-sm label-success">已到账</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="billsPage"></div>
                     </div>
                 </div>
             </div>
-            <!--div class="col-lg-6">
-                <ul id="myTab" class="nav nav-tabs">
-                    <li class="active"><a href="#home" data-toggle="tab">系统入账</a>
-                    </li>
-                    <li><a href="#profile" data-toggle="tab">系统出账</a>
-                    </li>
-                </ul>
-                <div id="myTabContent" class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
-                        <div class="panel panel-green">
-                            <div class="panel-body">
-                                 <div id="flip-scroll">
-                                    <table class="table table-bordered table-striped table-condensed cf">
-                                        <thead class="cf">
-                                            <tr>
-                                                <th>日期</th>
-                                                <th>区域</th>
-                                                <th class="numeric">订单号</th>
-                                                <th>工种付款项</th>
-                                                <th class="numeric">支付金额</th>
-                                                <th class="numeric">渠道</th>
-                                                <th class="numeric">状态</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>2015-12-10</td>
-                                                <td>成都 </td>
-                                                <td class="numeric">6598545</td>
-                                                <td class="numeric">水电改造</td>
-                                                <td class="numeric">2000</td>
-                                                <td class="numeric">支付宝</td>
-                                                <td class="numeric">已到账</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="profile" class="tab-pane fade">
-                        <div class="panel panel-red">
-                            <div class="panel-body">
-                                 <div id="flip-scroll">
-                                    <table class="table table-bordered table-striped table-condensed cf">
-                                        <thead class="cf">
-                                            <tr>
-                                                <th>日期</th>
-                                                <th>区域</th>
-                                                <th class="numeric">订单号</th>
-                                                <th>工种付款项</th>
-                                                <th class="numeric">支付金额</th>
-                                                <th class="numeric">渠道</th>
-                                                <th class="numeric">状态</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>2015-12-10</td>
-                                                <td>成都 </td>
-                                                <td class="numeric">6598545</td>
-                                                <td class="numeric">水电改造</td>
-                                                <td class="numeric">2000</td>
-                                                <td class="numeric">支付宝</td>
-                                                <td class="numeric">已到账</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div-->
         </div>
     </div>
-</div>>
-
-<%- include footer %>
-
-<script src="custom/fe_billsMgt.js"></script>
+</div>
