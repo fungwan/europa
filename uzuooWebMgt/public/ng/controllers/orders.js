@@ -10,14 +10,32 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
 
         $scope.moreLinkStr = '更多搜索条件';
         $scope.moreLink = true;
+        $scope.preImgSrc = "http://7xq9al.com2.z0.glb.qiniucdn.com/342ffee5-1b4e-48e5-8ed4-871da976b7e6";
+        var filters = ["all"];
+
+        $scope.statusArrary = [
+        	{ name: "所有交易状态",value:''},
+            { name: "待付定金",value:0},
+            { name: "待签约" ,value:1},
+            { name: "待付款" ,value:2},
+            { name: "施工中" ,value:3},
+            { name: "待评价" ,value:4},
+            { name: "待施工" ,value:5},
+            { name: "已完工" ,value:6},
+            { name: "失效订单" ,value:100}
+        ];
 
         $scope.searchFilter = {
             orderId: '',
             startDate: '',
             endDate: '',
             workerName: '',
-            stutus: ''
+            stutus: $scope.statusArrary[0]
         }
+
+        $scope.previewImg = function (imgSrc) {
+        	$scope.preImgSrc = imgSrc;
+        } 
 
         $scope.onClickMore = function () {
             $scope.moreLink = !$scope.moreLink;
@@ -26,10 +44,22 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             } else {
                 $scope.moreLinkStr = '精简筛选条件';
             }
+            var img = "<img width='554' height='544' src='http://7xq9al.com2.z0.glb.qiniucdn.com/342ffee5-1b4e-48e5-8ed4-871da976b7e6'/>";
+            TINY.box.show(img, 0, 0, 0, 1)
         }
 
         $scope.onSearch = function () {
-            return;
+        	filters = [];
+        	if($scope.moreLink) {
+
+        	} 
+        	if($scope.searchFilter.stutus.value !== '') {
+        		var item = 'status::' + $scope.searchFilter.stutus.value;
+        		filters.push(item);
+        	}
+        	if(filters.length == 0)
+        		filters = ['all'];
+            getOrdersBypage(1);
         }
 
 
@@ -55,10 +85,10 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             return craftsInfo;
         }
 
-        var statusArrary = ["待付定金", "待签约", "待付款", "施工中", "待评价", "待施工", "已完工", "失效订单"];
+
 
         $scope.getStatus = function (status) {
-            return (status == 100) ? statusArrary[statusArrary.length - 1] : statusArrary[status];
+            return (status == 100) ? $scope.statusArrary[$scope.statusArrary.length - 1].name : $scope.statusArrary[status + 1].name;
         }
 
         $scope.onShowOrderDetail = function (order) {
@@ -134,8 +164,7 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         }
 
         function getOrdersBypage(pageIndex) {
-            var filters = ["all"];
-
+ 
             var obj = {
                 params: {
                     page: pageIndex,

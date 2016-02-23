@@ -8,5 +8,257 @@
 <!--END TITLE & BREADCRUMB PAGE-->
 <!--BEGIN CONTENT-->
 <div class="page-content">
+    <div id="table-action" class="row">
+        <div class="col-lg-12">
+            <ul id="tableAllUserTab" class="nav nav-tabs">
+                <li  class="active"><a data-target="#table-table-tab" href="#" data-toggle="tab">按大工种配置</a> </li>
+                <li ><a data-target="#table-row-tab" href="#" data-toggle="tab">按小工种配置</a> </li>
+                <!--li id="business"><a href="#table-panel-tab" data-toggle="tab">商家信息</a>
+               </li-->
+            </ul>
+            <div id="tableactionTabContent" class="tab-content">
+                <div id="table-table-tab" class="tab-pane fade in active">
+                    <div class="row mbl">
+                        <div class="col-lg-6">
+                            <select data-style="btn-success" class="selectpicker form-control" ng-model="selectRole" ng-options="role.name for role in originalRoles"  ng-change="originalRoleSelect()">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-green">
+                                <!--div class="panel-heading">
+                                </div-->
+                                <div class="panel-body pan">
+                                    <form action="#" class="form-horizontal">
+                                        <div class="form-body pal">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">保证金： </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputGood" class="col-md-3 control-label">保证金提取比例</label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(roleRuleSetting.margin_rate)" ng-model="roleRuleSetting.margin_rate" id="inputGood" type="text"  class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">%</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputNotbad" class="col-md-3 control-label">保证金上限</label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(roleRuleSetting.score_inc_by_normal)" ng-model="roleRuleSetting.margin_up_threshold" id="inputNotbad" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label for="inputGood" class="col-md-3 control-label">元</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputBad" class="col-md-3 control-label">保证金下限</label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(roleRuleSetting.score_inc_by_bad)" ng-model="roleRuleSetting.margin_down_threshold" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">元</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputBad" class="col-md-3 control-label">保证金下限冻结时间</label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(roleRuleSetting.score_inc_by_bad)" ng-model="roleRuleSetting.freeze_time" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">月</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputBad" class="col-md-3 control-label">注册赠送保证金额度</label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(roleRuleSetting.score_inc_by_bad)" ng-model="roleRuleSetting.default_margin_give" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">月</label>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">返还绩效佣金： </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">全部好评返还 </label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  id="inputGood" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">%</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">每月签约 </label>
+                                            <div class="col-md-3">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  type="text"  class="form-control" />
+                                                </div>
 
+                                            </div>
+                                            <label for="inputGood" class="col-md-2 control-label">单以上，返还 </label>
+                                            <div class="col-md-2">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"   type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-1 control-label">%</label>
+                                        </div>
+                                        <div class="form-actions bottom pull-right">
+                                            <div class="col-md-offset-3 col-md-9 ">
+                                                <!--button type="submit" class="btn btn-primary">Send</button-->&nbsp;
+                                                <button ng-disabled="checkInputScoreSyntaxStatus" ng-click="" type="button" class="btn btn-green">更新</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="table-row-tab" class="tab-pane fade">
+                    <div class="row mbl">
+                        <div class="col-lg-4">
+                            <select data-style="btn-success" class="selectpicker form-control" ng-model="selectRole2" ng-options="role.name for role in originalRoles2"  ng-change="originalRole2Select()">
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <select data-style="btn-success" class="selectpicker form-control" ng-model="selectCraft" ng-options="role.name for role in originalCrafts"  ng-change="originalCraftSelect()">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-green">
+                                <!--div class="panel-heading">
+                                </div-->
+                                <div class="panel-body pan">
+                                    <form action="#" class="form-horizontal">
+                                        <div class="form-body pal">
+                                            <!--div class="form-group">
+                                                <label class="col-md-3 control-label">佣金： </label>
+                                            </div-->
+                                            <div class="form-group">
+                                                <label for="inputGood" class="col-md-3 control-label">基础佣金提取比例</label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(roleRuleSetting.margin_rate)" ng-model="roleRuleSetting.margin_rate" id="inputGood" type="text"  class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label class="col-md-3 control-label">%</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputNotbad" class="col-md-3 control-label">绩效佣金提取比例</label>
+                                                <div class="col-md-6">
+                                                    <div class="input-icon">
+                                                        <input ng-blur="onEditScore(roleRuleSetting.score_inc_by_normal)" ng-model="roleRuleSetting.margin_up_threshold" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <label for="inputGood" class="col-md-3 control-label">元</label>
+                                            </div>
+                                        </div>
+                                        <!--hr-->
+                                        <!--div class="form-group">
+                                            <label class="col-md-3 control-label">定金： </label>
+                                        </div-->
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">定金金额 </label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">元</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">是否托管尾款 </label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)" ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">现金券： </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">每笔支付金额须大于 </label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">元</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">每笔最多使用 </label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">元</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">按每笔支付金额计算可以使用 </label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">%的现金券 </label>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">发布需求： </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">最大可抢单人数 </label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">人 </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">未支付定金的订单的有效时间</label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">分钟 </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputGood" class="col-md-3 control-label">未被抢的订单的有效时间</label>
+                                            <div class="col-md-5">
+                                                <div class="input-icon">
+                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  ng-model="roleRuleSetting.margin_up_threshold" type="text"  class="form-control" />
+                                                </div>
+                                            </div>
+                                            <label class="col-md-3 control-label">小时 </label>
+                                        </div>
+                                        <div class="form-actions bottom pull-right">
+                                            <div class="col-md-offset-3 col-md-9 ">
+                                                <!--button type="submit" class="btn btn-primary">Send</button-->&nbsp;
+                                                <button ng-disabled="checkInputScoreSyntaxStatus" ng-click="" type="button" class="btn btn-green">更新</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

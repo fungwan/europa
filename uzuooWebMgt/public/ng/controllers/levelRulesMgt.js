@@ -44,7 +44,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
         })();
 
         (function (){
-            ApiService.get('/levelRules', {}, function (data) {
+            ApiService.get('/setting/levelRules', {}, function (data) {
                 if (data.result == 'success') {
                     $scope.levelRulesArray = data.content;
                 }
@@ -61,7 +61,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
                 }
             };
 
-            ApiService.get('/scoreRules', obj, function (data) {
+            ApiService.get('/setting/scoreRules', obj, function (data) {
                 if (data.result == 'success') {
                     var rulesObj = data.content;
                     $scope.scoreRules = {
@@ -86,6 +86,10 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
             if (!reg.test(threshold)) {
                 $scope.checkInputSyntaxStatus = true;return;
             }
+
+            if(index === $scope.levelRulesArray.length-1){return;}
+
+
             var before = $scope.levelRulesArray[index-1].threshold;
             var after = $scope.levelRulesArray[index+1].threshold;
 
@@ -93,7 +97,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
                 $scope.levelRulesArray[index].threshold = parseInt(threshold);
 
                 $scope.checkInputSyntaxStatus = false;
-            }else{$scope.checkInputSyntaxStatus = true;return;}
+            }else{$scope.checkInputSyntaxStatus = true;}
         };
 
         $scope.onEditScore = function(value){
@@ -124,7 +128,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
                 content: $scope.levelRulesArray
             };
 
-            ApiService.post('/levelRules', obj, function (data) {
+            ApiService.post('/setting/levelRules', obj, function (data) {
                 if(data.result === 'fail'){alert('星级更新失败');}
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -139,7 +143,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
                 content: $scope.scoreRules
             };
 
-            ApiService.post('/scoreRules', obj, function (data) {
+            ApiService.post('/setting/scoreRules', obj, function (data) {
                 if(data.result === 'fail'){alert('积分规则更新失败');}
             }, function (errMsg) {
                 alert(errMsg.message);

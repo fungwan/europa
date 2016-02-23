@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp').factory('ApiService', ['$http',
-    function ($http) {
+angular.module('myApp').factory('ApiService', ['$http', '$rootScope', '$route',
+    function ($http, $rootScope, $route) {
         var cfgData = {};
 		
         //用于构造url参数，object参数最好只包含基本类型的元素，不要嵌套对象或数组
@@ -57,6 +57,10 @@ angular.module('myApp').factory('ApiService', ['$http',
             obj.timeout = (1000 * 30);
             return $http.get(url, obj).success(function (data, status, headers, config) {
                 successcb(data);
+                if (data.result == 'failed' && data.content == 'not login') {
+                    delete $rootScope.userInfo;
+                    $route.reload();
+                };
             }).error(function (data, status, headers, config) {
 
                 failcb({ message: '后台数据异常,请稍后...' });
@@ -73,6 +77,10 @@ angular.module('myApp').factory('ApiService', ['$http',
             obj.timeout = (1000 * 30);
             return $http.post(url, obj).success(function (data, status, headers, config) {
                 successcb(data);
+                if (data.result == 'failed' && data.content == 'not login') {
+                    delete $rootScope.userInfo;
+                    $route.reload();
+                };
             }).error(function (data, status, headers, config) {
 
                 failcb({ message: '后台数据异常,请稍后...' });
@@ -89,6 +97,10 @@ angular.module('myApp').factory('ApiService', ['$http',
             obj.timeout = (1000 * 30);
             return $http.put(url, obj).success(function (data, status, headers, config) {
                 successcb(data);
+                if (data.result == 'failed' && data.content == 'not login') {
+                    delete $rootScope.userInfo;
+                    $route.reload();
+                };
             }).error(function (data, status, headers, config) {
                 failcb({ message: '后台数据异常,请稍后...' });
             });
@@ -103,6 +115,10 @@ angular.module('myApp').factory('ApiService', ['$http',
             obj.timeout = (1000 * 30);
             return $http.delete(url, obj).success(function (data, status, headers, config) {
                 successcb(data);
+                if (data.result == 'failed' && data.content == 'not login') {
+                    delete $rootScope.userInfo;
+                    $route.reload();
+                };
             }).error(function (data, status, headers, config) {
 
                 failcb({ message: '后台数据异常,请稍后...' });
@@ -115,10 +131,15 @@ angular.module('myApp').factory('ApiService', ['$http',
             if (obj.params) {
                 url = makeUrl(url, obj.params);
                 delete obj.params;
+                $route.reload();
             }
             obj.timeout = (1000 * 30);
             return $http.head(url, obj).success(function (data, status, headers, config) {
                 successcb('');
+                if (data.result == 'failed' && data.content == 'not login') {
+                    delete $rootScope.userInfo;
+                    $route.reload();
+                };
             }).error(function (data, status, headers, config) {
                 console.error(data);
                 failcb({ message: '后台数据异常,请稍后...' });

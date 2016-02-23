@@ -52,10 +52,6 @@
                             工长姓名:<input type="text" ng-model="searchFilter.workerName">
                         </div>
 
-                        <div class="col-lg-3">
-                            交易状态:<input type="text" ng-model="searchFilter.stutus">
-                        </div>
-
                         <div class="col-lg-12">
 
                             <button type="button" class="btn btn-orange btn-sm" ng-click="onSearch()">搜索</button>
@@ -75,8 +71,10 @@
                             <th width="10%">业主号码</th>
                             <th width="10%">工长号码</th>
                             <th width="10%">金额</th>
-                            <th width="10%">状态</th>
-                            <th width="12%"></th>
+                            <th width="15%">
+                                <select ng-options="status.name for status in statusArrary" ng-model="searchFilter.stutus" ng-change="onSearch()"></select>
+                            </th>
+                            <th width="7%"></th>
                         </tr>
                         </thead>
                         <tbody>

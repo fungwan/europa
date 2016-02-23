@@ -135,12 +135,12 @@ exports.findLogsByDate = function(req,res){
 
 var recordFun = {
 
-    'workers':{
+    /*'workers':{
         'GET':'查看了工人信息'
     },
     'orders':{
         'GET':'查看了订单信息'
-    }
+    }*/
 
 };
 

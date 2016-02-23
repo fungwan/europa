@@ -32,7 +32,6 @@
                             </th>
                             <th width="15%">活动名</th>
                             <th width="10%">启用状态</th>
-                            <th width="10%">细项工种</th>
                             <th width="10%">开始时间</th>
                             <th width="10%">结束时间</th>
                             <th width="12%">详情</th>
@@ -49,9 +48,6 @@
                             <td>
                                 <span ng-bind="getActivityStatus(activityInfo.enabled)" ng-class="{true:'label label-sm label-success',false:'label label-sm label-info'}[activityInfo.enabled == 1]">
                             </span>
-                            </td>
-                            <td ng-bind="activityInfo['craft_id']">
-                                工长
                             </td>
                             <td ng-bind="timeToStr(activityInfo['start_time'] * 1000)">
                                 2016/01/21 14:56:58
@@ -93,20 +89,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">上传案例赠送积分：</label>
+                            <div class="form-group" ng-if="!isNeedSelectRole">
+                                <label class="col-md-3 control-label" ng-bind="activityRealName[activityInfo.conditions.condition[0]].name">上传案例赠送积分：</label>
                                 <div class="col-md-9">
                                     <div>
                                         <div class="input-group input-daterange col-md-9">
                                             <span class="input-group-addon">每</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">个案例赠送</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">积分</span>
+                                            <input type="text" value="1" disabled="" class="form-control">
+                                            <span class="input-group-addon">个{{activityRealName[activityInfo.conditions.condition[0]].type}}</span>
+                                            <input type="text" ng-model="activityInfo.dicounts[0].items[0].value" class="form-control">
+                                            <span class="input-group-addon">{{activityRealName[activityInfo.conditions.condition[0]].unit}}</span>
                                         </div>
-                                        <div class="input-group input-daterange col-md-6">
+                                        <div class="input-group input-daterange col-md-6" ng-if="activityInfo.dicounts[0].items[0].limit > 0">
                                             <span class="input-group-addon">赠送上限</span>
-                                            <input type="text" class="form-control">
+                                            <input type="text" ng-model="activityInfo.dicounts[0].items[0].limit" class="form-control">
                                             <span class="input-group-addon">分</span>
                                         </div>
                                         <!--label ng-repeat="role in selectEditUsr.roleArray">
@@ -116,19 +112,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">邀请用户获赠保证金：</label>
-                                <div class="col-md-2">
+                            <div class="form-group" ng-if="isNeedSelectRole">
+                                <label class="col-md-3 control-label" ng-bind="activityRealName[activityInfo.conditions.condition[0]].name">邀请用户获赠保证金：</label>
+                                <div class="col-md-4">
                                     <div>
-                                        <select class="form-control" ng-options="" ng-model=""></select>
+                                        <select class="form-control" ng-options="role.name for role in rolesArray" ng-model="selectRole.role" ng-change="onSelectRoleChange()"></select>
                                     </div>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-8 col-md-offset-3">
                                     <div>
                                         <div class="input-group input-daterange col-md-9">
                                             <span class="input-group-addon">获赠保证金数量</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">元</span>
+                                            <input type="text" ng-model="selectRole.detail.value" class="form-control">
+                                            <span class="input-group-addon">{{activityRealName[activityInfo.conditions.condition[0]].unit}}</span>
                                         </div>
                                         <!--label ng-repeat="role in selectEditUsr.roleArray">
                                             <input type='radio' name='optionsRadios' ng-value='role.value' ng-model="selectEditUsr.role" />&nbsp;<span ng-class='role.style' ng-bind="role.name">客服</span>
@@ -144,7 +140,7 @@
                             <div class="form-group">
                                 <button ng-click="setActivityStatus(1)" ng-show="!activityInfo['enabled']" type="button" class="btn btn-success">启用</button>
                                 <button ng-click="setActivityStatus(0)" ng-show="activityInfo['enabled']" type="button" class="btn btn-info">结束</button>
-                                <button type="button" class="btn btn-primary">更新</button>
+                                <button type="button" class="btn btn-primary" ng-click="onUpdateActivity()">更新</button>
                             </div>
                         </div>
                     </div>

@@ -23,19 +23,19 @@ module.exports = function (router, acl) {
         history.addLogs(req,res,next);
     });
 
-    router.get('/levelRules', function (req, res) {
+    router.get('/setting/levelRules', function (req, res) {
         levelRules.getLevelRules(req, res);
     });
     
-    router.post('/levelRules', function (req, res) {
+    router.post('/setting/levelRules', function (req, res) {
         levelRules.updateLevelRules(req, res);
     });
 
-    router.get('/scoreRules', function (req, res) {
+    router.get('/setting/scoreRules', function (req, res) {
         levelRules.getPointsRule(req, res);
     });
 
-    router.post('/scoreRules', function (req, res) {
+    router.post('/setting/scoreRules', function (req, res) {
         levelRules.updatePointsRule(req, res);
     });
 
@@ -137,6 +137,10 @@ module.exports = function (router, acl) {
 
     router.get('/activities/:id', function (req, res) {
         activities.getActivityById(req,res);
+    });
+
+    router.post('/activities/:id', function (req, res) {
+        activities.setActivityById(req,res);
     });
 
     router.post('/activities/:id/status', function (req, res) {

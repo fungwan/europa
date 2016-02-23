@@ -14,7 +14,8 @@ var fs = require("fs");
 var uuid = require('node-uuid');
 
 exports.getActivities = function(req,res){
-
+    var cityIdArray = req.session.user.city.split(',');
+    var filters = 'city::' + cityIdArray[1];
     async.auto(
         {
             get_token: function (callback) {
@@ -30,7 +31,7 @@ exports.getActivities = function(req,res){
             get_activities: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var path = '/activities?'+'accessToken=' + token;
+                var path = '/activities?'+'accessToken=' + token  + '&filter=' + filters;
 
                 var item = {};
                 item['path'] = path;
@@ -109,7 +110,6 @@ exports.setActivityStatus = function(req,res){
 
     var status = req.body.enabled;
     var activityId = req.body.id;
-
     async.auto(
         {
             get_token: function (callback) {
@@ -132,6 +132,60 @@ exports.setActivityStatus = function(req,res){
                 var content = {
                     enabled:status//parseInt(verifiedContent.verified)
                 };
+
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                res.json({
+                    result: 'success',
+                    content: ''})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+
+
+exports.setActivityById = function(req,res){
+
+    var obj = req.body.content;
+    var activityId = req.body.id;
+    var cityIdArray = req.session.user.city.split(',');
+    obj.city_id = cityIdArray[1];
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            set_activity: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+                var path = '/activities/' + activityId + '?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content = obj;
 
                 var bodyString = JSON.stringify(content);
 

@@ -89,8 +89,8 @@
                                 <div id="quotationArray">
                                     <div class="col-sm-6 col-md-3">
                                         <label ng-if="orderDetailInfo.contractDetail.quotation.length == 0">工长还未上传报价单</label>
-                                        <a href="#" ng-repeat="quotation in orderDetailInfo.contractDetail.quotation" ng-click="previewImg(qiniuUrl + quotation)">
-                                            <img border=1 src="{{qiniuUrl + quotation}}" ng-click="" width="128" height="128"/>
+                                        <a href="#" ng-repeat="quotation in orderDetailInfo.contractDetail.quotation" data-target="#show_img_preview" data-toggle="modal" ng-click="previewImg(qiniuUrl + quotation)">
+                                            <img border=1 src="{{qiniuUrl + quotation}}" width="128" height="128"/>
                                         </a>
                                     </div>
                                 </div>
@@ -242,6 +242,13 @@
                     <div id="wizard-4"></div>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+<div aria-hidden="true" id="show_img_preview" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <img width='600' height='544' src="{{preImgSrc}}"/>
         </div>
     </div>
 </div>
