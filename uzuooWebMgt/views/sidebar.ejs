@@ -60,11 +60,11 @@
                     </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
-                    <li><a href="#"><i class="fa fa-money"></i><span class="submenu-title">优惠券使用统计</span></a>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'globalSetting']"><a href="/globalSettingPage"><i class="fa fa-th-large"></i><span class="submenu-title">全局参数设置</span></a>
                     </li>
-                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'amountMgt']"><a href="/amountMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">价格管理</span></a>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'amountMgt']"><a href="/amountMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">金额相关设置</span></a>
                     </li>
-                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'levelRule']"><a href="/levelRulesMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">星级积分管理</span></a>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'levelRule']"><a href="/levelRulesMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">星级规则设置</span></a>
                     </li>
                 </ul>
             </li>

@@ -411,7 +411,7 @@ exports.findWorkersByFilters = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/workers?'+'accessToken=' + token + '&filter=' + filters + '&countOnly=true';
+                var path = '/workers?' + 'filter=' + filters + '&countOnly=true' +'&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 

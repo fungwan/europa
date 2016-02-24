@@ -44,8 +44,6 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             } else {
                 $scope.moreLinkStr = '精简筛选条件';
             }
-            var img = "<img width='554' height='544' src='http://7xq9al.com2.z0.glb.qiniucdn.com/342ffee5-1b4e-48e5-8ed4-871da976b7e6'/>";
-            TINY.box.show(img, 0, 0, 0, 1)
         }
 
         $scope.onSearch = function () {

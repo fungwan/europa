@@ -21,6 +21,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         $scope.workersInfo = [];                            //工人信息
         
         $scope.imageSrc = $rootScope.defaultVerifiedImg;
+        var filters = ['all'];
 
 
         $scope.workSearchFilter = {
@@ -39,6 +40,70 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
 
         $scope.onSearch = function () {
+            filters = [];
+            //var filters = ["all"];
+            if ($scope.workSearchFilter.verified !== 'all') {
+                var verifiedFilterStr = 'verified::' + $scope.workSearchFilter.verified;
+                filters.push(verifiedFilterStr);
+            }
+            
+            if ($scope.workSearchFilter.keywordValue !== '') {
+                var keywordFilterStr = $scope.workSearchFilter.keyword + '::' + $scope.workSearchFilter.keywordValue;
+                filters.push(keywordFilterStr);
+            }
+
+
+
+            if (!$scope.moreLink) {
+                if ($scope.workSearchFilter.provinceSel.id) {
+
+                }
+                if ($scope.workSearchFilter.citySel.id) {
+                    var cityFilterStr = 'city::' + $scope.workSearchFilter.citySel.id;
+                    filters.push(cityFilterStr);
+                }
+                var selectRegion = [];
+                if ($scope.workSearchFilter.regionSelArray.length != 0) {
+                    for (var i = 0; i < $scope.workSearchFilter.regionSelArray.length; i++) {
+                        if($scope.workSearchFilter.regionSelArray[i].selected) {
+                            selectRegion.push($scope.workSearchFilter.regionSelArray[i]);
+                        }
+                    };
+                }
+                if (selectRegion.length != 0) {
+                    var regionStr = selectRegion[0].id;
+                    for (var i = 1; i < selectRegion.length; i++) {
+                        regionStr = regionStr + '|' + selectRegion[i].id;
+                    };
+                    var regionFilterStr = 'regions::' +regionStr;
+                    filters.push(regionFilterStr);
+                }
+                if ($scope.workSearchFilter.originalRoleSel.id) {
+                    var roleFilterStr = 'roles::' + $scope.workSearchFilter.originalRoleSel.id;
+                    filters.push(roleFilterStr);
+                }
+                var selectCrafts = [];
+                if ($scope.workSearchFilter.craftsArray.length != 0) {
+                    for (var i = 0; i < $scope.workSearchFilter.craftsArray.length; i++) {
+                        if($scope.workSearchFilter.craftsArray[i].selected) {
+                            selectCrafts.push($scope.workSearchFilter.craftsArray[i]);
+                        }
+                    };
+                }
+                if (selectCrafts.length != 0) {
+                    var craftStr = selectCrafts[0].id;
+                    for (var i = 1; i < selectCrafts.length; i++) {
+                        craftStr = craftStr + '|' + selectCrafts[i].id;
+                    };
+                    var craftFilterStr = 'crafts::' + craftStr;
+                    filters.push(craftFilterStr);
+                };
+            }
+
+            if (filters.length == 0) {
+                filters = ['all'];
+            };
+
             getWorkersBypage(1);
         }
         $scope.onClickMore = function () {
@@ -255,34 +320,6 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
 
         function getWorkersBypage(pageIndex) {
-            var filters = [];
-            //var filters = ["all"];
-
-            var verifiedFilterStr = ($scope.workSearchFilter.verified == 'all') ? 'all' : 'verified::' + $scope.workSearchFilter.verified;
-            filters.push(verifiedFilterStr);
-
-            if ($scope.workSearchFilter.keywordValue != '') {
-                var keywordFilterStr = $scope.workSearchFilter.keyword + '::' + $scope.workSearchFilter.keywordValue;
-                filters.push(keywordFilterStr);
-            }
-            if (!$scope.moreLink) {
-                if ($scope.workSearchFilter.provinceSel.id) {
-
-                }
-                if ($scope.workSearchFilter.citySel.id) {
-
-                }
-                if ($scope.workSearchFilter.regionSelArray.length != 0) {
-
-                }
-                if ($scope.workSearchFilter.originalRoleSel.id) {
-
-                }
-                if ($scope.workSearchFilter.craftsArray.length != 0) {
-
-                }
-            }
-
             var obj = {
                 params: {
                     page: pageIndex,
@@ -301,6 +338,10 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
                     //分页控件
                     worksPaging(pageIndex);
+
+                } else if (data.content == 400) {
+                    $scope.workersInfo = [];
+                    $scope.totalWorkersPages = 0;
 
                 }
             }, function (errMsg) {

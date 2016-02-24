@@ -31,12 +31,20 @@ module.exports = function (router, acl) {
         levelRules.updateLevelRules(req, res);
     });
 
-    router.get('/setting/scoreRules', function (req, res) {
-        levelRules.getPointsRule(req, res);
+    router.get('/setting/roleRules', function (req, res) {
+        amount.getPointsRule(req, res);
     });
 
-    router.post('/setting/scoreRules', function (req, res) {
-        levelRules.updatePointsRule(req, res);
+    router.post('/setting/roleRules', function (req, res) {
+        amount.updatePointsRule(req, res);
+    });
+
+    router.get('/setting/craftRules', function (req, res) {
+        amount.getCraftRule(req, res);
+    });
+
+    router.post('/setting/craftRules', function (req, res) {
+        amount.updateCraftRule(req, res);
     });
 
     //action for ajax request about app

@@ -18,6 +18,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$resourceProvider',
         $routeProvider.when('/customerFeedbacks', { templateUrl: ('partial/customer_feedbacks'), controller: 'FeedbacksCtrl' });
         $routeProvider.when('/amountMgtPage', { templateUrl: ('partial/amountMgt'), controller: 'AmountMgtCtrl' });
         $routeProvider.when('/levelRulesMgtPage', { templateUrl: ('partial/levelRulesMgt'), controller: 'LevelRulesCtrl' });
+        $routeProvider.when('/globalSettingPage', { templateUrl: ('partial/globalSetting'), controller: 'GlobalSettingCtrl' });
         $routeProvider.when('/history', { templateUrl: ('partial/system_logs'), controller: 'HistoryCtrl' });
         $routeProvider.when('/logout', { templateUrl: ('partial/login'), controller: 'LogoutCtrl' });
         $routeProvider.when('/404', { templateUrl: ('partial/404') });

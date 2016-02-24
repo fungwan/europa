@@ -36,7 +36,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
                     $scope.selectRole = $scope.originalRoles[0];
 
                     //再初始化工种对应的积分规则
-                    getScoreRules($scope.selectRole.id);
+                    //getStarToRequireRules($scope.selectRole.id);
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -53,7 +53,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
             });
         })();
 
-        var getScoreRules = function(roleId){
+        var getStarToRequireRules = function(roleId){
 
             var obj = {
                 params: {
@@ -174,7 +174,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
         $scope.originalRoleSelect = function () {
             var roleId = $scope.selectRole.id;
 
-            getScoreRules(roleId);
+            //getStarToRequireRules(roleId);
 
         }
 

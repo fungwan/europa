@@ -32,7 +32,7 @@ exports.get = function(optionItem,cb){
         }
     };
 
-    options['path'] = apiVersion + optionItem['path'];
+    options['path'] = encodeURI(apiVersion + optionItem['path']);
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
