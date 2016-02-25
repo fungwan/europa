@@ -283,3 +283,94 @@ exports.updateCraftRule = function(req,res){
             }
         })
 };
+
+//获取推广工种
+exports.getRecommendRole = function(req,res){
+    var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_recommend: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var path = '/cities/' + cityId + '/recommendation?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+                var recommendRole = jsonConvert.stringToJson(result.get_recommend);
+                res.json({
+                        result: 'success',
+                        content:recommendRole['recommendations']}
+                );
+            }else{
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+//设置推广工种
+exports.setRecommendRole = function(req,res){
+
+    var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_rule:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/cities/' + cityId + '/recommendation?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};

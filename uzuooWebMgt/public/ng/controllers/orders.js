@@ -55,6 +55,21 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         		var item = 'status::' + $scope.searchFilter.stutus.value;
         		filters.push(item);
         	}
+        	if ($scope.searchFilter.orderId !== '') {
+        		var item = 'id::' + $scope.searchFilter.orderId;
+        		filters.push(item);
+        	};
+        	if ($scope.searchFilter.startDate !== '') {
+        		var ts = new Date($scope.searchFilter.startDate).getTime();
+        		var item = 'start_time::' + ts;
+        		filters.push(item);
+        	} 
+        	if ($scope.searchFilter.endDate != '') {
+        		var ts = new Date($scope.searchFilter.endDate).getTime();
+        		var item = 'end_time::' + ts;
+        		filters.push(item);
+        	}
+
         	if(filters.length == 0)
         		filters = ['all'];
             getOrdersBypage(1);

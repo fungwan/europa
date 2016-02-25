@@ -34,7 +34,7 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
         }
 
         $scope.onShowEditUsrDlg = function (usr) {
-            $scope.selectEditUsr = usr;
+            $scope.selectEditUsr = cloneObj(usr);
             var cityArray = usr.city.split(',');
             $scope.selectEditUsr.provinceSel = $scope.provinceArray[0];
             $scope.selectEditUsr.cityArray = $scope.selectEditUsr.provinceSel.cities;
@@ -192,12 +192,12 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
             //return;
             var deleteArray = [];
             angular.forEach($scope.bgUsers, function (item) {
-                if(item.selected && item.role != '5') {
+                if (item.selected && item.role != '5') {
                     deleteArray.push(item.id);
                 }
             });
             deleteArray;
-            if(deleteArray.length == 0) {
+            if (deleteArray.length == 0) {
                 return;
             }
             deleteUser(deleteArray);
@@ -277,7 +277,7 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
                 }
             });
         }
-
+        
         getRoleAndRegionsInfo();
 
     }]);

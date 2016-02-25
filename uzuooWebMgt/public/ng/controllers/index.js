@@ -246,12 +246,23 @@ angular.module('myApp').controller('IndexCtrl', ['$scope', '$location', '$rootSc
                 // apply dropdownHover to all elements with the data-hover="dropdown" attribute
                 $('[data-hover="dropdown"]').dropdownHover();
             });
-        }   
-        $scope.previewImg = function(src) {
+        }
+        $scope.previewImg = function (src) {
             var popImg = "<img width='554' height='544' src=\'" + src + '\'/>';
             TINY.box.show(popImg, 0, 0, 0, 1)
         }
+    }
+]);
 
+function cloneObj(obj) {
+    var newO = {};
 
-
-    }]);
+    if (obj instanceof Array) {
+        newO = [];
+    }
+    for (var key in obj) {
+        var val = obj[key];
+        newO[key] = typeof val === 'object' ? arguments.callee(val) : val;
+    }
+    return newO;
+};

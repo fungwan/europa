@@ -19,8 +19,10 @@ myApp.config(['$routeProvider', '$locationProvider', '$resourceProvider',
         $routeProvider.when('/amountMgtPage', { templateUrl: ('partial/amountMgt'), controller: 'AmountMgtCtrl' });
         $routeProvider.when('/levelRulesMgtPage', { templateUrl: ('partial/levelRulesMgt'), controller: 'LevelRulesCtrl' });
         $routeProvider.when('/globalSettingPage', { templateUrl: ('partial/globalSetting'), controller: 'GlobalSettingCtrl' });
+        $routeProvider.when('/advertisementMgtPage', { templateUrl: ('partial/advertisementMgt'), controller: 'AdvertisementCtrl' });
         $routeProvider.when('/history', { templateUrl: ('partial/system_logs'), controller: 'HistoryCtrl' });
         $routeProvider.when('/logout', { templateUrl: ('partial/login'), controller: 'LogoutCtrl' });
+        
         $routeProvider.when('/404', { templateUrl: ('partial/404') });
         $routeProvider.otherwise({ redirectTo: '/404' });
 

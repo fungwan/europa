@@ -47,6 +47,15 @@ module.exports = function (router, acl) {
         amount.updateCraftRule(req, res);
     });
 
+    router.get('/setting/recommendRole', function (req, res) {
+        amount.getRecommendRole(req, res);
+    });
+
+    router.post('/setting/recommendRole', function (req, res) {
+        amount.setRecommendRole(req, res);
+    });
+
+
     //action for ajax request about app
 
     //action for houseOwner
@@ -153,6 +162,13 @@ module.exports = function (router, acl) {
 
     router.post('/activities/:id/status', function (req, res) {
         activities.setActivityStatus(req,res);
+    });
+
+    router.get('/advertisement/:position', function (req, res) {
+        activities.getAdvertisement(req,res);
+    });
+    router.post('/advertisement', function (req, res) {
+        activities.setAdvertisement(req,res);
     });
 
     router.get('/qiniuToken', function (req, res) {
