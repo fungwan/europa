@@ -143,6 +143,21 @@
 
                 <!-- 业主信息 -->
                 <div id="table-row-tab" class="tab-pane fade">
+                    <div class="row mbl">
+                        <div class="col-lg-6">
+                            <div class="tb-group-actions pull-left">
+                                <select data-style="btn-grey" ng-model='houseOnwerSearchFilter.keyword'>
+                                    <option value="nick_name">昵称</option>
+                                    <option value="phone">电话号码</option>
+                                    <option value="user_name">用户名</option>
+                                    <option value="full_name">姓名</option>
+                                    <option value="email">邮箱</option>
+                                </select>
+                                <input id="exactSearch-input" type="text" placeholder="输入对应关键字查找..." ng-model='houseOnwerSearchFilter.keywordValue'/>
+                                <button id="exactSearch-btn" type="button" ng-click="onHouseOwnerSearch()">查找</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-container">
@@ -154,6 +169,7 @@
                                             <th width="10%">真实姓名</th>
                                             <th width="10%">联系方式</th>
                                             <th width="7%">邮箱地址</th>
+                                            <th width="3%"></th>
                                         </tr>
                                         <tbody>
                                             <tr ng-repeat="houseOwner in houseOwnersInfo">
@@ -162,6 +178,10 @@
                                                 <td>{{houseOwner.first_name + houseOwner.last_name}}</td>
                                                 <td>{{houseOwner.phone}}</td>
                                                 <td>{{houseOwner.email}}</td>
+                                                <td id='' abbr=''>
+                                                    <button type="button" class="btn btn-default btn-xs" ng-click="onShowMoreHouseInfo(houseOwner)"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
+                                                    </button>&nbsp;
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </thead>
@@ -352,6 +372,10 @@
                                         <span class="badge badge-danger pull-right">豪</span>
                                     </a>
                                 </div>
+                                <div class="pull-right">
+                                    <button type="button"  data-target="#charge_dlg" data-toggle="modal" class="btn btn-info" ng-click="onShowChargeDlg(selectWorker.workerId)">充值</button>
+                                    <!--button id="update_workerProfile_btn" class="btn btn-success">更新资料</button-->
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -439,3 +463,137 @@
         </div>
     </div>
 </div>
+
+<div aria-hidden="false" style="display:none;" id="edit_houseOwner_dlg" tabindex="-1" data-backdrop="static" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" name='close-workerDetailDialog-btn' data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 class="modal-title">业主信息</h4>
+            </div>
+            <div class="modal-body">
+                    <div class="tab-content">
+                        <div id="edit_worker_basicInfo" class="tab-pane fade in active">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right"><i class="fa fa-user"></i>
+                                                <input id="inputWorkerFullName-readOnly" type="text" placeholder="Name" class="form-control" disabled ng-model="selectHouseOwner.fullName"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
+                                                <input id="inputWorkerPhone" type="text" placeholder="Phone" class="form-control" disabled ng-model="selectHouseOwner.phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right"><i class="fa fa-credit-card"></i>
+                                                <input id="inputCardNumber-readOnly" type="text" placeholder="Nick name" class="form-control" disabled ng-model="selectHouseOwner.nick_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-icon right"><i class="fa  fa-envelope-o"></i>
+                                                <input id="inputWorkerCity" type="text" placeholder="email" class="form-control" disabled ng-model="selectHouseOwner.email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div><img id="showVerifiedPic-img" border=0 src="{{selectHouseOwner.imgHref}}" width="120" height="120" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <form action="#">
+                                            <div class="list-group">
+                                                <a href="javascript:;" class="list-group-item">账户余额
+                                                    <span id="balance-span" class="badge badge-info pull-right" ng-bind="selectHouseOwner.balance"></span>
+                                                </a>
+                                                <a href="javascript:;" class="list-group-item">系统赠送保证金
+                                                    <span id="systemMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectHouseOwner.mBalanceSystem"></span>
+                                                </a>
+                                                <a href="javascript:;" class="list-group-item">个人保证金
+                                                    <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectHouseOwner.mBalanceOwns"></span>
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <button id="scene-verified_btn" data-toggle="modal" data-target="#charge_dlg" ng-click="onShowChargeDlg(selectHouseOwner.houseOwnerId)" class="btn btn-info">账户充值</button>
+                                    <!--button id="update_workerProfile_btn" class="btn btn-success">更新资料</button-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name='close-workerDetailDialog-btn' data-dismiss="modal" class="btn btn-default">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" id="charge_dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <!-- start -->
+                <div class="col-lg-12" style="height:10%">
+                    <div class="portlet box portlet-blue">
+                        <div class="portlet-header">
+                            <div class="caption">账户充值</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-body pal">
+                            <div class="input-group input-daterange col-md-3"></div>
+                            <div class="input-group input-daterange col-md-6 col-md-offset-3">
+                                <span class="input-group-addon">余额充值</span>
+                                <input type="number" ng-model="chargeAmount" class="form-control">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                        <div class="form-body pal">
+                            <div class="input-group input-daterange col-md-3"></div>
+                            <div class="input-group input-daterange col-md-6 col-md-offset-3">
+                                <span class="input-group-addon">保证金充值</span>
+                                <input type="number" ng-model="chargeBalance" class="form-control">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="modify_conference_footer">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="onChargeConfirm()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

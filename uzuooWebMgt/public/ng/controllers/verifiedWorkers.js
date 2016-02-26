@@ -84,6 +84,23 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
         }
 
 
+        $scope.getCategoryStr = function (categories) {
+            if (!categories)
+                return;
+            var firstStr, secondStr = '';
+            if (categories[0]) {
+                firstStr = $scope.rolesArray[1][categories[0].role_id].name
+            }
+            if (categories[1]) {
+                secondStr = $scope.rolesArray[1][categories[1].role_id].name
+            }
+            return {
+                firt: firstStr,
+                second: secondStr
+            }
+        }
+
+
         function worksPaging(pageIndex) {
             var firstScreeningPagination = false;
             laypage({
@@ -130,7 +147,25 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
             }
         }
 
-        getWorkersBypage($scope.curWorkersPage);
+        function getRoleAndRegionsInfo() {
+            var obj = {};
+            ApiService.get('/doGetRoleAndRegionsInfo', obj, function (data) {
+                if (data.result == 'success') {
+                    $scope.regionsAndRolesArray = data.content.get_roleAndRegions;
+                    $scope.provinceArray = $scope.regionsAndRolesArray[0][0];
+                    $scope.regionArray = $scope.regionsAndRolesArray[0][1];
+                    $scope.rolesArray = $scope.regionsAndRolesArray[1];
+                    $scope.originalRoles = $scope.rolesArray[0];
+
+                    getWorkersBypage($scope.curWorkersPage);
+
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        }
+
+        getRoleAndRegionsInfo();
 
         
     }

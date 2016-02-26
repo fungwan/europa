@@ -44,7 +44,9 @@
                     <table id="history-tab" class="table table-hover table-bordered table-advanced">
                         <thead>
                         <tr role="row" class="heading">
-                            <th width="3%" class="sorting_disabled"> <input type="checkbox" class="checkall" /> </th>
+                            <th width="3%" class="sorting_disabled">
+                                <input type="checkbox" ng-model="selectAllCheck" class="icheckbox_minimal-grey" ng-click="checkAll(logsArray)"/>
+                            </th>
                             <th width="9%" class="sorting">姓名</th>
                             <th width="18%" class="sorting">时间</th>
                             <th width="15%" class="sorting_asc">操作员</th>
@@ -55,7 +57,7 @@
                         <tbody>
                             <tr ng-repeat="logInfo in logsArray">
                                 <td>
-                                    <input ng-click="check(logInfo['id'],chk)" ng-model="chk" type="checkbox" class="checkbox" />
+                                    <input ng-model="logInfo.selected"  type="checkbox" class="checkbox" />
                                 </td>
                                 <td ng-bind="logInfo['username']">yun_feng</td>
                                 <td ng-bind="timeToStr(logInfo['operator_date'])">2016/02/20 23:17:35</td>
@@ -63,7 +65,7 @@
                                 <td ng-bind="logInfo['action']">确认了一笔付款...</span>
                                 </td>
                                 <td>
-                                    <button ng-click="onRecordLogId(logInfo['id'])" type="button" class="btn btn-danger btn-xs " data-toggle="modal" data-target="#modal-confirm" ><i class="fa fa-trash-o"></i>&nbsp; 删除</button>
+                                    <button ng-click="onShowDelOne(logInfo)" type="button" class="btn btn-danger btn-xs " data-toggle="modal" data-target="#modal-confirm" ><i class="fa fa-trash-o"></i>&nbsp; 删除</button>
                                 </td>
                             </tr>
                         </tbody>

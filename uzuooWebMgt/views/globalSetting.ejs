@@ -95,7 +95,7 @@
                                                 <label for="inputGood" class="col-md-3 control-label">保证金充值后冻结时间：</label>
                                                 <div class="col-md-2">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditInt(roleRuleSetting.margin_rate)" ng-model="roleRuleSetting.margin_rate"  type="text"  class="form-control" />
+                                                        <input ng-blur="onEditInt(sysConfig.margin_freeze)" ng-model="sysConfig.margin_freeze"  type="text"  class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">天</label>
@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="form-actions bottom pull-right">
                                             <div class="col-md-offset-3 col-md-9 ">&nbsp;
-                                                <button  type="button" class="btn btn-green">更新</button>
+                                                <button  ng-click="updateSysForFreezeTime()" type="button" class="btn btn-green">更新</button>
                                             </div>
                                         </div>
                                     </form>
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">请选择：</label>
+                                <label class="col-md-3 control-label">请选择工种：</label>
                                 <div ng-show="selectRoleType.value=='roles'"  class="col-lg-9">
                                     <select data-style="btn-success" class="selectpicker form-control" ng-model="selectRole" ng-options="role.name for role in originalRoles"  ng-change="originalRoleSelect()">
                                     </select>

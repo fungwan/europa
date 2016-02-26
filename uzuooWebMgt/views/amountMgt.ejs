@@ -39,7 +39,7 @@
                                                 <label for="inputGood" class="col-md-3 control-label">保证金提取比例</label>
                                                 <div class="col-md-6">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleFloat(roleRuleSetting.margin_rate)" ng-model="roleRuleSetting.margin_rate"  type="text"  class="form-control" />
+                                                        <input ng-blur="onEditRoleFloat(roleRuleSetting.margin.rate)" ng-model="roleRuleSetting.margin.rate"  type="text"  class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">%</label>
@@ -48,7 +48,7 @@
                                                 <label for="inputNotbad" class="col-md-3 control-label">保证金上限</label>
                                                 <div class="col-md-6">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.margin_up_threshold)" ng-model="roleRuleSetting.margin_up_threshold" type="text" class="form-control" />
+                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.margin.up_threshold)" ng-model="roleRuleSetting.margin.up_threshold" type="text" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">元</label>
@@ -57,7 +57,7 @@
                                                 <label for="inputBad" class="col-md-3 control-label">保证金下限</label>
                                                 <div class="col-md-6">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.margin_down_threshold)" ng-model="roleRuleSetting.margin_down_threshold" type="text" class="form-control" />
+                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.margin.down_threshold)" ng-model="roleRuleSetting.margin.down_threshold" type="text" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">元</label>
@@ -66,19 +66,10 @@
                                                 <label for="inputBad" class="col-md-3 control-label">保证金下限冻结时间</label>
                                                 <div class="col-md-6">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.freeze_time)" ng-model="roleRuleSetting.freeze_time" type="text" class="form-control" />
+                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.margin.freeze_time)" ng-model="roleRuleSetting.margin.freeze_time" type="text" class="form-control" />
                                                     </div>
                                                 </div>
-                                                <label class="control-label">年</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputBad" class="col-md-3 control-label">注册赠送保证金额度</label>
-                                                <div class="col-md-6">
-                                                    <div class="input-icon">
-                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.default_margin_give)" ng-model="roleRuleSetting.default_margin_give" type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <label class="control-label">元</label>
+                                                <label class="control-label">月</label>
                                             </div>
                                         </div>
                                         <hr>
@@ -89,7 +80,7 @@
                                             <label for="inputGood" class="col-md-3 control-label">全部好评返还 </label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  id="inputGood" type="text"  class="form-control" />
+                                                    <input ng-blur="onEditRoleFloat(roleRuleSetting.commission_return.reviews.by_all_good)"  ng-model="roleRuleSetting.commission_return.reviews.by_all_good" id="inputGood" type="text"  class="form-control" />
                                                 </div>
                                             </div>
                                             <label class="control-label">%</label>
@@ -98,14 +89,14 @@
                                             <label for="inputGood" class="col-md-3 control-label">每月签约 </label>
                                             <div class="col-md-3">
                                                 <div class="input-icon">
-                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"  type="text"  class="form-control" />
+                                                    <input ng-blur="onEditRoleInt(roleRuleSetting.commission_return.order.count)"  ng-model="roleRuleSetting.commission_return.order.count" type="text"  class="form-control" />
                                                 </div>
 
                                             </div>
                                             <label class="col-lg-2 control-label">单以上，返还 </label>
                                             <div class="col-md-2">
                                                 <div class="input-icon">
-                                                    <input ng-blur="onEditPay(scoreRules.score_inc_by_pay)"   type="text"  class="form-control" />
+                                                    <input ng-blur="onEditRoleFloat(roleRuleSetting.commission_return.order.return_rate)"  ng-model="roleRuleSetting.commission_return.order.return_rate" type="text"  class="form-control" />
                                                 </div>
                                             </div>
                                             <label class="control-label">%</label>
@@ -119,7 +110,7 @@
                                                 <label for="inputGood" class="col-md-3 control-label">好评 <span class="require">*</span> </label>
                                                 <div class="col-md-6">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleIntEx(roleRuleSetting.score_inc_by_good)" ng-model="roleRuleSetting.score_inc_by_good" type="text"  class="form-control" />
+                                                        <input ng-blur="onEditRoleIntEx(roleRuleSetting.score.inc_by_good)" ng-model="roleRuleSetting.score.inc_by_good" type="text"  class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">分</label>
@@ -128,7 +119,7 @@
                                                 <label for="inputNotbad" class="col-md-3 control-label">中评 <span class="require">*</span> </label>
                                                 <div class="col-md-6">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleIntEx(roleRuleSetting.score_inc_by_normal)" ng-model="roleRuleSetting.score_inc_by_normal"  type="text" class="form-control" />
+                                                        <input ng-blur="onEditRoleIntEx(roleRuleSetting.score.inc_by_normal)" ng-model="roleRuleSetting.score.inc_by_normal"  type="text" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label for="inputGood" class=" control-label">分</label>
@@ -137,7 +128,7 @@
                                                 <label for="inputBad" class="col-md-3 control-label">差评 <span class="require">*</span> </label>
                                                 <div class="col-md-6">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleIntEx(roleRuleSetting.score_inc_by_bad)" ng-model="roleRuleSetting.score_inc_by_bad" type="text" class="form-control" />
+                                                        <input ng-blur="onEditRoleIntEx(roleRuleSetting.score.inc_by_bad)" ng-model="roleRuleSetting.score.inc_by_bad" type="text" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">分</label>
@@ -152,7 +143,7 @@
                                                 <label for="inputGood" class="col-md-3 control-label">每  </label>
                                                 <div class="col-md-5">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditRoleFloat(roleRuleSetting.score_inc_by_pay)" ng-model="roleRuleSetting.score_inc_by_pay" type="text"  class="form-control" />
+                                                        <input ng-blur="onEditRoleInt(roleRuleSetting.score.inc_by_pay)" ng-model="roleRuleSetting.score.inc_by_pay" type="text"  class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">元交易额，计1分</label>
@@ -196,7 +187,7 @@
                                                 <label class="col-md-3 control-label">基础佣金提取比例</label>
                                                 <div class="col-md-5">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditCraftFloat(craftRuleSetting.commission_basic)" ng-model="craftRuleSetting.commission_basic" class="form-control" />
+                                                        <input ng-blur="onEditCraftFloat(craftRuleSetting.commission.basic)" ng-model="craftRuleSetting.commission.basic" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">%</label>
@@ -205,7 +196,7 @@
                                                 <label class="col-md-3 control-label">绩效佣金提取比例</label>
                                                 <div class="col-md-5">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditCraftFloat(craftRuleSetting.commission_float)" ng-model="craftRuleSetting.commission_float" type="text" class="form-control" />
+                                                        <input ng-blur="onEditCraftFloat(craftRuleSetting.commission.float)" ng-model="craftRuleSetting.commission.float" type="text" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">%</label>
@@ -219,7 +210,7 @@
                                             <label for="inputGood" class="col-md-3 control-label">定金金额 </label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input ng-blur="onEditCraftInt(craftRuleSetting.earnest)"  ng-model="craftRuleSetting.earnest" type="text"  class="form-control" />
+                                                    <input ng-blur="onEditCraftInt(craftRuleSetting.order.earnest)"  ng-model="craftRuleSetting.order.earnest" type="text"  class="form-control" />
                                                 </div>
                                             </div>
                                             <label class="control-label">元</label>
@@ -228,7 +219,7 @@
                                             <label for="inputGood" class="col-md-3 control-label">是否托管尾款 </label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input type="checkbox" ng-model="craftRuleSetting.need_trustee" />
+                                                    <input type="checkbox" ng-model="craftRuleSetting.order.need_trustee" />
                                                 </div>
                                             </div>
                                         </div>
@@ -240,7 +231,7 @@
                                             <label for="inputGood" class="col-md-3 control-label">每笔支付金额须大于 </label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input   type="text"  class="form-control" />
+                                                    <input   type="text"  ng-blur="onEditCraftInt(craftRuleSetting.ubeans.down_threshold)" ng-model="craftRuleSetting.ubeans.down_threshold" class="form-control" />
                                                 </div>
                                             </div>
                                             <label class=" control-label">元</label>
@@ -249,7 +240,7 @@
                                             <label for="inputGood" class="col-md-3 control-label">每笔最多使用 </label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input  type="text"  class="form-control" />
+                                                    <input  type="text"  ng-blur="onEditCraftInt(craftRuleSetting.ubeans.up_threshold)" ng-model="craftRuleSetting.ubeans.up_threshold" class="form-control" />
                                                 </div>
                                             </div>
                                             <label class="control-label">元</label>
@@ -258,7 +249,7 @@
                                             <label for="inputGood" class="col-md-3 control-label">按每笔支付金额计算可以使用 </label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input  type="text"  class="form-control" />
+                                                    <input  type="text"  ng-blur="onEditCraftFloat(craftRuleSetting.ubeans.use_rate)" ng-model="craftRuleSetting.ubeans.use_rate" class="form-control" />
                                                 </div>
                                             </div>
                                             <label class="control-label">%的现金券 </label>
@@ -271,7 +262,7 @@
                                             <label for="inputGood" class="col-md-3 control-label">最大可抢单人数 </label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input  type="text"  class="form-control" />
+                                                    <input  type="text"  ng-blur="onEditCraftInt(craftRuleSetting.order.max_candidates)" ng-model="craftRuleSetting.order.max_candidates" class="form-control" />
                                                 </div>
                                             </div>
                                             <label class=" control-label">人 </label>
@@ -280,16 +271,16 @@
                                             <label for="inputGood" class="col-md-3 control-label">未支付定金的订单的有效时间</label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input  type="text"  class="form-control" />
+                                                    <input  type="text" ng-blur="onEditCraftInt(craftRuleSetting.order.non_earnest_keep_time)" ng-model="craftRuleSetting.order.non_earnest_keep_time" class="form-control" />
                                                 </div>
                                             </div>
-                                            <label class=" control-label">分钟 </label>
+                                            <label class=" control-label">天 </label>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputGood" class="col-md-3 control-label">未被抢的订单的有效时间</label>
                                             <div class="col-md-5">
                                                 <div class="input-icon">
-                                                    <input  type="text"  class="form-control" />
+                                                    <input  type="text" ng-blur="onEditCraftInt(craftRuleSetting.order.non_candidates_keep_time)" ng-model="craftRuleSetting.order.non_candidates_keep_time" class="form-control" />
                                                 </div>
                                             </div>
                                             <label class="control-label">小时 </label>

@@ -40,7 +40,7 @@ exports.getBills = function(req,res){
             get_tradeDetails: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var billsPath = '/tradeDetails?limit=-1&' +'accessToken=' + token;
+                var billsPath = '/tradeDetails?limit=10&' +'accessToken=' + token;
 
                 var item = {};
                 item['path'] = billsPath;

@@ -3,11 +3,10 @@ var customer = require('../models/forApp/customer');
 var feedbacks = require('../models/forApp/feedbacks');
 var orders = require('../models/forApp/orders');
 var contracts = require('../models/forApp/contracts');
-var amount = require('../models/forApp/amount');
+var sysSetting = require('../models/forApp/sysSetting');
 var activities = require('../models/forApp/activities');
 var bills = require('../models/forApp/bills');
 var qiniuToken = require('../models/forApp/upload');
-var levelRules = require('../models/forApp/levelRules');
 
 var users = require('../models/users');
 var login = require('../models/login');
@@ -24,38 +23,44 @@ module.exports = function (router, acl) {
     });
 
     router.get('/setting/levelRules', function (req, res) {
-        levelRules.getLevelRules(req, res);
+        sysSetting.getLevelRules(req, res);
     });
     
     router.post('/setting/levelRules', function (req, res) {
-        levelRules.updateLevelRules(req, res);
+        sysSetting.updateLevelRules(req, res);
     });
 
     router.get('/setting/roleRules', function (req, res) {
-        amount.getPointsRule(req, res);
+        sysSetting.getPointsRule(req, res);
     });
 
     router.post('/setting/roleRules', function (req, res) {
-        amount.updatePointsRule(req, res);
+        sysSetting.updatePointsRule(req, res);
     });
 
     router.get('/setting/craftRules', function (req, res) {
-        amount.getCraftRule(req, res);
+        sysSetting.getCraftRule(req, res);
     });
 
     router.post('/setting/craftRules', function (req, res) {
-        amount.updateCraftRule(req, res);
+        sysSetting.updateCraftRule(req, res);
     });
 
     router.get('/setting/recommendRole', function (req, res) {
-        amount.getRecommendRole(req, res);
+        sysSetting.getRecommendRole(req, res);
     });
 
     router.post('/setting/recommendRole', function (req, res) {
-        amount.setRecommendRole(req, res);
+        sysSetting.setRecommendRole(req, res);
     });
 
+    router.get('/setting/global', function (req, res) {
+        sysSetting.getSysConfig(req, res);
+    });
 
+    router.post('/setting/global', function (req, res) {
+        sysSetting.updateSysConfig(req, res);
+    });
     //action for ajax request about app
 
     //action for houseOwner
@@ -100,6 +105,11 @@ module.exports = function (router, acl) {
 
     router.get('/workers/:id/capitalAccount', function (req, res) {    
         customer.getCapitalAccountById(req,res);
+    });
+
+    //线下充值
+    router.post('/paymentOrders', function (req, res) {
+        customer.chargeAccount(req,res);
     });
 
     router.get('/feedbacks', function (req, res) {

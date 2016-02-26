@@ -21,7 +21,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         $scope.workersInfo = [];                            //工人信息
         
         $scope.imageSrc = $rootScope.defaultVerifiedImg;
-        var filters = ['all'];
+        var filters, houseOwnerfilters = ['all'];
 
 
         $scope.workSearchFilter = {
@@ -33,6 +33,11 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             regionSelArray: [],                      //城市的区域列表
             originalRoleSel: {},                 //多选大工种
             craftsArray: [],                      //细分工种
+        }
+
+        $scope.houseOnwerSearchFilter = {
+            keyword:'nick_name',
+            keywordValue:''
         }
 
         //工人详细信息
@@ -106,6 +111,16 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
             getWorkersBypage(1);
         }
+
+        $scope.onHouseOwnerSearch = function () {
+            houseOwnerfilters = ['all'];
+            if ($scope.houseOnwerSearchFilter.keywordValue) {
+                var filterStr = $scope.houseOnwerSearchFilter.keyword + '::' + $scope.houseOnwerSearchFilter.keywordValue;
+                houseOwnerfilters = [filterStr];
+            }
+            getHouseOwnerBypage (1);
+        }
+
         $scope.onClickMore = function () {
             $scope.moreLink = !$scope.moreLink;
             if ($scope.moreLink) {
@@ -207,7 +222,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                 workerId: workerId
             }
             var obj = {};
-            getCapitalAccount();
+            getWorkerCapitalAccount();
             ApiService.get('/workers/' + workerId, obj, function (data) {
                 if (data.result == 'success') {
                     $scope.selectWorker.score = data.content.score;
@@ -228,8 +243,53 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             getVerificationLogs();
         }
 
-        //获取个人账户信息
-        function getCapitalAccount() {
+        $scope.onShowChargeDlg = function (accountId) {
+            $scope.chargeAmount = 0;
+            $scope.chargeBalance = 0;
+            $scope.chargeId = accountId;
+            
+        }
+
+        $scope.onChargeConfirm = function () {
+
+            if ($scope.chargeAmount) {
+                var obj = {
+                    backend:'uzuoopay',
+                    type:'recharge_offline',
+                    account_id:$scope.chargeId,
+                    amount: parseInt($scope.chargeAmount) * 100
+                }
+                doCharge({content:obj});
+            }
+
+            if ($scope.chargeBalance) {
+                var obj = {
+                    backend:'uzuoopay',
+                    type:'recharge_margin_offline',
+                    account_id:$scope.chargeId,
+                    amount: parseInt($scope.chargeBalance) * 100
+                }
+                doCharge({content:obj});
+            };
+            
+        }
+
+        //充值函数
+        function doCharge(obj) {
+            ApiService.post('/paymentOrders', obj, function (data) {
+                if(data.result == 'success') {
+                    if($scope.selectWorker.workerId)
+                        getWorkerCapitalAccount();
+                    if ($scope.selectHouseOwner.houseOwnerId)
+                        getHouseOwnerCapitalAccount();
+                }
+            }, function(errMsg){
+                alert(errMsg.message);
+            });
+        }
+
+        //获取工人个人账户信息
+        function getWorkerCapitalAccount() {
             var url = '/workers/' + $scope.selectWorker.workerId + '/capitalAccount';
             ApiService.get(url, {}, function (data) {
                 if (data.result == 'success') {
@@ -243,6 +303,25 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
 
         }
+
+
+        //获取业主个人账户信息
+        function getHouseOwnerCapitalAccount() {
+            var url = '/workers/' + $scope.selectHouseOwner.houseOwnerId + '/capitalAccount';
+            ApiService.get(url, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectHouseOwner.balance = data.content.balance / 100;
+                    $scope.selectHouseOwner.mBalanceOwns = data.content.margin_balance.owns / 100;
+                    $scope.selectHouseOwner.mBalanceSystem = data.content.margin_balance.system / 100;
+
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+        }
+
+
         //获取认证记录
         function getVerificationLogs() {
             var url = '/workers/' + $scope.selectWorker.workerId + '/verification_logs';
@@ -288,6 +367,28 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                 alert(errMsg.message);
             });
         } 
+
+
+        $scope.onShowMoreHouseInfo = function (houseOnwer) {
+            $scope.selectHouseOwner = cloneObj(houseOnwer);
+            var pos = houseOnwer['href'].lastIndexOf('/');
+            var houseOnwerId = houseOnwer['href'].substr(pos + 1);    
+            $scope.selectHouseOwner.houseOwnerId = houseOnwerId;
+            $scope.selectHouseOwner.fullName = $scope.selectHouseOwner.first_name + $scope.selectHouseOwner.last_name;
+            $scope.selectHouseOwner.imgHref = $rootScope.defaultVerifiedImg;
+            if ($scope.selectHouseOwner.avatar)
+                $scope.selectHouseOwner.imgHref = $rootScope.qiniuUrl + $scope.selectHouseOwner.avatar;
+            var url = '/houseOwners/' + houseOnwerId;
+            ApiService.get(url, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectHouseOwner.invitation_code = data.content.invitation_code;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });  
+            getHouseOwnerCapitalAccount();  
+            $('#edit_houseOwner_dlg').modal('show');  
+        }
         //初始化城市列表和工人列表
         function getRoleAndRegionsInfo() {
             var obj = {};
@@ -378,7 +479,8 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         function getHouseOwnerBypage (pageIndex) {
             var obj = {
                 params: {
-                    page: pageIndex
+                    page: pageIndex,
+                    filters: houseOwnerfilters
                 }
             }
             ApiService.get('/doFindHouseOwnersByPage', obj, function (data) {

@@ -12,7 +12,8 @@ angular.module('myApp').controller('HistoryCtrl', ['$scope', '$location', '$root
         $scope.logsArray = [];
         $scope.totalLogsPages = 1;                   //操作日志的总页数
         $scope.curWorkersPage = 1;
-        $scope.singleLogId = 0;                     //每次单个删除log的id
+        $scope.singleLog = {};                     //每次单个选中的log
+        $scope.selectAllCheck = false;                     //每次单个选中的log
 
         $scope.startDate = '';                     //查询的开始时间
         $scope.endDate = '';                     //查询的结束时间
@@ -20,9 +21,10 @@ angular.module('myApp').controller('HistoryCtrl', ['$scope', '$location', '$root
         $scope.onDelSingleLog = function () {
 
             var userIdArray = [];
-            userIdArray.push($scope.singleLogId);
+            userIdArray.push($scope.singleLog.id);
+
             var obj = {
-                    ids: userIdArray
+                ids: userIdArray
             };
 
             ApiService.post('/doDelLogsById', obj, function (data) {
@@ -32,9 +34,9 @@ angular.module('myApp').controller('HistoryCtrl', ['$scope', '$location', '$root
             });
         };
 
-        $scope.onRecordLogId = function (id) {
+        $scope.onShowDelOne = function (log) {
 
-            $scope.singleLogId = id;
+            $scope.singleLog = log;
         };
 
 
@@ -56,16 +58,25 @@ angular.module('myApp').controller('HistoryCtrl', ['$scope', '$location', '$root
 
         $scope.onDelAllCheckLog = function () {
 
-            var obj = {
-                ids: idArray
-            };
+            var deleteArray = [];
+            angular.forEach($scope.logsArray, function (item) {
+                if (item.selected) {
+                    deleteArray.push(item.id);
+                }
+            });
 
-            if(idArray.length === 0){
+            if (deleteArray.length == 0) {
                 alert('至少选择一项进行删除!');
                 return;
             }
+
+            var obj = {
+                ids: deleteArray
+            };
+
             ApiService.post('/doDelLogsById', obj, function (data) {
                 getLogsInfo($scope.curWorkersPage);
+                $scope.selectAllCheck = false;
             }, function (errMsg) {
                 alert(errMsg.message);
             });
@@ -86,7 +97,7 @@ angular.module('myApp').controller('HistoryCtrl', ['$scope', '$location', '$root
 
         $scope.onFindLogByDate = function () {
 
-            alert('angular封装日历控件数据绑定有问题，这个日期获取暂时用jquery' + $scope.vm.selectedStartDate);
+            //alert('angular封装日历控件数据绑定有问题，这个日期获取暂时用jquery' + $scope.vm.selectedStartDate);
 
             var startDateStr = $("#startDate-input").val();
             var startTimeStamp = new Date(startDateStr).getTime();

@@ -66,7 +66,7 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
             ApiService.get('/setting/roleRules', obj, function (data) {
                  if (data.result == 'success') {
                      var rulesObj = data.content;
-                     rulesObj.freeze_time = rulesObj.freeze_time / 86400 / 365;
+                     //rulesObj.freeze_time = rulesObj.margin.freeze_time / 86400 / 365;
                      $scope.roleRuleSetting = rulesObj;
                  }
              }, function (errMsg) {
@@ -105,7 +105,10 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
             ApiService.get('/setting/craftRules', obj, function (data) {
                  if (data.result == 'success') {
                      var rulesObj = data.content;
-                     rulesObj.need_trustee = rulesObj.need_trustee ? true:false;
+                     rulesObj.order.need_trustee = rulesObj.order.need_trustee ? true:false;
+                     rulesObj.order.non_earnest_keep_time = rulesObj.order.non_earnest_keep_time / 3600 /24; //天
+                     rulesObj.order.non_candidates_keep_time = rulesObj.order.non_candidates_keep_time / 3600; //天
+
                      $scope.craftRuleSetting = rulesObj;
                  }
              }, function (errMsg) {
@@ -127,7 +130,7 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
         $scope.onEditRoleIntEx = function(value){//可匹配正负整数
 
             var reg = /^-?[0-9]+$/;
-            if (!reg.test(value)) {
+            if(!reg.test(value)) {
                 $scope.checkInputRoleSyntaxStatus = true;
             }else{
                 $scope.checkInputRoleSyntaxStatus = false;
@@ -168,9 +171,25 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
 
         $scope.updateRoleRules = function(){
 
+            //格式化数据类型，坑啊！
+            var roleRule = $scope.roleRuleSetting;
+            roleRule['margin']['rate'] = parseFloat(roleRule['margin']['rate']);
+            roleRule['margin']['up_threshold'] = parseInt(roleRule['margin']['up_threshold']);
+            roleRule['margin']['down_threshold'] = parseInt(roleRule['margin']['down_threshold']);
+            roleRule['margin']['freeze_time'] = parseInt(roleRule['margin']['freeze_time']);
+
+            roleRule['score']['inc_by_good'] = parseInt(roleRule['score']['inc_by_good']);
+            roleRule['score']['inc_by_normal'] = parseInt(roleRule['score']['inc_by_normal']);
+            roleRule['score']['inc_by_bad'] = parseInt(roleRule['score']['inc_by_bad']);
+            roleRule['score']['inc_by_pay'] = parseInt(roleRule['score']['inc_by_pay']);
+
+            roleRule['commission_return']['reviews']['by_all_good'] = parseFloat(roleRule['commission_return']['reviews']['by_all_good']);
+            roleRule['commission_return']['order']['count'] = parseInt(roleRule['commission_return']['order']['count']);
+            roleRule['commission_return']['order']['return_rate'] = parseFloat(roleRule['commission_return']['order']['return_rate']);
+
             var obj = {
                 roleId:$scope.selectRole.id,
-                content: $scope.roleRuleSetting
+                content: roleRule
             };
 
             ApiService.post('/setting/roleRules', obj, function (data) {
@@ -182,13 +201,30 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
 
         $scope.updateCraftRules = function(){
 
+            var craftRule = $scope.craftRuleSetting;
+            craftRule['order']['earnest'] = parseFloat(craftRule['order']['earnest'] );
+
+
+            craftRule['order']['need_trustee'] = craftRule['order']['need_trustee'] ? 1 : 0;
+            craftRule['order']['max_candidates'] = parseInt(craftRule['order']['max_candidates']);
+            craftRule['order']['non_earnest_keep_time'] = parseInt(craftRule['order']['non_earnest_keep_time']) * 24 * 3600;
+            craftRule['order']['non_candidates_keep_time'] = parseInt(craftRule['order']['non_candidates_keep_time']) * 3600;
+
+            craftRule['commission']['basic'] = parseFloat(craftRule['commission']['basic']);
+            craftRule['commission']['float'] = parseFloat(craftRule['commission']['float']);
+
+            craftRule['ubeans']['use_rate'] = parseFloat(craftRule['ubeans']['use_rate']);
+            craftRule['ubeans']['up_threshold'] = parseInt(craftRule['ubeans']['up_threshold']);
+            craftRule['ubeans']['down_threshold'] = parseInt(craftRule['ubeans']['down_threshold']);
+
             var obj = {
                 craftId:$scope.selectCraft.id,
-                content: $scope.craftRuleSetting
+                content: craftRule
             };
 
             ApiService.post('/setting/craftRules', obj, function (data) {
                 if(data.result === 'fail'){alert('基于细项的设置项更新失败');}
+                getCraftRules($scope.selectCraft.id);
             }, function (errMsg) {
                 alert(errMsg.message);
             });

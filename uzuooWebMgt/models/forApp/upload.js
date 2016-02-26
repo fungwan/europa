@@ -33,3 +33,17 @@ exports.getUploadToken = function(req,res){
     }
 };
 
+exports.getUploadTokenEx = function(){
+
+
+    var token = uptoken.token();
+
+    if (token) {
+        return token;
+    }else{
+
+        logger.error('获取qiniu上传token出错...');
+        return '';
+    }
+};
+

@@ -8,22 +8,16 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
             secondSel:'levelRule'
         };
 
-        $scope.levelRulesArray = [];                            //等级信息
+        $scope.levelRulesArray = [];                            //等级信息描述规则
         $scope.originalRoles = [];                          //大工种列表
 
         $scope.selectRole = {};
-        $scope.scoreRules = {
-
-            score_inc_by_good:0,
-            score_inc_by_normal:0,
-            score_inc_by_bad:0,
-            score_inc_by_pay:0
-
-        };
+        $scope.level2RegionArray = [];                           //等级对应区域发布数
 
         $scope.checkInputSyntaxStatus = false;//等级规则的更新按钮监控
         $scope.checkInputScoreSyntaxStatus = false;//积分规则的更新按钮监控
 
+        var roleRule = {};
 
         (function () {
             var obj = {};
@@ -35,8 +29,8 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
 
                     $scope.selectRole = $scope.originalRoles[0];
 
-                    //再初始化工种对应的积分规则
-                    //getStarToRequireRules($scope.selectRole.id);
+                    //再初始化等级对应区域数
+                    getStarToRequireRules($scope.selectRole.id);
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -61,17 +55,11 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
                 }
             };
 
-            ApiService.get('/setting/scoreRules', obj, function (data) {
+            ApiService.get('/setting/roleRules', obj, function (data) {
                 if (data.result == 'success') {
-                    var rulesObj = data.content;
-                    $scope.scoreRules = {
 
-                        score_inc_by_good:rulesObj.score_inc_by_good,
-                        score_inc_by_normal:rulesObj.score_inc_by_normal,
-                        score_inc_by_bad:rulesObj.score_inc_by_bad,
-                        score_inc_by_pay:rulesObj.score_inc_by_pay
-
-                    };
+                    roleRule = data.content;
+                    $scope.level2RegionArray = data.content.region;
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -100,25 +88,17 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
             }else{$scope.checkInputSyntaxStatus = true;}
         };
 
-        $scope.onEditScore = function(value){
+        $scope.onEditRegionNum = function(index,value){
 
             var reg = /^[0-9]+$/;
             if (!reg.test(value)) {
+
+                $scope.levelRulesArray[index].max_regions = parseInt(value);
+
                 $scope.checkInputScoreSyntaxStatus = true;
             }else{
                 $scope.checkInputScoreSyntaxStatus = false;
             }
-        };
-
-        $scope.onEditPay = function(value){
-
-            var reg = /^[0-9]*\.?[0-9]{1,2}$/;
-            if (!reg.test(value)) {
-                $scope.checkInputScoreSyntaxStatus = true;
-            }else{
-                $scope.checkInputScoreSyntaxStatus = false;
-            }
-
         };
 
 
@@ -136,15 +116,17 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
         };
 
 
-        $scope.updateScoreRules = function(){
+        $scope.updateRegionNumRules = function(){
+
+            roleRule.region = $scope.level2RegionArray;
 
             var obj = {
                 roleId:$scope.selectRole.id,
-                content: $scope.scoreRules
+                content: roleRule
             };
 
             ApiService.post('/setting/scoreRules', obj, function (data) {
-                if(data.result === 'fail'){alert('积分规则更新失败');}
+                if(data.result === 'fail'){alert('星级对应需求发布数规则更新失败');}
             }, function (errMsg) {
                 alert(errMsg.message);
             });
@@ -174,7 +156,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
         $scope.originalRoleSelect = function () {
             var roleId = $scope.selectRole.id;
 
-            //getStarToRequireRules(roleId);
+            getStarToRequireRules(roleId);
 
         }
 

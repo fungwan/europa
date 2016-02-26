@@ -411,7 +411,7 @@ exports.findWorkersByFilters = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/workers?' + 'filter=' + filters + '&countOnly=true' +'&accessToken=' + token;
+                var path = '/workers?' + 'filter=' + filters + '&countOnly=true&sort=create_time::-1' +'&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -423,7 +423,7 @@ exports.findWorkersByFilters = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/workers?'+ 'filter='+ filters + '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
+                var path = '/workers?'+ 'filter='+ filters + '&sort=create_time::-1' + '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -569,6 +569,7 @@ exports.changeWorkerRole = function(req,res){
 exports.findHouseOwnersByPage = function(req,res){
 
     var currPage = req.query.page - 1;
+    var filters = req.query.filters;
     async.auto(
         {
             get_token: function (callback) {
@@ -584,7 +585,7 @@ exports.findHouseOwnersByPage = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
             var token = results.get_token;
-            var path = '/houseOwners?'+'accessToken=' + token + '&filter=all';
+            var path = '/houseOwners?'+'accessToken=' + token + '&filter=' + filters;
             var optionItem = {};
             optionItem['path'] = path;
 
@@ -597,7 +598,7 @@ exports.findHouseOwnersByPage = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/houseOwners?'+'accessToken=' + token + '&filter='+'all&limit=10&offset='+ skipValue;
+                var path = '/houseOwners?'+'accessToken=' + token + '&filter='+ filters + '&limit=10&offset='+ skipValue;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -981,6 +982,58 @@ exports.getCapitalAccountById = function(req,res){
             }
         })
 }
+
+
+exports.chargeAccount = function(req,res){
+
+    var obj = req.body.content;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            set_advertisement: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+                var path = '/paymentOrders' + '?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content = obj;
+
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                res.json({
+                    result: 'success',
+                    content: ''})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+
+
 //exports.findUserByName = function(req,res){
 //
 //    var username = req.query.username;

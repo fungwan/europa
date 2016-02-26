@@ -38,6 +38,7 @@
                                 <th width="10%" class="sorting">姓名</th>
                                 <th width="10%" class="sorting">身份证号</th>
                                 <th width="10%" class="sorting">电话号码</th>
+                                <th width="5%" class="sorting">工种</th>
                                 <th width="5%" class="sorting"></th>
                             </tr>
 
@@ -48,6 +49,7 @@
                                 <td ng-bind="worker.first_name + worker.last_name"></td>
                                 <td ng-bind="worker.id_card_no"></td>
                                 <td ng-bind="worker.phone"></td>
+                                <td ng-bind="getCategoryStr(worker.categories).firt">第一工种</td>
                                 <td>
                                     <button type="button" class="btn btn-default btn-xs" ng-click="onShowverifiedDlg(worker)"><i class="fa fa-angle-double-right"></i>&nbsp; 点击认证</button>&nbsp;
                                 </td>

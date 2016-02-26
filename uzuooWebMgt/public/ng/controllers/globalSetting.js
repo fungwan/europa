@@ -1,5 +1,5 @@
-angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', '$rootScope', 'ApiService',
-    function ($scope, $location, $rootScope, ApiService) {
+angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', '$rootScope', 'ApiService','fileReader',
+    function ($scope, $location, $rootScope, ApiService,fileReader) {
         $scope.initPage();
         $rootScope.sideBarSelect = {
             firstClassSel:'operationAdmin',
@@ -22,6 +22,8 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.recommendRoleArray = [];//推荐工种列表
         $scope.selRecommendRole = {};//选择的推荐工种
+
+        $scope.sysConfig = {};
 
 
         (function () {
@@ -48,6 +50,18 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                     }, function (errMsg) {
                         alert(errMsg.message);
                     });
+
+                    var obj = {};
+                    ApiService.get('/setting/global', obj, function (data) {
+                        if (data.result == 'success') {
+                            $scope.sysConfig = data.content;
+                            $scope.sysConfig.margin_freeze = data.content.margin_freeze / 3600 /24;
+                        }
+                    }, function (errMsg) {
+                        alert(errMsg.message);
+                    });
+
+
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -164,6 +178,28 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
             }, function (errMsg) {
                 alert(errMsg.message);
             });
+        };
+
+
+        $scope.updateSysForFreezeTime = function(){
+            var obj = {
+                'margin_freeze':$scope.sysConfig.margin_freeze * 24 * 3600
+            };
+            ApiService.post('/setting/global', obj, function (data) {
+                if (data.result == 'fail') {
+                    alert('系统保证金冻结时间更新失败！');
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        };
+
+        //选择上传认证图片
+        $scope.getFile = function () {
+            fileReader.readAsDataUrl($scope.file, $scope)
+                .then(function (result) {
+                    $scope.selRecommendRole.icon_href = result;
+                });
         };
 
     }]);
