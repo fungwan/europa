@@ -15,9 +15,9 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
 
         $scope.getPayStatus = function (code) {
             if (code === 0) {
-                return '待审核';
+                return '待审核 ';
             } else if (code === 1) {
-                return '待复核';
+                return '待复核 ';
             }
         };
 
@@ -80,26 +80,40 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             var detailLink = billInfo['href'];
             var pos = detailLink.lastIndexOf('/');
             var tradeId = detailLink.substr(pos+1);
-            var status = billInfo.status;
+            var _status = billInfo.status + 1;
 
             var obj = {
-                id: tradeId
+                status: _status
             };
 
-            if(status === 0){
-                ApiService.post('/bills/'+tradeId+'/billStatus', obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = 1;}
+            ApiService.post('/bills/'+tradeId+'/billStatus', obj, function (data) {
+                if(data.result === 'success'){ billInfo.status = _status;}else{alert('审核动作失败...')}
 
-                }, function (errMsg) {
-                    alert(errMsg.message);
-                });
-            }else if(status === 1){
-                ApiService.put('/bills/'+tradeId+'/billStatus', obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = 2;}
-                }, function (errMsg) {
-                    alert(errMsg.message);
-                });
-            }
-        }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        };
+
+        $scope.rejectBill = function (billInfo) {
+
+            var detailLink = billInfo['href'];
+            var pos = detailLink.lastIndexOf('/');
+            var tradeId = detailLink.substr(pos+1);
+
+            var obj = {
+                status: 3
+            };
+
+            ApiService.post('/bills/'+tradeId+'/billStatus', obj, function (data) {
+                if(data.result === 'success'){ billInfo.status = 3;}else{alert('拒绝审核失败...');}
+
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        };
+
+        //https://devadmin.uzuoo.com:8081/advertisementMgtPage
+
+
 
     }]);

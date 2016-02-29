@@ -328,7 +328,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <div><img id="showVerifiedPic-img" border=0 src="{{selectWorker.imgHref}}" width="100" height="100" /></div>
+                                            <div>
+                                                <a href="#" data-target="#show_img_preview" data-toggle="modal">
+                                                    <img id="showVerifiedPic-img" border=0 src="{{selectWorker.imgHref}}" width="100" height="100" />
+                                                </a>
+                                            </div>
                                             <span id="verifiedInfo-span" class="label label-sm" ng-class="{0:'label-warning',1:'label-dark',2:'label-success',3:'label-primary'}[selectWorker.verified]" ng-bind="getVerifiedStatus(selectWorker.verified)"></span>
                                         </div>
                                     </div>
@@ -336,7 +340,7 @@
 
                                     </div>
                                 </div>
-                                <div class="pull-right">
+                                <div class="pull-right" ng-if="selectWorker.verified !== 2">
                                     <button id="scene-verified_btn" data-toggle="modal" ng-click="onShowSceneVerified()" class="btn btn-info">现场认证</button>
                                     <!--button id="update_workerProfile_btn" class="btn btn-success">更新资料</button-->
                                 </div>
@@ -520,18 +524,12 @@
                                                 <a href="javascript:;" class="list-group-item">账户余额
                                                     <span id="balance-span" class="badge badge-info pull-right" ng-bind="selectHouseOwner.balance"></span>
                                                 </a>
-                                                <a href="javascript:;" class="list-group-item">系统赠送保证金
-                                                    <span id="systemMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectHouseOwner.mBalanceSystem"></span>
-                                                </a>
-                                                <a href="javascript:;" class="list-group-item">个人保证金
-                                                    <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectHouseOwner.mBalanceOwns"></span>
-                                                </a>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <button id="scene-verified_btn" data-toggle="modal" data-target="#charge_dlg" ng-click="onShowChargeDlg(selectHouseOwner.houseOwnerId)" class="btn btn-info">账户充值</button>
+                                    <button id="scene-verified_btn" data-toggle="modal" data-target="#house_charge_dlg" ng-click="onShowChargeDlg(selectHouseOwner.houseOwnerId)" class="btn btn-info">账户充值</button>
                                     <!--button id="update_workerProfile_btn" class="btn btn-success">更新资料</button-->
                                 </div>
                             </div>
@@ -590,6 +588,54 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+
+<div aria-hidden="true" id="house_charge_dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <!-- start -->
+                <div class="col-lg-12" style="height:10%">
+                    <div class="portlet box portlet-blue">
+                        <div class="portlet-header">
+                            <div class="caption">账户充值</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-body pal">
+                            <div class="input-group input-daterange col-md-3"></div>
+                            <div class="input-group input-daterange col-md-6 col-md-offset-3">
+                                <span class="input-group-addon">余额充值</span>
+                                <input type="number" ng-model="chargeAmount" class="form-control">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="modify_conference_footer">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="onChargeConfirm()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" id="show_img_preview" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+            <img width='600' height='100%' src="{{selectWorker.imgHref}}" img-preview=""/>
     </div>
 </div>
 

@@ -14,7 +14,6 @@ var qiniu = require('qiniu');
 var qiniuUpload = require('./upload.js');
 var uuid = require('node-uuid');
 
-
 exports.postProcess = function(req,res){
 
     async.auto(
@@ -333,43 +332,50 @@ exports.setRecommendRole = function(req,res){
                 var path = '/cities/' + cityId + '/recommendation?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
-                var content ={};
-                content = req.body;
+                var recommendationArray = req.body.recommendations;
+                var flag = false;
+                for(var x = 0; x < recommendationArray.length;){
+                    var icon = recommendationArray[x].icon_href;
+                    if(icon.search(/^data:image\/\w+;base64,/) === -1){
+                        ++x;
+                        continue;
+                    }
 
-                var bodyString = JSON.stringify(content);
-
-                request.post(optionItem,bodyString,callback);
-
-                /*if(content.icon_href.search(/^data:image\/\w+;base64,/) === -1){
-                    var bodyString = JSON.stringify(content);
-
-                    request.post(optionItem,bodyString,callback);
-                }else{
-                    var base64Data = content.icon_href.replace(/^data:image\/\w+;base64,/, "");
+                    var base64Data = icon.replace(/^data:image\/\w+;base64,/, "");
                     var dataBuffer = new Buffer(base64Data, 'base64');
-                    var roleId = req.body.id;
+                    var roleId = recommendationArray[x].id;
                     var savePath = roleId + '.jpg';
-
+                    flag = true;
                     fs.writeFile(savePath, dataBuffer, function(err) {
                         if(err){
-                            res.json({ result: 'fail',
-                                content:err});
+                            //本地文件写入流出错
+                            callback('error','uploadRoleImage error...');
                         }else{
-                            //qiniuToken为我自己生成
+
                             var qiniuFileName = uuid.v1();
                             uploadFile(savePath,qiniuFileName,qiniuUpload.getUploadTokenEx(),function(err,results){
                                 if(err === null){
-                                    content.icon_href = qiniuFileName;
+                                    recommendationArray[x].icon_href = settings.qiniuUrl+qiniuFileName;
+                                    var content = {
+                                        recommendations:recommendationArray
+                                    };
                                     var bodyString = JSON.stringify(content);
+                                    request.post(optionItem,bodyString,callback);
                                 }
-
-                                request.post(optionItem,bodyString,callback);
                             });
                         }
                     });
 
 
-                }*/
+                    break;
+                }
+
+                if(!flag){
+                    var bodyString = JSON.stringify(req.body);
+                    request.post(optionItem,bodyString,callback);
+                }
+                /*var bodyString = JSON.stringify(req.body);
+                request.post(optionItem,bodyString,callback);*/
             }]
         },function(err,results){
             if(err === null){

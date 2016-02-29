@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp').controller('IndexCtrl', ['$scope', '$location', '$rootScope',
-    function ($scope, $location, $rootScope) {
+angular.module('myApp').controller('IndexCtrl', ['$scope', '$location', '$rootScope','ApiService',
+    function ($scope, $location, $rootScope, ApiService) {
         $rootScope.sideBarSelect = {
             firstClassSel: 'youzhu',
             secondSel: ''
@@ -19,6 +19,40 @@ angular.module('myApp').controller('IndexCtrl', ['$scope', '$location', '$rootSc
             angular.forEach(attr, function (item) {
                 item.selected = selectedAll;
             });
+        }
+
+        $scope.onShowModifyPwd = function () {
+            $scope.passwordMgt = {
+                oldPassword:'',
+                newPassword:'',
+                confirmPassword:'',
+                errMsg:''
+            }
+        }
+
+        $scope.onConfirmModifyPwd = function () {
+            if ($scope.passwordMgt.newPassword !== '' && $scope.passwordMgt.newPassword === $scope.passwordMgt.confirmPassword) {
+                var oldPassword = hex_md5($scope.passwordMgt.oldPassword);
+                var password = hex_md5($scope.passwordMgt.newPassword);
+                var obj = {
+                    id:$rootScope.userInfo.id,
+                    content:{
+                        oldPW:oldPassword,
+                        newPW:password
+                    }
+                }
+                ApiService.post('/doUpdateUserPWById', obj, function (data) {
+                    if (data.result == "success") {
+                        $("#modify_account_pw_dlg").modal("hide");
+                    } else {
+                        $scope.passwordMgt.errMsg = "原密码填写错误！";
+                    }
+                }, function(errMsg) {
+                    $scope.passwordMgt.errMsg = errMsg.message;
+                });
+            } else {
+                $scope.passwordMgt.errMsg = "密码不能为空，并且密码必须一致！";
+            }
         }
 
 

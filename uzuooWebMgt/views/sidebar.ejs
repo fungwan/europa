@@ -8,7 +8,7 @@
                     <p ng-bind='userInfo.name'></p>
                     <ul class="list-inline list-unstyled">
                         <input id="useruuid" type="hidden" ng-model='userInfo.id'>
-                        <li><a href="javascript:void(0);" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modify_account_pw_dlg"><i class="fa fa-cog"></i></a>
+                        <li><a href="javascript:void(0);" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modify_account_pw_dlg" ng-click="onShowModifyPwd()"><i class="fa fa-cog"></i></a>
                         </li>
                         <li><a href="/logout" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a>
                         </li>

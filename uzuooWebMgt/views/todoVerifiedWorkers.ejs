@@ -103,8 +103,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div>
-                                        <a id="zoomVerifiedImg" href="javacript:void(0);" >
-                                            <img id="showVerifiedPic-img" border=1 src="{{selectWorker.imgHref}}" width="256" height="256" />
+                                        <a href="#" data-target="#show_img_preview" data-toggle="modal" >
+                                            <img border=1 src="{{selectWorker.imgHref}}" width="256" height="256" />
                                         </a>
                                     </div>
                                 </div>
@@ -160,5 +160,11 @@
             </div>
 
         </div>
+    </div>
+</div>
+
+<div aria-hidden="true" id="show_img_preview" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <img width='600' height='100%' src="{{selectWorker.imgHref}}" img-preview=""/>
     </div>
 </div>

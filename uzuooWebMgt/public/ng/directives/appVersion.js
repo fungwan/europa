@@ -33,6 +33,22 @@ angular.module('myApp').directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 
+angular.module('myApp').directive('imgPreview', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs, ngModel) {
+            element.bind('mousewheel', function (event) {
+                var e = window.event || event;
+                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                element[0].width = Math.max(400, Math.min(1200, element[0].width + (30 * delta)));
+                //element[0].width = 1000;
+                return false;
+            });
+        }
+    };
+}]);
+
+
 angular.module('myApp').directive('bsDatepicker',function(){
     return {
         restrict : 'A',

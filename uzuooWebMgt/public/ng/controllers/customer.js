@@ -21,7 +21,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         $scope.workersInfo = [];                            //工人信息
         
         $scope.imageSrc = $rootScope.defaultVerifiedImg;
-        var filters, houseOwnerfilters = ['all'];
+        var filters  = ['all'], houseOwnerfilters = ['all'];
 
 
         $scope.workSearchFilter = {

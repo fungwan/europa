@@ -194,7 +194,6 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
             });
         };
 
-        //选择上传认证图片
         $scope.getFile = function () {
             fileReader.readAsDataUrl($scope.file, $scope)
                 .then(function (result) {
