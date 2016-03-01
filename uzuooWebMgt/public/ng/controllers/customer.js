@@ -368,6 +368,38 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
         } 
 
+        $scope.onSendMsgForAllWorker = function () {
+            $scope.sendMsg = {
+                type:'phone_msg',
+                content:''
+            }
+        }
+
+        $scope.onSendMsgForSelectedWorder = function () {
+            $scope.sendMsg = {
+                type:'phone_msg',
+                content:''
+            }
+        }
+
+        $scope.onSendMsgForAllHouseOnwer = function () {
+            $scope.sendMsg = {
+                type:'phone_msg',
+                content:''
+            }
+        }
+
+        $scope.onSendMsgForSelectedHouseOnwer = function () {
+            $scope.sendMsg = {
+                type:'phone_msg',
+                content:''
+            }
+        }
+
+        $scope.onSendMsg = function () {
+            return;
+        }
+
 
         $scope.onShowMoreHouseInfo = function (houseOnwer) {
             $scope.selectHouseOwner = cloneObj(houseOnwer);

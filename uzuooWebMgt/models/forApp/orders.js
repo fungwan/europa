@@ -42,7 +42,7 @@ exports.getOrders = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/orders?'+'accessToken=' + token + '&filter=' + filters + '&limit=-1';
+                var path = '/orders?'+'accessToken=' + token + '&filter=' + filters + '&countOnly=true';
                 var optionItem = {};
                 optionItem['path'] = path;
 

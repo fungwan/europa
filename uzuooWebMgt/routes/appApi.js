@@ -137,23 +137,28 @@ module.exports = function (router, acl) {
     });
 
     //第一次审核，行为为post
-    router.post('/bills/:id/billStatus', acl.middleware(3),function (req, res) {
-        bills.pendingBillById(req,res);
+    router.post('/bills/:id/checkBill', /*acl.middleware(3),*/function (req, res) {
+        bills.updateBillStatusById(req,res);
     });
 
     //承上，进行复核，行为为put，即将该支付订单的status更新
-    router.put('/bills/:id/billStatus', acl.middleware(3),function (req, res) {
-        bills.reviewBillById(req,res);
+    router.put('/bills/:id/checkBill', /*acl.middleware(3),*/function (req, res) {
+        bills.updateBillStatusById(req,res);
+    });
+
+    //初核失败
+    router.post('/bills/:id/rejectBill', /*acl.middleware(3),*/function (req, res) {
+        bills.updateBillStatusById(req,res);
+    });
+
+    //复核失败
+    router.put('/bills/:id/rejectBill', /*acl.middleware(3),*/function (req, res) {
+        bills.updateBillStatusById(req,res);
     });
 
 
     router.get('/houseOwners/:id', function (req, res) {
         customer.findHouseOwnersById(req,res);
-    });
-
-    //更改价格配置，保证金上下限等
-    router.post('/amount', function (req, res) {
-        amount.postProcess(req,res);
     });
 
     //获取所有活动列表
