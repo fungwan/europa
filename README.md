@@ -1,2 +1,2 @@
 # europa
-this is my fisrt node program, good luck!
+the collection of node projects, good luck!
