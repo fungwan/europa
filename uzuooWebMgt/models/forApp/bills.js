@@ -90,7 +90,7 @@ exports.getBills = function(req,res){
 
 exports.updateBillStatusById = function(req,res){
 
-    var billId = req.params.id;
+    var billId = req.params.billId;
     //var verifiedContent = req.body.content;
 
     async.auto(

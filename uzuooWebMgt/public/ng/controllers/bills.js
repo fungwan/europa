@@ -78,6 +78,17 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             });
         }
 
+        $scope.getCashTargetStr = function(arry){
+            var array = [];
+            for(var x = 0 ; x <arry.length;++x){
+                array.push(arry[x].Capital_account_id);
+            }
+
+            var dd = array.join(',\r\n');
+            return array.join(',\r\n');
+        };
+
+
         $scope.checkBill = function (billInfo) {
 
             var detailLink = billInfo['href'];
@@ -90,15 +101,27 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             };
 
             if(billInfo.status === 0){
-                ApiService.post('/bills/'+tradeId+'/checkBill', obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = _status;}else{alert('初审核通过失败...')}
+                ApiService.post('/bills/checkBill/'+tradeId, obj, function (data) {
+                    if(data.result === 'success'){ billInfo.status = _status;}else{
+                        if(data.content === 'Permission Denied'){
+                            alert('该用户无权执行初审动作...');
+                            return;
+                        }
+                        alert('初审核通过失败...');
+                    }
 
                 }, function (errMsg) {
                     alert(errMsg.message);
                 });
             }else if(billInfo.status === 1){
-                ApiService.put('/bills/'+tradeId+'/checkBill', obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = _status;}else{alert('复审核通过失败...')}
+                ApiService.put('/bills/checkBill/'+tradeId, obj, function (data) {
+                    if(data.result === 'success'){ billInfo.status = _status;}else{
+                        if(data.content === 'Permission Denied'){
+                            alert('该用户无权执行复审动作...');
+                            return;
+                        }
+                        alert('复审核通过失败...');
+                    }
 
                 }, function (errMsg) {
                     alert(errMsg.message);
@@ -124,8 +147,13 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             };
 
             if(_status === 3){
-                ApiService.post('/bills/'+tradeId+'/rejectBill', obj, function (data) {
+                ApiService.post('/bills/rejectBill/'+tradeId, obj, function (data) {
                     if(data.result === 'success'){ billInfo.status = _status;}else{
+
+                        if(data.content === 'Permission Denied'){
+                            alert('该用户无权执行拒绝初审动作...');
+                            return;
+                        }
                         alert('拒绝初审失败...');
                     }
 
@@ -133,8 +161,12 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
                     alert(errMsg.message);
                 });
             }else if(_status === 4){
-                ApiService.put('/bills/'+tradeId+'/rejectBill', obj, function (data) {
+                ApiService.put('/bills/rejectBill/'+tradeId, obj, function (data) {
                     if(data.result === 'success'){ billInfo.status = _status;}else{
+                        if(data.content === 'Permission Denied'){
+                            alert('该用户无权执行拒绝复审动作...');
+                            return;
+                        }
                         alert('拒绝复审失败...');
                     }
 

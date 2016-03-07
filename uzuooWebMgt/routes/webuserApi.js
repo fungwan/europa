@@ -43,7 +43,7 @@ module.exports = function (router, acl) {
         users.findUsersByPage(req,res);
     });*/
 
-    router.get('/users', function (req, res) {
+    router.get('/users', acl.middleware(),function (req, res) {
         users.findUsersByPage(req, res);
     });
 
@@ -59,7 +59,7 @@ module.exports = function (router, acl) {
         history.findLogsByPage(req,res);
     });*/
 
-    router.get('/logs', /*acl.middleware(),*/ function (req, res) {
+    router.get('/logs', acl.middleware(), function (req, res) {
         history.findLogsByPage(req, res);
     });
 

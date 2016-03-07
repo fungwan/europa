@@ -77,7 +77,7 @@ module.exports = function (router, acl) {
         customer.findWorkersByFilters(req,res);
     });
 
-    router.get('/workers/:id',/*acl.middleware(1),*/function (req, res) {    
+    router.get('/workers/:id',function (req, res) {
         customer.findWorkerById(req,res);
     });
 
@@ -131,28 +131,32 @@ module.exports = function (router, acl) {
     router.get('/contracts/:id/items', function (req, res) {
         contracts.getContractItem(req,res);
     });
+    
+    router.get('/contracts/:contractId/items/:itemId/buildingLogs', function (req, res) {
+        contracts.getBuildingLogs(req,res);
+    });
 
     router.get('/bills', acl.middleware(),function (req, res,next) {
         bills.getBills(req,res);
     });
 
     //第一次审核，行为为post
-    router.post('/bills/:id/checkBill', /*acl.middleware(3),*/function (req, res) {
+    router.post('/bills/checkBill/:billId', acl.middleware(3),function (req, res) {
         bills.updateBillStatusById(req,res);
     });
 
     //承上，进行复核，行为为put，即将该支付订单的status更新
-    router.put('/bills/:id/checkBill', /*acl.middleware(3),*/function (req, res) {
+    router.put('/bills/checkBill/:billId', acl.middleware(3),function (req, res) {
         bills.updateBillStatusById(req,res);
     });
 
     //初核失败
-    router.post('/bills/:id/rejectBill', /*acl.middleware(3),*/function (req, res) {
+    router.post('/bills/rejectBill/:billId', acl.middleware(3),function (req, res) {
         bills.updateBillStatusById(req,res);
     });
 
     //复核失败
-    router.put('/bills/:id/rejectBill', /*acl.middleware(3),*/function (req, res) {
+    router.put('/bills/rejectBill/:billId', acl.middleware(3),function (req, res) {
         bills.updateBillStatusById(req,res);
     });
 

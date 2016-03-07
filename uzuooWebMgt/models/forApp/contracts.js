@@ -78,7 +78,7 @@ exports.getContractItem = function(req,res){
             get_contractItem: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var orderPath = '/v1/contracts/' + contractId +'/items?accessToken=' + token;
+                var orderPath = '/contracts/' + contractId +'/items?accessToken=' + token;
 
                 var item = {};
                 item['path'] = orderPath;
@@ -92,6 +92,56 @@ exports.getContractItem = function(req,res){
                 res.json({
                     result: 'success',
                     content: contractItemArray})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+
+exports.getBuildingLogs = function(req,res){
+
+    var contractId = req.params.contractId;
+    var itemId = req.params.itemId;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            
+            get_buildingLogs: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+                var orderPath = '/contracts/' + contractId +'/items/' + itemId + '/buildingLogs?accessToken=' + token;
+
+                var item = {};
+                item['path'] = orderPath;
+                request.get(item,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                var buildingLogsArray = jsonConvert.stringToJson(result.get_buildingLogs)['building_logs'];
+
+                res.json({
+                    result: 'success',
+                    content: buildingLogsArray})
             }else{
 
                 if(err === 403){

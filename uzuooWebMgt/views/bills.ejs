@@ -40,13 +40,13 @@
                                     <!--td ng-bind="getCityAndRegionStr(billInfo.city).city"></td-->
                                     <td ng-bind="billInfo.contract_item_no"></td>
                                     <td ng-bind="billInfo.order_no"></td>
-                                    <td ng-bind="billInfo.amount"></td>
+                                    <td ng-bind="billInfo.amount / 100"></td>
                                     <td ng-bind="billInfo['source'][0].Capital_account_id"></td>
-                                    <td ng-bind="billInfo.actual_pay"></td>
+                                    <td ng-bind="billInfo.actual_pay /100"></td>
                                     <td ng-bind="billInfo.type"></td>
                                     <td ng-bind="billInfo.detail"></td>
-                                    <td ng-bind="billInfo['target'][0].Capital_account_id"></td>
-                                    <td ng-bind="billInfo.arrival_amount"></td>
+                                    <td ng-bind="getCashTargetStr(billInfo['target'])"></td>
+                                    <td ng-bind="billInfo.arrival_amount / 100"></td>
                                     <td>
                                         <button ng-click="checkBill(billInfo)" ng-if="billInfo.status == 0" type="button" name="pendingBill-btn" ng-class="{0:'btn btn-info btn-xs',1:'btn btn-warning btn-xs'}[billInfo.status]">
                                             <i class="fa fa-circle-o"></i>&nbsp; <span >通过初审</span>

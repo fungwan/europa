@@ -13,7 +13,7 @@
                                         <!--p class="description">基本信息</p-->
                                     </a>
                                 </li>
-                                <li  ng-class="{true: 'active', false: 'inactive'}[statusTitleStyle == 1]">
+                                <li ng-class="{true: 'active', false: 'inactive'}[statusTitleStyle == 1]">
                                     <a>
                                         <i class="glyphicon glyphicon-send mln"></i>
                                         <p class="anchor">订单信息</p>
@@ -21,13 +21,13 @@
                                     </a>
                                 </li>
                                 <li ng-class="{true: 'active', false: 'inactive'}[statusTitleStyle == 2]">
-                                    <a >
+                                    <a>
                                         <i class="glyphicon glyphicon-wrench"></i>
                                         <p class="anchor">施工阶段</p>
                                         <p class="description"></p>
                                     </a>
                                 </li>
-                                <li ng-class="{true: 'active', false: 'inactive'}[statusTitleStyle == 3]" >
+                                <li ng-class="{true: 'active', false: 'inactive'}[statusTitleStyle == 3]">
                                     <a>
                                         <i class="glyphicon glyphicon-check"></i>
                                         <p class="anchor">评价</p>
@@ -40,7 +40,7 @@
                     <!--div id="bar" class="progress">
                         <div class="bar progress-bar progress-bar-primary"></div>
                     </div-->
-                    <div >
+                    <div>
                         <div id="tab1-wizard-custom-circle" class="tab-pane" ng-if="statusTitleStyle==0">
                             <h3 class="mbxl">基本信息：</h3>
                             <form action="#" class="form-horizontal">
@@ -70,13 +70,13 @@
                                 <div class="col-md-12">
                                     <label class="col-sm-3 control-label">项目地址：<span ng-bind="orderDetailInfo.contractDetail.house_address"></span>
                                     </label>
-                                    <label class="col-sm-3 control-label" >面积：<span ng-bind="orderDetailInfo.contractDetail.house_acreage + '平'"></span>
+                                    <label class="col-sm-3 control-label">面积：<span ng-bind="orderDetailInfo.contractDetail.house_acreage + '平'"></span>
                                     </label>
                                     <label class="col-sm-6 control-label">套型：<span ng-bind="orderDetailInfo.contractDetail.house_type"></span>
                                     </label>
                                     <label class="col-sm-3 control-label">甲方：<span ng-bind="orderDetailInfo.contractDetail.first_part.name"></span>
                                     </label>
-                                    <label class="col-sm-3 control-label" >乙方：<span ng-bind="orderDetailInfo.contractDetail.second_part.name"></span>
+                                    <label class="col-sm-3 control-label">乙方：<span ng-bind="orderDetailInfo.contractDetail.second_part.name"></span>
                                     </label>
                                     <label class="col-sm-6 control-label">丙方：<span ng-bind="orderDetailInfo.contractDetail.third_part.name">悠住</span>
                                     </label>
@@ -84,13 +84,15 @@
                             </div>
                             <br>
                             <div class="row" style="height:200px; overflow:auto;">
-                                <div class="col-md-12"><span class="label label-default">报价单</span></div><br>
+                                <div class="col-md-12"><span class="label label-default">报价单</span></div>
+                                <br>
                                 <hr>
                                 <div id="quotationArray">
                                     <div class="col-sm-6 col-md-3">
                                         <label ng-if="orderDetailInfo.contractDetail.quotation.length == 0">工长还未上传报价单</label>
-                                        <a href="#" ng-repeat="quotation in orderDetailInfo.contractDetail.quotation" data-target="#show_img_preview" data-toggle="modal" ng-click="previewImg(qiniuUrl + quotation)">
-                                            <img border=1 src="{{qiniuUrl + quotation}}" width="128" height="128"/>
+                                        <a href="#" ng-repeat="quotation in orderDetailInfo.contractDetail.quotation" data-target="#show_img_preview" data-toggle="modal"
+                                        ng-click="previewImg(qiniuUrl + quotation)">
+                                            <img border=1 src="{{qiniuUrl + quotation}}" width="128" height="128" />
                                         </a>
                                     </div>
                                 </div>
@@ -100,18 +102,20 @@
                             <div class="col-md-12">
                                 <div id="accordion1" class="panel-group">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion1" data-target="#collapseOne1" href="#">施工项</a><i class="indicator glyphicon glyphicon-chevron-down pull-right mts text-muted"></i>
+                                        <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion1" data-target="#collapseOne1" href="#">施工项</a>
+                                            <i class="indicator glyphicon glyphicon-chevron-down pull-right mts text-muted"></i>
                                         </div>
                                         <div id="collapseOne1" class="panel-collapse collapse in">
                                             <div class="panel-body" style="height:300px; overflow:auto;">
                                                 <table id="contractItem-table" class="table table-hover table-bordered">
                                                     <thead>
-                                                    <tr>
-                                                        <th>名称</th>
-                                                        <th>金额</th>
-                                                        <th>工期</th>
-                                                        <th>工段状态</th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>名称</th>
+                                                            <th>金额</th>
+                                                            <th>工期</th>
+                                                            <th>工段状态</th>
+                                                            <th></th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr ng-repeat="contractItem in orderDetailInfo.contractItemArray">
@@ -119,52 +123,12 @@
                                                             <td class="active" ng-bind="contractItem.amount/100 + '元人民币'"></td>
                                                             <td class="active" ng-bind="contractItem.due_time/86400 + '天' "></td>
                                                             <td class="active" ng-bind="contractItem.status"></td>
+                                                            <td>
+                                                                <button type="button" data-toggle="modal" class="btn btn-default btn-xs" ng-click="onShowBuildingLogs(contractItem)"><i class="fa fa-archive"></i>&nbsp;施工日志</button>&nbsp;
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <a data-toggle="collapse" data-parent="#accordion1" data-target="#collapseTwo1" href="#">施工日志</a>
-                                            <i class="indicator glyphicon glyphicon-chevron-left pull-right mts text-muted"></i>
-                                        </div>
-                                        <div id="collapseTwo1" class="panel-collapse collapse">
-                                            <div class="panel-body" style="height:300px; overflow:auto;">
-                                                <div id="grid-layout-table1" class="box jplist">
-                                                    <div class="box text-shadow">
-                                                        <table class="demo-tbl">
-                                                            <tbody>                                          
-                                                                <tr class="tbl-item">
-                                                                    <!--<img/>-->
-                                                                    <td class="img">
-                                                                        <img src="vendors/jplist/html/img/thumbs/arch-1.jpg" alt="" title="">
-                                                                    </td>
-                                                                    <!--<data></data>-->
-                                                                    <td class="td-block">
-                                                                        <p class="date">03/15/2012</p>
-                                                                        <p class="title">马克</p>
-                                                                        <p class="desc">瓷砖装贴完毕.</p>
-                                                                        <p class="like"></p>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="tbl-item">
-                                                                    <!--<img/>-->
-                                                                    <td class="img"><img src="vendors/jplist/html/img/thumbs/car-1.jpg" alt="" title="">
-                                                                    </td>
-                                                                    <!--<data></data>-->
-                                                                    <td class="td-block">
-                                                                        <p class="date">09/01/2015</p>
-                                                                        <p class="title">刘明</p>
-                                                                        <p class="desc">An arch is a structure that spans a space and supports a load. Arches appeared as early as the 2nd millennium BC in Mesopotamian brick architecture and their systematic use started with the Ancient Romans who were the first to apply the technique to a wide range of structures.</p>
-                                                                        <p class="like"></p>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -186,67 +150,45 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12" hidden="hidden">
-        <div class="portlet box portlet-yellow">
-            <div class="portlet-header">
-                <div class="caption">Basic Wizard</div>
-                <div class="tools"><i class="fa fa-chevron-up"></i><i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i><i class="fa fa-refresh"></i><i class="fa fa-times"></i>
+</div>
+
+<div aria-hidden="true" id="show_building_logs" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-wide-width-label" class="modal-title">施工日志</h4>
+            </div>
+            <div class="panel-body" style="height:300px; overflow:auto;">
+                <div id="grid-layout-table1" class="box jplist">
+                    <div class="box text-shadow">
+                        <table class="demo-tbl">
+                            <tbody>
+                                <tr class="tbl-item" ng-repeat="log in buildingLogs">
+                                    <td class="img">
+                                        <a href="#" data-target="#show_img_preview" data-toggle="modal" ng-click="previewImg(qiniuUrl + log.photos[0])">
+                                            <img src="{{qiniuUrl + log.photos[0]}}" alt="" title="" width="128" height="128">
+                                        </a>
+                                    </td>
+                                    <td class="td-block">
+                                        <p class="date" ng-bind="timeToStr(log.create_time*1000)">03/15/2012</p>
+                                        <p class="desc" ng-bind="log.description">马克</p>
+                                        <!--p class="desc">瓷砖装贴完毕.</p-->
+                                        <p class="like"></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="portlet-body">
-                <form id="form-2" action="#">
-                    <div id="wizard-1"></div>
-                </form>
-            </div>
         </div>
-    </div>
-    <div class="col-lg-12" hidden="hidden">
-        <div class="portlet box portlet-green">
-            <div class="portlet-header">
-                <div class="caption">Basic Form</div>
-                <div class="tools"><i class="fa fa-chevron-up"></i><i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i><i class="fa fa-refresh"></i><i class="fa fa-times"></i>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <form id="form-2" action="#">
-                    <div id="wizard-2"></div>
-                </form>
-            </div>
-        </div>
+
     </div>
 </div>
-<div class="row" hidden="hidden">
-    <div class="col-lg-12">
-        <div class="portlet box portlet-blue">
-            <div class="portlet-header">
-                <div class="caption">Vertical Steps</div>
-                <div class="tools"><i class="fa fa-chevron-up"></i><i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i><i class="fa fa-refresh"></i><i class="fa fa-times"></i>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <form id="form-3" action="#">
-                    <div id="wizard-3"></div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12">
-        <div class="portlet box portlet-pink">
-            <div class="portlet-header">
-                <div class="caption">Async Content Loading</div>
-                <div class="tools"><i class="fa fa-chevron-up"></i><i data-toggle="modal" data-target="#modal-config" class="fa fa-cog"></i><i class="fa fa-refresh"></i><i class="fa fa-times"></i>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <form id="form-4" action="#">
-                    <div id="wizard-4"></div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 <div aria-hidden="true" id="show_img_preview" tabindex="-1" class="modal fade">
     <div class="modal-dialog">
-        <img width='600' height='100%' src="{{preImgSrc}}" img-preview=""/>
+        <img width='600' height='100%' src="{{preImgSrc}}" img-preview="" />
     </div>
 </div>

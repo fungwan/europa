@@ -98,6 +98,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-gavel"></i>
+                                        <input ng-model="getCategoryStr(selectWorker.categories).firt" type="text" class="form-control" disabled="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-icon right"><i class="fa fa-map-marker"></i>
+                                        <input ng-model="getCityAndRegionStr(selectWorker.regions).city" type="text"  class="form-control" disabled="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -111,7 +125,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="text-left pal">
-                                    <button ng-click="onVerify()" class="btn btn-success">通过认证</button>
+                                    <button data-target="#modal-confirm-verify" data-toggle="modal" class="btn btn-success">通过认证</button>
                                 </div>
                             </div>
                             <!-- end -->
@@ -119,7 +133,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="text-left pal">
-                                    <button ng-click="onRejectVerify()" class="btn btn-primary">驳回认证</button>
+                                    <button data-target="#modal-reject-verify" data-toggle="modal" class="btn btn-primary">驳回认证</button>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -162,6 +176,31 @@
         </div>
     </div>
 </div>
+
+<div id="modal-reject-verify" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">你确定驳回认证吗?</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button id="btn-delAll" type="button" ng-click="onRejectVerify()" data-dismiss="modal" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-confirm-verify" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">你确定通过认证吗?</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button id="btn-delAll" type="button" ng-click="onVerify()" data-dismiss="modal" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div aria-hidden="true" id="show_img_preview" tabindex="-1" class="modal fade">
     <div class="modal-dialog">

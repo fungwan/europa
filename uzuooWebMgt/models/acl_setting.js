@@ -20,21 +20,24 @@ exports.set = function(acl){
             roles:['1'],//财务初审员//accountant_p
             allows:[
                 {resources:'/api/bills', permissions:'get'},
-                {resources:'/api/bills/:id/billStatus', permissions:['post']}
+                {resources:'/api/bills/checkBill', permissions:['post']},
+                {resources:'/api/bills/rejectBill', permissions:['post']}
             ]
         },
         {
             roles:['2'],//财务复核员//accountant_r
             allows:[
                 {resources:'/api/bills', permissions:'get'},
-                {resources:'/api/bills/:id/billStatus', permissions:['put']}
+                {resources:'/api/bills/checkBill', permissions:['put']},
+                {resources:'/api/bills/rejectBill', permissions:['put']}
             ]
         },
         {
             roles:['3'],//财务总管理员、经理//accountant
             allows:[
                 {resources:'/api/bills', permissions:'get'},
-                {resources:'/api/bills/:id/billStatus', permissions:['put','post']}
+                {resources:'/api/bills/checkBill', permissions:['post','put']},
+                {resources:'/api/bills/rejectBill', permissions:['post','put']}
             ]
         },
         {
@@ -56,17 +59,4 @@ exports.set = function(acl){
     //为账号分配角色
     acl.addUserRoles('0d11e1da-9764-4692-8d3b-4d3b93f5e4fb', '5');
 
-
-//    test...
-//    acl.allowedPermissions('fengyun', ['/workers'], function(err, permissions){
-//        console.log(permissions);
-//    });
-
-//    acl.isAllowed('joed', '/forums', 'view', function(err, res){
-//        if(res){
-//            console.log("User joed is allowed to view blogs");
-//        }else{
-//            console.log("no one");
-//        }
-//    });
 };

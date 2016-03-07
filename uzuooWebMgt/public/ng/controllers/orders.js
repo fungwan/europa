@@ -160,6 +160,20 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             }, function (errMsg) {
                 alert(errMsg.message);
             });
+            $('#orderDetail-dlg').modal('show');
+        }
+        
+        
+        //查看施工日志
+        $scope.onShowBuildingLogs = function(contractItem) {
+            var pos = contractItem.building_logs_href.lastIndexOf('/contracts');
+            var url = contractItem.building_logs_href.substr(pos);
+            ApiService.get(url, {}, function (data) {
+                $scope.buildingLogs = data.content;
+            }, function(errMsg) {
+                errMsg;
+            });
+            $('#show_building_logs').modal('show');
         }
         
         //初始化城市列表和工人列表

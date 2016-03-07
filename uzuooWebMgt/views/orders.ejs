@@ -86,10 +86,10 @@
                                 <td ng-bind="getCraftsInfo(order)"></td>
                                 <td ng-bind="order.house_owner_phone"></td>
                                 <td ng-bind="order.worker_phone"></td>
-                                <td ng-bind="order.amount"></td>
+                                <td ng-bind="order.amount/100"></td>
                                 <td ng-bind="getStatus(order.status)"></td>
                                 <td>
-                                    <button type="button" data-target="#orderDetail-dlg" data-toggle="modal" class="btn btn-default btn-xs" ng-click="onShowOrderDetail(order)"><i class="fa fa-archive"></i>&nbsp;详情</button>&nbsp;
+                                    <button type="button" data-toggle="modal" class="btn btn-default btn-xs" ng-click="onShowOrderDetail(order)"><i class="fa fa-archive"></i>&nbsp;详情</button>&nbsp;
                                 </td>
                             </tr>
                         </tbody>

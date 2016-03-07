@@ -24,6 +24,8 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
                 id_card_no: worker.id_card_no,
                 verified: worker.verified,
                 imgHref: "images/avatar/avatar_loading.gif",
+                categories:worker.categories,
+                regions:worker.regions,
                 workerId: workerId,
                 virifiedDescriptive:''
             }
@@ -99,6 +101,22 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
                 second: secondStr
             }
         }
+
+
+        //获取工人的城市和区域信息
+        $scope.getCityAndRegionStr = function (regionArray) {
+            var regionsStr = '';
+            var cityStr = '';
+            for (var x in regionArray) {
+                regionsStr += $scope.regionArray[regionArray[x]].name + ' ';
+                cityStr = $scope.regionArray[regionArray[x]].parent;
+            }
+            return {
+                regions: regionsStr,
+                city: cityStr
+            }
+        }
+
 
 
         function worksPaging(pageIndex) {

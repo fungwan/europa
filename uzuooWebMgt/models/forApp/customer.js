@@ -411,7 +411,7 @@ exports.findWorkersByFilters = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/workers?' + 'filter=' + filters + '&countOnly=true&sort=create_time::-1' +'&accessToken=' + token;
+                var path = '/workers?' + 'filter=' + filters + '&limit=-1&countOnly=true&sort=create_time::-1' +'&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -585,7 +585,7 @@ exports.findHouseOwnersByPage = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
             var token = results.get_token;
-            var path = '/houseOwners?'+'accessToken=' + token + '&filter=' + filters;
+            var path = '/houseOwners?'+ 'limit=-1&filter=' + filters+'&accessToken=' + token ;//&countOnly=true
             var optionItem = {};
             optionItem['path'] = path;
 
@@ -598,7 +598,7 @@ exports.findHouseOwnersByPage = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/houseOwners?'+'accessToken=' + token + '&filter='+ filters + '&limit=10&offset='+ skipValue;
+                var path = '/houseOwners?'+ 'filter='+ filters + '&limit=10&offset='+ skipValue +'&accessToken=' + token ;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);
@@ -638,11 +638,11 @@ exports.findHouseOwnersByPage = function(req,res){
             }
 
             //第一页用户数组
-            var houseownersArray = jsonConvert.stringToJson(results.get_currPage)['houseowners'];
+            var houseownersArrayEx = jsonConvert.stringToJson(results.get_currPage)['houseowners'];
 
             res.json({ result: 'success',
                 pages:pageCounts,
-                content:houseownersArray});
+                content:houseownersArrayEx});
         }
     )
 }

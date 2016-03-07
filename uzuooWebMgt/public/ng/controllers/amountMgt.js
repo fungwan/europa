@@ -68,6 +68,13 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
                      var rulesObj = data.content;
                      //rulesObj.freeze_time = rulesObj.margin.freeze_time / 86400 / 365;
                      $scope.roleRuleSetting = rulesObj;
+                     $scope.roleRuleSetting['margin']['up_threshold'] = rulesObj['margin']['up_threshold'] / 100;
+                     $scope.roleRuleSetting['margin']['down_threshold'] = rulesObj['margin']['down_threshold'] /100;
+                     $scope.roleRuleSetting['score']['inc_by_pay'] = rulesObj['score']['inc_by_pay'] / 100;
+
+                     $scope.roleRuleSetting['margin']['rate'] = (rulesObj['margin']['rate'] * 100).toFixed(1);
+                     $scope.roleRuleSetting['commission_return']['reviews']['by_all_good'] = (rulesObj['commission_return']['reviews']['by_all_good']*100).toFixed(1);;
+                     $scope.roleRuleSetting['commission_return']['order']['return_rate'] = (rulesObj['commission_return']['order']['return_rate'] *100).toFixed(1);
                  }
              }, function (errMsg) {
              alert(errMsg.message);
@@ -108,6 +115,14 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
                      rulesObj.order.need_trustee = rulesObj.order.need_trustee ? true:false;
                      rulesObj.order.non_earnest_keep_time = rulesObj.order.non_earnest_keep_time / 3600 /24; //天
                      rulesObj.order.non_candidates_keep_time = rulesObj.order.non_candidates_keep_time / 3600; //天
+
+                     rulesObj['order']['earnest'] = rulesObj['order']['earnest'] / 100;
+                     rulesObj['ubeans']['up_threshold'] = rulesObj['ubeans']['up_threshold'] * 100;
+                     rulesObj['ubeans']['down_threshold'] = rulesObj['ubeans']['down_threshold'] * 100;
+
+                     rulesObj['commission']['basic'] = (rulesObj['commission']['basic'] * 100).toFixed(1);
+                     rulesObj['commission']['float'] = (rulesObj['commission']['float'] * 100).toFixed(1);
+                     rulesObj['ubeans']['use_rate'] = (rulesObj['ubeans']['use_rate'] * 100).toFixed(1);
 
                      $scope.craftRuleSetting = rulesObj;
                  }
@@ -173,19 +188,19 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
 
             //格式化数据类型，坑啊！
             var roleRule = $scope.roleRuleSetting;
-            roleRule['margin']['rate'] = parseFloat(roleRule['margin']['rate']);
-            roleRule['margin']['up_threshold'] = parseInt(roleRule['margin']['up_threshold']);
-            roleRule['margin']['down_threshold'] = parseInt(roleRule['margin']['down_threshold']);
+            roleRule['margin']['rate'] = roleRule['margin']['rate'] / 100;
+            roleRule['margin']['up_threshold'] = parseInt(roleRule['margin']['up_threshold']) * 100;
+            roleRule['margin']['down_threshold'] = parseInt(roleRule['margin']['down_threshold']) * 100;
             roleRule['margin']['freeze_time'] = parseInt(roleRule['margin']['freeze_time']);
 
             roleRule['score']['inc_by_good'] = parseInt(roleRule['score']['inc_by_good']);
             roleRule['score']['inc_by_normal'] = parseInt(roleRule['score']['inc_by_normal']);
             roleRule['score']['inc_by_bad'] = parseInt(roleRule['score']['inc_by_bad']);
-            roleRule['score']['inc_by_pay'] = parseInt(roleRule['score']['inc_by_pay']);
+            roleRule['score']['inc_by_pay'] = parseInt(roleRule['score']['inc_by_pay']) * 100;
 
-            roleRule['commission_return']['reviews']['by_all_good'] = parseFloat(roleRule['commission_return']['reviews']['by_all_good']);
+            roleRule['commission_return']['reviews']['by_all_good'] = roleRule['commission_return']['reviews']['by_all_good'] / 100;
             roleRule['commission_return']['order']['count'] = parseInt(roleRule['commission_return']['order']['count']);
-            roleRule['commission_return']['order']['return_rate'] = parseFloat(roleRule['commission_return']['order']['return_rate']);
+            roleRule['commission_return']['order']['return_rate'] = roleRule['commission_return']['order']['return_rate'] / 100;
 
             var obj = {
                 roleId:$scope.selectRole.id,
@@ -194,6 +209,7 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
 
             ApiService.post('/setting/roleRules', obj, function (data) {
                 if(data.result === 'fail'){alert('基于角色的设置项更新失败');}
+                getRoleRules($scope.selectRole.id);
             }, function (errMsg) {
                 alert(errMsg.message);
             });
@@ -202,7 +218,7 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
         $scope.updateCraftRules = function(){
 
             var craftRule = $scope.craftRuleSetting;
-            craftRule['order']['earnest'] = parseFloat(craftRule['order']['earnest'] );
+            craftRule['order']['earnest'] = parseInt(craftRule['order']['earnest'] );
 
 
             craftRule['order']['need_trustee'] = craftRule['order']['need_trustee'] ? 1 : 0;
@@ -210,12 +226,12 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
             craftRule['order']['non_earnest_keep_time'] = parseInt(craftRule['order']['non_earnest_keep_time']) * 24 * 3600;
             craftRule['order']['non_candidates_keep_time'] = parseInt(craftRule['order']['non_candidates_keep_time']) * 3600;
 
-            craftRule['commission']['basic'] = parseFloat(craftRule['commission']['basic']);
-            craftRule['commission']['float'] = parseFloat(craftRule['commission']['float']);
+            craftRule['commission']['basic'] = craftRule['commission']['basic'] / 100;
+            craftRule['commission']['float'] = craftRule['commission']['float'] / 100;
 
-            craftRule['ubeans']['use_rate'] = parseFloat(craftRule['ubeans']['use_rate']);
-            craftRule['ubeans']['up_threshold'] = parseInt(craftRule['ubeans']['up_threshold']);
-            craftRule['ubeans']['down_threshold'] = parseInt(craftRule['ubeans']['down_threshold']);
+            craftRule['ubeans']['use_rate'] = craftRule['ubeans']['use_rate'] / 100;
+            craftRule['ubeans']['up_threshold'] = craftRule['ubeans']['up_threshold'] * 100;
+            craftRule['ubeans']['down_threshold'] = craftRule['ubeans']['down_threshold'] * 100;
 
             var obj = {
                 craftId:$scope.selectCraft.id,
