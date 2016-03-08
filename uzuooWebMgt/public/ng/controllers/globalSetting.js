@@ -51,8 +51,8 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                         alert(errMsg.message);
                     });
 
-                    var obj = {};
-                    ApiService.get('/setting/global', obj, function (data) {
+                    var obj2 = {};
+                    ApiService.get('/setting/global', obj2, function (data) {
                         if (data.result == 'success') {
                             $scope.sysConfig = data.content;
                             $scope.sysConfig.margin_freeze = data.content.margin_freeze / 3600 /24;
@@ -61,6 +61,14 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                         alert(errMsg.message);
                     });
 
+                    var obj3 = {};
+                    ApiService.get('/setting/appVersions', obj3, function (data) {
+                        if (data.result == 'success') {
+                            console.log(data.content);
+                        }
+                    }, function (errMsg) {
+                        alert(errMsg.message);
+                    });
 
                 }
             }, function (errMsg) {

@@ -22,6 +22,14 @@ module.exports = function (router, acl) {
         history.addLogs(req,res,next);
     });
 
+    router.get('/setting/appVersions', function (req, res) {
+        sysSetting.getAppVersions(req, res);
+    });
+
+    router.post('/setting/appVersion', function (req, res) {
+        sysSetting.setAppVersion(req, res);
+    });
+
     router.get('/setting/levelRules', function (req, res) {
         sysSetting.getLevelRules(req, res);
     });

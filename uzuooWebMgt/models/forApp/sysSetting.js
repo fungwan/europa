@@ -14,68 +14,6 @@ var qiniu = require('qiniu');
 var qiniuUpload = require('./upload.js');
 var uuid = require('node-uuid');
 
-exports.postProcess = function(req,res){
-
-    async.auto(
-        {
-            get_token: function (callback) {
-
-                tokenMgt.getToken(function (err, token) {
-                    if (!err) {
-                        callback(null, token);
-                    } else {
-                        callback(err, 'can not get token...');
-                    }
-                });
-            },
-            update_amount: ['get_token', function (callback, results) {
-
-                var token = results.get_token;
-                var rId = req.body.roleId;
-                var cId = req.body.craftId;
-
-                var updateAmountPath = ' /workerRole/' + rId + '/craft/' + cId + '/setting?' +'accessToken=' + token;
-
-                var item = {};
-                item['path'] = updateAmountPath;
-
-                var content = {
-                    earnest:parseInt(req.body.earnest),
-                    need_trustee:parseInt(req.body.need_trustee),
-                    commssion_basic:parseFloat(req.body.commssion_basic),
-                    commssion_float:parseFloat(req.body.commssion_float),
-                    margin_rate:parseFloat(req.body.margin_rate),
-                    margin_up_threshold:parseInt(req.body.margin_up_threshold),
-                    margin_down_threshold:parseInt(req.body.margin_down_threshold)
-                };
-
-                var bodyString = JSON.stringify(content);
-
-                request.post(item,bodyString,callback);
-
-            }]
-        },function(err,result){
-            if(err === null){
-
-                var feedbackArray = result.update_amount; //jsonConvert.stringToJson(result.update_amount);
-
-                res.json({
-                    result: 'success',
-                    content: feedbackArray})
-            }else{
-
-                if(err === 403){
-                    tokenMgt.setTokenExpireStates(true);
-                }
-
-                res.json({
-                    result: 'fail',
-                    content:err})
-            }
-        }
-    );
-};
-
 //获取角色相关配置
 exports.getPointsRule = function(req,res){
     var cityStr = req.session.user.city;
@@ -594,3 +532,129 @@ function uploadFile(localFile, key, uptoken,cb) {
         }
     });
 }
+
+//获取APK/IPA版本信息
+exports.getAppVersions = function(req,res){
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_versions: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var path = '/applications/versions?'+'accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+                var versionsArray = jsonConvert.stringToJson(result.get_versions)['versions'];
+                res.json({
+                        result: 'success',
+                        content:versionsArray}
+                );
+            }else{
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+//设置APK/IPA版本信息
+exports.setAppVersion = function(req,res){
+
+    /*var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_rule:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/cities/' + cityId + '/recommendation?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+                var recommendationArray = req.body.recommendations;
+                var flag = false;
+                for(var x = 0; x < recommendationArray.length;){
+                    var icon = recommendationArray[x].icon_href;
+                    if(icon.search(/^data:image\/\w+;base64,/) === -1){
+                        ++x;
+                        continue;
+                    }
+
+                    var base64Data = icon.replace(/^data:image\/\w+;base64,/, "");
+                    var dataBuffer = new Buffer(base64Data, 'base64');
+                    var roleId = recommendationArray[x].id;
+                    var savePath = roleId + '.jpg';
+                    flag = true;
+                    fs.writeFile(savePath, dataBuffer, function(err) {
+                        if(err){
+                            //本地文件写入流出错
+                            callback('error','uploadRoleImage error...');
+                        }else{
+
+                            var qiniuFileName = uuid.v1();
+                            uploadFile(savePath,qiniuFileName,qiniuUpload.getUploadTokenEx(),function(err,results){
+                                if(err === null){
+                                    recommendationArray[x].icon_href = settings.qiniuUrl+qiniuFileName;
+                                    var content = {
+                                        recommendations:recommendationArray
+                                    };
+                                    var bodyString = JSON.stringify(content);
+                                    request.post(optionItem,bodyString,callback);
+                                }
+                            });
+                        }
+                    });
+
+
+                    break;
+                }
+
+                if(!flag){
+                    var bodyString = JSON.stringify(req.body);
+                    request.post(optionItem,bodyString,callback);
+                }
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })*/
+};
