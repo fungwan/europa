@@ -38,7 +38,7 @@
                                     <tbody>
                                     <tr ng-repeat="rules in level2RegionArray">
                                         <td ng-show="rules.level">
-                                            <input ng-blur="onEditRegionNum($index,rules.max_regions)" ng-model="rules.max_regions">
+                                            <input ng-change="onEditRegionNum($index,rules.max_regions)" ng-model="rules.max_regions">
                                         </td>
                                         <td ng-show="rules.level"ng-bind="translateDesc[rules.level].starDesc"></td>
                                         <td ng-show="rules.level" ng-bind="translateDesc[rules.level].yearRecom">a</td>
@@ -82,7 +82,7 @@
                                     <tbody>
                                         <tr ng-repeat="rules in levelRulesArray">
                                            <td ng-show="rules.level">
-                                               <input ng-blur="onEditThreshold($index,rules.threshold)" ng-model="rules.threshold">
+                                               <input ng-change="onEditThreshold($index,rules.threshold)" ng-model="rules.threshold">
                                            </td><!-- 分段上限 -->
                                            <td ng-show="rules.level"ng-bind="translateDesc[rules.level].starDesc"></td><!-- 星级描述 -->
                                            <td ng-show="rules.level" ng-bind="translateDesc[rules.level].yearRecom">a</td><!-- 参考年限 -->

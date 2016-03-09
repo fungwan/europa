@@ -93,7 +93,7 @@
                                                 <label for="inputGood" class="col-md-3 control-label">保证金充值后冻结时间：</label>
                                                 <div class="col-md-2">
                                                     <div class="input-icon">
-                                                        <input ng-blur="onEditInt(sysConfig.margin_freeze)" ng-model="sysConfig.margin_freeze"  type="text"  class="form-control" />
+                                                        <input ng-change="onEditInt(sysConfig.margin_freeze)" ng-model="sysConfig.margin_freeze"  type="text"  class="form-control" />
                                                     </div>
                                                 </div>
                                                 <label class="control-label">天</label>
@@ -102,7 +102,7 @@
                                         </div>
                                         <div class="form-actions bottom pull-right">
                                             <div class="col-md-offset-3 col-md-9 ">&nbsp;
-                                                <button  ng-click="updateSysForFreezeTime()" type="button" class="btn btn-green">更新</button>
+                                                <button  g-disabled="checkInputFreezeTimeSyntaxStatus" ng-click="updateSysForFreezeTime()" type="button" class="btn btn-green">更新</button>
                                             </div>
                                         </div>
                                     </form>
@@ -120,30 +120,39 @@
                                     <div class="row mbl">
                                         <div class="col-lg-12">
                                             <div class="tb-group-actions pull-right">
-                                                <button type="button" class="btn btn-blue" data-target="#create_account_dlg" data-toggle="modal" ng-click="#"><!--i class="fa fa-check">&nbsp;</i-->
+                                                <button type="button" class="btn btn-blue" data-target="#create_newVersion_dlg" data-toggle="modal" ng-click="#"><!--i class="fa fa-check">&nbsp;</i-->
                                                     提交新版本</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--form action="#" class="form-horizontal">
-                                        <div class="form-body pal">
-                                            <div class="form-group">
-                                                <label for="inputGood" class="col-md-3 control-label">保证金充值后冻结时间：</label>
-                                                <div class="col-md-2">
-                                                    <div class="input-icon">
-                                                        <input ng-blur="onEditInt(sysConfig.margin_freeze)" ng-model="sysConfig.margin_freeze"  type="text"  class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <label class="control-label">天</label>
-                                            </div>
+                                    <div class="col-md-12">
+                                        <div class="table-container">
+                                            <table class="table table-hover table-striped table-bordered table-advanced tablesorter display dataTable no-footer">
+                                                <thead>
+                                                <tr>
+                                                    <th width="5%">App类型</th>
+                                                    <th width="5%">版本号全名</th>
+                                                    <th width="15%">文件路径</th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="appVersion in appVersionInfoArray">
+                                                    <td ng-bind="appVersion.app_type">
 
+                                                    </td>
+                                                    <td ng-bind="appVersion.version_name">
+
+                                                    </td>
+                                                    <td ng-bind="appVersion.file"></td>
+                                                    <td>
+                                                        <button  type="button" class="btn btn-danger btn-xs" ng-click="onDelAppVersion(appVersion)" ><i class="fa fa-trash-o"></i>&nbsp; 删除</button>&nbsp;
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="form-actions bottom pull-right">
-                                            <div class="col-md-offset-3 col-md-9 ">&nbsp;
-                                                <button  ng-click="updateSysForFreezeTime()" type="button" class="btn btn-green">更新</button>
-                                            </div>
-                                        </div>
-                                    </form-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -202,6 +211,82 @@
                             <div class="col-md-12">
                                 <button ng-click="refreshRecommendRole()" type="button" class="btn btn-default">关闭</button>
                                 <button ng-click="updateRecommendRole()" type="button" class="btn btn-success">更新</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  aria-hidden="false" id="create_newVersion_dlg" tabindex="-1" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <!--button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button-->
+                    <h4 class="modal-title">新版本信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">app类型：</label>
+                                <div class="col-md-9">
+                                    <div >
+                                        <select ng-options="appType.name for appType in appTypeArray" ng-model="selectAppType" ></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">主版本号：</label>
+                                <div class="col-md-3">
+                                    <input ng-change="onEditInt(appVersion.main_ver)" ng-model="appVersion.main_ver" type="text"  class="form-control" />
+                                </div>
+                                <label class="col-md-3 control-label">次版本号：</label>
+                                <div class="col-md-3">
+                                    <input ng-change="onEditInt(appVersion.second_ver)" ng-model="appVersion.second_ver" type="text"  class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">末版本号：</label>
+                                <div class="col-md-3">
+                                    <input ng-change="onEditInt(appVersion.minor_ver)" ng-model="appVersion.minor_ver" type="text"  class="form-control" />
+                                </div>
+                                <label class="col-md-3 control-label">编译版本号：</label>
+                                <div class="col-md-3">
+                                    <input ng-model="appVersion.build_ver" type="text"  class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">版本号全名：</label>
+                                <div class="col-md-3">
+                                    <input ng-model="appVersion.version_name" type="text"  class="form-control" />
+                                </div>
+                                <label class="col-md-3 control-label">MD5：</label>
+                                <div class="col-md-3">
+                                    <input ng-model="appVersion.md5" type="text"  class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">文件路径：</label>
+                                <div class="col-md-6">
+                                    <input ng-model="appVersion.file" type="text"  class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div>
+                            <div class="col-md-12">
+                                <button data-dismiss="modal" type="button" class="btn btn-default">关闭</button>
+                                <button ng-disabled="checkInputVersionSyntaxStatus" ng-click="updateAppVersion()" type="button" class="btn btn-success">更新</button>
                             </div>
                         </div>
                     </div>

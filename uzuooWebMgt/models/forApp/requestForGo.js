@@ -19,6 +19,11 @@ var buffer = new Buffer(str);
 var base64Code = buffer.toString('base64');
 var basicCode = 'Basic ' + base64Code;
 
+var errorCodeArray = [
+  400, 403,404,500
+];
+
+
 exports.get = function(optionItem,cb){
 
     var options = {
@@ -37,21 +42,20 @@ exports.get = function(optionItem,cb){
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
 
-        var recv = '';
+        if(errorCodeArray.indexOf(res.statusCode) !== -1){
+            logger.error('requestForGo----GET请求错误,状态码为：'+ res.statusCode + ',url为：' + options['path']);
+            return cb(res.statusCode,res.body);
+        }else{
+            var recv = '';
 
-        res.on('data', function(chunk) {
-            recv += chunk;
-        });
+            res.on('data', function(chunk) {
+                recv += chunk;
+            });
 
-        res.on('end', function () {
-
-            if(res.statusCode === 200){
+            res.on('end', function() {
                 return cb(null,recv);
-            }else{
-                logger.debug('requestForGo----Get请求错误...' + recv);
-                return cb(res.statusCode,res.body);
-            }
-        });
+            });
+        }
     });
 
     req.on('error',function(e){
@@ -80,18 +84,20 @@ exports.post = function(optionItem,contents,cb){
 
         res.setEncoding('utf8');
 
-        if(res.statusCode === 200){
-            return cb(null,'');
-        }
-
-        if(res.statusCode === 400 || res.statusCode === 403 || res.statusCode === 404 || res.statusCode === 500){
-            logger.debug('requestForGo----POST请求错误,url为：' + options['path']);
+        if(errorCodeArray.indexOf(res.statusCode) !== -1){
+            logger.error('requestForGo----POST请求错误,状态码为：'+ res.statusCode + ',url为：' + options['path']);
             return cb(res.statusCode,res.body);
-        }
+        }else{
+            var recv = '';
 
-        res.on('data', function(recv) {
-            return cb(null,recv);
-        });
+            res.on('data', function(chunk) {
+                recv += chunk;
+            });
+
+            res.on('end', function() {
+                return cb(null,recv);
+            });
+        }
     });
 
     req.on('error',function(e){
@@ -118,9 +124,20 @@ exports.put = function(optionItem,contents,cb){
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
-        res.on('data', function(data) {
-            return cb(null,data);
-        });
+        if(errorCodeArray.indexOf(res.statusCode) !== -1){
+            logger.error('requestForGo----PUT请求错误,状态码为：'+ res.statusCode + ',url为：' + options['path']);
+            return cb(res.statusCode,res.body);
+        }else{
+            var recv = '';
+
+            res.on('data', function(chunk) {
+                recv += chunk;
+            });
+
+            res.on('end', function() {
+                return cb(null,recv);
+            });
+        }
     });
 
     req.on('error',function(e){
@@ -130,7 +147,7 @@ exports.put = function(optionItem,contents,cb){
     req.end();
 };
 
-exports.del = function(optionItem,cb){
+exports.del = function(optionItem,contents,cb){
 
     var options = {
         host: hostIp,
@@ -147,13 +164,28 @@ exports.del = function(optionItem,cb){
 
     var req = http.request(options, function(res) {
         res.setEncoding('utf8');
-        res.on('data', function(data) {
-            return cb(null,data);
-        });
+
+        if(errorCodeArray.indexOf(res.statusCode) !== -1){
+            logger.error('requestForGo----DELETE请求错误,状态码为：'+ res.statusCode + ',url为：' + options['path']);
+            return cb(res.statusCode,res.body);
+        }else{
+            var recv = '';
+
+            res.on('data', function(chunk) {
+                recv += chunk;
+            });
+
+            res.on('end', function() {
+                return cb(null,recv);
+            });
+        }
     });
 
     req.on('error',function(e){
         return cb(e, e.message);
     });
+
+    req.write(contents);
+
     req.end();
 };

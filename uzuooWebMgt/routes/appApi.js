@@ -30,6 +30,10 @@ module.exports = function (router, acl) {
         sysSetting.setAppVersion(req, res);
     });
 
+    router.delete('/setting/appVersion', function (req, res) {
+        sysSetting.delAppVersion(req, res);
+    });
+
     router.get('/setting/levelRules', function (req, res) {
         sysSetting.getLevelRules(req, res);
     });

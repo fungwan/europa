@@ -17,14 +17,71 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.selectRoleType = {};
         $scope.roleTypeArray = [{'name':'大工种','value':'roles'},{'name':'小工种','value':'crafts'}];
-
+        $scope.appTypeArray = [{'name':'请选择app类型：','value':'-1'},{'name':'悠住工友安卓版','value':'android-worker'},{'name':'悠住业主安卓版','value':'android-house_owner'}];
+        $scope.selectAppType =$scope.appTypeArray[0];
         var originalRole2Map = {};
+        $scope.appVersionInfoArray = [];//推荐工种列表
 
         $scope.recommendRoleArray = [];//推荐工种列表
         $scope.selRecommendRole = {};//选择的推荐工种
 
         $scope.sysConfig = {};
 
+        $scope.appVersion = {
+
+            app_type:'',
+            main_ver:'',
+            second_ver:'',
+            minor_ver:'',
+            build_ver:'',
+            version_name:'',
+            file:'',
+            md5:''
+
+        };
+
+        $scope.checkInputVersionSyntaxStatus = false;
+        $scope.checkInputFreezeTimeSyntaxStatus = false;
+
+        //获取推广工种
+        function getRecommendRole(){
+            var obj = {};
+            ApiService.get('/setting/recommendRole', obj, function (data) {
+                if (data.result == 'success') {
+                    $scope.recommendRoleArray = data.content;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        }
+
+        //获取保证金冻结时间
+        function getFreezeTime(){
+            var obj2 = {};
+            ApiService.get('/setting/global', obj2, function (data) {
+                if (data.result == 'success') {
+                    $scope.sysConfig = data.content;
+                    $scope.sysConfig.margin_freeze = data.content.margin_freeze / 3600 /24;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+        }
+
+        //获取app版本记录
+        function getVersionInfo(){
+            var obj3 = {};
+            ApiService.get('/setting/appVersions', obj3, function (data) {
+                if (data.result == 'success') {
+                    $scope.appVersionInfoArray = data.content;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+
+        }
 
         (function () {
             var obj = {};
@@ -41,35 +98,9 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                     $scope.originalCrafts = $scope.originalRoles2[0].crafts;
                     //$scope.selectCraft = $scope.originalCrafts[0];
 
-
-                    var obj = {};
-                    ApiService.get('/setting/recommendRole', obj, function (data) {
-                        if (data.result == 'success') {
-                            $scope.recommendRoleArray = data.content;
-                        }
-                    }, function (errMsg) {
-                        alert(errMsg.message);
-                    });
-
-                    var obj2 = {};
-                    ApiService.get('/setting/global', obj2, function (data) {
-                        if (data.result == 'success') {
-                            $scope.sysConfig = data.content;
-                            $scope.sysConfig.margin_freeze = data.content.margin_freeze / 3600 /24;
-                        }
-                    }, function (errMsg) {
-                        alert(errMsg.message);
-                    });
-
-                    var obj3 = {};
-                    ApiService.get('/setting/appVersions', obj3, function (data) {
-                        if (data.result == 'success') {
-                            console.log(data.content);
-                        }
-                    }, function (errMsg) {
-                        alert(errMsg.message);
-                    });
-
+                    getRecommendRole();
+                    getFreezeTime();
+                    getVersionInfo();
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -188,6 +219,32 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
             });
         };
 
+        $scope.updateAppVersion = function () {
+
+            if($scope.selectAppType.value === '-1'){
+                alert('请选择版本类型!');
+                return;
+            }
+
+            var obj = $scope.appVersion;
+            obj.app_type = $scope.selectAppType.value;
+            obj.main_ver = parseInt(obj.main_ver);
+            obj.second_ver = parseInt(obj.second_ver);
+            obj.minor_ver = parseInt(obj.minor_ver);
+
+            ApiService.post('/setting/appVersion', obj, function (data) {
+                if (data.result == 'fail') {
+                    alert('app版本更新失败！');
+                }
+
+                getVersionInfo();
+                $('#create_newVersion_dlg').modal('hide');
+
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        };
+
 
         $scope.updateSysForFreezeTime = function(){
             var obj = {
@@ -207,6 +264,35 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                 .then(function (result) {
                     $scope.selRecommendRole.icon_href = result;
                 });
+        };
+
+        $scope.onEditInt = function(value){
+
+            var reg = /^[0-9]+$/;
+            if (!reg.test(value)) {
+                $scope.checkInputVersionSyntaxStatus = true;
+            }else{
+                $scope.checkInputVersionSyntaxStatus = false;
+            }
+        };
+
+        $scope.onDelAppVersion = function (appVersion) {
+            var obj = {
+                params: {
+                    id: appVersion.id
+                }
+            };
+
+            ApiService.delete('/setting/appVersion', obj, function (data) {
+                if (data.result == 'fail') {
+                    alert('app版本删除失败！');
+                }
+
+                getVersionInfo();
+
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
         };
 
     }]);
