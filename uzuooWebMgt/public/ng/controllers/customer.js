@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$rootScope', 'ApiService', 'fileReader',
-    function ($scope, $location, $rootScope, ApiService, fileReader) {
+angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$rootScope', 'ApiService', 'fileReader', '$upload',
+    function ($scope, $location, $rootScope, ApiService, fileReader, $upload) {
         $rootScope.sideBarSelect = {
             firstClassSel: 'userAdmin',
             secondSel: 'frontUsr'
@@ -19,10 +19,22 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         $scope.totalWorkersPages = 1;                   //工人的总页数
         $scope.curWorkersPage = 1;                   //工人的当前页
         $scope.workersInfo = [];                            //工人信息
-        
+        $scope.inviteesArray = [];                  //受邀人信息
+        $scope.inviteesDlgType = '';                  //工人OR业主的受邀人弹框
+
         $scope.imageSrc = $rootScope.defaultVerifiedImg;
         var filters  = ['all'], houseOwnerfilters = ['all'];
 
+        var sendTargetObj = {
+            type:'',//通知的目標人群，worker|houseOwner
+            method:'',//通知的方式針，對篩選條件的群發和指定勾選的人員，mass|assign
+            filter:''//篩選條件或者account列表，依據method寫值
+        };
+
+        $scope.sendMsg ={
+            type:'phone_msg',
+            content:''
+        };
 
         $scope.workSearchFilter = {
             keyword: 'phone',
@@ -32,7 +44,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             citySel: {},                         //详细搜索时选择的城市
             regionSelArray: [],                      //城市的区域列表
             originalRoleSel: {},                 //多选大工种
-            craftsArray: [],                      //细分工种
+            craftsArray: []                      //细分工种
         }
 
         $scope.houseOnwerSearchFilter = {
@@ -204,7 +216,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         //编辑工人详情
         $scope.onShowMoreWorkerInfo = function (worker) {
-            $('#edit_worker_dlg').modal('show');
+
             var city = $scope.getCityAndRegionStr(worker.regions).city;
             var workerDetailLink = worker['href'];
             var pos = workerDetailLink.lastIndexOf('/');
@@ -235,7 +247,16 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             }, function (errMsg) {
                 alert(errMsg.message);
             });
-            //alert(detailHref);
+
+            ApiService.get('/invitees/' + workerId, obj, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectWorker.invite_Info = data.content;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+            $('#edit_worker_dlg').modal('show');
         }
 
         $scope.onShowSceneVerified = function () {
@@ -249,6 +270,35 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             $scope.chargeId = accountId;
             
         }
+
+        $scope.onShowInvitees = function(type,invite_Info){
+
+            $scope.inviteesDlgType = type;
+
+            if( invite_Info.invitees != null){
+                $scope.inviteesArray = invite_Info.invitees;
+            }
+
+            $('#edit_worker_dlg').modal('hide');
+            $('#edit_houseOwner_dlg').modal('hide');
+
+            $('#show_invitees_dlg').modal('show');
+
+        };
+
+        $scope.onBackToLastDlg = function(type){
+
+            $('#show_invitees_dlg').modal('hide');
+
+            if(type === 'worker'){
+
+                $('#edit_worker_dlg').modal('show');
+            }else{
+                $('#edit_houseOwner_dlg').modal('show');
+            }
+
+
+        };
 
         $scope.onChargeConfirm = function () {
 
@@ -296,6 +346,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                     $scope.selectWorker.balance = data.content.balance / 100;
                     $scope.selectWorker.mBalanceOwns = data.content.margin_balance.owns / 100;
                     $scope.selectWorker.mBalanceSystem = data.content.margin_balance.system / 100;
+                    $scope.selectWorker.mTotalIncome = data.content.total_income / 100;
 
                 }
             }, function (errMsg) {
@@ -346,6 +397,17 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                     $scope.selectWorker.selectImg = result;
                 });
         };
+        
+        $scope.onFileSelect = function ($files) {
+            if ($files.length == 0) {
+                return;
+            }
+            $scope.selectWorker.imgUploadData = $files[0];
+            fileReader.readAsDataUrl($files[0], $scope)
+                .then(function (result) {
+                    $scope.selectWorker.selectImg = result;
+                });
+        }
 
         //执行现场认证
         $scope.verifiedWorker = function() {
@@ -354,51 +416,74 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                 content: {
                     first_name:$scope.selectWorker.first_name,
                     last_name:$scope.selectWorker.last_name,
-                    id_card_no:$scope.selectWorker.id_card_no,
-                    verify_photo:$scope.selectWorker.selectImg
+                    id_card_no:$scope.selectWorker.id_card_no
+                    //verify_photo:$scope.selectWorker.selectImg
                 }
             }
-            ApiService.post('/doUpdateWorkerProfileById', obj, function (data) {
+            $upload.upload({
+                url: 'api/doUpdateWorkerProfileById',
+                data: {content:obj},
+                file:$scope.selectWorker.imgUploadData
+            }).progress(function(evt){
+                alert(evt);
+            }).success(function(data, status, headers, config) {
+                alert(data);
+            });
+            /*ApiService.post('/doUpdateWorkerProfileById', obj, function (data) {
                 if(data.result == 'success') {
 
                 }
                 console.log(data);
             }, function(errMsg){
                 alert(errMsg.message);
-            });
+            });*/
         } 
 
         $scope.onSendMsgForAllWorker = function () {
-            $scope.sendMsg = {
-                type:'phone_msg',
-                content:''
-            }
-        }
+            sendTargetObj.type = 'worker';
+            sendTargetObj.method = 'mass';
+            sendTargetObj.filter = filters;//遍歷filter
+        };
 
-        $scope.onSendMsgForSelectedWorder = function () {
-            $scope.sendMsg = {
-                type:'phone_msg',
-                content:''
-            }
-        }
+        $scope.onSendMsgForSelectedWorker = function () {
+            sendTargetObj.type = 'worker';
+            sendTargetObj.method = 'assign';
 
-        $scope.onSendMsgForAllHouseOnwer = function () {
-            $scope.sendMsg = {
-                type:'phone_msg',
-                content:''
-            }
-        }
+            var accountArray = [];
+            angular.forEach($scope.workersInfo, function (item) {
+                if (item.selected) {
+                    var pos = item['href'].lastIndexOf('/');
+                    var accountId = item['href'].substr(pos + 1);
 
-        $scope.onSendMsgForSelectedHouseOnwer = function () {
-            $scope.sendMsg = {
-                type:'phone_msg',
-                content:''
-            }
-        }
+                    accountArray.push(accountId);
+                }
+            });
+
+
+            sendTargetObj.filter = accountArray;//遍歷chk
+        };
+
+        $scope.onSendMsgForAllHouseOwner = function () {
+
+        };
+
+        $scope.onSendMsgForSelectedHouseOwner = function () {
+
+        };
 
         $scope.onSendMsg = function () {
-            return;
-        }
+            //alert(sendTargetObj.type);
+            alert(sendTargetObj.filter);
+            //alert($scope.sendMsg.type + '' + $scope.sendMsg.content);
+
+            ApiService.post('/notifications', {}, function (data) {
+                if(data.result == 'fail') {
+                    alert('通知发送失败，请重发！');
+                }
+            }, function(errMsg){
+                alert(errMsg.message);
+            });
+        };
 
 
         $scope.onShowMoreHouseInfo = function (houseOnwer) {
@@ -418,7 +503,16 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             }, function (errMsg) {
                 alert(errMsg.message);
             });  
-            getHouseOwnerCapitalAccount();  
+            getHouseOwnerCapitalAccount();
+
+            ApiService.get('/invitees/' + houseOnwerId, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectHouseOwner.invite_Info = data.content;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
             $('#edit_houseOwner_dlg').modal('show');  
         }
         //初始化城市列表和工人列表

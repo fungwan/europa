@@ -11,6 +11,9 @@ var async = require('async');
 var fs = require("fs");
 
 var uuid = require('node-uuid');
+var multiparty = require('multiparty');
+var qiniu = require('qiniu');
+var qiniuToken = uptoken('uzuoo-photos');//uzuoo-photos
 
 exports.getContractById = function(req,res){
 
@@ -155,3 +158,90 @@ exports.getBuildingLogs = function(req,res){
         }
     );
 };
+
+
+exports.uploadBuildingLogs = function(req,res){
+    var contractId = req.params.contractId;
+    var itemId = req.params.itemId;
+    var form = new multiparty.Form();
+    form.parse(req, function(err, fields, files) {
+        var content =  JSON.parse(fields.content[0]);
+        var savePath = '';
+        if (files && files.file && files.file[0] && files.file[0].headers && files.file[0].headers['content-type'].search('image') !== -1) {
+            savePath = files.file[0].path;
+        }
+        tokenMgt.getToken(function(err,token){
+            if(!err){
+                tokenMgt.getQiniuToken(function(err,qiniu_token){
+                    if(err !== null){
+                        res.json({ result: 'fail',content:err});
+                    } else {
+                        var qiniuFileName = uuid.v1();
+                        uploadFile(savePath,qiniuFileName,qiniuToken.token(),function(err,results){
+                            if(err === null){
+                                content.building_logs[0].photos.push(qiniuFileName);
+                                var optionItem = {};
+                                var putPath = '/contracts/' + contractId + '/items/' + itemId +  '/buildingLogs?accessToken=' + token;
+                                optionItem['path'] = putPath;
+                                var bodyString = JSON.stringify(content);
+                                request.post(optionItem,bodyString,function(err,results){
+                                    if(err === null){
+                                        res.json({ result: 'success',content:results});
+                                    } else {
+                                        res.json({ result: 'fail',content:err});
+                                    }
+                                });
+                            } else {
+                                res.json({ result: 'fail',content:err});
+                            }
+                        });
+                    }
+                });
+            } else {
+                res.json({ result: 'fail',content:err});
+            }
+        });
+        
+    });
+}
+
+
+
+
+
+function uploadFile(localFile, key, uptoken,cb) {
+    var extra = new qiniu.io.PutExtra();
+    //extra.params = params;
+    //extra.mimeType = mimeType;
+    //extra.crc32 = crc32;
+    //extra.checkCrc = checkCrc;
+
+    qiniu.io.putFile(uptoken, key, localFile, extra, function(err, ret) {
+        if(!err) {
+            console.log(ret.key, ret.hash);
+            // ret.key & ret.hash
+
+            cb(null,'success');
+
+            fs.unlinkSync(localFile);
+        } else {
+            // 上传失败， 处理返回代码
+            console.log(err);
+
+            cb(err,'fail');
+        }
+    });
+}
+
+function uptoken(bucketname) {
+    var putPolicy = new qiniu.rs.PutPolicy(bucketname);
+    //putPolicy.callbackUrl = callbackUrl;
+    //putPolicy.callbackBody = callbackBody;
+    //putPolicy.returnUrl = returnUrl;
+    //putPolicy.returnBody = returnBody;
+    //putPolicy.asyncOps = asyncOps;
+    putPolicy.expires = 30 * 24 * 3600;
+
+    return putPolicy;
+}
+

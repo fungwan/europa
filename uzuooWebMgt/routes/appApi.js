@@ -147,9 +147,17 @@ module.exports = function (router, acl) {
     router.get('/contracts/:contractId/items/:itemId/buildingLogs', function (req, res) {
         contracts.getBuildingLogs(req,res);
     });
+    
+    router.post('/contracts/:contractId/items/:itemId/buildingLogs', function (req, res) {
+        contracts.uploadBuildingLogs(req,res);
+    });
 
     router.get('/bills', acl.middleware(),function (req, res,next) {
         bills.getBills(req,res);
+    });
+
+    router.get('/bills/:billId', acl.middleware(2),function (req, res,next) {
+        bills.getBillById(req,res);
     });
 
     //第一次审核，行为为post
@@ -204,5 +212,13 @@ module.exports = function (router, acl) {
 
     router.get('/qiniuToken', function (req, res) {
         qiniuToken.getUploadToken(req,res);
+    });
+
+    router.get('/invitees/:accountId',function (req, res) {
+        customer.findInviteesById(req,res);
+    });
+
+    router.post('/notifications',function (req, res) {
+        customer.sendNotifications(req,res);
     });
 }

@@ -15,32 +15,38 @@ angular.module('myApp').controller('ActivityMgtCtrl', ['$scope', '$location', '$
             Verify_Get_Score_Activity:{
                 name:'认证赠送积分:',
                 type:'认证',
-                unit:'分'
+                unit:'分',
+                radio: 1
             },
             Add_Case_Activity:{
                 name:'上传案例赠送积分:',
                 type:'案例',
-                unit:'分'
+                unit:'分',
+                radio: 1
             },
             Remove_Case_Activity:{
                 name:'删除案例扣除积分:',
                 type:'案例',
-                unit:'分'
+                unit:'分',
+                radio: 1
             },
             Worker_Invitation_Reg_Activity:{
                 name:'工人邀请用户获赠保证金:',
                 type:'用户',
-                unit:'元'
+                unit:'元',
+                radio: 0.01
             },
             Verify_Giving_Margin_Activity:{
                 name:'认证获赠保证金:',
                 type:'认证',
-                unit:'元'
+                unit:'元',
+                radio: 0.01
             },
             HouseOwner_Invitation_Reg_Activity:{
                 name:'业主邀请用户获赠悠豆:',
                 type:'用户',
-                unit:'悠豆'
+                unit:'悠豆',
+                radio: 1
             }
         }
 
@@ -72,6 +78,9 @@ angular.module('myApp').controller('ActivityMgtCtrl', ['$scope', '$location', '$
             ApiService.get('/activities/'+activityId, {}, function (data) {
                 if (data.result == 'success') {
                     $scope.activityInfo = data.content;
+                    for (var i = 0; i < $scope.activityInfo.dicounts[0].items.length; i++) {
+                        $scope.activityInfo.dicounts[0].items[i].value = $scope.activityInfo.dicounts[0].items[i].value * $scope.activityRealName[$scope.activityInfo.conditions.condition[0]].radio;
+                    }
                     $scope.isNeedSelectRole = (data.content.dicounts[0].items.length > 1) ? true :false;
                     if ($scope.isNeedSelectRole) {
                         $scope.selectRole.role = $scope.rolesArray[0];
@@ -117,24 +126,25 @@ angular.module('myApp').controller('ActivityMgtCtrl', ['$scope', '$location', '$
 
         $scope.onUpdateActivity = function () {
             for (var i = 0; i < $scope.activityInfo.dicounts[0].items.length; i++) {
-                $scope.activityInfo.dicounts[0].items[i].value = parseFloat($scope.activityInfo.dicounts[0].items[i].value);
+                $scope.activityInfo.dicounts[0].items[i].value = parseFloat($scope.activityInfo.dicounts[0].items[i].value) / $scope.activityRealName[$scope.activityInfo.conditions.condition[0]].radio;
+                //$scope.activityInfo.dicounts[0].items[i].value = parseFloat($scope.activityInfo.dicounts[0].items[i].value);
             };
 
             if ($scope.activityInfo.dicounts[0].items[0].limit > 0) {
-                $scope.activityInfo.dicounts[0].items[0].limit = parseInt($scope.activityInfo.dicounts[0].items[0].limit);
+                $scope.activityInfo.dicounts[0].items[0].limit = parseInt($scope.activityInfo.dicounts[0].items[0].limit) / $scope.activityRealName[$scope.activityInfo.conditions.condition[0]].radio;
             }
             
             var obj = {
                 id: activityId,
                 content:$scope.activityInfo
             };
-
+            $('#show_activityDetail_dlg').modal('hide');
 
             ApiService.post('/activities/'+activityId, obj, function (data) {
 
                 getActivitiesInfo();
 
-                $('#show_activityDetail_dlg').modal('hide');
+                
 
             }, function (errMsg) {
                 alert(errMsg.message);

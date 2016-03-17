@@ -9,18 +9,35 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
         };
 
         $scope.billsArray = [];
+        $scope.billInfo = {};//选中查看的财务明细信息
         $scope.cityArray = [];                               //城市列表
         $scope.regionArray = [];                             //所有区域列表
         $scope.originalRoles = [];                          //大工种列表
         var filters  = ['all'];
         var totalBillsPages = 1,curBillPage=1;
 
-        $scope.getPayStatus = function (code) {
-            if (code === 0) {
-                return '待审核 ';
-            } else if (code === 1) {
-                return '待复核 ';
-            }
+        //支付项
+        var billTypeCNTranslateObj = {
+            'construction':'工程款支付',
+            'settle':'工程款结算',
+            'withhold_margin':'抽取保证金',
+            'withdraw_margin':'保证金提现',
+            'recharge_margin':'保证金充值',
+            'recharge_margin_offline':'保证金线下充值',
+            'recharge_offline':'余额线下充值',
+            'recharge':'余额充值',
+            'withdraw':'余额提现',
+            'refund':'退款',
+            'earnest':'定金支付',
+            'trustee':'托管尾款支付'
+        };
+
+        //系统账户
+        var tradeTypeCNTranslateObj = {
+            'UzuooBasicCommission':'基础佣金账户',
+            'UzuooFloatCommission':'绩效佣金账户',
+            'UzuooTrusteedEarnest':'托管定金账户',
+            'UzuooTrusteedFinalPayment':'托管尾款账户'
         };
 
         //获取工人的城市和区域信息
@@ -78,16 +95,41 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             });
         }
 
-        $scope.getCashTargetStr = function(arry){
+        $scope.getCashSourceStr = function(arry){
+            if(arry === undefined)return '';
             var array = [];
             for(var x = 0 ; x <arry.length;++x){
-                array.push(arry[x].Capital_account_id);
-            }
 
-            var dd = array.join(',\r\n');
+                if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined){
+                    array.push(arry[x].capital_account_id);
+                }else{
+                    array.push(tradeTypeCNTranslateObj[arry[x].capital_account_id]);
+                }
+            }
             return array.join(',\r\n');
         };
 
+        $scope.getCashTargetStr = function(arry){
+            if(arry === undefined)return '';
+            var array = [];
+            for(var x = 0 ; x <arry.length;++x){
+
+                if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined){
+                    array.push(arry[x].phone);
+                }else{
+                    array.push(tradeTypeCNTranslateObj[arry[x].capital_account_id]);
+                }
+            }
+            return array.join(',');
+        };
+
+        $scope.translateBillType = function(type){
+            if(billTypeCNTranslateObj[type] === undefined){
+                return type;
+            }else{
+                return billTypeCNTranslateObj[type];
+            }
+        };
 
         $scope.checkBill = function (billInfo) {
 
@@ -199,6 +241,23 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             });
         }
 
+        $scope.getBillsDetailInfo = function(billInfo){
 
+            var detailLink = billInfo['href'];
+            var pos = detailLink.lastIndexOf('/');
+            var tradeId = detailLink.substr(pos+1);
+
+
+            ApiService.get('/bills/'+ tradeId, {}, function (data) {
+                if (data.result == 'success') {
+
+                    $scope.billInfo = data.content;
+                    $("#show_billDetail_dlg").modal('show');
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+        }
 
     }]);

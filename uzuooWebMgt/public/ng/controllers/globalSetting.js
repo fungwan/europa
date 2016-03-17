@@ -1,5 +1,5 @@
-angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', '$rootScope', 'ApiService','fileReader',
-    function ($scope, $location, $rootScope, ApiService,fileReader) {
+angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', '$rootScope', 'ApiService','fileReader','$upload',
+    function ($scope, $location, $rootScope, ApiService,fileReader,$upload) {
         $scope.initPage();
         $rootScope.sideBarSelect = {
             firstClassSel:'operationAdmin',
@@ -198,7 +198,7 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.updateRecommendRole = function () {
 
-            if(!$scope.selectRole.id){
+            if(!$scope.selectRole.id && !$scope.selectRole2.id){
                 alert('请选择更改项!');
                 return;
             }
@@ -206,7 +206,7 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
             var obj = {
                 'recommendations':$scope.recommendRoleArray
             };
-            ApiService.post('/setting/recommendRole', obj, function (data) {
+            /*ApiService.post('/setting/recommendRole', obj, function (data) {
                 if (data.result == 'fail') {
                     alert('推广工种更新失败！');
                     $scope.refreshRecommendRole();
@@ -216,7 +216,20 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
             }, function (errMsg) {
                 alert(errMsg.message);
+            });*/
+
+            $upload.upload({
+                url: 'api/setting/recommendRole',
+                data: {content:obj},
+                file:$scope.selRecommendRole.imgUploadData
+            }).success(function(data, status, headers, config) {        // file is uploaded successfully
+                $('#edit_recommendRole_dlg').modal('hide');
+            }).error(function(){
+                alert('推广工种更新失败！');
+                $scope.refreshRecommendRole();
             });
+
+
         };
 
         $scope.updateAppVersion = function () {
@@ -261,6 +274,17 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.getFile = function () {
             fileReader.readAsDataUrl($scope.file, $scope)
+                .then(function (result) {
+                    $scope.selRecommendRole.icon_href = result;
+                });
+        };
+
+        $scope.onFileSelect = function ($files) {
+            if ($files.length == 0) {
+                return;
+            }
+            $scope.selRecommendRole.imgUploadData = $files[0];
+            fileReader.readAsDataUrl($files[0], $scope)
                 .then(function (result) {
                     $scope.selRecommendRole.icon_href = result;
                 });

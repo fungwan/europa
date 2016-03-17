@@ -1,21 +1,33 @@
 /**
  * Created by Administrator on 2015/11/19.
  */
-exports.mongodb = {
-    cookieSecret: 'uzuooWebServiceDb',
-    db: 'UZUOO-WEB-Service',
+
+var mongodbAddr =  {
+    cookieSecret: '',
+    db: '',
     host: '',
     port: 27017,
     username:'',
-    password:'',
-    url:''
+    password:''
 };
 
-exports.bgMgtIpAddr = '';
-exports.bgMgtPortAddr = 3000;
+exports.mongodb = {
+    cookieSecret: mongodbAddr.cookieSecret,
+    db: mongodbAddr.db,
+    host: mongodbAddr.host,
+    port: mongodbAddr.port,
+    username:mongodbAddr.username,
+    password:mongodbAddr.password,
+    url:'mongodb://' + mongodbAddr.username + ':' + mongodbAddr.password + '@' + mongodbAddr.host+ ':' + mongodbAddr.port + '/' + mongodbAddr.db
+};
 
-exports.appCloudMgtIpAddr = '';  
-exports.appCloudPortAddr = 9010;//80;//
+exports.webMgtPort = 8001;
+
+exports.bgMgtIpAddr = '127.0.0.1';
+exports.bgMgtPortAddr = 8002;
+
+exports.appCloudMgtIpAddr = '';
+exports.appCloudPortAddr = ;
 exports.apiVersion = '/v1';
 
 exports.appID = '';
@@ -25,3 +37,4 @@ exports.apiKeySecret = '';
 exports.qiniuAccessKey = '';
 exports.qiniuSecretKey = '';
 exports.qiniuBuket = '';
+exports.qiniuUrl = '';

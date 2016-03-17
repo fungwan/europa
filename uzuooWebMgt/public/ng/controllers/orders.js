@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootScope', 'ApiService',
-    function ($scope, $location, $rootScope, ApiService) {
+angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootScope', 'ApiService','fileReader', '$upload',
+    function ($scope, $location, $rootScope, ApiService, fileReader, $upload) {
         $scope.initPage();
         $rootScope.sideBarSelect = {
             firstClassSel: 'billAdmin',
@@ -14,16 +14,18 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         var filters = ["all"];
 
         $scope.statusArrary = [
-        	{ name: "所有交易状态",value:''},
-            { name: "待付定金",value:0},
-            { name: "待签约" ,value:1},
-            { name: "待付款" ,value:2},
-            { name: "施工中" ,value:3},
-            { name: "待评价" ,value:4},
-            { name: "待施工" ,value:5},
-            { name: "已完工" ,value:6},
-            { name: "失效订单" ,value:100}
+            { name: "所有交易状态", value: '' },
+            { name: "待付定金", value: 0 },
+            { name: "待签约", value: 1 },
+            { name: "待付款", value: 2 },
+            { name: "施工中", value: 3 },
+            { name: "待评价", value: 4 },
+            { name: "待施工", value: 5 },
+            { name: "已完工", value: 6 },
+            { name: "失效订单", value: 100 }
         ];
+
+        $scope.contractItemStatusArrary = ["待托管尾款", "待施工", "施工中", "待验收", "已验收", "已完工"];
 
         $scope.searchFilter = {
             orderId: '',
@@ -34,8 +36,8 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         }
 
         $scope.previewImg = function (imgSrc) {
-        	$scope.preImgSrc = imgSrc;
-        } 
+            $scope.preImgSrc = imgSrc;
+        }
 
         $scope.onClickMore = function () {
             $scope.moreLink = !$scope.moreLink;
@@ -47,31 +49,31 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         }
 
         $scope.onSearch = function () {
-        	filters = [];
-        	if($scope.moreLink) {
+            filters = [];
+            if ($scope.moreLink) {
 
-        	} 
-        	if($scope.searchFilter.stutus.value !== '') {
-        		var item = 'status::' + $scope.searchFilter.stutus.value;
-        		filters.push(item);
-        	}
-        	if ($scope.searchFilter.orderId !== '') {
-        		var item = 'id::' + $scope.searchFilter.orderId;
-        		filters.push(item);
-        	};
-        	if ($scope.searchFilter.startDate !== '') {
-        		var ts = new Date($scope.searchFilter.startDate).getTime();
-        		var item = 'start_time::' + ts;
-        		filters.push(item);
-        	} 
-        	if ($scope.searchFilter.endDate != '') {
-        		var ts = new Date($scope.searchFilter.endDate).getTime();
-        		var item = 'end_time::' + ts;
-        		filters.push(item);
-        	}
+            }
+            if ($scope.searchFilter.stutus.value !== '') {
+                var item = 'status::' + $scope.searchFilter.stutus.value;
+                filters.push(item);
+            }
+            if ($scope.searchFilter.orderId !== '') {
+                var item = 'id::' + $scope.searchFilter.orderId;
+                filters.push(item);
+            };
+            if ($scope.searchFilter.startDate !== '') {
+                var ts = new Date($scope.searchFilter.startDate).getTime();
+                var item = 'start_time::' + ts;
+                filters.push(item);
+            }
+            if ($scope.searchFilter.endDate != '') {
+                var ts = new Date($scope.searchFilter.endDate).getTime();
+                var item = 'end_time::' + ts;
+                filters.push(item);
+            }
 
-        	if(filters.length == 0)
-        		filters = ['all'];
+            if (filters.length == 0)
+                filters = ['all'];
             getOrdersBypage(1);
         }
 
@@ -165,15 +167,66 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         
         
         //查看施工日志
-        $scope.onShowBuildingLogs = function(contractItem) {
+        $scope.onShowBuildingLogs = function (contractItem) {
             var pos = contractItem.building_logs_href.lastIndexOf('/contracts');
             var url = contractItem.building_logs_href.substr(pos);
+            $scope.buildingLogsUrl = url;
             ApiService.get(url, {}, function (data) {
                 $scope.buildingLogs = data.content;
-            }, function(errMsg) {
+            }, function (errMsg) {
                 errMsg;
             });
             $('#show_building_logs').modal('show');
+        }
+        
+        $scope.onShowCommitBuildingLogs = function () {
+            $scope.newBuildingLog = {
+                imgUploadData:'',
+                selectImg:'',
+                descriptive:''
+            }
+        }
+        
+        $scope.uploadBuildingLog = function () {
+            if ($scope.newBuildingLog.imgUploadData == '') {
+                alert('请选择上传的图片');
+                return;
+            }
+            if ($scope.newBuildingLog.descriptive == '') {
+                alert('请填写日志简述');
+                return;
+            }
+            var obj = {
+                building_logs: [{description:$scope.newBuildingLog.descriptive,
+                photos:[]}]
+            }
+            $upload.upload({
+                url: 'api/' + $scope.buildingLogsUrl,
+                data: {content:obj},
+                file:$scope.newBuildingLog.imgUploadData
+            }).progress(function(evt){
+                //alert(evt);
+            }).success(function(data, status, headers, config) {
+                //alert(data);
+                $('#commit-building-dialog').modal('hide');
+                ApiService.get($scope.buildingLogsUrl, {}, function (data) {
+                    $scope.buildingLogs = data.content;
+                }, function (errMsg) {
+                    errMsg;
+                });
+            });;
+        }
+        
+        
+        //
+        $scope.onFileSelect = function ($files) {
+            if ($files.length == 0) {
+                return;
+            }
+            $scope.newBuildingLog.imgUploadData = $files[0];
+            fileReader.readAsDataUrl($files[0], $scope).then(function (result) {
+                $scope.newBuildingLog.selectImg = result;
+            });
         }
         
         //初始化城市列表和工人列表
@@ -191,7 +244,7 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         }
 
         function getOrdersBypage(pageIndex) {
- 
+
             var obj = {
                 params: {
                     page: pageIndex,

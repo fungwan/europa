@@ -138,7 +138,7 @@
                             <div id="uzWorkerPage"></div>
                             <div class="pull-right">
                                 <button  type="button" data-target="#send_msg_dlg" data-toggle="modal" ng-click="onSendMsgForAllWorker()" class="btn btn-info">群发送通知</button>
-                                <button  type="button" data-target="#send_msg_dlg" data-toggle="modal" ng-click="onSendMsgForSelectedWorder()" class="btn btn-primary">向选中工人发送通知</button>
+                                <button  type="button" data-target="#send_msg_dlg" data-toggle="modal" ng-click="onSendMsgForSelectedWorker()" class="btn btn-primary">向选中工人发送通知</button>
                             </div>
                             
                         </div>
@@ -197,8 +197,8 @@
                                 </table>
                                 <div id="uzUserPage"></div>
                                 <div class="pull-right">
-                                    <button  type="button" data-target="#send_msg_dlg" data-toggle="modal" ng-click="onSendMsgForAllHouseOnwer()" class="btn btn-info">群发送通知</button>
-                                    <button  type="button" data-target="#send_msg_dlg" data-toggle="modal" ng-click="onSendMsgForSelectedHouseOnwer()" class="btn btn-primary">向选中业主发送通知</button>
+                                    <!--button  type="button" data-target="#send_msg_dlg" data-toggle="modal" ng-click="onSendMsgForAllHouseOwner()" class="btn btn-info">群发送通知</button>
+                                    <button  type="button" data-target="#send_msg_dlg" data-toggle="modal" ng-click="onSendMsgForSelectedHouseOwner()" class="btn btn-primary">向选中业主发送通知</button-->
                                 </div>
                             </div>
                         </div>
@@ -350,7 +350,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-
+                                        <a href="javascript:void(0)" ng-click="onShowInvitees('worker',selectWorker.invite_Info)">
+                                        <span class="badge badge-dark pull-right" ng-bind="selectWorker.invite_Info.invitation_code"></span></a><label>邀请码：</label>
                                     </div>
                                 </div>
                                 <div class="pull-right" ng-if="selectWorker.verified !== 2">
@@ -386,7 +387,7 @@
                                         <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectWorker.mBalanceOwns"></span>
                                     </a>
                                     <a href="javascript:;" class="list-group-item">累积收入
-                                        <span class="badge badge-danger pull-right">豪</span>
+                                        <span class="badge badge-danger pull-right" ng-bind="selectWorker.mTotalIncome"></span>
                                     </a>
                                 </div>
                                 <div class="pull-right">
@@ -445,7 +446,7 @@
                                         <img id="imghead" border=1 src="{{selectWorker.selectImg}}" width="256" height="256" />
                                     </div>
                                 </div>
-                                <input id="input-upload" type="file" file-model="myFile"/>
+                                <input id="input-upload" type="file" ng-file-select="onFileSelect($files)"/>
                             </div>
                         </form>
                     </div>
@@ -524,7 +525,12 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="javascript:void(0)" ng-click="onShowInvitees('houseOwner',selectHouseOwner.invite_Info)">
+                                            <span class="badge badge-dark pull-right" ng-bind="selectWorker.invite_Info.invitation_code"></span></a><label>邀请码：</label>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -697,6 +703,49 @@
 </div>
 
 
+<div  id="show_invitees_dlg" tabindex="-1" data-backdrop="static" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-wide-width-label" class="modal-title">受邀人名单,总人数为{{inviteesArray.length}}人。</h4>
+            </div>
+            <div class="panel-body" style="height:300px; overflow:auto;">
+                <div id="grid-layout-table1" class="box jplist">
+                    <div class="box text-shadow">
+                        <table id="verifiedRecord-table" class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>注册时间</th>
+                                <th>电话</th>
+                                <th>类型</th>
+                                <th>姓名</th>
+                                <th>验证时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="inviter in inviteesArray">
+                                <td ng-bind="timeToStr(inviter.create_time*1000)">2015/12/12</td>
+                                <td ng-bind="inviter.phone">失败</td>
+                                <td  ng-bind="inviter.type">无法看清号码</td>
+                                <td  ng-bind="inviter.full_name">无法看清号码</td>
+                                <td  ng-bind="timeToStr(inviter.verify_time*1000)">无法看清号码</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <div class="col-md-12">
+                        <button ng-if="inviteesDlgType=='worker'" ng-click="onBackToLastDlg('worker')" type="button" class="btn btn-default">返回</button>
+                        <button ng-if="inviteesDlgType=='houseOwner'" ng-click="onBackToLastDlg('houseOwner')" type="button" class="btn btn-default">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
+</div>
 
 

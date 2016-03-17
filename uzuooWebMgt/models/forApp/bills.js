@@ -88,6 +88,54 @@ exports.getBills = function(req,res){
     );
 };
 
+exports.getBillById = function(req,res){
+
+    var billId = req.params.billId;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_tradeDetails: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+
+                var billsPath = '/tradeDetails/'+billId +'?accessToken=' + token;
+
+                var item = {};
+                item['path'] = billsPath;
+                request.get(item,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                var tradeDetailObj = jsonConvert.stringToJson(result.get_tradeDetails);
+
+                res.json({
+                    result: 'success',
+                    content: tradeDetailObj})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
 exports.updateBillStatusById = function(req,res){
 
     var billId = req.params.billId;

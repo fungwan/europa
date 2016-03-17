@@ -12,6 +12,7 @@ var fs = require("fs");
 
 var uuid = require('node-uuid');
 var qiniu = require('qiniu');
+var multiparty = require('multiparty');
 //Qn1ZHcP_WhGVHH3xW-tnsxMkJZTVydj4Fy3zLYj1
 //DrKZUYTpYBApJAFBRSH5u7xaXd4xaSto9uq1eZfw
 
@@ -100,118 +101,119 @@ function verifiedSuccess(id,token){
 
 exports.updateWorkerProfileById = function(req,res){
 
-    var content = req.body.content;
-    var imgData = content.verify_photo;
+    //var content = req.body;
+    //var imgData = req.file;
+    var form = new multiparty.Form();
+    form.parse(req, function(err, fields, files) {
+        //res.write('received upload:\n\n');
+        //res.end(util.inspect({fields: fields, files: files}));
+        var content =  JSON.parse(fields.content[0]);
+        var savePath = '';
+        if (files && files.file && files.file[0] && files.file[0].headers && files.file[0].headers['content-type'].search('image') !== -1) {
+            savePath = files.file[0].path;
+        }
+        console.log(content);
+        tokenMgt.getToken(function(err,token){
+            if(!err){
 
-    tokenMgt.getToken(function(err,token){
-        if(!err){
+                //更新工人联系方式
 
-            //更新工人联系方式
+                var optionItem = {};
+                var putPath = '/workers/' + content.id + '/verification?accessToken=' + token;
+                optionItem['path'] = putPath;
 
-            var optionItem = {};
-            var putPath = '/workers/' + req.body.id + '/verification?accessToken=' + token;
-            optionItem['path'] = putPath;
+                if(!savePath){
 
-            if(imgData.search(/^data:image\/\w+;base64,/) === -1){
+                    //图片不用更新上传,只更新其他数据
 
-                //图片不用更新上传,只更新其他数据
+                    //content.verify_photo = '';//图片上传失败。不更新db数据
+                    //var bodyString = JSON.stringify(content);
+                    verifiedSuccess(content.id,token);
 
-                content.verify_photo = '';//图片上传失败。不更新db数据
-                var bodyString = JSON.stringify(content);
+                    /*request.post(optionItem,bodyString,function(err,results){
+                        if(err === null){
 
-                request.post(optionItem,bodyString,function(err,results){
-                    if(err === null){
+                            verifiedSuccess(content.id,token);
 
-                        verifiedSuccess(req.body.id,token);
+                            res.json({ result: 'success',
+                                content:results});
+                        }else{
 
-                        res.json({ result: 'success',
-                            content:results});
-                    }else{
-
-                        if(err === 403){
-                            tokenMgt.setTokenExpireStates(true);
-                        }
-
-                        res.json({ result: 'fail',
-                            content:err});
-                    }
-                });
-
-            }else{
-                var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
-                var dataBuffer = new Buffer(base64Data, 'base64');
-                var workerId = req.body.id;
-                var savePath = workerId + '.jpg';
-                fs.writeFile(savePath, dataBuffer, function(err) {
-                    if(err){
-                        res.json({ result: 'fail',
-                            content:err});
-                    }else{
-
-                        tokenMgt.getQiniuToken(function(err,qiniu_token){
-                            if(err !== null){
-                                res.json({ result: 'fail',
-                                    content:err});
+                            if(err === 403){
+                                tokenMgt.setTokenExpireStates(true);
                             }
 
-                            //qiniuToken为我自己生成
-                            var qiniuFileName = uuid.v1();
-                            uploadFile(savePath,qiniuFileName,qiniuToken.token(),function(err,results){
-                                if(err === null){
-                                    content.verify_photo = qiniuFileName;
-                                    var bodyString = JSON.stringify(content);
+                            res.json({ result: 'fail',
+                                content:err});
+                        }
+                    });*/
 
-                                    request.post(optionItem,bodyString,function(err,results){
-                                        if(err === null){
+                }else{
+                    tokenMgt.getQiniuToken(function(err,qiniu_token){
+                        if(err !== null){
+                            res.json({ result: 'fail',
+                                content:err});
+                        }
 
-                                            verifiedSuccess(req.body.id,token);
+                        //qiniuToken为我自己生成
+                        var qiniuFileName = uuid.v1();
+                        uploadFile(savePath,qiniuFileName,qiniuToken.token(),function(err,results){
+                            if(err === null){
+                                content.verify_photo = qiniuFileName;
+                                var bodyString = JSON.stringify(content);
 
-                                            res.json({ result: 'success',
-                                                content:results});
-                                        }else{
+                                request.post(optionItem,bodyString,function(err,results){
+                                    if(err === null){
 
-                                            if(err === 403){
-                                                tokenMgt.setTokenExpireStates(true);
-                                            }
+                                        verifiedSuccess(content.id,token);
 
-                                            res.json({ result: 'fail',
-                                                content:err});
+                                        res.json({ result: 'success',
+                                            content:results});
+                                    }else{
+
+                                        if(err === 403){
+                                            tokenMgt.setTokenExpireStates(true);
                                         }
-                                    });
 
-                                }else{
-                                    content.verify_photo = '';//图片上传失败。不更新db数据
-                                    var bodyString = JSON.stringify(content);
+                                        res.json({ result: 'fail',
+                                            content:err});
+                                    }
+                                });
 
-                                    request.post(optionItem,bodyString,function(err,results){
-                                        if(err === null){
+                            }else{
+                                content.verify_photo = '';//图片上传失败。不更新db数据
+                                var bodyString = JSON.stringify(content);
 
-                                            verifiedSuccess(req.body.id,token);
+                                request.post(optionItem,bodyString,function(err,results){
+                                    if(err === null){
 
-                                            res.json({ result: 'success',
-                                                content:results});
-                                        }else{
+                                        verifiedSuccess(content.id,token);
 
-                                            if(err === 403){
-                                                tokenMgt.setTokenExpireStates(true);
-                                            }
+                                        res.json({ result: 'success',
+                                            content:results});
+                                    }else{
 
-                                            res.json({ result: 'fail',
-                                                content:err});
+                                        if(err === 403){
+                                            tokenMgt.setTokenExpireStates(true);
                                         }
-                                    });
-                                }
-                            });
+
+                                        res.json({ result: 'fail',
+                                            content:err});
+                                    }
+                                });
+                            }
                         });
-                    }
-                });
+                    });
+                }
+            }else{
+                console.error('can not get token...');
+                res.json({ result: 'fail',
+                    content:err});
             }
-        }else{
-            console.error('can not get token...');
-            res.json({ result: 'fail',
-                content:err});
-        }
+        }); 
     });
+
+
 };
 
 /*exports.findWorkersByPage = function(req,res){
@@ -1033,29 +1035,90 @@ exports.chargeAccount = function(req,res){
 };
 
 
+exports.findInviteesById = function(req,res){
 
-//exports.findUserByName = function(req,res){
-//
-//    var username = req.query.username;
-//    var options = connectAddr + '/users?$filter=username eq ' + '\'' + username + '\'' ;
-//
-//    request.get(options,function(err,results){
-//        if(err === null){
-//            var jsonObj = jsonConvert.stringToJson(results);
-//            var array = jsonObj['value'];
-//            if(array.length === 0){
-//                //no user in db
-//                res.json({ result: 'success',
-//                    content:''});
-//            }else{
-//
-//                res.json({ result: 'fail',
-//                    content:'user has been exist...'});
-//            }
-//        }else{
-//            res.json({ result: 'fail',
-//                content:err});
-//        }
-//    });
-//
-//};
+    var accountId = req.params.accountId;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_inviteesInfo:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/accounts/' + accountId +'/invitees?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var inviteesInfo = jsonConvert.stringToJson(results.get_inviteesInfo);
+                res.json({ result: 'success',
+                    content:inviteesInfo});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+
+};
+
+exports.sendNotifications = function(req,res){
+
+    /*async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            send_notifications:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/notifications?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })*/
+
+
+    res.json({ result: 'success',
+        content:{}});
+}

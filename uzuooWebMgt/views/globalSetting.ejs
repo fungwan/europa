@@ -199,7 +199,7 @@
                                 <div class="col-md-9">
                                     <div id="preview">
                                         <img ng-model="selRecommendRole.icon_href" id="imghead" border=1 src="{{selRecommendRole.icon_href}}" width="128" height="128" />
-                                        <input id="input-upload" type="file" file-model="myFile"/>
+                                        <input id="input-upload" type="file" ng-file-select="onFileSelect($files)"/>
                                     </div>
                                 </div>
                             </div>

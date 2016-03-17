@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var settings = require('./conf/settings').mongodb;
+var settings = require('./conf/settings');
+var mongoSettings = settings.mongodb;
 
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -30,23 +31,32 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    secret: settings.cookieSecret,
-    key: settings.db,//cookie name
+    secret: mongoSettings.cookieSecret,
+    key: mongoSettings.db,//cookie name
     cookie: {maxAge: 1000 * 60 * 60},//1000 * 60 * 60 * 24 * 30 == 30 days,here is half and hour
     store: new MongoStore({
-        db: settings.db,
-        host: settings.host,
-        port: settings.port,
-        username:settings.username,
-        password:settings.password
+        db: mongoSettings.db,
+        host: mongoSettings.host,
+        port: mongoSettings.port,
+        username:mongoSettings.username,
+        password:mongoSettings.password
     }),
     resave: false,
     saveUninitialized: true
 }));
 
+var odata = require('node-odata');
+
+var odataServer = odata(mongoSettings.url);//mongodb://username:password@ip:port/dbName
+
+//about resource
+var resource = require('./models/odata');
+resource(odataServer);
+
+odataServer.listen(settings.bgMgtPortAddr);
 
 var mongodb = require('mongodb');
-mongodb.connect(settings.url, function(error, db) {//mongodb://username:password@ip:port/dbName
+mongodb.connect(mongoSettings.url, function(error, db) {//mongodb://username:password@ip:port/dbName
     var mongoBackend = new acl.mongodbBackend(db, 'acl_');
     acl = new acl(mongoBackend);
 
@@ -101,7 +111,7 @@ mongodb.connect(settings.url, function(error, db) {//mongodb://username:password
     });
 
 
-    app.set('port', process.env.PORT || 8001);
+    app.set('port', settings.webMgtPort);
 
 
 //var server = app.listen(app.get('port'), function() {

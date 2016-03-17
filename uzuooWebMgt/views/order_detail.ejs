@@ -122,7 +122,7 @@
                                                             <td class="active" ng-bind="contractItem.name"></td>
                                                             <td class="active" ng-bind="contractItem.amount/100 + '元人民币'"></td>
                                                             <td class="active" ng-bind="contractItem.due_time/86400 + '天' "></td>
-                                                            <td class="active" ng-bind="contractItem.status"></td>
+                                                            <td class="active" ng-bind="contractItemStatusArrary[contractItem.status]"></td>
                                                             <td>
                                                                 <button type="button" data-toggle="modal" class="btn btn-default btn-xs" ng-click="onShowBuildingLogs(contractItem)"><i class="fa fa-archive"></i>&nbsp;施工日志</button>&nbsp;
                                                             </td>
@@ -180,11 +180,50 @@
                         </table>
                     </div>
                 </div>
+                <button type="button" data-toggle="modal" data-target="#commit-building-dialog" class="btn btn-default btn-xs" ng-click="onShowCommitBuildingLogs()"><i class="fa fa-archive"></i>&nbsp;上传施工日志</button>&nbsp;
             </div>
         </div>
-
     </div>
 </div>
+
+
+<div id="commit-building-dialog" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <h4 class="modal-title">上传施工日志</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form class="form-horizontal">
+                            <div class="form-body pal">
+                                <div class="form-group">
+                                    <div id="preview">
+                                        <img id="imghead" border=1 src="{{newBuildingLog.selectImg}}" width="256" height="256" />
+                                    </div>
+                                </div>
+                                <input id="input-upload" type="file" ng-file-select="onFileSelect($files)" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputMessage" class="control-label">日志简述:</label>
+                            <textarea rows="10" class="form-control" ng-model='newBuildingLog.descriptive'></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions text-right pal">
+                    <button ng-click="uploadBuildingLog()" class="btn btn-pink">上传日志</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 <div aria-hidden="true" id="show_img_preview" tabindex="-1" class="modal fade">
