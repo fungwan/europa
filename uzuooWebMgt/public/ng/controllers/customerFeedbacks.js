@@ -11,19 +11,52 @@ angular.module('myApp').controller('FeedbacksCtrl', ['$scope', '$location', '$ro
         $scope.feedbackInfoArray = [];                            //反馈信息
         $scope.workerInfo = {};
         $scope.orderInfo = {};
+        var curFeedbackPage = 1,totalFeedbackPages = 1;
+        var filters  = ['all'];
 
-        function getFeedbackInfo(){
-            ApiService.get('/feedbacks', {}, function (data) {
+        function getFeedbackInfo(cur,filterArray){
+
+            var obj = {
+                params: {
+                    page: cur,
+                    filters:filterArray
+                }
+            };
+
+            ApiService.get('/feedbacks',obj, function (data) {
                 if (data.result == 'success') {
                     $scope.feedbackInfoArray = data.content;
-
+                    totalFeedbackPages = data.pages;
+                    feedbackPaging(cur);
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
             });
         }
 
-        getFeedbackInfo();
+        function feedbackPaging(pageIndex) {
+            var firstScreeningPagination = false;
+            laypage({
+                cont: $('#feedbackPage'),
+                pages: totalFeedbackPages,
+                skip: true,
+                skin: 'yahei',
+                curr: pageIndex,//view上显示的页数是索引加1
+                groups: 5,
+                hash: false,
+                jump: function (obj) {//一定要加上first的判断，否则会一直刷新
+                    curFeedbackPage = obj.curr;
+                    if (!firstScreeningPagination) {
+                        firstScreeningPagination = true;
+                    } else {
+                        getFeedbackInfo(obj.curr,filters);
+                        firstScreeningPagination = false;
+                    }
+                }
+            });
+        }
+
+        getFeedbackInfo(1,['all']);
 
         $scope.onShowUserInfo = function (feedbackInfo) {
 

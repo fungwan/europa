@@ -19,16 +19,31 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         $scope.totalWorkersPages = 1;                   //工人的总页数
         $scope.curWorkersPage = 1;                   //工人的当前页
         $scope.workersInfo = [];                            //工人信息
-        $scope.inviteesArray = [];                  //受邀人信息
         $scope.inviteesDlgType = '';                  //工人OR业主的受邀人弹框
-
+        $scope.inviteesArray = [];
+        $scope.tradDetailArray = [];
         $scope.imageSrc = $rootScope.defaultVerifiedImg;
-        var filters  = ['all'], houseOwnerfilters = ['all'];
+        var filters  = ['all'], houseOwnerFilters = ['all'];
 
         var sendTargetObj = {
             type:'',//通知的目標人群，worker|houseOwner
             method:'',//通知的方式針，對篩選條件的群發和指定勾選的人員，mass|assign
             filter:''//篩選條件或者account列表，依據method寫值
+        };
+
+        var billTypeCNTranslateObj = {
+            'construction':'工程款支付',
+            'settle':'工程款结算',
+            'withhold_margin':'抽取保证金',
+            'withdraw_margin':'保证金提现',
+            'recharge_margin':'保证金充值',
+            'recharge_margin_offline':'保证金线下充值',
+            'recharge_offline':'余额线下充值',
+            'recharge':'余额充值',
+            'withdraw':'余额提现',
+            'refund':'退款',
+            'earnest':'定金支付',
+            'trustee':'托管尾款支付'
         };
 
         $scope.sendMsg ={
@@ -45,12 +60,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             regionSelArray: [],                      //城市的区域列表
             originalRoleSel: {},                 //多选大工种
             craftsArray: []                      //细分工种
-        }
-
-        $scope.houseOnwerSearchFilter = {
-            keyword:'nick_name',
-            keywordValue:''
-        }
+        };
 
         //工人详细信息
         $scope.selectWorker = {};
@@ -119,19 +129,10 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
             if (filters.length == 0) {
                 filters = ['all'];
-            };
+            }
 
             getWorkersBypage(1);
-        }
-
-        $scope.onHouseOwnerSearch = function () {
-            houseOwnerfilters = ['all'];
-            if ($scope.houseOnwerSearchFilter.keywordValue) {
-                var filterStr = $scope.houseOnwerSearchFilter.keyword + '::' + $scope.houseOnwerSearchFilter.keywordValue;
-                houseOwnerfilters = [filterStr];
-            }
-            getHouseOwnerBypage (1);
-        }
+        };
 
         $scope.onClickMore = function () {
             $scope.moreLink = !$scope.moreLink;
@@ -181,7 +182,8 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             } else if (verifiedCode === 3) {
                 return '认证驳回';
             }
-        }
+        };
+
         //获取工人的城市和区域信息
         $scope.getCityAndRegionStr = function (regionArray) {
             var regionsStr = '';
@@ -248,6 +250,8 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                 alert(errMsg.message);
             });
 
+            getWorkerDecorationCases();
+
             ApiService.get('/invitees/' + workerId, obj, function (data) {
                 if (data.result == 'success') {
                     $scope.selectWorker.invite_Info = data.content;
@@ -257,7 +261,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
 
             $('#edit_worker_dlg').modal('show');
-        }
+        };
 
         $scope.onShowSceneVerified = function () {
             $('#verified-dialog').modal('show');
@@ -286,14 +290,33 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         };
 
+        $scope.onShowDecorationCases = function(type,id){
+
+            var url = '/workers/' + $scope.selectWorker.workerId + '/decorationCases/' + id;
+            ApiService.get(url, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectWorker.casesDetailArray = data.content.items;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+            $('#edit_worker_dlg').modal('hide');
+            $('#edit_houseOwner_dlg').modal('hide');
+
+            $('#show_decorationCases_dlg').modal('show');
+
+        };
+
         $scope.onBackToLastDlg = function(type){
 
             $('#show_invitees_dlg').modal('hide');
+            $('#show_tradDetail_dlg').modal('hide');
+            $('#show_decorationCases_dlg').modal('hide');
 
             if(type === 'worker'){
-
                 $('#edit_worker_dlg').modal('show');
-            }else{
+            }else if(type === 'houseOwner'){
                 $('#edit_houseOwner_dlg').modal('show');
             }
 
@@ -340,7 +363,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         //获取工人个人账户信息
         function getWorkerCapitalAccount() {
-            var url = '/workers/' + $scope.selectWorker.workerId + '/capitalAccount';
+            var url = '/capitalAccount/' + $scope.selectWorker.workerId ;
             ApiService.get(url, {}, function (data) {
                 if (data.result == 'success') {
                     $scope.selectWorker.balance = data.content.balance / 100;
@@ -355,23 +378,51 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         }
 
+        $scope.translateBillType = function(type){
+            if(billTypeCNTranslateObj[type] === undefined){
+                return type;
+            }else{
+                return billTypeCNTranslateObj[type];
+            }
+        };
 
-        //获取业主个人账户信息
-        function getHouseOwnerCapitalAccount() {
-            var url = '/workers/' + $scope.selectHouseOwner.houseOwnerId + '/capitalAccount';
+        //获取对应用户的账户明细
+        $scope.getCapitalDetails = function(account,accountType,userType){
+            $scope.inviteesDlgType = userType;
+            var id = account['workerId'];//暂时只查用户
+
+            var url = '/capitalAccount/' + id + '/details';
+            ApiService.get(url, {
+
+                params: {
+                    accountType: accountType
+                }
+
+
+            }, function (data) {
+                if (data.result == 'success') {
+                    $('#edit_worker_dlg').modal('hide');
+                    $scope.tradDetailArray = data.content;
+                    $('#show_tradDetail_dlg').modal('show');
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+        };
+
+        //获取工人案例信息
+        function getWorkerDecorationCases() {
+            var url = '/workers/' + $scope.selectWorker.workerId + '/decorationCases';
             ApiService.get(url, {}, function (data) {
                 if (data.result == 'success') {
-                    $scope.selectHouseOwner.balance = data.content.balance / 100;
-                    $scope.selectHouseOwner.mBalanceOwns = data.content.margin_balance.owns / 100;
-                    $scope.selectHouseOwner.mBalanceSystem = data.content.margin_balance.system / 100;
-
+                    $scope.selectWorker.casesArray = data.content.decoration_cases;
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
             });
 
         }
-
 
         //获取认证记录
         function getVerificationLogs() {
@@ -485,74 +536,13 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
         };
 
-
-        $scope.onShowMoreHouseInfo = function (houseOnwer) {
-            $scope.selectHouseOwner = cloneObj(houseOnwer);
-            var pos = houseOnwer['href'].lastIndexOf('/');
-            var houseOnwerId = houseOnwer['href'].substr(pos + 1);    
-            $scope.selectHouseOwner.houseOwnerId = houseOnwerId;
-            $scope.selectHouseOwner.fullName = $scope.selectHouseOwner.first_name + $scope.selectHouseOwner.last_name;
-            $scope.selectHouseOwner.imgHref = $rootScope.defaultVerifiedImg;
-            if ($scope.selectHouseOwner.avatar)
-                $scope.selectHouseOwner.imgHref = $rootScope.qiniuUrl + $scope.selectHouseOwner.avatar;
-            var url = '/houseOwners/' + houseOnwerId;
-            ApiService.get(url, {}, function (data) {
-                if (data.result == 'success') {
-                    $scope.selectHouseOwner.invitation_code = data.content.invitation_code;
-                }
-            }, function (errMsg) {
-                alert(errMsg.message);
-            });  
-            getHouseOwnerCapitalAccount();
-
-            ApiService.get('/invitees/' + houseOnwerId, {}, function (data) {
-                if (data.result == 'success') {
-                    $scope.selectHouseOwner.invite_Info = data.content;
-                }
-            }, function (errMsg) {
-                alert(errMsg.message);
-            });
-
-            $('#edit_houseOwner_dlg').modal('show');  
-        }
-        //初始化城市列表和工人列表
-        function getRoleAndRegionsInfo() {
-            var obj = {};
-            ApiService.get('/doGetRoleAndRegionsInfo', obj, function (data) {
-                if (data.result == 'success') {
-                    $scope.regionsAndRolesArray = data.content.get_roleAndRegions;
-                    $scope.provinceArray = $scope.regionsAndRolesArray[0][0];
-                    $scope.regionArray = $scope.regionsAndRolesArray[0][1];
-                    $scope.rolesArray = $scope.regionsAndRolesArray[1];
-                    $scope.originalRoles = $scope.rolesArray[0];
-
-                    var nilProvince = { name: '-- 请选择省份 --' };
-                    $scope.provinceArray.push(nilProvince);
-                    $scope.workSearchFilter.provinceSel = $scope.provinceArray[$scope.provinceArray.length - 1];
-
-                    var nilRole = { name: '-- 请选择工种 --' };
-                    $scope.originalRoles.push(nilRole);
-                    $scope.workSearchFilter.originalRoleSel = $scope.originalRoles[$scope.originalRoles.length - 1];
-
-                    getWorkersBypage(1);
-
-                }
-            }, function (errMsg) {
-                alert(errMsg.message);
-            });
-        }
-
-
-        getRoleAndRegionsInfo();
-
-
         function getWorkersBypage(pageIndex) {
             var obj = {
                 params: {
                     page: pageIndex,
                     filters: filters
                 }
-            }
+            };
             ApiService.get('/workers', obj, function (data) {
                 if (data.result == 'success') {
                     $scope.workersInfo = data.content;
@@ -602,14 +592,44 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         //业主tab
         $scope.currHousePage = 1;
 
+        $scope.houseOnwerSearchFilter = {
+            keyword:'nick_name',
+            keywordValue:''
+        };
+
+        $scope.onHouseOwnerSearch = function () {
+            houseOwnerFilters = ['all'];
+            if ($scope.houseOnwerSearchFilter.keywordValue) {
+                var filterStr = $scope.houseOnwerSearchFilter.keyword + '::' + $scope.houseOnwerSearchFilter.keywordValue;
+                houseOwnerFilters = [filterStr];
+            }
+            getHouseOwnerBypage (1);
+        };
+
+        //获取业主个人账户信息
+        function getHouseOwnerCapitalAccount() {
+            var url = '/capitalAccount/' + $scope.selectHouseOwner.houseOwnerId;
+            ApiService.get(url, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectHouseOwner.balance = data.content.balance / 100;
+                    $scope.selectHouseOwner.mBalanceOwns = data.content.margin_balance.owns / 100;
+                    $scope.selectHouseOwner.mBalanceSystem = data.content.margin_balance.system / 100;
+
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+        }
+
         function getHouseOwnerBypage (pageIndex) {
             var obj = {
                 params: {
                     page: pageIndex,
-                    filters: houseOwnerfilters
+                    filters: houseOwnerFilters
                 }
             }
-            ApiService.get('/doFindHouseOwnersByPage', obj, function (data) {
+            ApiService.get('/houseOwners', obj, function (data) {
                 if (data.result == 'success') {
                     $scope.houseOwnersInfo = data.content;
                     $scope.totalHousesPages = data.pages;
@@ -651,5 +671,228 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
         }
         getHouseOwnerBypage($scope.currHousePage);
+
+        $scope.onShowMoreHouseInfo = function (houseOnwer) {
+            $scope.selectHouseOwner = cloneObj(houseOnwer);
+            var pos = houseOnwer['href'].lastIndexOf('/');
+            var houseOnwerId = houseOnwer['href'].substr(pos + 1);
+            $scope.selectHouseOwner.houseOwnerId = houseOnwerId;
+            $scope.selectHouseOwner.fullName = $scope.selectHouseOwner.first_name + $scope.selectHouseOwner.last_name;
+            $scope.selectHouseOwner.imgHref = $rootScope.defaultVerifiedImg;
+            if ($scope.selectHouseOwner.avatar)
+                $scope.selectHouseOwner.imgHref = $rootScope.qiniuUrl + $scope.selectHouseOwner.avatar;
+            var url = '/houseOwners/' + houseOnwerId;
+            ApiService.get(url, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectHouseOwner.invitation_code = data.content.invitation_code;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+            getHouseOwnerCapitalAccount();
+
+            ApiService.get('/invitees/' + houseOnwerId, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectHouseOwner.invite_Info = data.content;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+            $('#edit_houseOwner_dlg').modal('show');
+        };
+
+
+        //商家tab
+        var currMerchantPage = 1,totalMerchantsPages;
+        var merchantFilters = ['all'];
+
+        $scope.merchantsSearchFilter = {
+            verified:'all'
+        };
+
+        $scope.onMerchantsSearch = function () {
+            merchantFilters = [];
+            if ($scope.merchantsSearchFilter.verified !== 'all') {
+                var verifiedFilterStr = 'verified::' + $scope.merchantsSearchFilter.verified;
+                merchantFilters.push(verifiedFilterStr);
+            }
+
+            if (merchantFilters.length == 0) {
+                merchantFilters = ['all'];
+            }
+
+            getMerchantsByPage (1);
+        };
+
+        //翻译商家认证状态
+//        $scope.getMerchantVerifiedStatus = function (verifiedCode) {
+//            if (verifiedCode === 0) {
+//                return '未认证';
+//            } else if (verifiedCode === 1) {
+//                return '已认证';
+//            } else if (verifiedCode === 2) {
+//                return '认证驳回';
+//            } else if (verifiedCode === 3) {
+//                return '待认证';
+//            }
+//        };
+
+        function getMerchantsByPage (pageIndex) {
+            var obj = {
+                params: {
+                    page: pageIndex,
+                    filters: merchantFilters
+                }
+            };
+            ApiService.get('/merchants', obj, function (data) {
+                if (data.result == 'success') {
+                    $scope.merchantsInfoArray = data.content;
+                    totalMerchantsPages = data.pages;
+
+                    if($scope.merchantsInfoArray.length === 0 && currMerchantPage > 1){
+                        getMerchantsByPage(currMerchantPage - 1);
+                        return;
+                    }
+
+                    //分页控件
+                    merchantsPaging(pageIndex);
+
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        }
+
+        function merchantsPaging(pageIndex) {
+            var firstScreeningPagination = false;
+            laypage({
+                cont: $('#uzBusinessPage'),
+                pages: totalMerchantsPages,
+                skip: true,
+                skin: 'yahei',
+                curr: pageIndex,//view上显示的页数是索引加1
+                groups: 5,
+                hash: false,
+                jump: function (obj) {//一定要加上first的判断，否则会一直刷新
+                    currMerchantPage = obj.curr;
+                    if (!firstScreeningPagination) {
+                        firstScreeningPagination = true;
+                    } else {
+                        getMerchantsByPage(obj.curr);
+                        firstScreeningPagination = false;
+                    }
+                }
+            });
+        }
+
+        //获取商家的商家类别信息
+        $scope.getMerchantCategoryStr = function (categories) {
+            if (!categories)
+                return;
+            var firstStr, secondStr = '';
+            if (categories[0]) {
+                firstStr = $scope.merchantRolesArray[1][categories[0].role_id].name
+            }
+            if (categories[1]) {
+                secondStr = $scope.merchantRolesArray[1][categories[1].role_id].name
+            }
+            return {
+                first: firstStr,
+                second: secondStr
+            }
+        };
+
+        //获取业主个人账户信息
+        function getMerchantCapitalAccount() {
+            var url = '/capitalAccount/' + $scope.selectMerchant.merchantId;
+            ApiService.get(url, {}, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectMerchant.balance = data.content.balance / 100;
+                    $scope.selectMerchant.mBalanceOwns = data.content.margin_balance.owns / 100;
+                    $scope.selectMerchant.mBalanceSystem = data.content.margin_balance.system / 100;
+                    $scope.selectMerchant.mTotalIncome = data.content.total_income / 100;
+
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+        }
+
+        $scope.onShowMerchantDetailInfo = function (merchant) {
+            var city = $scope.getCityAndRegionStr(merchant.regions).city;
+            var detailLink = merchant['href'];
+            var pos = detailLink.lastIndexOf('/');
+            var merchantId = detailLink.substr(pos + 1);
+            $scope.selectMerchant = {
+                fullName: merchant.first_name + merchant.last_name,
+                first_name: merchant.first_name,
+                last_name: merchant.last_name,
+                phone: merchant.phone,
+                id_card_no: merchant.id_card_no,
+                work_city: city,
+                verified: merchant.verified,
+                imgHref: "images/avatar/avatar_loading.gif",
+                categories: merchant.categories,
+                merchantId: merchantId
+            };
+
+            getMerchantCapitalAccount();
+
+            var obj = {};
+            ApiService.get('/merchants/' + merchantId, obj, function (data) {
+                if (data.result == 'success') {
+                    $scope.selectMerchant.score = data.content.score;
+                    $scope.selectMerchant.imgHref = $rootScope.defaultVerifiedImg;
+                    if (data.content.verify_photo)
+                        $scope.selectMerchant.imgHref = $rootScope.qiniuUrl + data.content.verify_photo;
+                    $scope.selectMerchant.selectImg = $scope.selectMerchant.imgHref;
+                    $scope.selectMerchant.review = data.content.review;
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+            $('#edit_merchant_dlg').modal('show');
+        };
+
+        //初始化城市列表和工人列表
+        function getRoleAndRegionsInfo() {
+            var obj = {};
+            ApiService.get('/doGetRoleAndRegionsInfo', obj, function (data) {
+                if (data.result == 'success') {
+                    $scope.regionsAndRolesArray = data.content.get_roleAndRegions;
+                    $scope.provinceArray = $scope.regionsAndRolesArray[0][0];
+                    $scope.regionArray = $scope.regionsAndRolesArray[0][1];
+                    $scope.rolesArray = $scope.regionsAndRolesArray[1];
+                    $scope.originalRoles = $scope.rolesArray[0];
+
+                    $scope.merchantRolesArray = $scope.regionsAndRolesArray[2];
+                    $scope.originalMerchantRoles = $scope.merchantRolesArray[0];
+
+                    var nilProvince = { name: '-- 请选择省份 --' };
+                    $scope.provinceArray.push(nilProvince);
+                    $scope.workSearchFilter.provinceSel = $scope.provinceArray[$scope.provinceArray.length - 1];
+
+                    var nilRole = { name: '-- 请选择工种 --' };
+                    $scope.originalRoles.push(nilRole);
+                    $scope.workSearchFilter.originalRoleSel = $scope.originalRoles[$scope.originalRoles.length - 1];
+
+                    getWorkersBypage(1);
+                    getMerchantsByPage(1);
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        }
+
+
+        getRoleAndRegionsInfo();
+
+
+
+
+
     }
 ]);

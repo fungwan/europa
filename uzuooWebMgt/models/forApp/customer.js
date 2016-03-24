@@ -878,13 +878,60 @@ function getroleAndRegions(token,callback){
 
                         var tmpObj2 = {};
                         tmpObj2['name'] = craftArray[y]['name'];
-                        tmpObj2['earnest'] = craftArray[y]['earnest'];
+                        /*tmpObj2['earnest'] = craftArray[y]['earnest'];
                         tmpObj2['need_trustee'] = craftArray[y]['need_trustee'];
                         tmpObj2['commission_basic'] = craftArray[y]['commission_basic'];
                         tmpObj2['commission_float'] = craftArray[y]['commission_float'];
                         tmpObj2['margin_rate'] = craftArray[y]['margin_rate'];
                         tmpObj2['margin_up_threshold'] = craftArray[y]['margin_up_threshold'];
-                        tmpObj2['margin_down_threshold'] = craftArray[y]['margin_down_threshold'];
+                        tmpObj2['margin_down_threshold'] = craftArray[y]['margin_down_threshold'];*/
+
+                        rolesMap[craftArray[y]['id']] = tmpObj2;//取到细项
+                    }
+                }
+                var tmpRoles = [];
+                tmpRoles.push(array);
+                tmpRoles.push(rolesMap);
+                cb(null,tmpRoles);
+            });
+        },
+        //找到商家对应角色
+        function(cb) {
+            var rolesMap = {};
+
+            var roleArray = [];
+            var rolePath = '/merchants/roles?'+'accessToken=' + token;
+
+            var roleItem = {};
+            roleItem['path'] = rolePath;
+
+            //获取所有角色组
+            request.get(roleItem,function(err,data){
+                if(err !== null){
+                    cb(err,{});
+                    return;
+                }
+
+                var array = jsonConvert.stringToJson(data)['roles'];//包含所有角色信息
+                for(x in array){
+                    var roleItem = array[x];
+                    var tmpObj = {};
+                    tmpObj['name'] = roleItem['name'];
+                    tmpObj['crafts'] = roleItem['crafts'];
+
+                    rolesMap[roleItem['id']] = tmpObj;//取到角色
+                    var craftArray = roleItem['crafts'];
+                    for(y in craftArray){
+
+                        var tmpObj2 = {};
+                        tmpObj2['name'] = craftArray[y]['name'];
+                        /*tmpObj2['earnest'] = craftArray[y]['earnest'];
+                        tmpObj2['need_trustee'] = craftArray[y]['need_trustee'];
+                        tmpObj2['commission_basic'] = craftArray[y]['commission_basic'];
+                        tmpObj2['commission_float'] = craftArray[y]['commission_float'];
+                        tmpObj2['margin_rate'] = craftArray[y]['margin_rate'];
+                        tmpObj2['margin_up_threshold'] = craftArray[y]['margin_up_threshold'];
+                        tmpObj2['margin_down_threshold'] = craftArray[y]['margin_down_threshold'];*/
 
                         rolesMap[craftArray[y]['id']] = tmpObj2;//取到细项
                     }
@@ -899,9 +946,11 @@ function getroleAndRegions(token,callback){
         if(!err){
             var regionsArray = resultsEx[0];//包含源对象和warp后的map对象
             var rolesArray = resultsEx[1];//同上
+            var rolesArray2 = resultsEx[2];//同上，商家版的
             var localData = [];
             localData.push(regionsArray);
             localData.push(rolesArray);
+            localData.push(rolesArray2);
             callback(null,localData);
         }else{
             if(err === 403){
@@ -1122,3 +1171,241 @@ exports.sendNotifications = function(req,res){
     res.json({ result: 'success',
         content:{}});
 }
+
+exports.getDecorationCasesById = function(req,res){
+    var workerId = req.params.id;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_decorationCases:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/' + workerId +'/decorationCases?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var decorationCasesInfo = jsonConvert.stringToJson(results.get_decorationCases);
+                res.json({ result: 'success',
+                    content:decorationCasesInfo});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+}
+
+exports.getCapitalAccountDetailsById = function(req,res){
+    var accountId = req.params.id;
+    var type = req.query.accountType;
+    //var filter = req.query.filter;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_details:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/capitalAccount/' + accountId +'/details?accountType=' + type + '&accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var detailsInfoArray = jsonConvert.stringToJson(results.get_details)['details'];
+                res.json({ result: 'success',
+                    content:detailsInfoArray});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+}
+
+exports.getDecorationCasesDetailById = function(req,res){
+    var workerId = req.params.id;
+    var caseId = req.params.caseId;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_decorationCases:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/' + workerId +'/decorationCases/' +caseId+ '?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var decorationCasesInfo = jsonConvert.stringToJson(results.get_decorationCases);
+                res.json({ result: 'success',
+                    content:decorationCasesInfo});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+}
+
+exports.findMerchantsByFilters = function(req,res){
+
+    var currPage = req.query.page - 1;
+    var filters = req.query.filters;
+    // var filters = filterArray.join(",");
+
+    async.auto(
+        {
+            get_token:function(callback){
+
+                tokenMgt.getToken(function(err,token){
+                    if(!err){
+                        callback(null,token);
+                    }else{
+                        callback(err,'can not get token...');
+                    }
+                });
+            },
+            get_all: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var path = '/merchants?' + 'filter=' + filters + '&limit=-1&countOnly=true' +'&accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }],
+            get_currPage: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var skipValue = currPage * 10;
+
+                var path = '/merchants?'+ 'filter='+ filters + /*'&sort=create_time::-1' +*/ '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+            }]
+        },
+        function(err, results) {
+            if(err !== null){
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:err});
+            }else{
+
+                var token = results.get_token;
+                var counts = jsonConvert.stringToJson(results.get_all)['count'];
+                if(counts === 0){
+                    res.json({
+                            result: 'success',
+                            pages:1,
+                            content:[]}
+                    );
+                    return;
+                }
+                var allCounts = counts;
+
+                //get product list
+                var pageCounts = 1;
+                if(allCounts > 0){
+                    var over = (allCounts) % 10;
+                    over > 0 ? pageCounts = parseInt((allCounts) / 10) + 1 :  pageCounts = parseInt((allCounts) / 10) ;
+                }
+
+                //第一页用户数组
+                var array = jsonConvert.stringToJson(results.get_currPage)['merchants'];
+                res.json({ result: 'success',
+                    pages:pageCounts,
+                    content:array});
+            }
+        }
+    );
+};
+
+exports.findMerchantById = function(req,res){
+
+    var merchantId = req.params.id;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_merchantInfo:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/' + merchantId +'?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var merchantInfo = jsonConvert.stringToJson(results.get_merchantInfo);
+                res.json({ result: 'success',
+                    content:merchantInfo});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+};

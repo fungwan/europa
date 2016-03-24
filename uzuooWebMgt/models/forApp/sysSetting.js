@@ -345,7 +345,7 @@ exports.setRecommendRole = function(req,res){
                 res.json({ result: 'fail',
                     content:results});
             }
-        })
+        });
 };
 
 //获取等级规则

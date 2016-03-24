@@ -4,7 +4,7 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
     function ($scope, $location, $rootScope, ApiService) {
         $scope.initPage();
         $rootScope.sideBarSelect = {
-            firstClassSel:'userAdmin',
+            firstClassSel:'verifiedAdmin',
             secondSel:'verifyUsr'
         };
 

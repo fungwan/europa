@@ -133,9 +133,8 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
 
         $scope.checkBill = function (billInfo) {
 
-            var detailLink = billInfo['href'];
-            var pos = detailLink.lastIndexOf('/');
-            var tradeId = detailLink.substr(pos+1);
+
+            var tradeId = billInfo.tradeId;
             var _status = billInfo.status + 1;
 
             var obj = {
@@ -144,7 +143,7 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
 
             if(billInfo.status === 0){
                 ApiService.post('/bills/checkBill/'+tradeId, obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = _status;}else{
+                    if(data.result === 'success'){ billInfo.status = _status;getBillsInfo(curBillPage,['all']);}else{
                         if(data.content === 'Permission Denied'){
                             alert('该用户无权执行初审动作...');
                             return;
@@ -157,7 +156,7 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
                 });
             }else if(billInfo.status === 1){
                 ApiService.put('/bills/checkBill/'+tradeId, obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = _status;}else{
+                    if(data.result === 'success'){ billInfo.status = _status;getBillsInfo(curBillPage,['all']);}else{
                         if(data.content === 'Permission Denied'){
                             alert('该用户无权执行复审动作...');
                             return;
@@ -174,9 +173,7 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
 
         $scope.rejectBill = function (billInfo) {
 
-            var detailLink = billInfo['href'];
-            var pos = detailLink.lastIndexOf('/');
-            var tradeId = detailLink.substr(pos+1);
+            var tradeId = billInfo.tradeId;
             var _status = 0;
 
             if(billInfo.status === 0){
@@ -190,7 +187,7 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
 
             if(_status === 3){
                 ApiService.post('/bills/rejectBill/'+tradeId, obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = _status;}else{
+                    if(data.result === 'success'){ billInfo.status = _status;getBillsInfo(curBillPage,['all']);}else{
 
                         if(data.content === 'Permission Denied'){
                             alert('该用户无权执行拒绝初审动作...');
@@ -204,7 +201,7 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
                 });
             }else if(_status === 4){
                 ApiService.put('/bills/rejectBill/'+tradeId, obj, function (data) {
-                    if(data.result === 'success'){ billInfo.status = _status;}else{
+                    if(data.result === 'success'){ billInfo.status = _status;getBillsInfo(curBillPage,['all']);}else{
                         if(data.content === 'Permission Denied'){
                             alert('该用户无权执行拒绝复审动作...');
                             return;
@@ -252,6 +249,7 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
                 if (data.result == 'success') {
 
                     $scope.billInfo = data.content;
+                    $scope.billInfo.tradeId = tradeId;
                     $("#show_billDetail_dlg").modal('show');
                 }
             }, function (errMsg) {

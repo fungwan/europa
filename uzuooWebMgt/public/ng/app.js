@@ -11,6 +11,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$resourceProvider',
         $routeProvider.when('/login', { templateUrl: ('partial/login'), controller: 'LoginCtrl' });
         $routeProvider.when('/customer', { templateUrl: ('partial/front_end_users'), controller: 'CustomerCtrl' });
         $routeProvider.when('/todoVerifiedCustomer', { templateUrl: ('partial/todoVerifiedWorkers'), controller: 'VerifiedCustomerCtrl' });
+        $routeProvider.when('/todoVerifiedProduct', { templateUrl: ('partial/todoVerifiedProducts'), controller: 'VerifiedProductCtrl' });
         $routeProvider.when('/webAdminPage', { templateUrl: ('partial/background_users'), controller: 'BgUserCtrl' });
         $routeProvider.when('/showOrdersPage', { templateUrl: ('partial/orders'), controller: 'OrdersCtrl' });
         $routeProvider.when('/billsMgtPage', { templateUrl: ('partial/bills'), controller: 'BillsCtrl' });
@@ -21,7 +22,10 @@ myApp.config(['$routeProvider', '$locationProvider', '$resourceProvider',
         $routeProvider.when('/globalSettingPage', { templateUrl: ('partial/globalSetting'), controller: 'GlobalSettingCtrl' });
         $routeProvider.when('/advertisementMgtPage', { templateUrl: ('partial/advertisementMgt'), controller: 'AdvertisementCtrl' });
         $routeProvider.when('/history', { templateUrl: ('partial/system_logs'), controller: 'HistoryCtrl' });
+        $routeProvider.when('/categoriesMgt', { templateUrl: ('partial/categoriesMgt'), controller: 'CategoriesMgtCtrl' });
+        $routeProvider.when('/citiesMgt', { templateUrl: ('partial/citiesMgt'), controller: 'CitiesMgtCtrl' });
         $routeProvider.when('/logout', { templateUrl: ('partial/login'), controller: 'LogoutCtrl' });
+        
         
         $routeProvider.when('/404', { templateUrl: ('partial/404') });
         $routeProvider.otherwise({ redirectTo: '/404' });

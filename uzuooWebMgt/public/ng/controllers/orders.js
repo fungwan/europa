@@ -4,7 +4,7 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
     function ($scope, $location, $rootScope, ApiService, fileReader, $upload) {
         $scope.initPage();
         $rootScope.sideBarSelect = {
-            firstClassSel: 'billAdmin',
+            firstClassSel: 'ordersAdmin',
             secondSel: 'orders'
         };
 

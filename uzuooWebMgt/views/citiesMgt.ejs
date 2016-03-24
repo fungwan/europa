@@ -1,0 +1,81 @@
+<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+    <div class="page-header pull-left">
+        <div class="page-title">城市管理</div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-blue">
+                <div class="panel-body">
+                    <div id="flip-scroll">
+                        <table class="table  table-bordered table-advanced table-lg">
+                            <thead class="cf">
+                                <tr>
+                                    <th width="30%">
+                                        <div style="text-align:center">省份</div>
+                                    </th>
+                                    <th width="30%" >
+                                        <div style="text-align:center">城市</div>
+                                    </th>
+                                    <th width="40%">
+                                        <div style="text-align:center">区域</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <ul class="nav nav-pills nav-stacked">
+                                            <li>
+                                                <button  class="btn btn-primary">新增省份</button>
+                                            </li>
+                                            <li ng-repeat="province in provinceArray">
+                                                <div class="form-group">
+                                                    <a href="#" ng-bind="province.name" ng-click="onSelectProvince(province)">四川</a>
+                                                    <button class="btn btn-success">修改省份名</button>
+                                                    <button class="btn btn-info">隐藏</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td ng-if="selectedProvince">
+                                        <ul class="nav nav-pills nav-stacked">
+                                            <li>
+                                                <button  class="btn btn-primary">新增城市</button>
+                                            </li>
+                                            <li ng-repeat="city in selectedProvince.cities">
+                                                <div class="form-group">
+                                                    <a href="#" ng-bind="city.name" ng-click="onSelectCity(city)">成都</a>
+                                                    <button class="btn btn-success">修改城市名</button>
+                                                    <button class="btn btn-info">隐藏</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td ng-if="selectedCity">
+                                        <ul class="nav nav-pills nav-stacked">
+                                            <li>
+                                                <button  class="btn btn-primary">新增区域</button>
+                                            </li>
+                                            <li ng-repeat="region in selectedCity.regions">
+                                                <div class="form-group">
+                                                    <a href="#" ng-bind="region.name">锦江区</a>
+                                                    <button class="btn btn-success">修改区域名</button>
+                                                    <button class="btn btn-info">隐藏</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

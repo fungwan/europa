@@ -25,19 +25,29 @@
                 <ul class="nav nav-second-level">
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'frontUsr']"><a href="/customer"><i class="fa fa-tablet"></i><span class="submenu-title">悠住用户</span></a>
                     </li>
-                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'verifyUsr']"><a href="/todoVerifiedCustomer"><i class="fa fa-tablet"></i><span class="submenu-title">待认证用户</span></a>
-                    </li>
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'backgrdUsr']"><a href="/webAdminPage"><i class="fa fa-desktop"></i><span class="submenu-title">后台用户</span></a>
                     </li>
                 </ul>
             </li>
 
-            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'billAdmin']"><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
+            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'verifiedAdmin']"><a href="#"><i class="fa fa-vimeo-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">审核管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'verifyUsr']"><a href="/todoVerifiedCustomer"><i class="fa fa-male"></i><span class="submenu-title">审核用户</span></a>
+                    </li>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'verifyProduct']"><a href="/todoVerifiedProduct"><i class="fa fa-barcode"></i><span class="submenu-title">审核成品</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'ordersAdmin']"><a href="#"><i class="fa fa-th-list fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">订单管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'orders']"><a href="/showOrdersPage"><i class="fa fa-truck"></i><span class="submenu-title">订单查看</span></a>
                     </li>
-                    <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
-                    </li-->
+                </ul>
+            </li>
+
+            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'billAdmin']"><a href="#"><i class="fa fa-cny fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">财务管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'bills']"><a href="/billsMgtPage"><i class="fa fa-cny"></i><span class="submenu-title">订单台账</span></a>
                     </li>
                 </ul>
@@ -49,8 +59,8 @@
                     </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
-                    <li><a href="#"><i class="fa fa-pencil-square-o"></i><span class="submenu-title">信息发布</span></a>
-                    </li>
+                    <!--li><a href="#"><i class="fa fa-pencil-square-o"></i><span class="submenu-title">信息发布</span></a>
+                    </li-->
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'advertisementMgt']"><a href="/advertisementMgtPage"><i class="fa fa-pencil-square-o"></i><span class="submenu-title">广告管理</span></a>
                     </li>
                 </ul>
@@ -67,6 +77,10 @@
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'amountMgt']"><a href="/amountMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">金额相关设置</span></a>
                     </li>
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'levelRule']"><a href="/levelRulesMgtPage"><i class="fa fa-th-large"></i><span class="submenu-title">星级规则设置</span></a>
+                    </li>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'citiesMgt']"><a href="/citiesMgt"><i class="fa fa-th-large"></i><span class="submenu-title">城市管理</span></a>
+                    </li>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'categoriesMgt']"><a href="/categoriesMgt"><i class="fa fa-th-large"></i><span class="submenu-title">工种管理</span></a>
                     </li>
                 </ul>
             </li>

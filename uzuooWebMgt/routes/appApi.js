@@ -76,7 +76,7 @@ module.exports = function (router, acl) {
     //action for ajax request about app
 
     //action for houseOwner
-    router.get('/doFindHouseOwnersByPage', function (req, res) { 
+    router.get('/houseOwners', function (req, res) {
         customer.findHouseOwnersByPage(req,res);
     });
 
@@ -115,8 +115,28 @@ module.exports = function (router, acl) {
         customer.changeWorkerRole(req,res);
     });
 
-    router.get('/workers/:id/capitalAccount', function (req, res) {    
+    router.get('/capitalAccount/:id', function (req, res) {
         customer.getCapitalAccountById(req,res);
+    });
+
+    router.get('/workers/:id/decorationCases', function (req, res) {
+        customer.getDecorationCasesById(req,res);
+    });
+
+    router.get('/workers/:id/decorationCases/:caseId', function (req, res) {
+        customer.getDecorationCasesDetailById(req,res);
+    });
+
+    router.get('/merchants', function (req, res,next) {
+        customer.findMerchantsByFilters(req,res);
+    });
+
+    router.get('/merchants/:id', function (req, res,next) {
+        customer.findMerchantById(req,res);
+    });
+
+    router.get('/capitalAccount/:id/details', function (req, res) {
+        customer.getCapitalAccountDetailsById(req,res);
     });
 
     //线下充值

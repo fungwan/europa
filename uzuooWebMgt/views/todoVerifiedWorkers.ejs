@@ -1,67 +1,66 @@
 <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
     <div class="page-header pull-left">
-        <div class="page-title">待认证行业用户</div>
+        <div class="page-title">待审核用户</div>
     </div>
     <div class="clearfix"></div>
 </div>
 <!--END TITLE & BREADCRUMB PAGE-->
 <!--BEGIN CONTENT-->
 <div class="page-content">
-    <div class="row">
+    <div id="table-action" class="row">
         <div class="col-lg-12">
-            <div class="panel panel-green">
-                <!--div class="panel-heading">人员信息</div-->
-                <div class="panel-body">
-                    <div class="row mbl">
-                        <div class="col-lg-6">
-                            <div class="input-group input-group-sm mbs"><span class="input-group-btn">
-                            </span></div>
-                        </div>
-                        <div class="col-lg-6">
-                            <!--div class="tb-group-actions pull-right"><span></span>
-                                <button id="btn-allDel-warning" class="btn btn-primary " data-target="modal-confirm-all" data-toggle="modal" >
-                                    <!--i class="fa fa-check"&nbsp; ></i>删除
-                                </button>
+            <ul id="tableAllUserTab" class="nav nav-tabs">
+                <li class="active"><a data-target="#table-table-tab" href="#" data-toggle="tab">待审核工人</a>
+                </li>
+                <li ><a data-target="#table-row-tab" href="#" data-toggle="tab">待审核商家</a>
+                </li>
+            </ul>
+            <div id="tableactionTabContent" class="tab-content">
+                <!-- 工人信息 -->
+                <div id="table-table-tab" class="tab-pane fade in active">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table id="todoVerifiedWorker-tab" class="table table-hover table-bordered table-advanced">
+                                <thead>
+                                <tr role="row" class="heading">
+                                    <th width="3%" class="sorting_disabled">
+                                        <input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(workersInfo)" />
+                                    </th>
+                                    <th width="10%" class="sorting">姓名</th>
+                                    <th width="10%" class="sorting">身份证号</th>
+                                    <th width="10%" class="sorting">电话号码</th>
+                                    <th width="5%" class="sorting">工种</th>
+                                    <th width="5%" class="sorting"></th>
+                                </tr>
 
-                                <button type="button" class="btn btn-blue " data-target="#create_account_dlg" data-toggle="modal" >
-                                    <!--i class="fa fa-check">&nbsp;</i>创建用户
-                                </button>
-                            </div-->
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="worker in workersInfo">
+                                    <td><input type="checkbox" ng-model="worker.selected" class="checkbox" /></td>
+                                    <td ng-bind="worker.first_name + worker.last_name"></td>
+                                    <td ng-bind="worker.id_card_no"></td>
+                                    <td ng-bind="worker.phone"></td>
+                                    <td ng-bind="getCategoryStr(worker.categories).firt">第一工种</td>
+                                    <td>
+                                        <button type="button" class="btn btn-default btn-xs" ng-click="onShowverifiedDlg(worker)"><i class="fa fa-angle-double-right"></i>&nbsp; 点击认证</button>&nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="todoVerifiedWorkerPage"></div>
                         </div>
                     </div>
-                    <table id="todoVerifiedWorker-tab" class="table table-hover table-bordered table-advanced">
-                        <thead>
-                            <tr role="row" class="heading">
-                                <th width="3%" class="sorting_disabled">
-                                    <input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(workersInfo)" />
-                                </th>
-                                <th width="10%" class="sorting">姓名</th>
-                                <th width="10%" class="sorting">身份证号</th>
-                                <th width="10%" class="sorting">电话号码</th>
-                                <th width="5%" class="sorting">工种</th>
-                                <th width="5%" class="sorting"></th>
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="worker in workersInfo">
-                                <td><input type="checkbox" ng-model="worker.selected" class="checkbox" /></td>
-                                <td ng-bind="worker.first_name + worker.last_name"></td>
-                                <td ng-bind="worker.id_card_no"></td>
-                                <td ng-bind="worker.phone"></td>
-                                <td ng-bind="getCategoryStr(worker.categories).firt">第一工种</td>
-                                <td>
-                                    <button type="button" class="btn btn-default btn-xs" ng-click="onShowverifiedDlg(worker)"><i class="fa fa-angle-double-right"></i>&nbsp; 点击认证</button>&nbsp;
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="todoVerifiedWorkerPage"></div>
+                </div>
+                <div id="table-row-tab" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  data-backdrop="static" class="modal fade">
+    </div>
+    <div aria-hidden="true" id="verified_worker_dlg" tabindex="-1"  data-backdrop="static" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
@@ -174,8 +173,8 @@
             </div>
 
         </div>
-    </div>
 </div>
+
 
 <div id="modal-reject-verify" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
     <div class="modal-dialog">

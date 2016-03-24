@@ -42,7 +42,7 @@ exports.getOrders = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/orders?'+'accessToken=' + token + '&filter=' + filters + '&countOnly=true';
+                var path = '/orders?'+ 'filter=' + filters + '&limit=-1&countOnly=true'+'&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -62,8 +62,8 @@ exports.getOrders = function(req,res){
         },function(err,result){
             if(err === null){
 
-                var ordersArray = jsonConvert.stringToJson(result.get_all)['orders'];
-                if(ordersArray === null){//db里面一个工人也没有.
+                var ordersCount = jsonConvert.stringToJson(result.get_all)['count'];
+                if(ordersCount === 0){//db里面一个工人也没有.
                     res.json({
                             result: 'success',
                             pages:1,
@@ -71,7 +71,7 @@ exports.getOrders = function(req,res){
                     );
                     return;
                 }
-                var allOrderCounts = ordersArray.length;
+                var allOrderCounts = ordersCount;
 
                 //get product list
                 var pageCounts = 1;
