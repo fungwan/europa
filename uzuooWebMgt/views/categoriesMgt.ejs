@@ -6,6 +6,68 @@
 </div>
 
 <div class="page-content">
-
+    <div class="col-log-12">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-target="#table-row-role" href="#" data-toggle="tab">大工种管理</a>
+            </li>
+            <li>
+                <a data-target="#table-row-craft" href="#" data-toggle="tab">小工种管理</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="table-row-role" class="tab-pane fade in active">
+                <div class="panel panel-blue">
+                    <div class="panel-body">
+                        <div id="flip-scroll">
+                            <table class="table  table-bordered table-advanced table-lg">
+                                <thead class="cf">
+                                    <tr>
+                                        <th width="10%">
+                                            <div style="text-align:center">大工种</div>
+                                        </th>
+                                        <th width="30%">
+                                            <div style="text-align:center"></div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <ul class="nav nav-pills nav-stacked">
+                                                <li>
+                                                    <button class="btn btn-primary">新增大工种</button>
+                                                </li>
+                                                <li >
+                                                    <a href="#">设计师</a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td ng-if="selectedProvince">
+                                            <ul class="nav nav-pills nav-stacked">
+                                                
+                                                <li ng-repeat="city in selectedProvince.cities">
+                                                    <div class="form-group">
+                                                        <a href="#" >成都</a>
+                                                        <button class="btn btn-success">修改城市名</button>
+                                                        <!--button class="btn btn-info">隐藏</button-->
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div id="table-row-craft" class="tab-pane fade">
+                小工种
+            </div>
+        </div>
+    </div>
 
 </div>

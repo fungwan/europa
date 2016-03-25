@@ -9,7 +9,7 @@ var settings = require('../../conf/settings');
 var logger = require('../../lib/log.js').logger;
 var async = require('async');
 var fs = require("fs");
-
+var historyMgt = require('../history.js');
 var uuid = require('node-uuid');
 
 exports.getBills = function(req,res){
@@ -170,6 +170,21 @@ exports.updateBillStatusById = function(req,res){
             }]
         },function(err,result){
             if(err === null){
+
+                var desc = '',tmp='';
+                if(req.body.status === 1){
+                    tmp = '初审通过'
+                }else if(req.body.status === 2){
+                    tmp = '复核成功'
+                }
+                else if(req.body.status === 3){
+                    tmp = '初审失败'
+                }else if(req.body.status === 4){
+                    tmp = '复核失败'
+                }
+                desc = '为账单' + billId + '执行了'+ tmp;
+
+                historyMgt.addLogsEx(req,res,desc);
 
                 res.json({
                     result: 'success',

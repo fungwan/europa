@@ -46,7 +46,7 @@ exports.findLogsByPage = function(req,res){
             get_currPage: function (callback) {
 
                 var skipValue = currPage * 10;
-                var options = connectAddr + '/logs?$top=10&$skip=' + skipValue;//
+                var options = connectAddr + '/logs?$top=10&$skip=' + skipValue+'&$orderby=operator_date desc';//
                 request.get(options,callback);
             }
         },
@@ -133,29 +133,44 @@ exports.findLogsByDate = function(req,res){
     );
 };
 
-var recordFun = {
+var resMatchArray = [
+    {
+        'reg':"^workers'/'\w?",
+        'option':{
+            'GET':'提交了认证信息'
+        }
+    }
+];
 
-    /*'workers':{
-        'GET':'查看了工人信息'
-    },
-    'orders':{
-        'GET':'查看了订单信息'
-    }*/
+var recordFunc = function(URI,action){
+    for(var x = 0;x<resMatchArray.length;++x){
+        var regStr = resMatchArray[x].reg;
+        var reg =new RegExp(regStr);
+        if (!reg.test(URI)) {
+            continue;
+        }else{
+            return resMatchArray[x].options[action];
+        }
 
-};
+    }
+
+    return null;
+}
+
 
 exports.addLogs = function(req,res,next){
 
     var str = req.url;
-    var resource = str.substr(1,str.indexOf('?',0)-1);
+    var resource = str;//.substr(1,str.indexOf('?',0)-1);
     var action = req.method;
     var webUsr = req.session.user;
-    if(recordFun[resource] === undefined){
+    var ds = recordFunc(resource,action);
+    if(ds === null){
         next();
         return;
     }
 
-    var operatorDesc = recordFun[resource][action];
+    var operatorDesc = '';
 
     var logString = JSON.stringify({
          'username':webUsr.username,
@@ -173,4 +188,24 @@ exports.addLogs = function(req,res,next){
      });
 
     next();
+};
+
+exports.addLogsEx = function(req,res,desc){
+
+    var webUsr = req.session.user;
+
+    var logString = JSON.stringify({
+        'username':webUsr.username,
+        'operator_date':new Date().getTime(),
+        'role':webUsr.role,
+        'action':desc
+    });
+
+    var logOptionItem = {};
+    logOptionItem['path'] = '/logs';
+    request.post(logOptionItem,logString,function(err,results){
+        if(err !== null){
+            console.log('日志插入出错，路径为:' + resource+'，方式为:' + action);
+        }
+    });
 };

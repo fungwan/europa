@@ -14,6 +14,7 @@ var hostPort = settings.bgMgtPortAddr;
 
 exports.get = function(options,cb){
 
+    options = encodeURI(options);
     http.get(options, function(res) {
         res.setEncoding('utf8');
         var recv = '';

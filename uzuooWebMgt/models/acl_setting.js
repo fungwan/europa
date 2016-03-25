@@ -48,7 +48,13 @@ exports.set = function(acl){
             ]
         },
         {
-            roles:['5'],//admin
+            roles:['5'],//城市管理员
+            allows:[
+                {resources:['/api/users','/api/logs'], permissions:['get','post','delete']}
+            ]
+        },
+        {
+            roles:['99'],//超级管理员
             allows:[
                 {resources:['/api/users','/api/logs'], permissions:['get','post','delete']}
             ]
@@ -57,6 +63,6 @@ exports.set = function(acl){
     ]);
 
     //为账号分配角色
-    acl.addUserRoles('0d11e1da-9764-4692-8d3b-4d3b93f5e4fb', '5');
+    acl.addUserRoles('0d11e1da-9764-4692-8d3b-4d3b93f5e4fc', '99');
 
 };

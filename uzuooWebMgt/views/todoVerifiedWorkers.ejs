@@ -54,6 +54,34 @@
                 <div id="table-row-tab" class="tab-pane fade">
                     <div class="row">
                         <div class="col-lg-12">
+                            <table class="table table-hover table-bordered table-advanced">
+                                <thead>
+                                <tr role="row" class="heading">
+                                    <th width="3%" class="sorting_disabled">
+                                        <input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(merchantsInfoArray)" />
+                                    </th>
+                                    <th width="10%" class="sorting">商家姓名</th>
+                                    <th width="10%" class="sorting">身份证号</th>
+                                    <th width="10%" class="sorting">电话号码</th>
+                                    <th width="5%" class="sorting">商家类别</th>
+                                    <th width="5%" class="sorting"></th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="merchant in merchantsInfoArray">
+                                    <td><input type="checkbox" ng-model="merchant.selected" class="checkbox" /></td>
+                                    <td ng-bind="merchant.first_name + merchant.last_name"></td>
+                                    <td ng-bind="merchant.id_card_no"></td>
+                                    <td ng-bind="merchant.phone"></td>
+                                    <td ng-bind="getMerchantCategoryStr(merchant.categories).first"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-default btn-xs" ng-click="onShowMerchantVerifiedDlg(merchant)"><i class="fa fa-angle-double-right"></i>&nbsp; 点击认证</button>&nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="todoVerifiedMerchantPage"></div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +128,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-icon right"><i class="fa fa-gavel"></i>
-                                        <input ng-model="getCategoryStr(selectWorker.categories).firt" type="text" class="form-control" disabled="">
+                                        <input ng-model="getMerchantCategoryStr(selectWorker.categories).first" type="text" class="form-control" disabled="">
                                     </div>
                                 </div>
                             </div>
@@ -171,8 +199,121 @@
                     </div>
                 </div>
             </div>
+    </div>
 
+    <div aria-hidden="true" id="verified_merchant_dlg" tabindex="-1"  data-backdrop="static" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button name='close-todoVerifiedDialog-btn' type="button"  data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 class="modal-title">立即认证</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-user"></i>
+                                    <input ng-model="selectMerchant.first_name" type="text" value="姓" class="form-control" disabled="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-user"></i>
+                                    <input ng-model="selectMerchant.last_name" type="text" value="名" class="form-control" disabled="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-credit-card"></i>
+                                    <input ng-model="selectMerchant.id_card_no" type="text" placeholder="Card number" class="form-control" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-mobile-phone"></i>
+                                    <input ng-model="selectMerchant.phone" type="text"  class="form-control" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-gavel"></i>
+                                    <input ng-model="getCategoryStr(selectMerchant.categories).firt" type="text" class="form-control" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-icon right"><i class="fa fa-map-marker"></i>
+                                    <input ng-model="getCityAndRegionStr(selectMerchant.regions).city" type="text"  class="form-control" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div>
+                                    <a href="#" data-target="#show_img_preview2" data-toggle="modal" >
+                                        <img border=1 src="{{selectMerchant.imgHref}}" width="256" height="256" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-left pal">
+                                <button data-target="#modal-confirm-verify2" data-toggle="modal" class="btn btn-success">通过认证</button>
+                            </div>
+                        </div>
+                        <!-- end -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-left pal">
+                                <button data-target="#modal-reject-verify2" data-toggle="modal" class="btn btn-primary">驳回认证</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="inputMessage" class="control-label">驳回的原因说明:</label>
+                                <textarea rows="5" class="form-control" ng-model='selectMerchant.virifiedDescriptive'></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--div class="row" style="height:150px; overflow:auto;">
+                        <div class="panel panel-yellow">
+                            <!--div class="panel-heading">认证记录</div-->
+                            <div class="panel-body">
+                                <table id="verifiedRecord-table" class="table table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>申请日期</th>
+                                        <th>认证结果</th>
+                                        <th>驳回理由</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="verifiedLog in selectMerchant.verifiedLogsArray">
+                                        <td ng-bind="timeToStr(verifiedLog.apply_time*1000)">2015/12/12</td>
+                                        <td ng-bind="verifyStatus(verifiedLog.verification_state)">失败</td>
+                                        <td  ng-bind="verifiedLog.description">无法看清号码</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div-->
+                    <div class="modal-footer">
+                        <button name='close-todoVerifiedDialog-btn' type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
 </div>
 
 
@@ -200,9 +341,39 @@
     </div>
 </div>
 
+<div id="modal-reject-verify2" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">你确定驳回认证吗?</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button id="btn-delAll" type="button" ng-click="onRejectVerifyMerchant()" data-dismiss="modal" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-confirm-verify2" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">你确定通过认证吗?</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button id="btn-delAll" type="button" ng-click="onVerifyMerchant()" data-dismiss="modal" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div aria-hidden="true" id="show_img_preview" tabindex="-1" class="modal fade">
     <div class="modal-dialog">
         <img width='600' height='100%' src="{{selectWorker.imgHref}}" img-preview=""/>
+    </div>
+</div>
+
+<div aria-hidden="true" id="show_img_preview2" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <img width='600' height='100%' src="{{selectMerchant.imgHref}}" img-preview=""/>
     </div>
 </div>

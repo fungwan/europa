@@ -27,8 +27,10 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         var sendTargetObj = {
             type:'',//通知的目標人群，worker|houseOwner
-            method:'',//通知的方式針，對篩選條件的群發和指定勾選的人員，mass|assign
-            filter:''//篩選條件或者account列表，依據method寫值
+            method:'',//通知的方式,針對篩選條件的群發和指定勾選的人員，mass|assign
+            filter:{},//篩選條件或者account列表，依據method寫值
+            msg_content:'',//消息內容
+            msg_type:''//消息類型，短消息| 系統消息
         };
 
         var billTypeCNTranslateObj = {
@@ -47,7 +49,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         };
 
         $scope.sendMsg ={
-            type:'phone_msg',
+            type:'sms',
             content:''
         };
 
@@ -95,7 +97,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                         if($scope.workSearchFilter.regionSelArray[i].selected) {
                             selectRegion.push($scope.workSearchFilter.regionSelArray[i]);
                         }
-                    };
+                    }
                 }
                 if (selectRegion.length != 0) {
                     var regionStr = selectRegion[0].id;
@@ -115,7 +117,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                         if($scope.workSearchFilter.craftsArray[i].selected) {
                             selectCrafts.push($scope.workSearchFilter.craftsArray[i]);
                         }
-                    };
+                    }
                 }
                 if (selectCrafts.length != 0) {
                     var craftStr = selectCrafts[0].id;
@@ -124,7 +126,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                     };
                     var craftFilterStr = 'crafts::' + craftStr;
                     filters.push(craftFilterStr);
-                };
+                }
             }
 
             if (filters.length == 0) {
@@ -213,7 +215,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                 firt: firstStr,
                 second: secondStr
             }
-        }
+        };
 
 
         //编辑工人详情
@@ -488,12 +490,51 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             }, function(errMsg){
                 alert(errMsg.message);
             });*/
-        } 
+        };
 
+
+        var sendFilter = [];
         $scope.onSendMsgForAllWorker = function () {
             sendTargetObj.type = 'worker';
             sendTargetObj.method = 'mass';
-            sendTargetObj.filter = filters;//遍歷filter
+
+            /*
+                遍历filter，选择推送区域/推送工种
+             */
+
+            var regionsArray = [];
+            var categoriesArray = [];
+
+            if (!$scope.moreLink) {
+
+                if ($scope.workSearchFilter.regionSelArray.length != 0) {
+                    for (var i = 0; i < $scope.workSearchFilter.regionSelArray.length; i++) {
+                        if($scope.workSearchFilter.regionSelArray[i].selected) {
+                            regionsArray.push($scope.workSearchFilter.regionSelArray[i].id)
+                        }
+                    }
+                }
+
+                var categories = {};
+                if ($scope.workSearchFilter.originalRoleSel.id) {
+                    categories.role_id = $scope.workSearchFilter.originalRoleSel.id;
+                }
+                var selectCrafts = [];
+                for (var i = 0; i < $scope.workSearchFilter.craftsArray.length; i++) {
+                    if($scope.workSearchFilter.craftsArray[i].selected) {
+                        selectCrafts.push($scope.workSearchFilter.craftsArray[i].id);
+                    }
+                }
+
+                categories.crafts = selectCrafts;
+
+                if(categories.role_id !== undefined){
+                    categoriesArray.push(categories);
+                }
+            }
+
+            sendTargetObj.filter.regions = regionsArray;
+            sendTargetObj.filter.categories = categoriesArray;
         };
 
         $scope.onSendMsgForSelectedWorker = function () {
@@ -511,7 +552,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
 
 
-            sendTargetObj.filter = accountArray;//遍歷chk
+            sendTargetObj.filter.account_id = accountArray;//遍歷chk，此filter为id集合，不能与regions、categories一起填写
         };
 
         $scope.onSendMsgForAllHouseOwner = function () {
@@ -523,11 +564,28 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         };
 
         $scope.onSendMsg = function () {
-            //alert(sendTargetObj.type);
-            alert(sendTargetObj.filter);
-            //alert($scope.sendMsg.type + '' + $scope.sendMsg.content);
 
-            ApiService.post('/notifications', {}, function (data) {
+            if(sendTargetObj.method === 'mass'){
+                if(sendTargetObj.filter.regions.length === 0 || sendTargetObj.filter.categories.length === 0){
+                    alert('请选择发送区域或者发送工种!');
+                    return;
+                }
+            }
+
+            if(sendTargetObj.method === 'assign'){
+                if(sendTargetObj.filter.account_id.length === 0){
+                    alert('请选择要推送的工人!');
+                    return;
+                }
+            }
+
+
+            sendTargetObj.msg_type = $scope.sendMsg.type;
+            sendTargetObj.msg_content = $scope.sendMsg.content;
+
+            ApiService.post('/notifications', {
+                content:sendTargetObj
+            }, function (data) {
                 if(data.result == 'fail') {
                     alert('通知发送失败，请重发！');
                 }
@@ -887,12 +945,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
         }
 
-
         getRoleAndRegionsInfo();
-
-
-
-
 
     }
 ]);

@@ -73,6 +73,26 @@ module.exports = function (router, acl) {
     router.post('/setting/global', function (req, res) {
         sysSetting.updateSysConfig(req, res);
     });
+    
+    router.post('/setting/regions', function (req, res) {
+        sysSetting.updateRegions(req, res);
+    });
+    
+    router.post('/setting/role', function (req, res) {
+        sysSetting.Addrole(req, res);
+    });
+    
+    router.post('/setting/role/:id', function (req, res) {
+        sysSetting.Updaterole(req, res);
+    });
+    
+    router.post('/setting/craft', function (req, res) {
+        sysSetting.Addcraft(req, res);
+    });
+    
+    router.post('/setting/craft/:id', function (req, res) {
+        sysSetting.Updatecraft(req, res);
+    });
     //action for ajax request about app
 
     //action for houseOwner
@@ -82,6 +102,14 @@ module.exports = function (router, acl) {
 
     router.get('/doGetRoleAndRegionsInfo', function (req, res) {
         customer.getRoleAndRegions(req,res);
+    });
+    
+    router.get('/merchants/decorationCases',function (req, res) {
+        customer.getmerchantsCases(req,res);
+    });
+    
+    router.get('/workers/decorationCases',function (req, res) {
+        customer.getworkersCases(req,res);
     });
 
     //action for workers
@@ -133,6 +161,14 @@ module.exports = function (router, acl) {
 
     router.get('/merchants/:id', function (req, res,next) {
         customer.findMerchantById(req,res);
+    });
+
+    router.post('/merchants/verificationStatus', function (req, res) {
+        customer.verifiedMerchantById(req,res);
+    });
+
+    router.get('/merchants/:id/verification_logs', function (req, res) {
+        customer.findMerchantVerifiedRecordById(req,res);
     });
 
     router.get('/capitalAccount/:id/details', function (req, res) {
@@ -240,5 +276,15 @@ module.exports = function (router, acl) {
 
     router.post('/notifications',function (req, res) {
         customer.sendNotifications(req,res);
+    });
+    
+    
+    
+    router.post('/merchants/decorationCases/:id/verificationStatus', function (req, res) {
+        customer.updatemerchantsCasesById(req,res);
+    });
+    
+    router.post('/wokers/decorationCases/:id/verificationStatus', function (req, res) {
+        customer.updateworkersCasesById(req,res);
     });
 }

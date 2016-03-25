@@ -3,6 +3,7 @@
  */
 
 var request = require('./requestForGo.js');
+var historyMgt = require('../history.js');
 var tokenMgt = require('./tokenMgt');
 var jsonConvert = require('../../lib/jsonFormat.js');
 var settings = require('../../conf/settings');
@@ -124,29 +125,11 @@ exports.updateWorkerProfileById = function(req,res){
 
                 if(!savePath){
 
-                    //图片不用更新上传,只更新其他数据
-
-                    //content.verify_photo = '';//图片上传失败。不更新db数据
-                    //var bodyString = JSON.stringify(content);
                     verifiedSuccess(content.id,token);
-
-                    /*request.post(optionItem,bodyString,function(err,results){
-                        if(err === null){
-
-                            verifiedSuccess(content.id,token);
-
-                            res.json({ result: 'success',
-                                content:results});
-                        }else{
-
-                            if(err === 403){
-                                tokenMgt.setTokenExpireStates(true);
-                            }
-
-                            res.json({ result: 'fail',
-                                content:err});
-                        }
-                    });*/
+                    var desc = '';
+                    var workerName = content.first_name + content.last_name;
+                    desc = '为' + workerName + '执行了现场认证';
+                    historyMgt.addLogsEx(req,res,desc);
 
                 }else{
                     tokenMgt.getQiniuToken(function(err,qiniu_token){
@@ -166,7 +149,10 @@ exports.updateWorkerProfileById = function(req,res){
                                     if(err === null){
 
                                         verifiedSuccess(content.id,token);
-
+                                        var desc = '';
+                                        var workerName = content.first_name + content.last_name;
+                                        desc = '为' + workerName + '执行了现场认证';
+                                        historyMgt.addLogsEx(req,res,desc);
                                         res.json({ result: 'success',
                                             content:results});
                                     }else{
@@ -188,7 +174,10 @@ exports.updateWorkerProfileById = function(req,res){
                                     if(err === null){
 
                                         verifiedSuccess(content.id,token);
-
+                                        var desc = '';
+                                        var workerName = content.first_name + content.last_name;
+                                        desc = '为' + workerName + '执行了现场认证';
+                                        historyMgt.addLogsEx(req,res,desc);
                                         res.json({ result: 'success',
                                             content:results});
                                     }else{
@@ -712,6 +701,65 @@ exports.verifiedById = function(req,res){
 
                 request.post(optionItem,bodyString,callback);
 
+                var desc = '';
+                desc = '为工人' + item + '执行了认证动作';
+                historyMgt.addLogsEx(req,res,desc);
+
+            }, function(err,results) {
+                if(!err){
+
+                    if(err === 403){
+                        tokenMgt.setTokenExpireStates(true);
+                    }
+
+                    res.json({
+                            result: 'success',
+                            content: 'ok'}
+                    );
+                }else{
+                    res.json({
+                            result: 'fail',
+                            content:err}
+                    );
+                }
+            });
+        } else {
+            res.json({
+                    result: 'fail',
+                    content:err}
+            );
+        }
+    });
+
+
+};
+
+exports.verifiedMerchantById = function(req,res){
+
+    var idArray = req.body.ids;
+    var verifiedContent = req.body.content;
+
+    tokenMgt.getToken(function (err, token) {
+        if (err === null) {
+            async.map(idArray, function(item, callback) {
+
+                var path = '/merchants/' + item + '/verificationStatus?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content = {
+                    verified:parseInt(verifiedContent.verified),
+                    reason:verifiedContent.reason
+                };
+
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+                var desc = '';
+                desc = '为商家' + item + '执行了认证动作';
+                historyMgt.addLogsEx(req,res,desc);
+
             }, function(err,results) {
                 if(!err){
 
@@ -761,6 +809,53 @@ exports.findVerifiedRecordById = function(req,res){
             get_verifiedRecord:['get_token',function(callback,results){
                 var token = results.get_token;
                 var path = '/workers/' + userId + '/verification_logs?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,results){
+            if(err === null){
+                var verifiedRecordArray = jsonConvert.stringToJson(results.get_verifiedRecord)['Verification_logs'];
+                if(verifiedRecordArray === null){
+                    verifiedRecordArray = [];
+                }
+
+                res.json({ result: 'success',
+                    content:verifiedRecordArray});
+
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:{}});
+            }
+        })
+};
+
+exports.findMerchantVerifiedRecordById = function(req,res){
+
+    var userId = req.params.id;
+
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_verifiedRecord:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/' + userId + '/verification_logs?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -1034,7 +1129,6 @@ exports.getCapitalAccountById = function(req,res){
         })
 }
 
-
 exports.chargeAccount = function(req,res){
 
     var obj = req.body.content;
@@ -1083,7 +1177,6 @@ exports.chargeAccount = function(req,res){
     );
 };
 
-
 exports.findInviteesById = function(req,res){
 
     var accountId = req.params.accountId;
@@ -1128,7 +1221,8 @@ exports.findInviteesById = function(req,res){
 
 exports.sendNotifications = function(req,res){
 
-    /*async.auto(
+    var recvBody = req.body.content;
+    async.auto(
         {
             get_token: function (callback) {
 
@@ -1147,6 +1241,17 @@ exports.sendNotifications = function(req,res){
                 optionItem['path'] = path;
 
                 var content ={};
+                //if(recvBody.type === 'worker');
+                content.type = recvBody.msg_type;
+                content.content = recvBody.msg_content;
+                content.brief = 'what?';
+
+                if(recvBody.method === 'assign'){
+                    content.account_id = recvBody.filter.account_id;
+                }else if(recvBody.method === 'mass'){
+                    content.regions = recvBody.filter.regions;
+                    content.categories = recvBody.filter.categories;
+                }
 
                 var bodyString = JSON.stringify(content);
 
@@ -1165,11 +1270,11 @@ exports.sendNotifications = function(req,res){
                 res.json({ result: 'fail',
                     content:results});
             }
-        })*/
+        })
 
 
-    res.json({ result: 'success',
-        content:{}});
+    /*res.json({ result: 'success',
+        content:{}});*/
 }
 
 exports.getDecorationCasesById = function(req,res){
@@ -1408,4 +1513,252 @@ exports.findMerchantById = function(req,res){
                     content:{}});
             }
         })
+};
+
+
+exports.getmerchantsCases = function (req, res) {
+    var currPage = req.query.page - 1;
+    var filters = req.query.filters;
+    // var filters = filterArray.join(",");
+    async.auto(
+        {
+            get_token:function(callback){
+
+                tokenMgt.getToken(function(err,token){
+                    if(!err){
+                        callback(null,token);
+                    }else{
+                        callback(err,'can not get token...');
+                    }
+                });
+            },
+            get_all: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var path = '/merchants/decorationCases?' + 'filter=' + filters + '&limit=-1&countOnly=true' +'&accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }],
+            get_currPage: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var skipValue = currPage * 10;
+
+                var path = '/merchants/decorationCases?'+ 'filter='+ filters + /*'&sort=create_time::-1' +*/ '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+            }]
+        },
+        function(err, results) {
+            if(err !== null){
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:err});
+            }else{
+
+                var token = results.get_token;
+                var counts = jsonConvert.stringToJson(results.get_all)['count'];
+                if(counts === 0){
+                    res.json({
+                            result: 'success',
+                            pages:1,
+                            content:[]}
+                    );
+                    return;
+                }
+                var allCounts = counts;
+
+                //get product list
+                var pageCounts = 1;
+                if(allCounts > 0){
+                    var over = (allCounts) % 10;
+                    over > 0 ? pageCounts = parseInt((allCounts) / 10) + 1 :  pageCounts = parseInt((allCounts) / 10) ;
+                }
+
+                //第一页用户数组
+                var array = jsonConvert.stringToJson(results.get_currPage)['decoration_cases'];
+                res.json({ result: 'success',
+                    pages:pageCounts,
+                    content:array});
+            }
+        }
+    );
+}
+
+
+exports.getworkersCases = function () {
+    var currPage = req.query.page - 1;
+    var filters = req.query.filters;
+    // var filters = filterArray.join(",");
+    async.auto(
+        {
+            get_token:function(callback){
+
+                tokenMgt.getToken(function(err,token){
+                    if(!err){
+                        callback(null,token);
+                    }else{
+                        callback(err,'can not get token...');
+                    }
+                });
+            },
+            get_all: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var path = '/workers/decorationCases?' + 'filter=' + filters + '&limit=-1&countOnly=true' +'&accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }],
+            get_currPage: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var skipValue = currPage * 10;
+
+                var path = '/workers/decorationCases?'+ 'filter='+ filters + /*'&sort=create_time::-1' +*/ '&limit=10&offset='+ skipValue + '&accessToken=' + token ;
+                var optionItem = {};
+                optionItem['path'] = path;
+                request.get(optionItem,callback);
+            }]
+        },
+        function(err, results) {
+            if(err !== null){
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:err});
+            }else{
+
+                var token = results.get_token;
+                var counts = jsonConvert.stringToJson(results.get_all)['count'];
+                if(counts === 0){
+                    res.json({
+                            result: 'success',
+                            pages:1,
+                            content:[]}
+                    );
+                    return;
+                }
+                var allCounts = counts;
+
+                //get product list
+                var pageCounts = 1;
+                if(allCounts > 0){
+                    var over = (allCounts) % 10;
+                    over > 0 ? pageCounts = parseInt((allCounts) / 10) + 1 :  pageCounts = parseInt((allCounts) / 10) ;
+                }
+
+                //第一页用户数组
+                var array = jsonConvert.stringToJson(results.get_currPage)['decoration_cases'];
+                res.json({ result: 'success',
+                    pages:pageCounts,
+                    content:array});
+            }
+        }
+    );
+}
+
+
+exports.updatemerchantsCasesById = function(req,res){
+    var caseId = req.body.id;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            set_status: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+                var path = '/merchants/decorationCases/' + caseId + '/verificationStatus?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                res.json({
+                    result: 'success',
+                    content: ''})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+
+exports.updateworkersCasesById = function(req,res){
+    var caseId = req.body.id;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            set_status: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+                var path = '/wokers/decorationCases' + caseId + '/verificationStatus?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                res.json({
+                    result: 'success',
+                    content: ''})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
 };

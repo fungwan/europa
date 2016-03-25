@@ -9,6 +9,7 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
         };
         $scope.currUsersPage = 1;
         $scope.selectEditUsr = {};
+        $scope.currUser = $rootScope.userInfo;
 
         $scope.roleArray = ['客服', '财务初审员', '财务复核员', '财务经理', '运营', '城市管理员'];
 
@@ -52,17 +53,36 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
                     break;
                 }
             }
-            $scope.selectEditUsr.roleArray = [
-                { value: 0, name: '客服', style: 'badge badge-default' },
-                { value: 1, name: '财务初审员', style: 'badge badge-blue' },
-                { value: 2, name: '财务复核员', style: 'badge badge-info' },
-                { value: 3, name: '财务经理', style: 'badge badge-info' },
-                { value: 4, name: '运营', style: 'badge badge-warning' }
-            ];
-            if (usr.role == 5) {
-                $scope.selectEditUsr.roleArray = [{ value: 5, name: '超级管理员', style: 'badge badge-primary' }];
-            };
-        }
+
+            if(usr.role != 99 && $rootScope.userInfo.role == 99){
+                $scope.selectEditUsr.roleArray = [
+                    { value: 0, name: '客服', style: 'badge badge-default' },
+                    { value: 1, name: '财务初审员', style: 'badge badge-blue' },
+                    { value: 2, name: '财务复核员', style: 'badge badge-info' },
+                    { value: 3, name: '财务经理', style: 'badge badge-info' },
+                    { value: 4, name: '运营', style: 'badge badge-warning' },
+                    { value: 5, name: '城市管理员', style: 'badge badge-dark' }
+                ];
+            }
+
+            if(usr.role != 5 && $rootScope.userInfo.role == 5){
+                $scope.selectEditUsr.roleArray = [
+                    { value: 0, name: '客服', style: 'badge badge-default' },
+                    { value: 1, name: '财务初审员', style: 'badge badge-blue' },
+                    { value: 2, name: '财务复核员', style: 'badge badge-info' },
+                    { value: 3, name: '财务经理', style: 'badge badge-info' },
+                    { value: 4, name: '运营', style: 'badge badge-warning' }
+                ];
+            }
+
+            if (usr.role == 5 && $rootScope.userInfo.role != 99) {
+                $scope.selectEditUsr.roleArray = [{ value: 5, name: '城市管理员', style: 'badge badge-dark' }];
+            }
+
+            if (usr.role == 99) {
+                $scope.selectEditUsr.roleArray = [{ value: 99, name: '超级管理员', style: 'badge badge-primary' }];
+            }
+        };
 
         $scope.onShowCreateUsr = function () {
             $scope.createUsrInfo = {
@@ -78,13 +98,25 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
                 $scope.provinceArray.push(nilProvince);
             }
             $scope.createUsrInfo.provinceSel = $scope.provinceArray[$scope.provinceArray.length - 1];
-            $scope.createUsrInfo.roleArray = [
-                { value: 0, name: '客服', style: 'badge badge-default' },
-                { value: 1, name: '财务初审员', style: 'badge badge-blue' },
-                { value: 2, name: '财务复核员', style: 'badge badge-info' },
-                { value: 3, name: '财务经理', style: 'badge badge-info' },
-                { value: 4, name: '运营', style: 'badge badge-warning' }
-            ];
+
+            if($rootScope.userInfo.role == 5){
+                $scope.createUsrInfo.roleArray = [
+                    { value: 0, name: '客服', style: 'badge badge-default' },
+                    { value: 1, name: '财务初审员', style: 'badge badge-blue' },
+                    { value: 2, name: '财务复核员', style: 'badge badge-info' },
+                    { value: 3, name: '财务经理', style: 'badge badge-info' },
+                    { value: 4, name: '运营', style: 'badge badge-warning' }
+                ];
+            }else if($rootScope.userInfo.role == 99){
+                $scope.createUsrInfo.roleArray = [
+                    { value: 0, name: '客服', style: 'badge badge-default' },
+                    { value: 1, name: '财务初审员', style: 'badge badge-blue' },
+                    { value: 2, name: '财务复核员', style: 'badge badge-info' },
+                    { value: 3, name: '财务经理', style: 'badge badge-info' },
+                    { value: 4, name: '运营', style: 'badge badge-warning' },
+                    { value: 5, name: '城市管理员', style: 'badge badge-dark' }
+                ];
+            }
         }
 
         $scope.onEditUsername = function () {

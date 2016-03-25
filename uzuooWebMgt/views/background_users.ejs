@@ -47,12 +47,12 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="user in bgUsers">
-                                <td><input type="checkbox" class="checkbox" ng-model="user.selected" ng-if="user.username != 'admin'"/></td>
+                                <td><input type="checkbox" class="checkbox" ng-model="user.selected" ng-if="user.role != '99'"/></td>
                                 <td ng-bind="user.username"></td>
                                 <td ng-bind="roleArray[user.role]"></td>
                                 <td ng-bind="getCityName(user.city)"></td>
                                 <td>
-                                    <button type="button" class="btn btn-default btn-xs" data-target="#edit_account_dlg" data-toggle="modal" ng-click="onShowEditUsrDlg(user)"><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
+                                    <button type="button" class="btn btn-default btn-xs" data-target="#edit_account_dlg" data-toggle="modal" ng-if="user.username != 'admin'" ng-click="onShowEditUsrDlg(user)"><i class="fa fa-edit"></i>&nbsp; 编辑</button>&nbsp;
                                     <button type="button" class="btn btn-danger btn-xs " data-target="#modal-confirm"  data-toggle="modal" ng-if="user.username != 'admin'" ng-click="onShowDelOne(user)"><i class="fa fa-trash-o"></i>&nbsp; 删除</button>
                                 </td>
                             </tr>
@@ -129,7 +129,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div ng-if="currUser.role=='99'" class="form-group">
                                         <label class="col-md-3 control-label">城市</label>
                                         <div class="col-md-9">
                                             <div id="create_city_div">
@@ -197,7 +197,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div ng-if="currUser.role=='99'" class="form-group">
                                         <label class="col-md-3 control-label">城市</label>
                                         <div class="col-md-9">
                                             <div id="edit_city_div">

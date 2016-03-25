@@ -679,3 +679,222 @@ exports.delAppVersion = function(req,res){
             }
         })
 };
+
+
+exports.updateRegions = function(req,res){
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_regions:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/countries/001/administrativeDivision?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+exports.Addrole = function(req,res){
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            add_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/roles?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.Updaterole = function(req,res){
+    var roleId = req.params.id;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/roles/' + roleId + '?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.Addcraft = function(req,res){
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            add_craft:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/crafts?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.Updatecraft = function(req,res){
+    var craftId = req.params.id;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_craft:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/crafts/' + craftId + '?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
