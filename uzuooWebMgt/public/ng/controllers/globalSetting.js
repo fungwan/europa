@@ -49,6 +49,8 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
             ApiService.get('/setting/recommendRole', obj, function (data) {
                 if (data.result == 'success') {
                     $scope.recommendRoleArray = data.content;
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -62,6 +64,8 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                 if (data.result == 'success') {
                     $scope.sysConfig = data.content;
                     $scope.sysConfig.margin_freeze = data.content.margin_freeze / 3600 /24;
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -288,6 +292,16 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                 .then(function (result) {
                     $scope.selRecommendRole.icon_href = result;
                 });
+        };
+
+        $scope.onEditIntFreezeTime = function(value){
+
+            var reg = /^[0-9]+$/;
+            if (!reg.test(value)) {
+                $scope.checkInputFreezeTimeSyntaxStatus = true;
+            }else{
+                $scope.checkInputFreezeTimeSyntaxStatus = false;
+            }
         };
 
         $scope.onEditInt = function(value){

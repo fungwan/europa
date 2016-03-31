@@ -44,7 +44,8 @@ exports.set = function(acl){
             roles:['4'],//运营
             allows:[
                 {resources:'/api/bills', permissions:'get'},
-                {resources:['/api/workers','/api/orders'], permissions:['get','post']}
+                {resources:['/api/workers','/api/orders'], permissions:['get','post']},
+                {resources:['/api/setting'], permissions:['get','post','put','delete']}
             ]
         },
         {

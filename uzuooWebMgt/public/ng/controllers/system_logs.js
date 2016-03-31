@@ -174,6 +174,8 @@ angular.module('myApp').controller('HistoryCtrl', ['$scope', '$location', '$root
 
                     //分页控件
                     worksPaging(pages);
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

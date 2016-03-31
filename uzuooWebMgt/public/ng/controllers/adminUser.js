@@ -160,7 +160,10 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
                 var locationValue = '';
                 if ($scope.createUsrInfo.provinceSel.id && $scope.createUsrInfo.citySel.id) {
                     locationValue = $scope.createUsrInfo.provinceSel.id + ',' + $scope.createUsrInfo.citySel.id;
-                } else {
+                }else if($rootScope.userInfo.role == 5){
+                    locationValue = $rootScope.userInfo.city;
+                }
+                else {
                     $scope.createUsrInfo.errorTip = "请选择城市！"
                     return;
                 }
@@ -277,10 +280,11 @@ angular.module('myApp').controller('BgUserCtrl', ['$scope', '$location', '$rootS
                         getBgUsersBypage($scope.currUsersPage - 1);
                         return;
                     }
-
                     //分页控件
                     usersPaging(pageIndex);
 
+                }else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

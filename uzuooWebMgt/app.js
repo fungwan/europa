@@ -130,6 +130,6 @@ mongodb.connect(mongoSettings.url, function(error, db) {//mongodb://username:pas
         console.log('Https server listening on port ' + app.get('port'));
     });
 
-    module.exports = app;
+    module.exports = https;
 
 });

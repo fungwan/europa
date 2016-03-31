@@ -48,29 +48,40 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             }
         }
 
-        $scope.onSearch = function () {
+        $scope.onExactSearch = function () {
             filters = [];
-            if ($scope.moreLink) {
 
-            }
-            if ($scope.searchFilter.stutus.value !== '') {
-                var item = 'status::' + $scope.searchFilter.stutus.value;
-                filters.push(item);
-            }
             if ($scope.searchFilter.orderId !== '') {
                 var item = 'id::' + $scope.searchFilter.orderId;
                 filters.push(item);
             };
-            if ($scope.searchFilter.startDate !== '') {
-                var ts = new Date($scope.searchFilter.startDate).getTime();
-                var item = 'start_time::' + ts;
+
+            if (filters.length == 0)
+                filters = ['all'];
+            getOrdersBypage(1);
+        }
+
+        $scope.onSearch = function () {
+            filters = [];
+
+            if ($scope.searchFilter.stutus.value !== '') {
+                var item = 'status::' + $scope.searchFilter.stutus.value;
                 filters.push(item);
             }
-            if ($scope.searchFilter.endDate != '') {
-                var ts = new Date($scope.searchFilter.endDate).getTime();
-                var item = 'end_time::' + ts;
-                filters.push(item);
+
+            if (!$scope.moreLink) {
+                if ($scope.searchFilter.startDate !== '') {
+                    var ts = new Date($scope.searchFilter.startDate).getTime();
+                    var item = 'start_time::' + ts;
+                    filters.push(item);
+                }
+                if ($scope.searchFilter.endDate != '') {
+                    var ts = new Date($scope.searchFilter.endDate).getTime();
+                    var item = 'end_time::' + ts;
+                    filters.push(item);
+                }
             }
+
 
             if (filters.length == 0)
                 filters = ['all'];
@@ -260,6 +271,8 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
                     //分页控件
                     ordersPaging(pageIndex);
 
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

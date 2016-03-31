@@ -41,7 +41,8 @@ angular.module('myApp').controller('AdvertisementCtrl', ['$scope', '$location', 
         	$scope.selectAdvertisement = {
         		title:advertisement.title,
         		photos:[advertisement.photos[0]],
-        		href:advertisement.href
+        		href:advertisement.href,
+                phone:advertisement.phone
         	}
             //$scope.selectAdvertisement = advertisement;//cloneObj(advertisement);
             /*if ($scope.selectAdvertisement.photos.length == 0) {

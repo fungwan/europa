@@ -15,14 +15,14 @@
                         <table class="table  table-bordered table-advanced table-lg">
                             <thead class="cf">
                                 <tr>
-                                    <th width="30%">
+                                    <th width="15%">
                                         <div style="text-align:center">省份</div>
                                     </th>
-                                    <th width="30%" >
-                                        <div style="text-align:center">城市</div>
+                                    <th width="40%">
+                                        <div style="text-align:center">省份详情</div>
                                     </th>
                                     <th width="40%">
-                                        <div style="text-align:center">区域</div>
+                                        <div style="text-align:center">城市详情</div>
                                     </th>
                                 </tr>
                             </thead>
@@ -31,43 +31,97 @@
                                     <td>
                                         <ul class="nav nav-pills nav-stacked">
                                             <li>
-                                                <button ng-click="onShowNewProvince()" class="btn btn-primary">新增省份</button>
+                                                <button data-target="#new_province_dlg" data-toggle="modal" ng-click="onShowNewProvince()" class="btn btn-primary">新增省份</button>
                                             </li>
                                             <li ng-repeat="province in provinceArray">
-                                                <div class="form-group">
-                                                    <a href="#" ng-bind="province.name" ng-click="onSelectProvince(province)">四川</a>
-                                                    <button class="btn btn-success">修改省份名</button>
-                                                    <!--button class="btn btn-info">隐藏</button-->
-                                                </div>
+                                                <a href="#" ng-bind="province.name" ng-click="onSelectProvince(province)">四川</a>
                                             </li>
                                         </ul>
                                     </td>
                                     <td ng-if="selectedProvince">
                                         <ul class="nav nav-pills nav-stacked">
-                                            <li>
-                                                <button ng-click="onShowNewCity()"  class="btn btn-primary">新增城市</button>
-                                            </li>
-                                            <li ng-repeat="city in selectedProvince.cities">
-                                                <div class="form-group">
-                                                    <a href="#" ng-bind="city.name" ng-click="onSelectCity(city)">成都</a>
-                                                    <button class="btn btn-success">修改城市名</button>
-                                                    <!--button class="btn btn-info">隐藏</button-->
+                                            <form class="form-horizontal">
+                                                <div class="form-body pal">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">名称：
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <input ng-change="onChangeProvinceName()" ng-model='selectedProvince.name' type="text" style="color:black;" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--div class="form-group">
+                                                        <label class="col-md-2 control-label">可见性：
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <select ng-change="onChangeRoleVisable()" data-style="btn-grey" ng-model='selectedRole.visible'>
+                                                                <option value=0>隐藏</option>
+                                                                <option value=1>显示</option>
+                                                            </select>
+                                                        </div>
+                                                    </div-->
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">包括城市：
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div ng-repeat="city in selectedProvince.cities" style="display:inline;">
+                                                                <a href="#" ng-bind="city.name" ng-click="onSelectCity(city)"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </li>
+                                                <div class="form-actions text-right pll prl">
+                                                    <!--button type="submit" class="btn btn-primary">Send</button-->&nbsp;
+                                                    <button id="updateAmountSet-btn" type="button" class="btn btn-green" ng-click="onShowNewCraftDlg()" data-target="#new_city_dlg"
+                                                    data-toggle="modal">新增城市</button>
+                                                </div>
+                                            </form>
                                         </ul>
                                     </td>
                                     <td ng-if="selectedCity">
                                         <ul class="nav nav-pills nav-stacked">
-                                            <li>
-                                                <button ng-click="onShowNewRegion()"  class="btn btn-primary">新增区域</button>
-                                            </li>
-                                            <li ng-repeat="region in selectedCity.regions">
-                                                <div class="form-group">
-                                                    <a href="#" ng-bind="region.name">锦江区</a>
-                                                    <button class="btn btn-success">修改区域名</button>
-                                                    <!--button class="btn btn-info">隐藏</button-->
+                                            <form class="form-horizontal">
+                                                <div class="form-body pal">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">名称：
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <input ng-change="onChangeCityName()" ng-model='selectedCity.name' type="text" style="color:black;" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--div class="form-group">
+                                                        <label class="col-md-2 control-label">可见性：
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <select ng-change="onChangeRoleVisable()" data-style="btn-grey" ng-model='selectedRole.visible'>
+                                                                <option value=0>隐藏</option>
+                                                                <option value=1>显示</option>
+                                                            </select>
+                                                        </div>
+                                                    </div-->
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">区域：
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <div ng-repeat="region in selectedCity.regions" style="display:inline;">
+                                                                <a href="#" data-target="#edit_region_dlg" data-toggle="modal" ng-click="onSelectRegion(region)" ng-bind="region.name"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </li>
+                                                <div class="form-actions text-right pll prl">
+                                                    <!--button type="submit" class="btn btn-primary">Send</button-->&nbsp;
+                                                    <button id="updateAmountSet-btn" type="button" class="btn btn-green" ng-click="onShowNewCraftDlg()" data-target="#new_region_dlg"
+                                                    data-toggle="modal">新增区域</button>
+                                                </div>
+                                            </form>
                                         </ul>
                                     </td>
                                 </tr>
@@ -82,15 +136,15 @@
 
 
 
-<div aria-hidden="true" id="new_region_dlg" tabindex="-1" class="modal fade">
+<div aria-hidden="true" id="new_province_dlg" tabindex="-1" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content"> 
             <div class="row">
                 <!-- start -->
                 <div class="col-lg-12" style="height:10%">
                     <div class="portlet box portlet-blue">
                         <div class="portlet-header">
-                            <div class="caption" ng-bind="editItem.title">新增省份</div>
+                            <div class="caption">新增省份</div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +154,7 @@
                             <div class="input-group input-daterange col-md-3"></div>
                             <div class="input-group input-daterange col-md-6 col-md-offset-3">
                                 <span class="input-group-addon">名称</span>
-                                <input type="text" ng-model="editItem.element.name" class="form-control">
+                                <input type="text" ng-model="newProvince.name" class="form-control">
                             </div>
                         </div>
                     </form>
@@ -112,6 +166,126 @@
                     </div>
                     <div class="col-md-6">
                         <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="onNewProvince()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" id="new_city_dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content"> 
+            <div class="row">
+                <!-- start -->
+                <div class="col-lg-12" style="height:10%">
+                    <div class="portlet box portlet-blue">
+                        <div class="portlet-header">
+                            <div class="caption" >新增城市</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-body pal">
+                            <div class="input-group input-daterange col-md-3"></div>
+                            <div class="input-group input-daterange col-md-6 col-md-offset-3">
+                                <span class="input-group-addon">名称</span>
+                                <input type="text" ng-model="newCity.name" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="modify_conference_footer">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="onNewCity()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" id="new_region_dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content"> 
+            <div class="row">
+                <!-- start -->
+                <div class="col-lg-12" style="height:10%">
+                    <div class="portlet box portlet-blue">
+                        <div class="portlet-header">
+                            <div class="caption">新增区域</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-body pal">
+                            <div class="input-group input-daterange col-md-3"></div>
+                            <div class="input-group input-daterange col-md-6 col-md-offset-3">
+                                <span class="input-group-addon">名称</span>
+                                <input type="text" ng-model="newRegion.name" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="modify_conference_footer">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="onNewRegion()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" id="edit_region_dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <!-- start -->
+                <div class="col-lg-12" style="height:10%">
+                    <div class="portlet box portlet-blue">
+                        <div class="portlet-header">
+                            <div class="caption">编辑区域</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-body pal">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">名称：
+                                </label>
+                                <div class="col-md-4">
+                                    <div>
+                                        <input ng-change="onChangeRegionName()" ng-model='selectedRegion.name' type="text" style="color:black;" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="modify_conference_footer">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
                         <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="onSaveChange()">确定</button>
                     </div>
                 </div>

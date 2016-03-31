@@ -53,9 +53,11 @@
                 </ul>
             </li>
 
-            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'actvityAdmin']"><a href="#"><i class="fa fa-rss-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">活动信息管理</span><span class="fa arrow"></span></a>
+            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'actvityAdmin']"><a href="#"><i class="fa fa-rss-square fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">运营管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'activityMgt']"><a href="/activityMgtPage"><i class="fa fa-table"></i><span class="submenu-title">活动查看</span></a>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'activityMgt']"><a href="/activityMgtPage"><i class="fa fa-table"></i><span class="submenu-title">活动管理</span></a>
+                    </li>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'feedback']"><a href="/customerFeedbacks"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">客户反馈</span></a>
                     </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
@@ -66,10 +68,8 @@
                 </ul>
             </li>
 
-            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'operationAdmin']"><a href="#"><i class="fa fa-trello fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">运营管理</span><span class="fa arrow"></span></a>
+            <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.firstClassSel == 'operationAdmin']"><a href="#"><i class="fa fa-cog fa-fw"><div class="icon-bg bg-blue"></div></i><span class="menu-title">配置管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'feedback']"><a href="/customerFeedbacks"><i class="fa fa-tencent-weibo"></i><span class="submenu-title">客户反馈</span></a>
-                    </li>
                     <!--li><a href="table-responsive.html"><i class="fa fa-tablet"></i><span class="submenu-title">Responsive Tables</span></a>
                     </li-->
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'globalSetting']"><a href="/globalSettingPage"><i class="fa fa-th-large"></i><span class="submenu-title">全局参数设置</span></a>
@@ -80,7 +80,7 @@
                     </li>
                     <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'citiesMgt']"><a href="/citiesMgt"><i class="fa fa-th-large"></i><span class="submenu-title">城市管理</span></a>
                     </li>
-                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'categoriesMgt']"><a href="/categoriesMgt"><i class="fa fa-th-large"></i><span class="submenu-title">工种管理</span></a>
+                    <li ng-class="{true: 'active', false: 'inactive'}[sideBarSelect.secondSel == 'categoriesMgt']"><a href="/categoriesMgt"><i class="fa fa-th-large"></i><span class="submenu-title">类别管理</span></a>
                     </li>
                 </ul>
             </li>

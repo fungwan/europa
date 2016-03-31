@@ -31,7 +31,7 @@
                                     <option value="full_name">姓名</option>
                                 </select>
                                 <input id="exactSearch-input" type="text" placeholder="输入对应关键字查找..." ng-model='workSearchFilter.keywordValue'/>
-                                <button id="exactSearch-btn" type="button" ng-click="onSearch()">查找</button>
+                                <button id="exactSearch-btn" type="button" ng-click="onWorkerExactSearch()">查找</button>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div id="more_find_div" class="row mbm" ng-show="!moreLink">
-                        <div class="col-lg-12">
+                        <div ng-if="userInfo.role == 99" class="col-lg-12">
                             城市 :
 
                             <select ng-options="province.name for province in provinceArray" ng-model="workSearchFilter.provinceSel" ng-change="onProvinceSelect()"></select>
@@ -205,6 +205,63 @@
                     </div>
                 </div>
                 <div id="table-panel-tab" class="tab-pane fade">
+                    <div class="row mbl">
+                        <div class="col-lg-6">
+                            <div class="tb-group-actions pull-left">
+                                <select id="keyWord-sel" data-style="btn-grey" ng-model='merchantSearchFilter.keyword'>
+                                    <option value="phone">电话号码</option>
+                                    <option value="id_card_no">身份证</option>
+                                    <option value="full_name">姓名</option>
+                                </select>
+                                <input id="exactSearch-input" type="text" placeholder="输入对应关键字查找..." ng-model='merchantSearchFilter.keywordValue'/>
+                                <button id="exactSearch-btn" type="button" ng-click="onWorkerExactSearch()">查找</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div style="position: relative;top: 6px">
+                                <span data-value="0"><a href="javascript:;" ng-click="onClickMoreM()">{{moreLinkStrM}}<i ng-class="{true: 'fa fa-sort-desc', false: 'fa fa-sort-asc'}[moreLinkM]"class="fa fa-sort-desc"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="more_find_div" class="row mbm" ng-show="!moreLinkM">
+                        <br>
+                        <div class="col-lg-12">
+                            区域 :
+                            <div id="regions-div">
+                                <div ng-repeat="region in merchantSearchFilter.regionSelArray"  style="display:inline;">
+
+                                    <input id='{{region.id}}' type="checkbox" ng-model = "region.selected"/>
+                                    <label for='{{region.id}}'>{{region.name}}</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6">
+                            工种 :
+                            <select ng-options="role.name for role in originalMerchantRoles" ng-model="merchantSearchFilter.originalRoleSel" ng-change="originalRoleSelectM()"></select>
+                            <div ng-show="merchantSearchFilter.craftsArray.length != 0">
+                                细项：
+                                <div ng-repeat="craft in merchantSearchFilter.craftsArray"  style="display:inline;">
+                                    <input id='{{craft.id}}' type="checkbox" ng-model = "craft.selected"/>
+                                    <label for='{{craft.id}}'>{{craft.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--div class="col-lg-6">
+                            <div id="verifedStates-div">
+                                认证状态 : <input id="workerVerified-0" value="0" type="checkbox" /><label >未认证</label>
+                                <input id="workerVerified-1" value="1" type="checkbox" /><label >待认证</label>
+                                <input id="workerVerified-1" value="2" type="checkbox" /><label >已认证</label>
+                                <input id="workerVerified-1" value="3" type="checkbox" /><label >驳回认证</label>
+
+
+                            </div>
+                        </div-->
+                        <div class="col-lg-offset-5 col-lg-12">
+                            <button id="screen-btn" ng-click="onSearchM()"><i class="fa fa-search"></i>&nbsp;筛选
+                            </button>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="portlet-body pan">
@@ -217,9 +274,9 @@
                                             <th width="5%">真实姓名</th>
                                             <th width="5%">身份证号</th>
                                             <th width="5%">商家电话</th>
-                                            <!--th width="6%">注册时间</th-->
+                                            <th width="6%">注册时间</th>
                                             <th width="7%">
-                                                <select data-style="btn-grey" ng-model="merchantsSearchFilter.verified" class="selectpicker form-control" ng-change="onMerchantsSearch()">
+                                                <select data-style="btn-grey" ng-model="merchantSearchFilter.verified" class="selectpicker form-control" ng-change="onSearchM()">
                                                     <!--option value="-1">选择认证状态</option-->
                                                     <option value="all">所有认证状态</option>
                                                     <option value="0">未认证</option>
@@ -230,6 +287,7 @@
                                             </th>
                                             <th width="5%">城市</th>
                                             <th width="5%">区域</th>
+                                            <th width="5%">商家类别</th>
                                             <th width="3%"></th>
                                         </tr>
                                     </thead>
@@ -239,9 +297,11 @@
                                             <td ng-bind="merchant.first_name + merchant.last_name"></td>
                                             <td ng-bind="merchant.id_card_no"></td>
                                             <td ng-bind="merchant.phone"></td>
+                                            <td ng-bind="timeToStr(merchant.create_time *1000)"></td>
                                             <td><span class="label label-sm" ng-class="{0:'label-warning',1:'label-dark',2:'label-success',3:'label-primary'}[merchant.verified]" ng-bind="getVerifiedStatus(merchant.verified)">未认证</span></td>
                                             <td ng-bind="getCityAndRegionStr(merchant.regions).city">城市</td>
                                             <td ng-bind="getCityAndRegionStr(merchant.regions).regions">区域</td>
+                                            <td ng-bind="getMerchantCategoryStr(merchant.categories).first">第一工种</td>
                                             <td>
                                                 <button type="button" class="btn btn-default btn-xs" ng-click="onShowMerchantDetailInfo(merchant)"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
                                                 </button>&nbsp;
@@ -267,7 +327,7 @@
         <div class="modal-content">
             <div class="modal-header modal-header-primary">
                 <button type="button" name='close-workerDetailDialog-btn' data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                <h4 class="modal-title">编辑</h4>
+                <h4 class="modal-title">工人详情</h4>
             </div>
             <div class="modal-body">
                 <div class="tabbable tabs-left">
@@ -319,7 +379,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <a href="#"><span id="workerScore" class="badge badge-warning pull-right" ng-bind="selectWorker.score"></span>星级:</a>
+                                            <a href="#"><span id="workerScore" class="badge badge-warning pull-right" ng-bind="selectWorker.score"></span>积分:</a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -345,6 +405,11 @@
                                     <div class="col-md-6">
                                         <a href="javascript:void(0)" ng-click="onShowInvitees('worker',selectWorker.invite_Info)">
                                         <span class="badge badge-dark pull-right" ng-bind="selectWorker.invite_Info.invitation_code"></span></a><label>邀请码：</label>
+                                    </div>
+                                    <br>
+                                    <div class="col-md-12">
+                                        <span class="label label-violet">个人介绍：</span><span ng-bind="selectWorker.statement"></span>
+
                                     </div>
                                 </div>
                                 <div class="pull-right" ng-if="selectWorker.verified !== 2">
@@ -552,7 +617,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <a href="javascript:void(0)" ng-click="onShowInvitees('houseOwner',selectHouseOwner.invite_Info)">
-                                            <span class="badge badge-dark pull-right" ng-bind="selectWorker.invite_Info.invitation_code"></span></a><label>邀请码：</label>
+                                            <span class="badge badge-dark pull-right" ng-bind="selectHouseOwner.invite_Info.invitation_code"></span></a><label>邀请码：</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -564,8 +629,11 @@
                                     <div class="col-md-9">
                                         <form action="#">
                                             <div class="list-group">
-                                                <a href="javascript:;" class="list-group-item">账户余额
+                                                <a href="javascript:;" ng-click="getCapitalDetails(selectHouseOwner,'capital','houseOwner')" class="list-group-item">账户余额
                                                     <span id="balance-span" class="badge badge-info pull-right" ng-bind="selectHouseOwner.balance"></span>
+                                                </a>
+                                                <a href="javascript:;" ng-click="getCapitalDetails(selectHouseOwner,'ubean','houseOwner')" class="list-group-item">现金券
+                                                    <span id="balance-span" class="badge badge-info pull-right" ng-bind="selectHouseOwner.ubeans"></span>
                                                 </a>
                                             </div>
                                         </form>
@@ -762,8 +830,9 @@
             <div class="modal-footer">
                 <div>
                     <div class="col-md-12">
-                        <button ng-if="inviteesDlgType=='worker'" ng-click="onBackToLastDlg('worker')" type="button" class="btn btn-default">返回</button>
-                        <button ng-if="inviteesDlgType=='houseOwner'" ng-click="onBackToLastDlg('houseOwner')" type="button" class="btn btn-default">返回</button>
+                        <button ng-if="secPopDlgType=='worker'" ng-click="onBackToLastDlg('worker')" type="button" class="btn btn-default">返回</button>
+                        <button ng-if="secPopDlgType=='houseOwner'" ng-click="onBackToLastDlg('houseOwner')" type="button" class="btn btn-default">返回</button>
+                        <button ng-if="secPopDlgType=='merchant'" ng-click="onBackToLastDlg('merchant')" type="button" class="btn btn-default">返回</button>
                     </div>
                 </div>
             </div>
@@ -806,8 +875,9 @@
             <div class="modal-footer">
                 <div>
                     <div class="col-md-12">
-                        <button ng-if="inviteesDlgType=='worker'" ng-click="onBackToLastDlg('worker')" type="button" class="btn btn-default">返回</button>
-                        <button ng-if="inviteesDlgType=='houseOwner'" ng-click="onBackToLastDlg('houseOwner')" type="button" class="btn btn-default">返回</button>
+                        <button ng-if="secPopDlgType=='worker'" ng-click="onBackToLastDlg('worker')" type="button" class="btn btn-default">返回</button>
+                        <button ng-if="secPopDlgType=='houseOwner'" ng-click="onBackToLastDlg('houseOwner')" type="button" class="btn btn-default">返回</button>
+                        <button ng-if="secPopDlgType=='merchant'" ng-click="onBackToLastDlg('merchant')" type="button" class="btn btn-default">返回</button>
                     </div>
                 </div>
             </div>
@@ -849,12 +919,45 @@
     </div>
 </div>
 
+<div  id="show_merchantDecorationCases_dlg" tabindex="-1" data-backdrop="static" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-wide-width-label" class="modal-title">案例详情</h4>
+            </div>
+            <div class="panel-body" style="height:300px; overflow:auto;">
+                <div id="grid-layout-table1" class="box jplist">
+                    <div class="box text-shadow">
+                        <div ng-repeat="caseInfo in selectMerchant.casesDetailArray">
+                            <div>
+                                <label>{{caseInfo.description}}</label>
+                            </div>
+                            <div>
+                                <img  ng-repeat="quotation in caseInfo.photo"
+                                      border=1 src="{{qiniuUrl + quotation}}" width="128" height="128" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <div class="col-md-12">
+                        <button ng-click="onBackToLastDlg('merchant')" type="button" class="btn btn-default">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div aria-hidden="false" style="display:none;" id="edit_merchant_dlg" tabindex="-1" data-backdrop="static" class="modal fade in">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-primary">
                 <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                <h4 class="modal-title">编辑</h4>
+                <h4 class="modal-title">商家详情</h4>
             </div>
             <div class="modal-body">
                 <div class="tabbable tabs-left">
@@ -865,7 +968,9 @@
                         </li>
                         <li><a data-target="#edit_merchant_accountInfo" data-toggle="tab" href="#" >账户信息</a>
                         </li>
-                        <li ><a data-target="#show_merchant_decorationCases" href="#" data-toggle="tab">商家产品</a>
+                        <li ><a data-target="#show_merchant_decorationCases" href="#" data-toggle="tab">商家案例</a>
+                        </li>
+                        <li ><a data-target="#show_merchant_products" href="#" data-toggle="tab">商家产品</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -957,13 +1062,13 @@
                         <div id="edit_merchant_accountInfo" class="tab-pane fade">
                             <form action="#">
                                 <div class="list-group">
-                                    <a href="javascript:void(0)"  class="list-group-item active">账户余额
+                                    <a href="javascript:void(0)" ng-click="getCapitalDetails(selectMerchant,'capital','merchant')" class="list-group-item active">账户余额
                                         <span id="balance-span" class="badge badge-info pull-right" ng-bind="selectMerchant.balance"></span>
                                     </a>
                                     <a class="list-group-item">系统赠送保证金
                                         <span id="systemMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectMerchant.mBalanceSystem"></span>
                                     </a>
-                                    <a href="javascript:void(0)"  class="list-group-item">个人保证金
+                                    <a href="javascript:void(0)"  ng-click="getCapitalDetails(selectMerchant,'margin','merchant')" class="list-group-item">个人保证金
                                         <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectMerchant.mBalanceOwns"></span>
                                     </a>
                                     <a  class="list-group-item">累积收入
@@ -979,27 +1084,64 @@
                             <div  style="height:300px; overflow:auto;">
                                 <div id="grid-layout-table1" class="box jplist">
                                     <div class="box text-shadow">
-                                        <!--table  class="table table-hover table-bordered">
+                                        <table  class="table table-hover table-bordered">
                                             <thead>
                                             <tr>
                                                 <th width="8%">名称</th>
                                                 <th width="15%">缩略图</th>
+                                                <!--th width="3%">更新时间</th-->
                                                 <th width="2%"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="case in selectWorker.casesArray">
+                                            <tr ng-repeat="case in selectMerchant.casesArray">
                                                 <td ng-bind="case.name">失败</td>
                                                 <td >
                                                     <img  ng-repeat="quotation in case.thumbnails.slice(0,3)"  border=1 src="{{qiniuUrl + quotation}}" width="56" height="56" />
                                                 </td>
+                                                <!--td ng-bind="timeToStr(case.create_time*1000)">2015/12/12</td-->
                                                 <td >
-                                                    <button type="button" class="btn btn-default btn-xs" ng-click="onShowDecorationCases('worker',case.id)"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
+                                                    <button type="button" class="btn btn-default btn-xs" ng-click="onShowDecorationCases('merchant',case.id)"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
                                                     </button>&nbsp;
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table-->
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="show_merchant_products" class="tab-pane fade">
+                            <div  style="height:300px; overflow:auto;">
+                                <div id="grid-layout-table1" class="box jplist">
+                                    <div class="box text-shadow">
+                                        <table  class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th width="8%">名称</th>
+                                                <th width="15%">缩略图</th>
+                                                <th width="8%">描述</th>
+                                                <th width="5%">价格</th>
+                                                <!--th width="3%">更新时间</th-->
+                                                <!--th width="2%"></th-->
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="case in selectMerchant.merchandiseArray">
+                                                <td ng-bind="case.name">失败</td>
+                                                <td >
+                                                    <img  ng-repeat="quotation in case.photos.slice(0,3)"  border=1 src="{{qiniuUrl + quotation}}" width="56" height="56" />
+                                                </td>
+                                                <!--td ng-bind="timeToStr(case.create_time*1000)">2015/12/12</td-->
+                                                <!--td >
+                                                    <button type="button" class="btn btn-default btn-xs" ><i class="fa fa-angle-double-right"></i>&nbsp; 更多
+                                                    </button>&nbsp;
+                                                </td-->
+                                                <td ng-bind="case.description"></td>
+                                                <td ng-bind="case.price / 100"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

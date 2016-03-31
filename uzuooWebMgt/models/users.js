@@ -172,17 +172,29 @@ exports.updateUserPWById = function(req,res){
 exports.findUsersByPage = function(req,res){
 
     var currPage = req.query.page - 1;
-
+    var cityStr = req.session.user.city;
     async.auto(
         {
             get_all: function (callback) {
-                var options = connectAddr + '/users?$count=true';
+
+                var options = '';
+                if(req.session.user.role == 99){
+                    options = connectAddr + '/users?$count=true';
+                }else{
+                    options = connectAddr + '/users?$filter=city eq \''+ cityStr +'\'&$count=true';
+                }
+
                 request.get(options,callback);
             },
             get_currPage: function (callback) {
 
                 var skipValue = currPage * 10;
-                var options = connectAddr + '/users?$top=10&$skip=' + skipValue;//
+                var options = ''
+                if(req.session.user.role == 99){
+                    options = connectAddr + '/users?$top=10&$skip=' + skipValue;//
+                }else{
+                    options = connectAddr + '/users?$filter=city eq \''+ cityStr +'\'&$top=10&$skip=' + skipValue;//
+                }
                 request.get(options,callback);
             }
         },

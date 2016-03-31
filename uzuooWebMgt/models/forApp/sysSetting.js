@@ -768,7 +768,7 @@ exports.Addrole = function(req,res){
 };
 
 
-exports.Updaterole = function(req,res){
+exports.UpdateRoleName = function(req,res){
     var roleId = req.params.id;
     async.auto(
         {
@@ -784,7 +784,7 @@ exports.Updaterole = function(req,res){
             },
             update_role:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/workers/roles/' + roleId + '?accessToken=' + token;
+                var path = '/workers/roles/' + roleId + '/name?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -812,8 +812,8 @@ exports.Updaterole = function(req,res){
 };
 
 
-exports.Addcraft = function(req,res){
-
+exports.UpdateRoleVisible = function(req,res){
+    var roleId = req.params.id;
     async.auto(
         {
             get_token: function (callback) {
@@ -826,9 +826,9 @@ exports.Addcraft = function(req,res){
                     }
                 });
             },
-            add_craft:['get_token',function(callback,results){
+            update_role:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/workers/crafts?accessToken=' + token;
+                var path = '/workers/roles/' + roleId + '/visible?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -856,8 +856,8 @@ exports.Addcraft = function(req,res){
 };
 
 
-exports.Updatecraft = function(req,res){
-    var craftId = req.params.id;
+exports.UpdateRoleCrafts = function(req,res){
+    var roleId = req.params.id;
     async.auto(
         {
             get_token: function (callback) {
@@ -870,9 +870,631 @@ exports.Updatecraft = function(req,res){
                     }
                 });
             },
-            update_craft:['get_token',function(callback,results){
+            update_role:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/workers/crafts/' + craftId + '?accessToken=' + token;
+                var path = '/workers/roles/' + roleId + '/crafts?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.UpdateRoleCraftName = function(req,res){
+    var roleId = req.params.id;
+    var craftId = req.params.craftId;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/roles/' + roleId + '/crafts/' + craftId + '/name?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.UpdateRoleCraftVisible = function(req,res){
+    var roleId = req.params.id;
+    var craftId = req.params.craftId;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/workers/roles/' + roleId + '/crafts/' + craftId + '/visible?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.AddMerchantsrole = function(req,res){
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            add_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/roles?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.UpdateMerchantsRoleName = function(req,res){
+    var roleId = req.params.id;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/roles/' + roleId + '/name?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.UpdateMerchantsRoleVisible = function(req,res){
+    var roleId = req.params.id;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/roles/' + roleId + '/visible?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.UpdateMerchantsRoleCrafts = function(req,res){
+    var roleId = req.params.id;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/roles/' + roleId + '/crafts?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.UpdateMerchantsRoleCraftName = function(req,res){
+    var roleId = req.params.id;
+    var craftId = req.params.craftId;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/roles/' + roleId + '/crafts/' + craftId + '/name?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.UpdateMerchantsRoleCraftVisible = function(req,res){
+    var roleId = req.params.id;
+    var craftId = req.params.craftId;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/merchants/roles/' + roleId + '/crafts/' + craftId + '/visible?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.addProvinces = function(req,res){
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/countries/001/provinces?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.updateProvinceById = function(req,res){
+    var provinceID = req.params.provinceID;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/countries/001/provinces/'+ provinceID + '?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.addCity = function(req,res){
+    var provinceID = req.params.provinceID;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/countries/001/provinces/'+ provinceID + '/cities?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.updateCityById = function(req,res){
+    var provinceID = req.params.provinceID;
+    var cityID = req.params.cityID;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/countries/001/provinces/'+ provinceID + '/cities/' + cityID + '?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+exports.addRegion = function(req,res){
+    var provinceID = req.params.provinceID;
+    var cityID = req.params.cityID;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/countries/001/provinces/'+ provinceID + '/cities/' + cityID + '/regions?accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                var content ={};
+                content = req.body;
+                var bodyString = JSON.stringify(content);
+
+                request.post(optionItem,bodyString,callback);
+
+            }]
+        },function(err,results){
+            if(err === null){
+                res.json({ result: 'success',
+                    content:''});
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({ result: 'fail',
+                    content:results});
+            }
+        })
+};
+
+
+exports.updateRegionById = function(req,res){
+    var provinceID = req.params.provinceID;
+    var cityID = req.params.cityID;
+    var regionID = req.params.regionID;
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            update_role:['get_token',function(callback,results){
+                var token = results.get_token;
+                var path = '/countries/001/provinces/'+ provinceID + '/cities/' + cityID + '/regions/' + regionID + '?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 

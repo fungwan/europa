@@ -60,6 +60,8 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
 
                     roleRule = data.content;
                     $scope.level2RegionArray = data.content.region;
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

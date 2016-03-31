@@ -10,11 +10,11 @@
     <div id="table-action" class="row">
         <div class="col-lg-12">
             <ul id="tableAllUserTab" class="nav nav-tabs">
-                <li class="active"><a data-target="#table-table-tab" href="#" data-toggle="tab">待审核工人案例</a>
+                <li class="active"><a data-target="#table-table-tab" href="#" data-toggle="tab" ng-click="onShowWorkersCase()">待审核工人案例</a>
                 </li>
-                <li><a data-target="#table-row-tab" href="#" data-toggle="tab">待审核商家案例</a>
+                <li><a data-target="#table-row-tab" href="#" data-toggle="tab" ng-click="onShowMerchantsCases()">待审核商家案例</a>
                 </li>
-                <li><a data-target="#table-panel-tab" href="#" data-toggle="tab">待审核商品</a>
+                <li><a data-target="#table-panel-tab" href="#" data-toggle="tab" ng-click="onShowMerchandises()">待审核商品</a>
                 </li>
             </ul>
 
@@ -25,21 +25,24 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th width="8%">名称</th>
-                                        <th width="15%">缩略图</th>
-                                        <!--th width="3%">更新时间</th-->
-                                        <th width="2%"></th>
+                                        <th width="5%">名称</th>
+                                        <th width="5%">提交时间</th>
+                                        <th width="20%">缩略图</th>
+                                        <th width="5%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="case in selectWorker.casesArray">
+                                    <tr ng-repeat="case in workersCases">
                                         <td ng-bind="case.name">失败</td>
+                                        <td ng-bind="timeToStr(case.create_time *1000)">2016/3/6</td>
                                         <td>
-                                            <img ng-repeat="quotation in case.thumbnails.slice(0,3)" border=1 src="{{qiniuUrl + quotation}}" width="56" height="56" />
+                                            <img ng-repeat="quotation in case.thumbnails" border=1 src="{{qiniuUrl + quotation}}" width="56" height="56" />
                                         </td>
                                         <!--td ng-bind="timeToStr(case.create_time*1000)">2015/12/12</td-->
                                         <td>
-                                            <button type="button" class="btn btn-default btn-xs" ng-click="onShowDecorationCases('worker',case.id)"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
+                                            <button type="button" class="btn btn-info btn-xs" data-target="#modal-confirm-verify" data-toggle="modal" ng-click="onShowConfirm(case.id)"><i class="fa fa-check"></i>&nbsp; 通过
+                                            </button>&nbsp;
+                                            <button type="button" class="btn btn-primary btn-xs" data-target="#modal-confirm-reject" data-toggle="modal" ng-click="onShowReject(case.id)"><i class="fa fa-times"></i>&nbsp;驳回
                                             </button>&nbsp;
                                         </td>
                                     </tr>
@@ -53,17 +56,105 @@
                 <div id="table-row-tab" class="tab-pane fade">
                     <div class="row">
                         <div class="col-lg-12">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">名称</th>
+                                        <th width="5%">提交时间</th>
+                                        <th width="20%">缩略图</th>
+                                        <th width="5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="case in merchantsCases">
+                                        <td ng-bind="case.name">失败</td>
+                                        <td ng-bind="timeToStr(case.create_time *1000)">2016/3/6</td>
+                                        <td>
+                                            <img ng-repeat="quotation in case.thumbnails" border=1 src="{{qiniuUrl + quotation}}" width="56" height="56" />
+                                        </td>
+                                        <!--td ng-bind="timeToStr(case.create_time*1000)">2015/12/12</td-->
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-xs" data-target="#modal-confirm-verify" data-toggle="modal" ng-click="onShowConfirm(case.id)"><i class="fa fa-check"></i>&nbsp; 通过
+                                            </button>&nbsp;
+                                            <button type="button" class="btn btn-primary btn-xs" data-target="#modal-confirm-reject" data-toggle="modal" ng-click="onShowReject(case.id)"><i class="fa fa-times"></i>&nbsp;驳回
+                                            </button>&nbsp;
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <div id="uzWorkerCaesPage"></div>
 
                 </div>
                 <div id="table-panel-tab" class="tab-pane fade">
                     <div class="row">
                         <div class="col-lg-12">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="5%">名称</th>
+                                    <th width="5%">提交时间</th>
+                                    <th width="20%">缩略图</th>
+                                    <th width="5%"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="case in Merchandises">
+                                    <td ng-bind="case.name">失败</td>
+                                    <td ng-bind="timeToStr(case.create_time *1000)">2016/3/6</td>
+                                    <td>
+                                        <img ng-repeat="quotation in case.photos" border=1 src="{{qiniuUrl + quotation}}" width="56" height="56" />
+                                    </td>
+                                    <!--td ng-bind="timeToStr(case.create_time*1000)">2015/12/12</td-->
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs" data-target="#modal-confirm-verify" data-toggle="modal" ng-click="onShowConfirm(case.id)"><i class="fa fa-check"></i>&nbsp; 通过
+                                        </button>&nbsp;
+                                        <button type="button" class="btn btn-primary btn-xs" data-target="#modal-confirm-reject" data-toggle="modal" ng-click="onShowReject(case.id)"><i class="fa fa-times"></i>&nbsp;驳回
+                                        </button>&nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
+                    <div id="uzMerchandisesPage"></div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-confirm-verify" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">确定审核通过?</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button id="btn-delAll" type="button" data-dismiss="modal" class="btn btn-primary" ng-click="commitVerify()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-confirm-reject" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">确定审核驳回?</div>
+            <div class="col-lg-12">
+                <form class="form-horizontal">
+                    <div class="form-body pal">
+                        <div class="input-group input-daterange col-md-8 col-md-offset-1">
+                            <span class="input-group-addon">驳回理由</span>
+                            <input type="text" ng-model="rejectReason" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button id="btn-delAll" type="button" data-dismiss="modal" class="btn btn-primary" ng-click="commitReject()">确定</button>
             </div>
         </div>
     </div>

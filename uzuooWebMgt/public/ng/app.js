@@ -28,6 +28,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$resourceProvider',
         
         
         $routeProvider.when('/404', { templateUrl: ('partial/404') });
+        $routeProvider.when('/permissionError', { templateUrl: ('partial/permission_error') , controller: 'PermissionCtrl' });
         $routeProvider.otherwise({ redirectTo: '/404' });
 
         $locationProvider.html5Mode(true);

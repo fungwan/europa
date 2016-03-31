@@ -89,6 +89,8 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
                     $scope.billsArray = data.content;
                     totalBillsPages = data.pages;
                     billsPaging(cur);
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

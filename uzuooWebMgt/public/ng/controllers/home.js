@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp').controller('HomeCtrl', ['$scope', '$location', '$rootScope',
+angular.module('myApp').controller('PermissionCtrl', ['$scope', '$location', '$rootScope',
     function ($scope, $location, $rootScope) {
 
         $rootScope.sideBarSelect = {

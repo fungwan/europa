@@ -22,122 +22,183 @@ module.exports = function (router, acl) {
         history.addLogs(req,res,next);
     });
 
-    router.get('/setting/appVersions', function (req, res) {
+    router.get('/setting/appVersions', acl.middleware(2),function (req, res) {
         sysSetting.getAppVersions(req, res);
     });
 
-    router.post('/setting/appVersion', function (req, res) {
+    router.post('/setting/appVersion', acl.middleware(2),function (req, res) {
         sysSetting.setAppVersion(req, res);
     });
 
-    router.delete('/setting/appVersion', function (req, res) {
+    router.delete('/setting/appVersion', acl.middleware(2),function (req, res) {
         sysSetting.delAppVersion(req, res);
     });
 
-    router.get('/setting/levelRules', function (req, res) {
+    router.get('/setting/levelRules', acl.middleware(2),function (req, res) {
         sysSetting.getLevelRules(req, res);
     });
     
-    router.post('/setting/levelRules', function (req, res) {
+    router.post('/setting/levelRules', acl.middleware(2),function (req, res) {
         sysSetting.updateLevelRules(req, res);
     });
 
-    router.get('/setting/roleRules', function (req, res) {
+    router.get('/setting/roleRules', acl.middleware(2),function (req, res) {
         sysSetting.getPointsRule(req, res);
     });
 
-    router.post('/setting/roleRules', function (req, res) {
+    router.post('/setting/roleRules', acl.middleware(2),function (req, res) {
         sysSetting.updatePointsRule(req, res);
     });
 
-    router.get('/setting/craftRules', function (req, res) {
+    router.get('/setting/craftRules', acl.middleware(2),function (req, res) {
         sysSetting.getCraftRule(req, res);
     });
 
-    router.post('/setting/craftRules', function (req, res) {
+    router.post('/setting/craftRules', acl.middleware(2),function (req, res) {
         sysSetting.updateCraftRule(req, res);
     });
 
-    router.get('/setting/recommendRole', function (req, res) {
+    router.get('/setting/recommendRole', acl.middleware(2),function (req, res) {
         sysSetting.getRecommendRole(req, res);
     });
 
-    router.post('/setting/recommendRole', function (req, res) {
+    router.post('/setting/recommendRole', acl.middleware(2),function (req, res) {
         sysSetting.setRecommendRole(req, res);
     });
 
-    router.get('/setting/global', function (req, res) {
+    router.get('/setting/global', acl.middleware(2),function (req, res) {
         sysSetting.getSysConfig(req, res);
     });
 
-    router.post('/setting/global', function (req, res) {
+    router.post('/setting/global', acl.middleware(2),function (req, res) {
         sysSetting.updateSysConfig(req, res);
     });
     
-    router.post('/setting/regions', function (req, res) {
+    router.post('/setting/regions', acl.middleware(2),function (req, res) {
         sysSetting.updateRegions(req, res);
     });
     
-    router.post('/setting/role', function (req, res) {
+    router.post('/setting/provinces', acl.middleware(2),function (req, res) {
+        sysSetting.addProvinces(req, res);
+    });
+    
+    router.post('/setting/provinces/:provinceID', acl.middleware(2),function (req, res) {
+        sysSetting.updateProvinceById(req, res);
+    });
+    
+    router.post('/setting/provinces/:provinceID/cities', acl.middleware(2),function (req, res) {
+        sysSetting.addCity(req, res);
+    });
+    
+    router.post('/setting/provinces/:provinceID/cities/:cityID', acl.middleware(2),function (req, res) {
+        sysSetting.updateCityById(req, res);
+    });
+    
+    router.post('/setting/provinces/:provinceID/cities/:cityID/regions', acl.middleware(2),function (req, res) {
+        sysSetting.addRegion(req, res);
+    });
+    
+    router.post('/setting/provinces/:provinceID/cities/:cityID/regions/:regionID', acl.middleware(2),function (req, res) {
+        sysSetting.updateRegionById(req, res);
+    });
+    
+    router.post('/setting/workers/roles', acl.middleware(2),function (req, res) {
         sysSetting.Addrole(req, res);
     });
     
-    router.post('/setting/role/:id', function (req, res) {
-        sysSetting.Updaterole(req, res);
+    router.post('/setting/workers/role/:id/name', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateRoleName(req, res);
     });
     
-    router.post('/setting/craft', function (req, res) {
-        sysSetting.Addcraft(req, res);
+    router.post('/setting/workers/role/:id/visible', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateRoleVisible(req, res);
     });
     
-    router.post('/setting/craft/:id', function (req, res) {
-        sysSetting.Updatecraft(req, res);
+    router.post('/setting/workers/role/:id/crafts', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateRoleCrafts(req, res);
     });
+    
+    router.post('/setting/workers/role/:id/crafts/:craftId/name', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateRoleCraftName(req, res);
+    });
+    
+    router.post('/setting/workers/role/:id/crafts/:craftId/visible', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateRoleCraftVisible(req, res);
+    });
+    
+    router.post('/setting/merchants/roles', acl.middleware(2),function (req, res) {
+        sysSetting.AddMerchantsrole(req, res);
+    });
+    
+    router.post('/setting/merchants/role/:id/name', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateMerchantsRoleName(req, res);
+    });
+    
+    router.post('/setting/merchants/role/:id/visible', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateMerchantsRoleVisible(req, res);
+    });
+    
+    router.post('/setting/merchants/role/:id/crafts', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateMerchantsRoleCrafts(req, res);
+    });
+    
+    router.post('/setting/merchants/role/:id/crafts/:craftId/name', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateMerchantsRoleCraftName(req, res);
+    });
+    
+    router.post('/setting/merchants/role/:id/crafts/:craftId/visible', acl.middleware(2),function (req, res) {
+        sysSetting.UpdateMerchantsRoleCraftVisible(req, res);
+    });
+    
     //action for ajax request about app
 
     //action for houseOwner
     router.get('/houseOwners', function (req, res) {
-        customer.findHouseOwnersByPage(req,res);
+        customer.houseOwner.findHouseOwnersByPage(req,res);
+    });
+
+    router.get('/houseOwners/:id', function (req, res) {
+        customer.houseOwner.findHouseOwnersById(req,res);
     });
 
     router.get('/doGetRoleAndRegionsInfo', function (req, res) {
         customer.getRoleAndRegions(req,res);
     });
     
-    router.get('/merchants/decorationCases',function (req, res) {
-        customer.getmerchantsCases(req,res);
-    });
-    
     router.get('/workers/decorationCases',function (req, res) {
-        customer.getworkersCases(req,res);
+        customer.worker.getWorkersCases(req,res);
     });
 
     //action for workers
     router.get('/workers', acl.middleware(),function (req, res,next) {
-        customer.findWorkersByFilters(req,res);
+        customer.worker.findWorkersByFilters(req,res);
     });
 
     router.get('/workers/:id',function (req, res) {
-        customer.findWorkerById(req,res);
+        customer.worker.findWorkerById(req,res);
     });
 
     //批量执行认证动作
     router.post('/workers/verificationStatus', function (req, res) {
-        customer.verifiedById(req,res);
+        customer.worker.verifiedById(req,res);
     });
 
-    router.get('/workers/:id/verification_logs', function (req, res) { 
-        customer.findVerifiedRecordById(req,res);
+    router.get('/workers/:id/verification_logs', function (req, res) {
+        customer.worker.findVerifiedRecordById(req,res);
     });
 
     router.post('/doUpdateWorkerProfileById', function (req, res) {
-        customer.updateWorkerProfileById(req,res);
+        customer.worker.updateWorkerProfileById(req,res);
     });
 
     //提交worker的认证信息
     /*router.post('/workers/:id/verification', function (req, res) {
         customer.updateWorkerProfileById(req,res);
     });*/
+
+    router.post('/notifications',function (req, res) {
+        customer.worker.sendNotifications(req,res);
+    });
 
     router.post('/doChangeWorkerRole', function (req, res) {
         customer.changeWorkerRole(req,res);
@@ -148,31 +209,71 @@ module.exports = function (router, acl) {
     });
 
     router.get('/workers/:id/decorationCases', function (req, res) {
-        customer.getDecorationCasesById(req,res);
+        customer.worker.getDecorationCasesById(req,res);
     });
 
     router.get('/workers/:id/decorationCases/:caseId', function (req, res) {
-        customer.getDecorationCasesDetailById(req,res);
+        customer.worker.getDecorationCasesDetailById(req,res);
+    });
+
+    router.post('/workers/decorationCases/:id/verificationStatus', function (req, res) {
+        customer.worker.updateWorkersCasesById(req,res);
     });
 
     router.get('/merchants', function (req, res,next) {
-        customer.findMerchantsByFilters(req,res);
+        customer.merchant.findMerchantsByFilters(req,res);
+    });
+    
+    router.get('/merchants/decorationCases',function (req, res) {
+        customer.merchant.getMerchantsCases(req,res);
+    });
+    
+    router.get('/merchandises',function (req, res) {
+        customer.merchant.getMerchandises(req,res);
+    });
+    
+    router.post('/merchandises/:id/verificationStatus', function (req, res) {
+        customer.merchant.updateMerchandisesById(req,res);
     });
 
     router.get('/merchants/:id', function (req, res,next) {
-        customer.findMerchantById(req,res);
+        customer.merchant.findMerchantById(req,res);
     });
 
     router.post('/merchants/verificationStatus', function (req, res) {
-        customer.verifiedMerchantById(req,res);
+        customer.merchant.verifiedMerchantById(req,res);
     });
 
     router.get('/merchants/:id/verification_logs', function (req, res) {
-        customer.findMerchantVerifiedRecordById(req,res);
+        customer.merchant.findMerchantVerifiedRecordById(req,res);
+    });
+
+    router.post('/merchants/decorationCases/:id/verificationStatus', function (req, res) {
+        customer.merchant.updateMerchantsCasesById(req,res);
+    });
+
+    router.get('/merchants/:id/decorationCases', function (req, res) {
+        customer.merchant.getMerchantDecorationCasesById(req,res);
+    });
+
+    router.get('/merchants/:id/decorationCases/:caseId', function (req, res) {
+        customer.merchant.getMerchantDecorationCasesDetailById(req,res);
+    });
+
+    router.get('/merchants/:id/merchandise',function (req, res) {
+        customer.merchant.getMerchandiseById(req,res);
     });
 
     router.get('/capitalAccount/:id/details', function (req, res) {
         customer.getCapitalAccountDetailsById(req,res);
+    });
+
+    router.get('/capitalAccount/:id/ubeans/details', function (req, res) {
+        customer.getCapitalAccountUbeanDetailsById(req,res);
+    });
+
+    router.get('/capitalAccount/:id/margins/details', function (req, res) {
+        customer.getCapitalAccountMarginDetailsById(req,res);
     });
 
     //线下充值
@@ -184,7 +285,7 @@ module.exports = function (router, acl) {
         feedbacks.getFeedbacks(req,res);
     });
 
-    router.get('/orders', /*acl.middleware(),*/function (req, res) {
+    router.get('/orders', acl.middleware(),function (req, res) {
         orders.getOrders(req,res);
     });
 
@@ -237,10 +338,6 @@ module.exports = function (router, acl) {
     });
 
 
-    router.get('/houseOwners/:id', function (req, res) {
-        customer.findHouseOwnersById(req,res);
-    });
-
     //获取所有活动列表
     router.get('/activities', function (req, res) {
         activities.getActivities(req,res);
@@ -272,19 +369,5 @@ module.exports = function (router, acl) {
 
     router.get('/invitees/:accountId',function (req, res) {
         customer.findInviteesById(req,res);
-    });
-
-    router.post('/notifications',function (req, res) {
-        customer.sendNotifications(req,res);
-    });
-    
-    
-    
-    router.post('/merchants/decorationCases/:id/verificationStatus', function (req, res) {
-        customer.updatemerchantsCasesById(req,res);
-    });
-    
-    router.post('/wokers/decorationCases/:id/verificationStatus', function (req, res) {
-        customer.updateworkersCasesById(req,res);
     });
 }

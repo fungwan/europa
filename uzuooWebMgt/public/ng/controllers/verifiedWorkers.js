@@ -79,6 +79,8 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
                     //分页控件
                     worksPaging(pageIndex);
 
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

@@ -4,7 +4,7 @@ angular.module('myApp').controller('FeedbacksCtrl', ['$scope', '$location', '$ro
 	function ($scope, $location, $rootScope, ApiService) {
         $scope.initPage();
 		$rootScope.sideBarSelect = {
-			firstClassSel:'operationAdmin',
+			firstClassSel:'actvityAdmin',
 			secondSel:'feedback'
 		};
 
