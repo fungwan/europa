@@ -32,8 +32,6 @@ module.exports = function(app) {
 
     });
 
-
-
     app.post('/upload', multipartyMiddleware,function(req, res){
 
 
