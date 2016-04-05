@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: mongoSettings.cookieSecret,
     key: mongoSettings.db,//cookie name
-    cookie: {maxAge: 1000 * 60 * 60},//1000 * 60 * 60 * 24 * 30 == 30 days,here is half and hour
+    cookie: {maxAge: 1000 * 60 * 60 * 6},//1000 * 60 * 60 * 24 * 30 == 30 days,here is half and hour
     store: new MongoStore({
         db: mongoSettings.db,
         host: mongoSettings.host,

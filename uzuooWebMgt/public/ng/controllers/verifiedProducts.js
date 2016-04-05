@@ -174,7 +174,7 @@ angular.module('myApp').controller('VerifiedProductCtrl', ['$scope', '$location'
         function merchantsPaging(pageIndex) {
             var firstScreeningPagination = false;
             laypage({
-                cont: $('#uzWorkerCaesPage'),
+                cont: $('#uzMerchantCaesPage'),
                 pages: $scope.totalMerchantsCasesPages,
                 skip: true,
                 skin: 'yahei',

@@ -226,6 +226,8 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                 url: 'api/setting/recommendRole',
                 data: {content:obj},
                 file:$scope.selRecommendRole.imgUploadData
+            }).progress(function(evt) {
+                console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
             }).success(function(data, status, headers, config) {        // file is uploaded successfully
                 $('#edit_recommendRole_dlg').modal('hide');
             }).error(function(){

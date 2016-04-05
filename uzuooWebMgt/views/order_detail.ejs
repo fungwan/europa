@@ -152,75 +152,10 @@
     </div>
 </div>
 
-<div aria-hidden="true" id="show_building_logs" tabindex="-1" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 id="modal-wide-width-label" class="modal-title">施工日志</h4>
-            </div>
-            <div class="panel-body" style="height:300px; overflow:auto;">
-                <div id="grid-layout-table1" class="box jplist">
-                    <div class="box text-shadow">
-                        <table class="demo-tbl">
-                            <tbody>
-                                <tr class="tbl-item" ng-repeat="log in buildingLogs">
-                                    <td class="img">
-                                        <a href="#" data-target="#show_img_preview" data-toggle="modal" ng-click="previewImg(qiniuUrl + log.photos[0])">
-                                            <img src="{{qiniuUrl + log.photos[0]}}" alt="" title="" width="128" height="128">
-                                        </a>
-                                    </td>
-                                    <td class="td-block">
-                                        <p class="date" ng-bind="timeToStr(log.create_time*1000)">03/15/2012</p>
-                                        <p class="desc" ng-bind="log.description">马克</p>
-                                        <!--p class="desc">瓷砖装贴完毕.</p-->
-                                        <p class="like"></p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <button type="button" data-toggle="modal" data-target="#commit-building-dialog" class="btn btn-default btn-xs" ng-click="onShowCommitBuildingLogs()"><i class="fa fa-archive"></i>&nbsp;上传施工日志</button>&nbsp;
-            </div>
-        </div>
-    </div>
-</div>
 
 
-<div id="commit-building-dialog" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header modal-header-primary">
-                <h4 class="modal-title">上传施工日志</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <form class="form-horizontal">
-                            <div class="form-body pal">
-                                <div class="form-group">
-                                    <div id="preview">
-                                        <img id="imghead" border=1 src="{{newBuildingLog.selectImg}}" width="256" height="256" />
-                                    </div>
-                                </div>
-                                <input id="input-upload" type="file" ng-file-select="onFileSelect($files)" />
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="inputMessage" class="control-label">日志简述:</label>
-                            <textarea rows="10" class="form-control" ng-model='newBuildingLog.descriptive'></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-actions text-right pal">
-                    <button ng-click="uploadBuildingLog()" class="btn btn-pink">上传日志</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 
 
 

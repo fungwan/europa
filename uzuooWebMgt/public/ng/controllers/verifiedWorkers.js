@@ -225,7 +225,7 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
             var firstStr, secondStr = '';
             if (categories[0]) {
                 firstStr = $scope.merchantRolesArray[1][categories[0].role_id].name
-                console.log(firstStr);
+                //console.log(firstStr);
             }
 
             return {
@@ -246,7 +246,8 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
                 phone: merchant.phone,
                 id_card_no: merchant.id_card_no,
                 verified: merchant.verified,
-                imgHref: "images/avatar/avatar_loading.gif",
+                imgHref1: "images/avatar/avatar_loading.gif",
+                imgHref2: "images/avatar/avatar_loading.gif",
                 categories:merchant.categories,
                 regions:merchant.regions,
                 merchantId: merchantId,
@@ -256,8 +257,10 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
             ApiService.get('/merchants/' + merchantId, {}, function (data) {
                 if (data.result == 'success') {
                     $scope.selectMerchant.imgHref = $rootScope.defaultVerifiedImg;
-                    if (data.content.verify_photo)
-                        $scope.selectMerchant.imgHref = $rootScope.qiniuUrl + data.content.verify_photo;
+                    if (data.content.verify_photo.length>0) {
+                        $scope.selectMerchant.imgHref1 = $rootScope.qiniuUrl + data.content.verify_photo[0];
+                        $scope.selectMerchant.imgHref2 = $rootScope.qiniuUrl + data.content.verify_photo[1];
+                    }
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

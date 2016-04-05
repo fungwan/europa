@@ -6,7 +6,7 @@ var http = require('http');
 var body = {
     "username" : "admin",
     "password" : "e1f1ee0cfcbb93ea2ffe9e44df18395c",
-    "role":"4"
+    "role":"99"
 };
 
 var bodyString = JSON.stringify(body);

@@ -240,6 +240,10 @@ module.exports = function (router, acl) {
         customer.merchant.findMerchantById(req,res);
     });
 
+    router.post('/merchants/:id/verification', function (req, res) {
+        customer.merchant.updateMerchantProfileById(req,res);
+     });
+
     router.post('/merchants/verificationStatus', function (req, res) {
         customer.merchant.verifiedMerchantById(req,res);
     });

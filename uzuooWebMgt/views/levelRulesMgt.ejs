@@ -38,7 +38,7 @@
                                     <tbody>
                                     <tr ng-repeat="rules in level2RegionArray">
                                         <td ng-show="rules.level">
-                                            <input ng-change="onEditRegionNum($index,rules.max_regions)" ng-model="rules.max_regions">
+                                            <input ng-change="onEditRegionNum($index,rules.max_regions)" type="number" ng-model="rules.max_regions">
                                         </td>
                                         <td ng-show="rules.level"ng-bind="translateDesc[rules.level].starDesc"></td>
                                         <td ng-show="rules.level" ng-bind="translateDesc[rules.level].yearRecom">a</td>

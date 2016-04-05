@@ -127,7 +127,7 @@ angular.module('myApp').controller('LevelRulesCtrl', ['$scope', '$location', '$r
                 content: roleRule
             };
 
-            ApiService.post('/setting/scoreRules', obj, function (data) {
+            ApiService.post('/setting/roleRules', obj, function (data) {
                 if(data.result === 'fail'){alert('星级对应需求发布数规则更新失败');}
             }, function (errMsg) {
                 alert(errMsg.message);

@@ -11,6 +11,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         $scope.moreLinkStr = '更多搜索条件';
         $scope.moreLink = true;
 
+        $scope.tradDetailType = '';
 
         $scope.cityArray = [];                               //城市列表
         $scope.regionArray = [];                             //所有区域列表
@@ -277,6 +278,11 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             getVerificationLogs();
         }
 
+        $scope.onShowSceneVerifiedM = function () {
+            $('#verified-dialogM').modal('show');
+            //getVerificationLogs();
+        }
+
         $scope.onShowChargeDlg = function (accountId) {
             $scope.chargeAmount = 0;
             $scope.chargeBalance = 0;
@@ -435,13 +441,19 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             var obj = {};
 
             if(accountType === 'capital'){//余额明细
+
+                $scope.tradDetailType = '余额';
                 url = '/capitalAccount/' + id + '/details';
                 obj['params'] = {
                     accountType: accountType
                 };
             }else if(accountType === 'margin'){
+
+                $scope.tradDetailType = '保证金';
                 url = '/capitalAccount/' + id + '/margins/details';
             }else if(accountType === 'ubean'){
+
+                $scope.tradDetailType = '现金券';
                 url = '/capitalAccount/' + id + '/ubeans/details';
             }
 
@@ -514,15 +526,15 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         $scope.verifyStatus = function (status) {
             return (status == 2) ? '成功' : '失败';
-        }
+        };
 
         //选择上传认证图片
-        $scope.getFile = function () {
+        /*$scope.getFile = function () {
             fileReader.readAsDataUrl($scope.file, $scope)
                 .then(function (result) {
                     $scope.selectWorker.selectImg = result;
                 });
-        };
+        };*/
         
         $scope.onFileSelect = function ($files) {
             if ($files.length == 0) {
@@ -533,7 +545,23 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                 .then(function (result) {
                     $scope.selectWorker.selectImg = result;
                 });
-        }
+        };
+
+        $scope.onFileMultiSelect = function ($files) {
+            if ($files.length == 0) {
+                return;
+            }
+            $scope.selectMerchant.imgUploadData = $files;
+            fileReader.readAsDataUrl($files[0], $scope)
+                .then(function (result) {
+                    $scope.selectMerchant.selectImg1 = result;
+                });
+
+            fileReader.readAsDataUrl($files[1], $scope)
+                .then(function (result) {
+                    $scope.selectMerchant.selectImg2 = result;
+                });
+        };
 
         //执行现场认证
         $scope.verifiedWorker = function() {
@@ -553,16 +581,32 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             }).progress(function(evt){
                 alert(evt);
             }).success(function(data, status, headers, config) {
-                alert(data);
+                //alert(data);
             });
-            /*ApiService.post('/doUpdateWorkerProfileById', obj, function (data) {
-                if(data.result == 'success') {
 
+        };
+
+        //商家执行现场认证
+        $scope.verifiedMerchant = function() {
+            var obj = {
+                content: {
+                    name:$scope.selectMerchant.shop_name
                 }
-                console.log(data);
-            }, function(errMsg){
-                alert(errMsg.message);
-            });*/
+            };
+
+            if($scope.selectMerchant.imgUploadData === undefined || $scope.selectMerchant.imgUploadData.length !== 2){
+                alert('现场认证请上传完整图片，商家图片和门店图片缺一不可!');
+            }else{
+                $upload.upload({
+                    url: 'api/merchants/'+$scope.selectMerchant.merchantId+'/verification',
+                    data: {content:obj},
+                    file:$scope.selectMerchant.imgUploadData//Array[]
+                }).progress(function(evt){
+                    alert(evt);
+                }).success(function(data, status, headers, config) {
+                    //alert(data);
+                });
+            }
         };
 
         var sendTargetObj = {
@@ -1050,9 +1094,12 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
                 if (data.result == 'success') {
                     $scope.selectMerchant.score = data.content.score;
                     $scope.selectMerchant.imgHref = $rootScope.defaultVerifiedImg;
-                    if (data.content.verify_photo)
-                        $scope.selectMerchant.imgHref = $rootScope.qiniuUrl + data.content.verify_photo;
-                    $scope.selectMerchant.selectImg = $scope.selectMerchant.imgHref;
+                    if (data.content.verify_photo.length > 0){
+                        $scope.selectMerchant.imgHref = $rootScope.qiniuUrl + data.content.verify_photo[0];
+                        $scope.selectMerchant.selectImg1 = $rootScope.qiniuUrl + data.content.verify_photo[0];
+                        $scope.selectMerchant.selectImg2 = $rootScope.qiniuUrl + data.content.verify_photo[1];
+                    }
+
                     $scope.selectMerchant.review = data.content.review;
                 }
             }, function (errMsg) {

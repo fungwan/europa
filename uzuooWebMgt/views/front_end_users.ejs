@@ -294,7 +294,7 @@
                                     <tbody>
                                         <tr ng-repeat="merchant in merchantsInfoArray">
                                             <td><input type="checkbox" ng-model="merchant.selected" class="checkbox" /></td>
-                                            <td ng-bind="merchant.first_name + merchant.last_name"></td>
+                                            <td ng-bind="merchant.shop_name"></td>
                                             <td ng-bind="merchant.id_card_no"></td>
                                             <td ng-bind="merchant.phone"></td>
                                             <td ng-bind="timeToStr(merchant.create_time *1000)"></td>
@@ -846,7 +846,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="modal-wide-width-label" class="modal-title">明细查询</h4>
+                <h4 id="modal-wide-width-label" class="modal-title">{{tradDetailType}}明细查询</h4>
             </div>
             <div class="panel-body" style="height:300px; overflow:auto;">
                 <div id="grid-layout-table1" class="box jplist">
@@ -863,9 +863,11 @@
                             <tbody>
                             <tr ng-repeat="trad in tradDetailArray">
                                 <td ng-bind="timeToStr(trad.time*1000)"></td>
-                                <td ng-bind="trad.amount / 100"></td>
-                                <td  ng-bind="translateBillType(trad.type)"></td>
-                                <td  ng-bind="trad.balance / 100"></td>
+                                <td ng-if='tradDetailType != "现金券"' ng-bind="trad.amount / 100"></td>
+                                <td ng-if='tradDetailType == "现金券"' ng-bind="trad.amount"></td>
+                                <td ng-bind="translateBillType(trad.type)"></td>
+                                <td ng-if='tradDetailType != "现金券"' ng-bind="trad.balance / 100"></td>
+                                <td ng-if='tradDetailType == "现金券"' ng-bind="trad.balance "></td>
                             </tr>
                             </tbody>
                         </table>
@@ -1011,7 +1013,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <a href="#"><span id="workerScore" class="badge badge-warning pull-right" ng-bind="selectMerchant.score"></span>星级:</a>
+                                            <a href="#"><span id="workerScore" class="badge badge-warning pull-right" ng-bind="selectMerchant.score"></span>积分:</a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -1027,7 +1029,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div>
-                                                <a href="#" data-target="#show_img_preview" data-toggle="modal">
+                                                <a href="#" data-target="#show_img_preview2" data-toggle="modal">
                                                     <img id="showVerifiedPic-img" border=0 src="{{selectMerchant.imgHref}}" width="100" height="100" />
                                                 </a>
                                             </div>
@@ -1039,10 +1041,9 @@
                                             <span class="badge badge-dark pull-right" ng-bind="selectMerchant.invite_Info.invitation_code"></span></a><label>邀请码：</label>
                                     </div-->
                                 </div>
-                                <!--div class="pull-right" ng-if="selectWorker.verified !== 2">
-                                    <button id="scene-verified_btn" data-toggle="modal" ng-click="onShowSceneVerified()" class="btn btn-info">现场认证</button>
-                                    <!--button id="update_workerProfile_btn" class="btn btn-success">更新资料</button>
-                                </div-->
+                                <div class="pull-right" ng-if="selectMerchant.verified !== 2">
+                                    <button id="scene-verified_btn" data-toggle="modal" ng-click="onShowSceneVerifiedM()" class="btn btn-info">现场认证</button>
+                                </div>
                             </div>
                         </div>
                         <div id="edit_merchant_roleInfo" class="tab-pane fade">
@@ -1151,6 +1152,75 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" id="show_img_preview2" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <img width='600' height='100%' src="{{selectMerchant.imgHref}}" img-preview=""/>
+    </div>
+</div>
+
+<div id="verified-dialogM" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 class="modal-title">现场认证</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-icon right"><i class="fa fa-user"></i>
+                                <input ng-model="selectMerchant.shop_name" type="text" value="商家名" placeholder="商家名" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div class="form-body pal">
+                                <div class="form-group">
+                                    <div id="preview">
+                                        <img id="imghead" border=1 src="{{selectMerchant.selectImg1}}" width="256" height="256" />
+                                        <img id="imghead" border=1 src="{{selectMerchant.selectImg2}}" width="256" height="256" />
+                                    </div>
+                                </div>
+                                <input id="input-upload" type="file" ng-file-select="onFileMultiSelect($files)" multiple accept="image/*"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" style="height:150px; overflow:auto;">
+                    <div class="panel panel-yellow">
+                        <!--div class="panel-heading">认证记录</div-->
+                        <div class="panel-body">
+                            <table id="verifiedRecord-table" class="table table-hover table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>申请日期</th>
+                                    <th>认证结果</th>
+                                    <th>驳回理由</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="verifiedLog in selectMerchant.verifiedLogsArray">
+                                    <td ng-bind="timeToStr(verifiedLog.apply_time*1000)">2015/12/12</td>
+                                    <td ng-bind="verifyStatus(verifiedLog.verification_state)">失败</td>
+                                    <td  ng-bind="verifiedLog.description">无法看清号码</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions text-right pal">
+                    <button ng-click="verifiedMerchant()" data-dismiss="modal" class="btn btn-pink">通过认证</button>
+                </div>
             </div>
         </div>
     </div>

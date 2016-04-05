@@ -72,12 +72,12 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             if (!$scope.moreLink) {
                 if ($scope.searchFilter.startDate !== '') {
                     var ts = new Date($scope.searchFilter.startDate).getTime();
-                    var item = 'start_time::' + ts;
+                    var item = 'start_time::' + ts / 1000;
                     filters.push(item);
                 }
                 if ($scope.searchFilter.endDate != '') {
                     var ts = new Date($scope.searchFilter.endDate).getTime();
-                    var item = 'end_time::' + ts;
+                    var item = 'end_time::' + ts / 1000;
                     filters.push(item);
                 }
             }

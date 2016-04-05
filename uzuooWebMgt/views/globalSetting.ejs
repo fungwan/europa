@@ -130,7 +130,7 @@
                                             <table class="table table-hover table-striped table-bordered table-advanced tablesorter display dataTable no-footer">
                                                 <thead>
                                                 <tr>
-                                                    <th width="5%">App类型</th>
+                                                    <th width="5%">App编译版本</th>
                                                     <th width="5%">版本号全名</th>
                                                     <th width="15%">文件路径</th>
                                                     <th width="5%"></th>
@@ -138,13 +138,13 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr ng-repeat="appVersion in appVersionInfoArray">
-                                                    <td ng-bind="appVersion.app_type">
+                                                    <td ng-bind="appVersion.build_ver">
 
                                                     </td>
                                                     <td ng-bind="appVersion.version_name">
 
                                                     </td>
-                                                    <td ng-bind="appVersion.file"></td>
+                                                    <td ng-bind="appVersion.href"></td>
                                                     <td>
                                                         <button  type="button" class="btn btn-danger btn-xs" ng-click="onDelAppVersion(appVersion)" ><i class="fa fa-trash-o"></i>&nbsp; 删除</button>&nbsp;
                                                     </td>

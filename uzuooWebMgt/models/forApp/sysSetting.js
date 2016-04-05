@@ -568,7 +568,10 @@ exports.getAppVersions = function(req,res){
             get_versions: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/applications/versions?'+'accessToken=' + token;
+
+                var appId = settings.appID;
+
+                var path = '/applications/' + appId + '/versions?'+'accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -610,7 +613,8 @@ exports.setAppVersion = function(req,res){
             },
             update_version:['get_token',function(callback,results){
                  var token = results.get_token;
-                 var path = '/applications/version?accessToken=' + token;
+                var appId = settings.appID;
+                 var path = '/applications/' + appId +'/version?accessToken=' + token;
                  var optionItem = {};
                  optionItem['path'] = path;
 
@@ -653,7 +657,8 @@ exports.delAppVersion = function(req,res){
             },
             update_version:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/applications/version?accessToken=' + token;
+                var appId = settings.appID;
+                var path = '/applications/' + appId +'/version?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 

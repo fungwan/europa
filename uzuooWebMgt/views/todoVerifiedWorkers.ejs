@@ -71,7 +71,7 @@
                                 <tbody>
                                 <tr ng-repeat="merchant in merchantsInfoArray">
                                     <td><input type="checkbox" ng-model="merchant.selected" class="checkbox" /></td>
-                                    <td ng-bind="merchant.first_name + merchant.last_name"></td>
+                                    <td ng-bind="merchant.shop_name"></td>
                                     <td ng-bind="merchant.id_card_no"></td>
                                     <td ng-bind="merchant.phone"></td>
                                     <td ng-bind="getMerchantCategoryStr(merchant.categories).first"></td>
@@ -128,7 +128,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-icon right"><i class="fa fa-gavel"></i>
-                                        <input ng-model="getMerchantCategoryStr(selectWorker.categories).first" type="text" class="form-control" disabled="">
+                                        <input ng-model="getCategoryStr(selectWorker.categories).first" type="text" class="form-control" disabled="">
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +241,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="input-icon right"><i class="fa fa-gavel"></i>
-                                    <input ng-model="getCategoryStr(selectMerchant.categories).firt" type="text" class="form-control" disabled="">
+                                    <input ng-model="getMerchantCategoryStr(selectMerchant.categories).first" type="text" class="form-control" disabled="">
                                 </div>
                             </div>
                         </div>
@@ -258,13 +258,16 @@
                             <div class="form-group">
                                 <div>
                                     <a href="#" data-target="#show_img_preview2" data-toggle="modal" >
-                                        <img border=1 src="{{selectMerchant.imgHref}}" width="256" height="256" />
+                                        <img border=1 src="{{selectMerchant.imgHref1}}" width="128" height="128" />
+                                    </a>
+                                    <a href="#" data-target="#show_img_preview3" data-toggle="modal" >
+                                        <img border=1 src="{{selectMerchant.imgHref2}}" width="128" height="128" />
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="text-left pal">
+                            <div class="text-right pal">
                                 <button data-target="#modal-confirm-verify2" data-toggle="modal" class="btn btn-success">通过认证</button>
                             </div>
                         </div>
@@ -374,6 +377,12 @@
 
 <div aria-hidden="true" id="show_img_preview2" tabindex="-1" class="modal fade">
     <div class="modal-dialog">
-        <img width='600' height='100%' src="{{selectMerchant.imgHref}}" img-preview=""/>
+        <img width='600' height='100%' src="{{selectMerchant.imgHref1}}" img-preview=""/>
+    </div>
+</div>
+
+<div aria-hidden="true" id="show_img_preview3" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <img width='600' height='100%' src="{{selectMerchant.imgHref2}}" img-preview=""/>
     </div>
 </div>
