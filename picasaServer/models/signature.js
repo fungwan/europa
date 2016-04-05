@@ -3,7 +3,7 @@
  */
 
 
-var request = require('request'),
+/*var request = require('request'),
     cache = require('memory-cache'),
     sha1 = require('sha1'),
     config = require('./wechat.cfg');
@@ -49,4 +49,4 @@ exports.getSign = function (url,callback) {
             }
         })
     }
-}
+}*/
