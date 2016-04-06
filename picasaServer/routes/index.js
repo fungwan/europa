@@ -12,7 +12,7 @@ var multipartyMiddleware = multiparty({
 module.exports = function(app) {
 
     app.get('/', function(req, res){
-        res.render('index','');
+        res.render('index.html','');
     });
 
     //获取签名
