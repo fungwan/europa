@@ -6,7 +6,7 @@
 var sign = require('../models/signature.js');
 var multiparty = require('connect-multiparty');
 var multipartyMiddleware = multiparty({
-    uploadDir: './'
+    uploadDir: './tmp'
 });
 
 module.exports = function(app) {
@@ -33,12 +33,14 @@ module.exports = function(app) {
     });
 
     app.post('/upload', multipartyMiddleware,function(req, res){
-
-
+       
+        var content = req.body;
         var file = req.files.file;
+        console.log(content.name);
         console.log(file.name);
         console.log(file.type);
+        console.log(file.path);
 
-        res.send(201);
+        res.send(file.name);
     });
 };
