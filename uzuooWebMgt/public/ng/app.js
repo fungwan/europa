@@ -4,7 +4,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var myApp = angular.module('myApp', ['ngRoute', 'ngResource', 'ngCookies', 'angularFileUpload']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngResource', 'ngCookies', 'angularFileUpload', 'cgBusy']);
 myApp.config(['$routeProvider', '$locationProvider', '$resourceProvider',
     function ($routeProvider, $locationProvider, $resourceProvider) {
         $routeProvider.when('/', { templateUrl: ('partial/main'), controller: 'HomeCtrl' });

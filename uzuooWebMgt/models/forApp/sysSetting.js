@@ -553,6 +553,49 @@ function uploadFile(localFile, key, uptoken,cb) {
 //获取APK/IPA版本信息
 exports.getAppVersions = function(req,res){
 
+    /*async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            get_versions: ['get_token',function (callback,results) {
+
+                var token = results.get_token;
+                var path = '/applications?'+'accessToken=' + token;
+                var optionItem = {};
+                optionItem['path'] = path;
+
+                request.get(optionItem,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+                var versionsArray = jsonConvert.stringToJson(result.get_versions)['applications'];
+                res.json({
+                        result: 'success',
+                        content:versionsArray}
+                );
+            }else{
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );*/
+};
+
+exports.getAppVersionsById = function(req,res){
+
+    var appID = req.params.id;
     async.auto(
         {
             get_token: function (callback) {
@@ -568,10 +611,7 @@ exports.getAppVersions = function(req,res){
             get_versions: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-
-                var appId = settings.appID;
-
-                var path = '/applications/' + appId + '/versions?'+'accessToken=' + token;
+                var path = '/applications/'+ appID +'/version?accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -579,10 +619,10 @@ exports.getAppVersions = function(req,res){
             }]
         },function(err,result){
             if(err === null){
-                var versionsArray = jsonConvert.stringToJson(result.get_versions)['versions'];
+                var versionsObj = jsonConvert.stringToJson(result.get_versions);//['applications'];
                 res.json({
                         result: 'success',
-                        content:versionsArray}
+                        content:versionsObj}
                 );
             }else{
                 if(err === 403){
@@ -613,13 +653,13 @@ exports.setAppVersion = function(req,res){
             },
             update_version:['get_token',function(callback,results){
                  var token = results.get_token;
-                var appId = settings.appID;
+                 var appId = req.body.appID;
                  var path = '/applications/' + appId +'/version?accessToken=' + token;
                  var optionItem = {};
                  optionItem['path'] = path;
 
                  var content ={};
-                 content = req.body;
+                 content = req.body.appInfo;
                  var bodyString = JSON.stringify(content);
 
                  request.post(optionItem,bodyString,callback);
@@ -657,14 +697,13 @@ exports.delAppVersion = function(req,res){
             },
             update_version:['get_token',function(callback,results){
                 var token = results.get_token;
-                var appId = settings.appID;
-                var path = '/applications/' + appId +'/version?accessToken=' + token;
+                var appId = req.body.appID;
+                var name = req.query.versionName;
+                var path = '/applications/' + appId +'/version?versionName='+ name + '&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 
-                var content ={};
-                content.id = req.query.id;
-                var bodyString = JSON.stringify(content);
+                var bodyString = '';
 
                 request.del(optionItem,bodyString,callback);
 

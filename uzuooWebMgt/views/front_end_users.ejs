@@ -43,18 +43,19 @@
                     <div id="more_find_div" class="row mbm" ng-show="!moreLink">
                         <div ng-if="userInfo.role == 99" class="col-lg-12">
                             城市 :
-
                             <select ng-options="province.name for province in provinceArray" ng-model="workSearchFilter.provinceSel" ng-change="onProvinceSelect()"></select>
                             <select ng-options="city.name for city in cityArray" ng-model="workSearchFilter.citySel" ng-change="onCitySelect()"></select>
                         </div>
                         <br>
                         <div class="col-lg-12">
-                            区域 :
+                            <div>
+                                <label>区域 :</label><input type="checkbox" ng-model = "regionChkAll" class="icheckbox_minimal-grey" ng-click="checkAll(workSearchFilter.regionSelArray)" />全选
+                            </div>
                             <div id="regions-div">
                                 <div ng-repeat="region in workSearchFilter.regionSelArray"  style="display:inline;">
                                     
-                                    <input id='{{region.id}}' type="checkbox" ng-model = "region.selected"/>
-                                    <label for='{{region.id}}'>{{region.name}}</label>
+                                    <input id='{{region.id + 1}}' type="checkbox" ng-model = "region.selected"/>
+                                    <label for='{{region.id + 1}}'>{{region.name}}</label>
                                 </div>
                             </div>
 
@@ -63,7 +64,9 @@
                             工种 :
                             <select ng-options="role.name for role in originalRoles" ng-model="workSearchFilter.originalRoleSel" ng-change="originalRoleSelect()"></select>
                             <div ng-show="workSearchFilter.craftsArray.length != 0">
-                                细项：
+                                <div>
+                                细项：<input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(workSearchFilter.craftsArray)" />全选
+                                </div>
                                 <div ng-repeat="craft in workSearchFilter.craftsArray"  style="display:inline;">
                                     <input id='{{craft.id}}' type="checkbox" ng-model = "craft.selected"/>
                                     <label for='{{craft.id}}'>{{craft.name}}</label>
@@ -172,21 +175,21 @@
                                             <th width="3%" class="sorting_disabled">
                                                 <input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(houseOwnersInfo)" />
                                             </th>
-                                            <th width="10%">昵称</th>
+                                            <!--th width="10%">昵称</th-->
                                             <th width="10%">用户名</th>
-                                            <th width="10%">真实姓名</th>
+                                            <!--th width="10%">真实姓名</th-->
                                             <th width="10%">联系方式</th>
-                                            <th width="7%">邮箱地址</th>
+                                            <th width="7%">注册时间</th>
                                             <th width="3%"></th>
                                         </tr>
                                         <tbody>
                                             <tr ng-repeat="houseOwner in houseOwnersInfo">
                                                 <td><input type="checkbox" ng-model="houseOwner.selected" class="checkbox" /></td>
-                                                <td>{{houseOwner.nick_name}}</td>
+                                                <!--td>{{houseOwner.nick_name}}</td-->
                                                 <td>{{houseOwner.user_name}}</td>
-                                                <td>{{houseOwner.first_name + houseOwner.last_name}}</td>
+                                                <!--td>{{houseOwner.first_name + houseOwner.last_name}}</td-->
                                                 <td>{{houseOwner.phone}}</td>
-                                                <td>{{houseOwner.email}}</td>
+                                                <td ng-bind="timeToStr(houseOwner.create_time *1000)"></td>
                                                 <td id='' abbr=''>
                                                     <button type="button" class="btn btn-default btn-xs" ng-click="onShowMoreHouseInfo(houseOwner)"><i class="fa fa-angle-double-right"></i>&nbsp; 更多
                                                     </button>&nbsp;
@@ -226,7 +229,9 @@
                     <div id="more_find_div" class="row mbm" ng-show="!moreLinkM">
                         <br>
                         <div class="col-lg-12">
-                            区域 :
+                            <div>
+                                <label>区域 :</label><input type="checkbox" ng-model = "regionChkAll" class="icheckbox_minimal-grey" ng-click="checkAll(merchantSearchFilter.regionSelArray)" />全选
+                            </div>
                             <div id="regions-div">
                                 <div ng-repeat="region in merchantSearchFilter.regionSelArray"  style="display:inline;">
 
@@ -240,7 +245,9 @@
                             工种 :
                             <select ng-options="role.name for role in originalMerchantRoles" ng-model="merchantSearchFilter.originalRoleSel" ng-change="originalRoleSelectM()"></select>
                             <div ng-show="merchantSearchFilter.craftsArray.length != 0">
-                                细项：
+                                <div>
+                                    细项：<input type="checkbox" class="icheckbox_minimal-grey" ng-click="checkAll(merchantSearchFilter.craftsArray)" />全选
+                                </div>
                                 <div ng-repeat="craft in merchantSearchFilter.craftsArray"  style="display:inline;">
                                     <input id='{{craft.id}}' type="checkbox" ng-model = "craft.selected"/>
                                     <label for='{{craft.id}}'>{{craft.name}}</label>

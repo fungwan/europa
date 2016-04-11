@@ -9,72 +9,74 @@ angular.module('myApp').controller('VerifiedProductCtrl', ['$scope', '$location'
         };
         var updateUrl = '/workers/decorationCases/';
         var selectedCaseId = '';
+        var selectedArray = '';
         
         getWorkersCaseBypage(1);
         
         $scope.onShowWorkersCase = function () {
             updateUrl = '/workers/decorationCases/';
+            $scope.selectAllWorkersCase = false;
             getWorkersCaseBypage(1);
         }
         
         $scope.onShowMerchantsCases = function () {
             updateUrl = '/merchants/decorationCases/';
+            $scope.selectAllMerchantsCases = false;
             getMerchantsCaseBypage(1);
         }
         
         $scope.onShowMerchandises = function () {
             updateUrl = '/merchandises/';
+            $scope.selectAllerchandises = false;
             getMerchandises(1);
         }
         
         $scope.onShowConfirm = function (selId) {
             selectedCaseId = selId;
+            selectedArray = '';
         }
         
         $scope.onShowReject = function (selId) {
             selectedCaseId = selId;
+            selectedArray = '';
+            $scope.rejectReason = '';
+        }
+        
+        $scope.onShowConfirmAll = function (array) {
+            selectedArray = array;
+            selectedCaseId = '';
+        }
+        
+        $scope.onShowRejectAll = function (array) {
+            selectedArray = array;
+            selectedCaseId = '';
             $scope.rejectReason = '';
         }
         
         $scope.commitVerify = function () {
-            var url = updateUrl + selectedCaseId + '/verificationStatus';
-            var obj = {
-                verified: 1
-            }
-            ApiService.post(url, obj, function (data) {
-                if (data.result == 'success') {
-                    if (updateUrl == '/workers/decorationCases/') {
-                        getWorkersCaseBypage($scope.curWorkersCasesPage);
-                    } else if (updateUrl == '/merchants/decorationCases/') {
-                        getMerchantsCaseBypage($scope.curMerchantsCasesPage);
-                    } else if (updateUrl == '/merchandises/') {
-                        getMerchandises($scope.curMerchandisesPage)
+            if (selectedCaseId) {
+                doVerifyById(selectedCaseId);
+            } else if (selectedArray) {
+                for (var i = 0; i < selectedArray.length; i++) {
+                    var item = selectedArray[i];
+                    if (item.selected) {
+                        doVerifyById(item.id);
                     }
                 }
-            }, function (errMsg) {
-                alert(errMsg.message);
-            });
+            }
         }
         
         $scope.commitReject = function () {
-            var url = updateUrl + selectedCaseId + '/verificationStatus';
-            var obj = {
-                verified: 2,
-                reason: $scope.rejectReason
-            }
-            ApiService.post(url, obj, function (data) {
-                if (data.result == 'success') {
-                    if (updateUrl == '/workers/decorationCases/') {
-                        getWorkersCaseBypage($scope.curWorkersCasesPage);
-                    } else if (updateUrl == '/merchants/decorationCases/') {
-                        getMerchantsCaseBypage($scope.curMerchantsCasesPage);
-                    } else if (updateUrl == '/merchandises/') {
-                        getMerchandises($scope.curMerchandisesPage)
+            if (selectedCaseId) {
+                doRejectById(selectedCaseId);
+            } else if (selectedArray) {
+                for (var i = 0; i < selectedArray.length; i++) {
+                    var item = selectedArray[i];
+                    if (item.selected) {
+                        doRejectById(item.id);
                     }
                 }
-            }, function (errMsg) {
-                alert(errMsg.message);
-            });
+            }
         }
         
         function getWorkersCaseBypage(pageIndex) {
@@ -145,6 +147,47 @@ angular.module('myApp').controller('VerifiedProductCtrl', ['$scope', '$location'
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
+            });
+        }
+        
+        function doVerifyById (id) {
+            var url = updateUrl + id + '/verificationStatus';
+            var obj = {
+                verified: 1
+            }
+            ApiService.post(url, obj, function (data) {
+                if (data.result == 'success') {
+                    if (updateUrl == '/workers/decorationCases/') {
+                        getWorkersCaseBypage($scope.curWorkersCasesPage);
+                    } else if (updateUrl == '/merchants/decorationCases/') {
+                        getMerchantsCaseBypage($scope.curMerchantsCasesPage);
+                    } else if (updateUrl == '/merchandises/') {
+                        getMerchandises($scope.curMerchandisesPage)
+                    }
+                }
+            }, function (errMsg) {
+                //alert(errMsg.message);
+            });
+        }
+        
+        function doRejectById (id) {
+            var url = updateUrl + id + '/verificationStatus';
+            var obj = {
+                verified: 2,
+                reason: $scope.rejectReason
+            }
+            ApiService.post(url, obj, function (data) {
+                if (data.result == 'success') {
+                    if (updateUrl == '/workers/decorationCases/') {
+                        getWorkersCaseBypage($scope.curWorkersCasesPage);
+                    } else if (updateUrl == '/merchants/decorationCases/') {
+                        getMerchantsCaseBypage($scope.curMerchantsCasesPage);
+                    } else if (updateUrl == '/merchandises/') {
+                        getMerchandises($scope.curMerchandisesPage)
+                    }
+                }
+            }, function (errMsg) {
+                //alert(errMsg.message);
             });
         }
         

@@ -14,6 +14,10 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
         $scope.regionArray = [];                             //所有区域列表
         $scope.originalRoles = [];                          //大工种列表
         var filters  = ['all'];
+        $scope.searchFilter = {
+            phone:'',
+            payType:'all'
+        };
         var totalBillsPages = 1,curBillPage=1;
 
         //支付项
@@ -38,6 +42,29 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             'UzuooFloatCommission':'绩效佣金账户',
             'UzuooTrusteedEarnest':'托管定金账户',
             'UzuooTrusteedFinalPayment':'托管尾款账户'
+        };
+
+
+        $scope.onExactSearch = function () {
+
+            filters = [];
+            if ($scope.searchFilter.phone !== '') {
+                var keywordFilterStr = 'phone::' + $scope.searchFilter.phone;
+                filters.push(keywordFilterStr);
+                getBillsInfo(1,filters);
+            }
+        };
+
+        $scope.onSearch = function () {
+
+            filters = [];
+            if ($scope.searchFilter.payType !== ''&& $scope.searchFilter.payType !== 'all') {
+                var keywordFilterStr = 'type::' + $scope.searchFilter.payType;
+                filters.push(keywordFilterStr);
+                getBillsInfo(1,filters);
+            }else{
+                getBillsInfo(1,['all']);
+            }
         };
 
         //获取工人的城市和区域信息
@@ -111,13 +138,24 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             return array.join(',\r\n');
         };
 
-        $scope.getCashTargetStr = function(arry){
+        $scope.getCashTargetStr = function(billInfo){
+
+
+            var arry = billInfo['target'];
             if(arry === undefined)return '';
             var array = [];
             for(var x = 0 ; x <arry.length;++x){
 
-                if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined){
+                if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined && arry[x].phone !== ''){
                     array.push(arry[x].phone);
+                }else if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined && arry[x].phone === ''){
+
+                    var cardInfo = billInfo.bank_card;
+
+                    array.push(cardInfo.bank_name);
+                    array.push(cardInfo.card_no);
+                    array.push(cardInfo.owner_name);
+
                 }else{
                     array.push(tradeTypeCNTranslateObj[arry[x].capital_account_id]);
                 }

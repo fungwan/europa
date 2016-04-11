@@ -11,8 +11,31 @@ angular.module('myApp').controller('FeedbacksCtrl', ['$scope', '$location', '$ro
         $scope.feedbackInfoArray = [];                            //反馈信息
         $scope.workerInfo = {};
         $scope.orderInfo = {};
+        $scope.feedbackFilter = {
+            category:'all'
+        };
+
         var curFeedbackPage = 1,totalFeedbackPages = 1;
         var filters  = ['all'];
+
+
+        $scope.onSearch = function () {
+
+            filters = [];
+
+            if ($scope.feedbackFilter.category !== 'all') {
+                var str = 'type::' + $scope.feedbackFilter.category;//'verified::' + $scope.workSearchFilter.verified;
+                filters.push(str);
+            }
+
+
+            if (filters.length == 0) {
+                filters = ['all'];
+            }
+
+            getFeedbackInfo(1,filters);
+
+        };
 
         function getFeedbackInfo(cur,filterArray){
 

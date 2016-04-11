@@ -31,7 +31,7 @@ angular.module('myApp').controller('LoginCtrl', ['$scope', '$cookieStore', '$loc
                 if (data.result == 'success') {
                     $rootScope.userInfo = {
                         name: data.content.user_name,
-                        id: data.content.id,
+                        id: data.content.user_id,
                         role: data.content.role,
                         city: data.content.city
 

@@ -20,10 +20,10 @@
                     <div class="row mbm">
                         <div class="col-lg-3">
                             <div class="input-group input-group-sm mbs">
-                                <!--input type="text" placeholder="输入手机号码进行搜索" ng-model="searchFilter.orderId" class="form-control" />
+                                <input type="text" placeholder="输入支付者手机号进行搜索" ng-model="searchFilter.phone" class="form-control" />
                                             <span class="input-group-btn">
-                                                <button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle" ng-click="onSearch()">搜索</button>
-                                            </span-->
+                                                <button type="button" data-toggle="dropdown" class="btn btn-success dropdown-toggle" ng-click="onExactSearch()">搜索</button>
+                                            </span>
                             </div>
                         </div>
                         <!--div class="col-lg-3">
@@ -43,10 +43,18 @@
                                 <!--th >城市</th-->
                                 <th width="3%">支付编号</th>
                                 <th width="3%">订单编号</th>
-                                <th width="4%">支付项</th>
+                                <th width="7%">
+                                    <select data-style="btn-grey" ng-model="searchFilter.payType" class="selectpicker form-control" ng-change="onSearch()">
+                                        <!--option value="-1">选择认证状态</option-->
+                                        <option value="all">账单类型</option>
+                                        <option value="withdraw">余额提现</option>
+                                        <option value="refund">退款</option>
+                                    </select>
+                                </th>
+                                <th width="5%">支付工段</th>
                                 <th width="2%" class="numeric">总额</th>
-                                <th width="5%">支付者</th>
-                                <th width="12%">付款渠道</th>
+                                <th width="3%">发起者</th>
+                                <th width="8%">付款渠道</th>
                                 <th width="2%" class="numeric">实支</th>
                                 <th width="2%" class="numeric">入账</th>
                                 <th width="8%">状态</th>
@@ -60,6 +68,7 @@
                                 <td ng-bind="billInfo.contract_item_no"></td>
                                 <td ng-bind="billInfo.order_no"></td>
                                 <td ng-bind="translateBillType(billInfo.type)"></td>
+                                <td ng-bind="billInfo.contract_item_text"></td>
                                 <td ng-bind="billInfo.amount / 100"></td>
                                 <td ng-bind="billInfo['source'][0].phone"></td>
                                 <td ng-bind="getCashSourceStr(billInfo['source'])"></td>
@@ -109,7 +118,7 @@
                         <div class="form-group">
                             <label for="inputUsername" class="col-md-3 control-label">目标账户：</label>
                             <div class="col-md-9">
-                                <input readonly value={{getCashTargetStr(billInfo['target'])}} type="text" class="form-control" />
+                                <input readonly value={{getCashTargetStr(billInfo)}} type="text" class="form-control" />
                             </div>
                         </div>
                     </div>

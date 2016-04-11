@@ -244,6 +244,7 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
                 first_name: merchant.first_name,
                 last_name: merchant.last_name,
                 phone: merchant.phone,
+                shop_name: merchant.shop_name,
                 id_card_no: merchant.id_card_no,
                 verified: merchant.verified,
                 imgHref1: "images/avatar/avatar_loading.gif",

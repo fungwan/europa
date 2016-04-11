@@ -17,10 +17,16 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.selectRoleType = {};
         $scope.roleTypeArray = [{'name':'大工种','value':'roles'},{'name':'小工种','value':'crafts'}];
-        $scope.appTypeArray = [{'name':'请选择app类型：','value':'-1'},{'name':'悠住工友安卓版','value':'android-worker'},{'name':'悠住业主安卓版','value':'android-house_owner'}];
-        $scope.selectAppType =$scope.appTypeArray[0];
+        $scope.appTypeArray = [
+/*            {'name':'请选择app类型：','value':'-1'},
+            {'name':'悠住工友安卓版','value':'0027d25e-1bd6-4f6c-99b5-d19a4de5d491'},
+            {'name':'悠住业主安卓版','value':'6b35b34d-d82a-4dc7-9861-093fb705e1e1'},
+            {'name':'悠住商家安卓版','value':'fe6dfe4d-248a-4f56-b0e6-cd7742bff70f'},
+            {'name':'悠住业主IOS版','value':'6b35b34d-d82a-4dc7-9861-093fb705e1e1'}*/
+        ];
+        //$scope.selectAppType = {} ;
         var originalRole2Map = {};
-        $scope.appVersionInfoArray = [];//推荐工种列表
+        $scope.appVersionInfoArray = [];//版本列表
 
         $scope.recommendRoleArray = [];//推荐工种列表
         $scope.selRecommendRole = {};//选择的推荐工种
@@ -29,14 +35,14 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.appVersion = {
 
-            app_type:'',
+            //app_type:'',
             main_ver:'',
             second_ver:'',
             minor_ver:'',
             build_ver:'',
             version_name:'',
-            file:'',
-            md5:''
+            href:''
+            //status:''
 
         };
 
@@ -75,10 +81,16 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         //获取app版本记录
         function getVersionInfo(){
+
+            var appID = $scope.selectAppType.id;
+            if(appID === undefined)return;
             var obj3 = {};
-            ApiService.get('/setting/appVersions', obj3, function (data) {
+            ApiService.get('/setting/appVersions/' + appID , obj3, function (data) {
                 if (data.result == 'success') {
-                    $scope.appVersionInfoArray = data.content;
+
+                    var tmp = [];
+                    tmp.push(data.content);
+                    $scope.appVersionInfoArray = tmp;
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -86,6 +98,25 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
 
         }
+
+        //获取app agent
+        function getApplications(){
+
+            ApiService.get('/applications' , {}, function (data) {
+                if (data.result == 'success') {
+
+                    $scope.appTypeArray = data.content;
+                    $scope.selectAppType = $scope.appTypeArray[0];
+
+                    getVersionInfo();
+                }
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+
+
+        }
+
 
         (function () {
             var obj = {};
@@ -104,12 +135,17 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
                     getRecommendRole();
                     getFreezeTime();
-                    getVersionInfo();
+                    getApplications();
                 }
             }, function (errMsg) {
                 alert(errMsg.message);
             });
         })();
+
+
+        $scope.AppTypeSelect = function(){
+            getVersionInfo();
+        };
 
         $scope.originalRoleSelect = function () {
             //console.log($scope.selectRole);
@@ -240,16 +276,18 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.updateAppVersion = function () {
 
-            if($scope.selectAppType.value === '-1'){
+            /*if($scope.selectAppType.value === '-1'){
                 alert('请选择版本类型!');
                 return;
-            }
+            }*/
 
-            var obj = $scope.appVersion;
-            obj.app_type = $scope.selectAppType.value;
-            obj.main_ver = parseInt(obj.main_ver);
-            obj.second_ver = parseInt(obj.second_ver);
-            obj.minor_ver = parseInt(obj.minor_ver);
+            var obj = {};
+            obj.appID = $scope.selectAppType.id;
+            obj.appInfo = $scope.appVersion;
+
+            obj.appInfo.main_ver = parseInt(obj.appInfo.main_ver);
+            obj.appInfo.second_ver = parseInt(obj.appInfo.second_ver);
+            obj.appInfo.minor_ver = parseInt(obj.appInfo.minor_ver);
 
             ApiService.post('/setting/appVersion', obj, function (data) {
                 if (data.result == 'fail') {
@@ -319,9 +357,40 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
         $scope.onDelAppVersion = function (appVersion) {
             var obj = {
                 params: {
-                    id: appVersion.id
+                    id:appVersion.id,
+                    versionName: appVersion.version_name
                 }
             };
+
+            /*var obj = {
+                id:appVersion.id,
+                versionName: appVersion.version_name
+            };*/
+
+            ApiService.delete('/setting/appVersion', obj, function (data) {
+                if (data.result == 'fail') {
+                    alert('app版本删除失败！');
+                }
+
+                getVersionInfo();
+
+            }, function (errMsg) {
+                alert(errMsg.message);
+            });
+        };
+
+        $scope.onShowAppVersion = function (appVersion) {
+            var obj = {
+                params: {
+                    id:appVersion.id,
+                    versionName: appVersion.version_name
+                }
+            };
+
+            /*var obj = {
+             id:appVersion.id,
+             versionName: appVersion.version_name
+             };*/
 
             ApiService.delete('/setting/appVersion', obj, function (data) {
                 if (data.result == 'fail') {

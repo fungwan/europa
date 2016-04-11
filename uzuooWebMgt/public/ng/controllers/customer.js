@@ -15,6 +15,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         $scope.cityArray = [];                               //城市列表
         $scope.regionArray = [];                             //所有区域列表
+        $scope.regionChkAll = false;
         $scope.originalRoles = [];                          //大工种列表
 
         $scope.totalWorkersPages = 1;                   //工人的总页数
@@ -275,13 +276,13 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         $scope.onShowSceneVerified = function () {
             $('#verified-dialog').modal('show');
-            getVerificationLogs();
-        }
+            getVerificationLogs('worker');
+        };
 
         $scope.onShowSceneVerifiedM = function () {
             $('#verified-dialogM').modal('show');
-            //getVerificationLogs();
-        }
+            getVerificationLogs('merchant');
+        };
 
         $scope.onShowChargeDlg = function (accountId) {
             $scope.chargeAmount = 0;
@@ -512,15 +513,28 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         }
 
         //获取认证记录
-        function getVerificationLogs() {
-            var url = '/workers/' + $scope.selectWorker.workerId + '/verification_logs';
-            ApiService.get(url, {}, function (data) {
-                if (data.result == 'success') {
-                    $scope.selectWorker.verifiedLogsArray = data.content;
-                }
-            }, function (errMsg) {
-                alert(errMsg.message);
-            });
+        function getVerificationLogs(type) {
+
+            if(type === 'worker'){
+                var url = '/workers/' + $scope.selectWorker.workerId + '/verification_logs';
+                ApiService.get(url, {}, function (data) {
+                    if (data.result == 'success') {
+                        $scope.selectWorker.verifiedLogsArray = data.content;
+                    }
+                }, function (errMsg) {
+                    alert(errMsg.message);
+                });
+            }else if(type === 'merchant'){
+                var url = '/merchants/' + $scope.selectMerchant.merchantId + '/verification_logs';
+                ApiService.get(url, {}, function (data) {
+                    if (data.result == 'success') {
+                        $scope.selectMerchant.verifiedLogsArray = data.content;
+                    }
+                }, function (errMsg) {
+                    alert(errMsg.message);
+                });
+            }
+
         }
 
 

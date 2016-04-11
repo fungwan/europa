@@ -48,9 +48,9 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3">
+                        <!--div class="col-lg-3">
                             工长姓名:<input type="text" ng-model="searchFilter.workerName">
-                        </div>
+                        </div-->
 
                         <div class="col-lg-12">
 
@@ -151,7 +151,7 @@
 </div>
 
 
-<div id="commit-building-dialog" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+<div id="commit-building-dialog" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade" cg-busy="uploadImgPromise">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-primary">
@@ -183,6 +183,44 @@
                     <button ng-click="uploadBuildingLog()" class="btn btn-pink">上传日志</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="changelogs-dlg" tabindex="-1" role="dialog" class="modal fade">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 class="modal-title">变更项</h4>
+            </div>
+            <div class="modal-body">
+                <table id="contractItem-table" class="table table-hover table-bordered">
+                    <thead>
+                        <tr ng-if="changeLogs.length == 0">
+                            <td>无变更项！</td>
+                        </tr>
+                        <tr ng-if="changeLogs.length != 0">
+                            <th>名称</th>
+                            <th>详细</th>
+                            <th>变更金额</th>
+                            <th>变更时间</th>
+                            <!--th>托管尾款之后的变更</th-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="change in changeLogs">
+                            <td class="active" ng-bind="change.title"></td>
+                            <td class="active" ng-bind="change.content"></td>
+                            <td class="active" ng-bind="change.amount/100 + '元'"></td>
+                            <td class="active" ng-bind="timeToStr(change.time*1000)"></td>
+                            <!--td class="active" ng-bind="change.after_trustee"></td-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 </div>

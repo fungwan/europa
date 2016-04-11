@@ -6,6 +6,7 @@ var contracts = require('../models/forApp/contracts');
 var sysSetting = require('../models/forApp/sysSetting');
 var activities = require('../models/forApp/activities');
 var bills = require('../models/forApp/bills');
+var appAgentMgt = require('../models/forApp/application');
 var qiniuToken = require('../models/forApp/upload');
 
 var users = require('../models/users');
@@ -22,8 +23,12 @@ module.exports = function (router, acl) {
         history.addLogs(req,res,next);
     });
 
-    router.get('/setting/appVersions', acl.middleware(2),function (req, res) {
-        sysSetting.getAppVersions(req, res);
+    router.get('/applications', function (req, res) {
+        appAgentMgt.getApplications(req, res);
+    });
+
+    router.get('/setting/appVersions/:id', acl.middleware(2),function (req, res) {
+        sysSetting.getAppVersionsById(req, res);
     });
 
     router.post('/setting/appVersion', acl.middleware(2),function (req, res) {
@@ -165,7 +170,7 @@ module.exports = function (router, acl) {
         customer.getRoleAndRegions(req,res);
     });
     
-    router.get('/workers/decorationCases',function (req, res) {
+    router.get('/workers/decorationCases',acl.middleware(2),function (req, res) {
         customer.worker.getWorkersCases(req,res);
     });
 
@@ -201,7 +206,7 @@ module.exports = function (router, acl) {
     });
 
     router.post('/doChangeWorkerRole', function (req, res) {
-        customer.changeWorkerRole(req,res);
+        customer.worker.changeWorkerRole(req,res);
     });
 
     router.get('/capitalAccount/:id', function (req, res) {
@@ -311,6 +316,10 @@ module.exports = function (router, acl) {
     
     router.post('/contracts/:contractId/items/:itemId/buildingLogs', function (req, res) {
         contracts.uploadBuildingLogs(req,res);
+    });
+    
+    router.get('/contracts/:contractId/items/:itemId/changes', function (req, res) {
+        contracts.getChanges(req,res);
     });
 
     router.get('/bills', acl.middleware(),function (req, res,next) {

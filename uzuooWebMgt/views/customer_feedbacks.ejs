@@ -26,9 +26,17 @@
                         <thead>
                         <tr role="row" class="heading">
                             <!--th width="3%" class="sorting_disabled"> <input type="checkbox" class="checkall" /> </th-->
-                            <th width="10%" class="sorting">时间</th>
-                            <th width="10%" class="sorting">反馈信息</th>
-                            <th width="10%" class="sorting">所属账号</th>
+                            <th width="5%" >时间</th>
+                            <th width="20%" >
+                                <select data-style="btn-grey" ng-model="feedbackFilter.category" class="selectpicker form-control" ng-change="onSearch()">
+                                    <!--option value="-1">选择认证状态</option-->
+                                    <option value="all">所有类别</option>
+                                    <option value="0">无法联系业主</option>
+                                    <option value="1">用户意见</option>
+                                </select>
+                            </th>
+
+                            <th width="5%" >所属账号</th>
                         </tr>
                         </thead>
                         <tbody>

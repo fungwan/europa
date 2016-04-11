@@ -42,7 +42,7 @@ exports.getFeedbacks = function(req,res){
             get_feedbacks: ['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var feedbacksPath = '/feedbacks?'+'accessToken=' + token;
+                var feedbacksPath = '/feedbacks?filter=' + filters+ '&create_time=-1&limit=-1&countOnly=true&accessToken=' + token;
 
                 var item = {};
                 item['path'] = feedbacksPath;
@@ -51,7 +51,7 @@ exports.getFeedbacks = function(req,res){
             get_currFeedback:['get_token', function (callback, results) {
 
                 var token = results.get_token;
-                var feedbacksPath = '/feedbacks?filter=all'+ '&limit=10&offset='+currPage*10 +'&accessToken=' + token;
+                var feedbacksPath = '/feedbacks?filter=' + filters+ '&create_time=-1&limit=10&offset='+currPage*10 +'&accessToken=' + token;
 
                 var item = {};
                 item['path'] = feedbacksPath;
@@ -60,8 +60,7 @@ exports.getFeedbacks = function(req,res){
         },function(err,result){
             if(err === null){
 
-                var feedbackArray = jsonConvert.stringToJson(result.get_feedbacks)['feedbacks'];
-                var feedbackCounts = feedbackArray.length;
+                var feedbackCounts = jsonConvert.stringToJson(result.get_feedbacks)['count'];
                 if(feedbackCounts === 0){//db里面一个工人也没有.
                     res.json({
                             result: 'success',

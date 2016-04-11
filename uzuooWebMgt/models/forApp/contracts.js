@@ -206,6 +206,56 @@ exports.uploadBuildingLogs = function(req,res){
 }
 
 
+exports.getChanges = function(req,res){
+
+    var contractId = req.params.contractId;
+    var itemId = req.params.itemId;
+
+    async.auto(
+        {
+            get_token: function (callback) {
+
+                tokenMgt.getToken(function (err, token) {
+                    if (!err) {
+                        callback(null, token);
+                    } else {
+                        callback(err, 'can not get token...');
+                    }
+                });
+            },
+            
+            get_changes: ['get_token', function (callback, results) {
+
+                var token = results.get_token;
+                var orderPath = '/contracts/' + contractId +'/items/' + itemId + '/changes?accessToken=' + token;
+
+                var item = {};
+                item['path'] = orderPath;
+                request.get(item,callback);
+            }]
+        },function(err,result){
+            if(err === null){
+
+                var buildingLogsArray = jsonConvert.stringToJson(result.get_changes)['change_logs'];
+
+                res.json({
+                    result: 'success',
+                    content: buildingLogsArray})
+            }else{
+
+                if(err === 403){
+                    tokenMgt.setTokenExpireStates(true);
+                }
+
+                res.json({
+                    result: 'fail',
+                    content:err})
+            }
+        }
+    );
+};
+
+
 
 
 

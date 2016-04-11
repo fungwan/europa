@@ -190,6 +190,18 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             $('#show_building_logs').modal('show');
         }
         
+        $scope.onShowChanges = function (contractItem) {
+            var pos = contractItem.change_logs_href.lastIndexOf('/contracts');
+            var url = contractItem.change_logs_href.substr(pos);
+            $scope.changesUrl = url;
+            ApiService.get(url, {}, function (data) {
+                $scope.changeLogs = data.content;
+            }, function (errMsg) {
+                errMsg;
+            });
+            $('#changelogs-dlg').modal('show');
+        }
+        
         $scope.onShowCommitBuildingLogs = function () {
             $scope.newBuildingLog = {
                 imgUploadData:'',
@@ -211,7 +223,7 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
                 building_logs: [{description:$scope.newBuildingLog.descriptive,
                 photos:[]}]
             }
-            $upload.upload({
+            $scope.uploadImgPromise = $upload.upload({
                 url: 'api/' + $scope.buildingLogsUrl,
                 data: {content:obj},
                 file:$scope.newBuildingLog.imgUploadData
