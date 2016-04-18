@@ -132,7 +132,11 @@ Merchant.prototype.findMerchantsByFilters = function(req,res){
     var currPage = req.query.page - 1;
     var filters = req.query.filters;
     // var filters = filterArray.join(",");
-
+    var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+    if(filters.indexOf('all')!== -1){
+        filters = 'city::' + cityId;
+    }
     async.auto(
         {
             get_token:function(callback){

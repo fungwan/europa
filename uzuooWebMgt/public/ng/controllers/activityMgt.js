@@ -6,6 +6,7 @@ angular.module('myApp').controller('ActivityMgtCtrl', ['$scope', '$location', '$
             firstClassSel:'actvityAdmin',
             secondSel:'activityMgt'
         };
+        
         $scope.initPage();
 
         $scope.activitiesArray = [];                            //反馈信息
@@ -88,6 +89,8 @@ angular.module('myApp').controller('ActivityMgtCtrl', ['$scope', '$location', '$
                         $scope.selectRole.detail = {};
                         getSelectRoleDetail();
                     }
+                    $('#startTime').attr('value', $scope.timeToStr2($scope.activityInfo.start_time * 1000));
+                    $('#endTime').attr('value', $scope.timeToStr2($scope.activityInfo.end_time * 1000));
                     $('#show_activityDetail_dlg').modal('show');
                 }
             }, function (errMsg) {
@@ -134,6 +137,11 @@ angular.module('myApp').controller('ActivityMgtCtrl', ['$scope', '$location', '$
                 $scope.activityInfo.dicounts[0].items[0].limit = parseInt($scope.activityInfo.dicounts[0].items[0].limit) / $scope.activityRealName[$scope.activityInfo.conditions.condition[0]].radio;
             }
             
+            var startDateStr = $("#startTime").val();
+            $scope.activityInfo.start_time = new Date(startDateStr).getTime()/1000;
+            var endDateStr = $("#endTime").val();
+            $scope.activityInfo.end_time = new Date(endDateStr).getTime()/1000;
+            
             var obj = {
                 id: activityId,
                 content:$scope.activityInfo
@@ -173,6 +181,39 @@ angular.module('myApp').controller('ActivityMgtCtrl', ['$scope', '$location', '$
         }
 
         getRolesInfo();
+        
+        
+        $('#startTime').datetimepicker({lang:'ch'});
+        $('#endTime').datetimepicker({lang:'ch'});
+        
+        $scope.timeToStr2 = function (timeStamp) {
+            return getConvertTime(timeStamp);
+        }
+
+        function getConvertTime(timeStamp) {
+
+            var myDate = new Date(timeStamp);
+            var year = myDate.getFullYear();
+            var month = parseInt(myDate.getMonth().toString()) + 1; //month是从0开始计数的，因此要 + 1
+            if (month < 10) {
+                month = "0" + month.toString();
+            }
+            var date = myDate.getDate();
+            if (date < 10) {
+                date = "0" + date.toString();
+            }
+            var hour = myDate.getHours();
+            if (hour < 10) {
+                hour = "0" + hour.toString();
+            }
+            var minute = myDate.getMinutes();
+            if (minute < 10) {
+                minute = "0" + minute.toString();
+            }
+            var currentTime = year.toString() + "/" + month.toString() + "/" + date.toString() + " " + hour.toString() + ":" + minute.toString(); //以时间格式返回
+
+            return currentTime;
+        }
 
 
     }]);

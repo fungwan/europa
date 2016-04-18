@@ -155,14 +155,20 @@
                         <div class="col-lg-6">
                             <div class="tb-group-actions pull-left">
                                 <select data-style="btn-grey" ng-model='houseOnwerSearchFilter.keyword'>
-                                    <option value="nick_name">昵称</option>
+                                    <!--option value="nick_name">昵称</option-->
                                     <option value="phone">电话号码</option>
                                     <option value="user_name">用户名</option>
-                                    <option value="full_name">姓名</option>
-                                    <option value="email">邮箱</option>
+                                    <!--option value="full_name">姓名</option>
+                                    <option value="email">邮箱</option-->
                                 </select>
                                 <input id="exactSearch-input" type="text" placeholder="输入对应关键字查找..." ng-model='houseOnwerSearchFilter.keywordValue'/>
                                 <button id="exactSearch-btn" type="button" ng-click="onHouseOwnerSearch()">查找</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="pull-right"><span></span>
+                                <button data-target="#modal-createUser-dlg"  data-toggle="modal" type="button" class="btn btn-info btn-md" >创建用户
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -217,7 +223,7 @@
                                     <option value="full_name">姓名</option>
                                 </select>
                                 <input id="exactSearch-input" type="text" placeholder="输入对应关键字查找..." ng-model='merchantSearchFilter.keywordValue'/>
-                                <button id="exactSearch-btn" type="button" ng-click="onWorkerExactSearch()">查找</button>
+                                <button id="exactSearch-btn" type="button" ng-click="onMerchantExactSearch()">查找</button>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -448,10 +454,10 @@
                                     <a class="list-group-item">系统赠送保证金
                                         <span id="systemMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectWorker.mBalanceSystem"></span>
                                     </a>
-                                    <a href="javascript:void(0)" ng-click="getCapitalDetails(selectWorker,'margin','worker')" class="list-group-item">个人保证金
-                                        <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectWorker.mBalanceOwns"></span>
+                                    <a href="javascript:void(0)" ng-click="getCapitalDetails(selectWorker,'margin','worker')" class="list-group-item">保证金总额
+                                        <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectWorker.mBalanceOwns + selectWorker.mBalanceSystem"></span>
                                     </a>
-                                    <a  class="list-group-item">累积收入
+                                    <a  href="javascript:void(0)" ng-click="getCapitalDetails(selectWorker,'totalIncome','worker')" class="list-group-item">累积收入
                                         <span class="badge badge-danger pull-right" ng-bind="selectWorker.mTotalIncome"></span>
                                     </a>
                                 </div>
@@ -661,6 +667,52 @@
     </div>
 </div>
 
+<div aria-hidden="true" id="modal-createUser-dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 class="modal-title">创建悠住用户</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-icon right">
+                                <i class="fa fa-mobile-phone"></i>
+                                <input  ng-model="newUserInfo.phone" type="text" placeholder="手机号" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-icon right">
+                                <i class="fa fa-lock"></i>
+                                <input  ng-model="newUserInfo.password" type="password" placeholder="密码" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-icon right">
+                                <i class="fa fa-lock"></i>
+                                <input  ng-model="newUserInfo.confirm_pw" type="password" placeholder="确认密码" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <div class="col-md-12">
+                            <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                            <button type="button" ng-click="createUser()" class="btn btn-success">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div aria-hidden="true" id="charge_dlg" tabindex="-1" class="modal fade">
     <div class="modal-dialog">
@@ -1076,10 +1128,10 @@
                                     <a class="list-group-item">系统赠送保证金
                                         <span id="systemMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectMerchant.mBalanceSystem"></span>
                                     </a>
-                                    <a href="javascript:void(0)"  ng-click="getCapitalDetails(selectMerchant,'margin','merchant')" class="list-group-item">个人保证金
-                                        <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectMerchant.mBalanceOwns"></span>
+                                    <a href="javascript:void(0)"  ng-click="getCapitalDetails(selectMerchant,'margin','merchant')" class="list-group-item">保证金总额
+                                        <span id="ownMarginBalance-span" class="badge badge-warning pull-right" ng-bind="selectMerchant.mBalanceOwns + selectMerchant.mBalanceSystem"></span>
                                     </a>
-                                    <a  class="list-group-item">累积收入
+                                    <a  href="javascript:void(0)" ng-click="getCapitalDetails(selectMerchant,'totalIncome','merchant')" class="list-group-item">累积收入
                                         <span class="badge badge-danger pull-right" ng-bind="selectMerchant.mTotalIncome"></span>
                                     </a>
                                 </div>

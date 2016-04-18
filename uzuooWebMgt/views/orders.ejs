@@ -67,7 +67,7 @@
                             <th width="15%">时间</th>
                             <th width="10%">区域</th>
                             <th width="10%">订单号</th>
-                            <th width="10%">工种</th>
+                            <th width="10%">工种/商品类别</th>
                             <th width="10%">业主号码</th>
                             <th width="10%">工长号码</th>
                             <th width="10%">金额</th>
@@ -221,6 +221,37 @@
                 </table>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" id="merchant_order_dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 class="modal-title">商品订单详情</h4>
+            </div>
+            <div class="row">
+                <!-- start -->
+                <div class="col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-body pal">
+                            <div class="input-group input-daterange col-md-3"></div>
+                            <div class="input-group input-daterange col-md-6 col-md-offset-3">
+                                <span class="input-group-addon">预约时间</span>
+                                <input type="text" ng-model="appointTime" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="modify_conference_footer">
+                    <div class="col-md-6">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

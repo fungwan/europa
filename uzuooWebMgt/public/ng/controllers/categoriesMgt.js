@@ -125,7 +125,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
                 return;
             }
             var obj = {
-                name: $scope.selectedRole.name,
+                name: $scope.selectedRole.name
             };
             var url = '/setting/workers/role/' + $scope.selectedRole.id + '/name'
             ApiService.post(url, obj, function (data) {
@@ -143,7 +143,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
                 return;
             }
             var obj = {
-                name: $scope.selectedMerchantsRole.name,
+                name: $scope.selectedMerchantsRole.name
             };
             var url = '/setting/merchants/role/' + $scope.selectedMerchantsRole.id + '/name'
             ApiService.post(url, obj, function (data) {
@@ -161,7 +161,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
                 return;
             }
             var obj = {
-                name: $scope.selectedCraft.name,
+                name: $scope.selectedCraft.name
             };
             var url = '/setting/workers/role/' + $scope.selectedRole.id + '/crafts/' + $scope.selectedCraft.id + '/name';
             ApiService.post(url, obj, function (data) {
@@ -179,7 +179,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
                 return;
             }
             var obj = {
-                name: $scope.selectedMerchantsCraft.name,
+                name: $scope.selectedMerchantsCraft.name
             };
             var url = '/setting/merchants/role/' + $scope.selectedMerchantsRole.id + '/crafts/' + $scope.selectedMerchantsCraft.id + '/name';
             ApiService.post(url, obj, function (data) {
@@ -194,7 +194,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
         //修改大工种可见性
         $scope.onChangeRoleVisable = function () {
             var obj = {
-                visible: parseInt($scope.selectedRole.visible),
+                visible: parseInt($scope.selectedRole.visible)
             };
             var url = '/setting/workers/role/' + $scope.selectedRole.id + '/visible'
             ApiService.post(url, obj, function (data) {
@@ -209,7 +209,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
         //修改大类别可见性
         $scope.onChangeMerchantsRoleVisable = function () {
             var obj = {
-                visible: parseInt($scope.selectedMerchantsRole.visible),
+                visible: parseInt($scope.selectedMerchantsRole.visible)
             };
             var url = '/setting/merchants/role/' + $scope.selectedMerchantsRole.id + '/visible'
             ApiService.post(url, obj, function (data) {
@@ -224,7 +224,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
         //修改小工种可见性
         $scope.onChangeCraftVisable = function () {
             var obj = {
-                visible: parseInt($scope.selectedCraft.visible),
+                visible: parseInt($scope.selectedCraft.visible)
             };
             var url = '/setting/workers/role/' + $scope.selectedRole.id + '/crafts/' + $scope.selectedCraft.id + '/visible';
             ApiService.post(url, obj, function (data) {
@@ -239,7 +239,7 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
         //修改小类别可见性
         $scope.onChangeMerchantsCraftVisable = function () {
             var obj = {
-                visible: parseInt($scope.selectedMerchantsCraft.visible),
+                visible: parseInt($scope.selectedMerchantsCraft.visible)
             };
             var url = '/setting/merchants/role/' + $scope.selectedMerchantsRole.id + '/crafts/' + $scope.selectedMerchantsCraft.id + '/visible';
             ApiService.post(url, obj, function (data) {
@@ -311,12 +311,14 @@ angular.module('myApp').controller('CategoriesMgtCtrl', ['$scope', '$location', 
             if ($scope.selectedMerchantsCraft) {
                 selectedMerchantsCraftId = $scope.selectedMerchantsCraft.id
             }
-            ApiService.get('/doGetRoleAndRegionsInfo', obj, function (data) {
+            ApiService.get('/setting/roleAndRegions', obj, function (data) {
                 if (data.result == 'success') {
                     $scope.regionsAndRolesArray = data.content.get_roleAndRegions;
                     $scope.roleArray = $scope.regionsAndRolesArray[1][0];
                     $scope.merchantsRoleArray = $scope.regionsAndRolesArray[2][0];
                     refreshDlg();
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

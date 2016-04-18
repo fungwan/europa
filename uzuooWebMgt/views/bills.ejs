@@ -48,15 +48,18 @@
                                         <!--option value="-1">选择认证状态</option-->
                                         <option value="all">账单类型</option>
                                         <option value="withdraw">余额提现</option>
-                                        <option value="refund">退款</option>
+                                        <option value="withdraw_margin">保证金提现</option>
+                                        <option value="recharge_margin_offline">保证金线下充值</option>
+                                        <option value="recharge_offline">余额线下充值</option>
                                     </select>
                                 </th>
                                 <th width="5%">支付工段</th>
                                 <th width="2%" class="numeric">总额</th>
                                 <th width="3%">发起者</th>
-                                <th width="8%">付款渠道</th>
+                                <th width="3%">接收者</th>
+                                <!--th width="8%">付款渠道</th>
                                 <th width="2%" class="numeric">实支</th>
-                                <th width="2%" class="numeric">入账</th>
+                                <th width="2%" class="numeric">入账</th-->
                                 <th width="8%">状态</th>
                             </tr>
                             </thead>
@@ -70,10 +73,11 @@
                                 <td ng-bind="translateBillType(billInfo.type)"></td>
                                 <td ng-bind="billInfo.contract_item_text"></td>
                                 <td ng-bind="billInfo.amount / 100"></td>
-                                <td ng-bind="billInfo['source'][0].phone"></td>
-                                <td ng-bind="getCashSourceStr(billInfo['source'])"></td>
-                                <td ng-bind="billInfo.actual_pay /100"></td>
-                                <td ng-bind="billInfo.arrival_amount / 100"></td>
+                                <!--td ng-bind="billInfo['source'][0].phone"></td-->
+                                <td ng-bind="getCashStr(billInfo['source'][0])"></td>
+                                <td ng-bind="getCashStr(billInfo['target'][0])"></td>
+                                <!--td ng-bind="billInfo.actual_pay /100"></td>
+                                <td ng-bind="billInfo.arrival_amount / 100"></td-->
                                 <td>
                                     <span ng-if="billInfo.status == 0" class="label label-sm label-dark">待初审</span>
                                     <span ng-if="billInfo.status == 1" class="label label-sm label-warning">待复核</span>
@@ -94,7 +98,83 @@
     </div>
 </div>
 
+
 <div aria-hidden="true" id="show_billDetail_dlg" tabindex="-1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                <h4 class="modal-title">更多明细</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    该笔台账涉及总额数为：<span class="badge badge-danger ">{{billInfo.amount / 100}}</span>，以下为走向明细：
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6" style="border:1px solid #009966 ;">
+                        <br>
+                        <div>
+                            <label >账目来源明细：</label>
+                        </div>
+                        <div class="list-group">
+                            <a class="list-group-item" ng-repeat="item in billInfo['source']" >{{getCashStr(item)}}<span class="badge badge-success pull-right">{{item.amount / 100}}</span></a>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-md-6" style="border:1px solid #0066ff">
+                        <br>
+                        <div>
+                            <label >账目去向明细：</label>
+                        </div>
+                        <div class="list-group">
+                            <a class="list-group-item" ng-repeat="item in billInfo['target']" >{{getCashStr(item)}}<span class="badge badge-info pull-right">{{item.amount / 100}}</span></a>
+                            <a ng-if="billInfo.type === 'withdraw' || billInfo.type === 'withdraw_margin'" class="list-group-item" >开户行：{{billInfo.bank_card.bank_name}}，姓名：{{billInfo.bank_card.owner_name}}</a>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group pull-right">
+                            <button ng-click="checkBill(billInfo)" ng-if="billInfo.status == 0" type="button" name="pendingBill-btn" ng-class="{0:'btn btn-info btn-xs',1:'btn btn-warning btn-xs'}[billInfo.status]">
+                                <i class="fa fa-circle-o"></i>&nbsp; <span >通过初审</span>
+                            </button>
+                            <button ng-click="rejectBill(billInfo)" ng-if="billInfo.status == 0" type="button" class="btn btn-primary btn-xs" >
+                                <i class="fa fa-times"></i>&nbsp; <span > 驳回初审</span>
+                            </button>
+
+                            <button ng-click="checkBill(billInfo)" ng-if="billInfo.status == 1" type="button" name="pendingBill-btn" ng-class="{0:'btn btn-info btn-xs',1:'btn btn-warning btn-xs'}[billInfo.status]">
+                                <i class="fa fa-check-circle-o"></i>&nbsp; <span >通过复审</span>
+                            </button>
+                            <button ng-click="rejectBill(billInfo)" ng-if="billInfo.status == 1" type="button" class="btn btn-primary btn-xs" >
+                                <i class="fa fa-times"></i>&nbsp; <span > 驳回复审</span>
+                            </button>
+
+                            <span ng-if="billInfo.status == 2" class="label label-sm label-success">复核成功</span>
+                            <span ng-if="billInfo.status == 3" class="label label-sm label-primary">初审未通过</span>
+                            <span ng-if="billInfo.status == 4" class="label label-sm label-primary">复审未通过</span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <div>
+                        <div class="col-md-12">
+                            <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--div aria-hidden="true" id="show_billDetail_dlg" tabindex="-1" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-primary">
@@ -161,4 +241,4 @@
             </div>
         </div>
     </div>
-</div>
+</div-->

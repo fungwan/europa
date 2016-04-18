@@ -297,6 +297,8 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
             if( invite_Info.invitees != null){
                 $scope.inviteesArray = invite_Info.invitees;
+            }else{
+                $scope.inviteesArray = [];
             }
 
             $('#edit_worker_dlg').modal('hide');
@@ -384,13 +386,16 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
         //充值函数
         function doCharge(obj) {
-            ApiService.post('/paymentOrders', obj, function (data) {
+            ApiService.post('/capitalAccount/paymentOrders', obj, function (data) {
                 if(data.result == 'success') {
                     if($scope.selectWorker.workerId)
                         getWorkerCapitalAccount();
                     if ($scope.selectHouseOwner.houseOwnerId)
                         getHouseOwnerCapitalAccount();
+                }else if(data.content === 'Permission Denied'){
+                    alert('该用户无权执行线下充值动作...');
                 }
+
             }, function(errMsg){
                 alert(errMsg.message);
             });
@@ -445,9 +450,33 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
 
                 $scope.tradDetailType = '余额';
                 url = '/capitalAccount/' + id + '/details';
+
+                var filterStr = '';
+                if(userType === 'worker' || userType === 'merchant'){
+                    filterStr = 'type::withhold_margin|recharge_margin|recharge_offline|refund|recharge|withdraw|cash_back|construction|earnest|settle';
+                }else{
+                    filterStr = 'all';
+                }
                 obj['params'] = {
-                    accountType: accountType
+                    accountType: accountType,
+                    filter:filterStr
                 };
+            }else if(accountType === 'totalIncome'){
+
+                $scope.tradDetailType = '累积收入';
+                url = '/capitalAccount/' + id + '/details';
+
+                var filterStr = '';
+                if(userType === 'worker' || userType === 'merchant'){
+                    filterStr = 'type::recharge|cash_back|construction|earnest|settle';
+                }else{
+                    filterStr = 'all';
+                }
+                obj['params'] = {
+                    accountType: 'capital',
+                    filter:filterStr
+                };
+
             }else if(accountType === 'margin'){
 
                 $scope.tradDetailType = '保证金';
@@ -784,7 +813,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         $scope.currHousePage = 1;
 
         $scope.houseOnwerSearchFilter = {
-            keyword:'nick_name',
+            keyword:'phone',
             keywordValue:''
         };
 
@@ -813,6 +842,67 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             });
 
         }
+
+        /*
+            Attention！new function about create users has been added by fungwan at 2016.4.13.
+         */
+        $scope.newUserInfo = {
+            password:'',
+            confirm_pw:'',
+            phone:''
+        };
+
+        $scope.createUser = function(){
+
+            var reg = /^(13[0-9]|14[0-9]|15[0-9]|17[0,7]|18[0-9])\d{8}$/;
+            if (!reg.test($scope.newUserInfo.phone)) {
+                alert('电话号码为必填项，且必须符合正确格式！');
+            }else{
+
+                if($scope.newUserInfo.password !== $scope.newUserInfo.confirm_pw){
+                    alert('密码输入不一致');
+                }else{
+                    var filter = 'phone::' + $scope.newUserInfo.phone;
+                    var tmp = [];
+                    tmp.push(filter);
+                    var obj = {
+                        params: {
+                            page: 1,
+                            filters: tmp
+                        }
+                    }
+                    ApiService.get('/houseOwners', obj, function (data) {
+                        if (data.result == 'success') {
+                            if(data.content.length !== 0){
+                                alert('该用户已经存在');
+                            }else{
+                                ApiService.post('/houseOwners', {
+                                    phone:$scope.newUserInfo.phone,
+                                    password:$scope.newUserInfo.password
+                                }, function (data) {
+                                    if(data.result == 'fail') {
+                                        alert('创建用户失败');
+                                    }else{
+
+                                        $scope.newUserInfo['password'] = '';
+                                        $scope.newUserInfo['confirm_pw'] = '';
+                                        $scope.newUserInfo['phone'] = '';
+
+                                        getHouseOwnerBypage($scope.currHousePage);
+
+                                        $("#modal-createUser-dlg").modal("hide");
+                                    }
+                                }, function(errMsg){
+                                    alert(errMsg.message);
+                                });
+                            }
+                        }
+                    }, function (errMsg) {
+                        alert(errMsg.message);
+                    });
+                }
+            }
+        };
 
         function getHouseOwnerBypage (pageIndex) {
             var obj = {
@@ -966,7 +1056,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
         };
 
 
-        $scope.onWorkerExactSearch = function () {
+        $scope.onMerchantExactSearch = function () {
 
             merchantFilters = [];
             if ($scope.merchantSearchFilter.keywordValue !== '') {

@@ -22,6 +22,11 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             { name: "待评价", value: 4 },
             { name: "待施工", value: 5 },
             { name: "已完工", value: 6 },
+            { name: "-----", value: 7 },
+            { name: "-----", value: 8 },
+            { name: "-----", value: 9 },
+            { name: "待签约", value: 10 },
+            { name: "已签约", value: 11 },
             { name: "失效订单", value: 100 }
         ];
 
@@ -92,6 +97,9 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         $scope.curOrdersPage = 1;
 
         $scope.getRegionStr = function (region_id) {
+            if(!region_id) {
+                return ''
+            }
             return $scope.regionsArray[1][region_id].name;
         }
 
@@ -104,10 +112,18 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         $scope.getCraftsInfo = function (order) {
             var craftsArray = order.crafts;
             var craftsInfo = '';
-            for (var c in craftsArray) {
-                craftsInfo += $scope.rolesArray[1][craftsArray[c]].name;
-                craftsInfo += ' ';
+            if( order.type == 'merchant' || order.type == 'merchant_appoint') {
+                for (var c in craftsArray) {
+                    craftsInfo += $scope.categoriesArray[1][craftsArray[c]].name;
+                    craftsInfo += ' ';
+                }
+            } else {
+                for (var c in craftsArray) {
+                    craftsInfo += $scope.rolesArray[1][craftsArray[c]].name;
+                    craftsInfo += ' ';
+                }
             }
+            
             return craftsInfo;
         }
 
@@ -118,6 +134,12 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
         }
 
         $scope.onShowOrderDetail = function (order) {
+            if( order.type == 'merchant' || order.type == 'merchant_appoint') {
+                $('#merchant_order_dlg').modal('show');
+                $scope.appointTime = $scope.timeToStr(order.appoint_time*1000)
+                return;
+            }
+            
             if (order.status == 0 || order.status == 1) {
                 $scope.statusTitleStyle = 0;
             } else if (order.status == 2 || order.status == 5) {
@@ -259,6 +281,7 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
                 if (data.result == 'success') {
                     $scope.regionsArray = data.content.get_roleAndRegions[0];
                     $scope.rolesArray = data.content.get_roleAndRegions[1];
+                    $scope.categoriesArray = data.content.get_roleAndRegions[2];
                     getOrdersBypage(1);
                 }
             }, function (errMsg) {

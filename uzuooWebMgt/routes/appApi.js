@@ -78,7 +78,11 @@ module.exports = function (router, acl) {
     router.post('/setting/global', acl.middleware(2),function (req, res) {
         sysSetting.updateSysConfig(req, res);
     });
-    
+
+    router.get('/setting/roleAndRegions', acl.middleware(2),function (req, res) {
+        customer.getRoleAndRegions(req, res);
+    });
+
     router.post('/setting/regions', acl.middleware(2),function (req, res) {
         sysSetting.updateRegions(req, res);
     });
@@ -160,6 +164,10 @@ module.exports = function (router, acl) {
     //action for houseOwner
     router.get('/houseOwners', function (req, res) {
         customer.houseOwner.findHouseOwnersByPage(req,res);
+    });
+
+    router.post('/houseOwners', function (req, res) {
+        customer.houseOwner.createHouseOwner(req,res);
     });
 
     router.get('/houseOwners/:id', function (req, res) {
@@ -286,7 +294,7 @@ module.exports = function (router, acl) {
     });
 
     //线下充值
-    router.post('/paymentOrders', function (req, res) {
+    router.post('/capitalAccount/paymentOrders', acl.middleware(2),function (req, res) {
         customer.chargeAccount(req,res);
     });
 

@@ -97,7 +97,7 @@ angular.module('myApp').controller('CitiesMgtCtrl', ['$scope', '$location', '$ro
                 return;
             }
             var obj = {
-                name: $scope.selectedProvince.name,
+                name: $scope.selectedProvince.name
             };
             var url = '/setting/provinces/' + $scope.selectedProvince.id;
             ApiService.post(url, obj, function (data) {
@@ -113,7 +113,7 @@ angular.module('myApp').controller('CitiesMgtCtrl', ['$scope', '$location', '$ro
                 return;
             }
             var obj = {
-                name: $scope.selectedCity.name,
+                name: $scope.selectedCity.name
             };
             var url = '/setting/provinces/' + $scope.selectedProvince.id + '/cities/' + $scope.selectedCity.id;
             ApiService.post(url, obj, function (data) {
@@ -129,7 +129,7 @@ angular.module('myApp').controller('CitiesMgtCtrl', ['$scope', '$location', '$ro
                 return;
             }
             var obj = {
-                name: $scope.selectedRegion.name,
+                name: $scope.selectedRegion.name
             };
             var url = '/setting/provinces/' + $scope.selectedProvince.id + '/cities/' + $scope.selectedCity.id + '/regions/' + $scope.selectedRegion.id;
             ApiService.post(url, obj, function (data) {
@@ -153,11 +153,13 @@ angular.module('myApp').controller('CitiesMgtCtrl', ['$scope', '$location', '$ro
                 selectedRegionId = $scope.selectedRegion.id
             }
             var obj = {};
-            ApiService.get('/doGetRoleAndRegionsInfo', obj, function (data) {
+            ApiService.get('/setting/roleAndRegions', obj, function (data) {
                 if (data.result == 'success') {
                     $scope.regionsAndRolesArray = data.content.get_roleAndRegions;
                     $scope.provinceArray = $scope.regionsAndRolesArray[0][0];
                     refreshDlg();
+                } else if(data.content === 'Permission Denied'){
+                    window.location.href="/permissionError";
                 }
             }, function (errMsg) {
                 alert(errMsg.message);

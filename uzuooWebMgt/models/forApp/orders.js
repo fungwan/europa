@@ -26,7 +26,11 @@ exports.getOrders = function(req,res){
     var currPage = req.query.page - 1;
     //var filterArray = req.query.filters;
     var filters = req.query.filters;
-
+    var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+    if(filters.indexOf('all')!== -1){
+        filters = 'city::' + cityId;
+    }
     async.auto(
         {
             get_token: function (callback) {
@@ -54,7 +58,7 @@ exports.getOrders = function(req,res){
                 var skipValue = currPage * 10;
 
                 //获取工人信息
-                var path = '/orders?'+'accessToken=' + token + '&filter='+ filters + '&limit=10&offset='+ skipValue;
+                var path = '/orders?' + 'filter='+ filters + '&limit=10&offset='+ skipValue +'&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);

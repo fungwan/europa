@@ -17,6 +17,11 @@ exports.getBills = function(req,res){
     //var billId = req.params.id;
     var currPage = req.query.page - 1;
     var filters = req.query.filters;
+    var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+    if(filters.indexOf('all')!== -1){
+        filters = 'city::' + cityId;
+    }
 
     async.auto(
         {

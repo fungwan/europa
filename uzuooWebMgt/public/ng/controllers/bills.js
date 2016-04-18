@@ -124,43 +124,17 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             });
         }
 
-        $scope.getCashSourceStr = function(arry){
-            if(arry === undefined)return '';
-            var array = [];
-            for(var x = 0 ; x <arry.length;++x){
 
-                if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined){
-                    array.push(arry[x].capital_account_id);
-                }else{
-                    array.push(tradeTypeCNTranslateObj[arry[x].capital_account_id]);
-                }
+        $scope.getCashStr = function(payInfo){
+            if(tradeTypeCNTranslateObj[payInfo.capital_account_id] !== undefined){
+                return tradeTypeCNTranslateObj[payInfo.capital_account_id];
+            }else if(tradeTypeCNTranslateObj[payInfo.capital_account_id] === undefined && payInfo.phone !== ''){
+                return payInfo.phone;
+            }else if(tradeTypeCNTranslateObj[payInfo.capital_account_id] === undefined && payInfo.capital_account_id !== ''){
+                return payInfo.capital_account_id;//eg:ACSFAS321aliPay/weixinPay
+            }else{
+                return '悠住网络平台';
             }
-            return array.join(',\r\n');
-        };
-
-        $scope.getCashTargetStr = function(billInfo){
-
-
-            var arry = billInfo['target'];
-            if(arry === undefined)return '';
-            var array = [];
-            for(var x = 0 ; x <arry.length;++x){
-
-                if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined && arry[x].phone !== ''){
-                    array.push(arry[x].phone);
-                }else if(tradeTypeCNTranslateObj[arry[x].capital_account_id] === undefined && arry[x].phone === ''){
-
-                    var cardInfo = billInfo.bank_card;
-
-                    array.push(cardInfo.bank_name);
-                    array.push(cardInfo.card_no);
-                    array.push(cardInfo.owner_name);
-
-                }else{
-                    array.push(tradeTypeCNTranslateObj[arry[x].capital_account_id]);
-                }
-            }
-            return array.join(',');
         };
 
         $scope.translateBillType = function(type){

@@ -11,7 +11,7 @@ var tokenMgt = require('./tokenMgt');
 var jsonConvert = require('../../lib/jsonFormat.js');
 var request = require('./requestForGo.js');
 var logger = require('../../lib/log.js').logger;
-
+var historyMgt = require('../history.js');
 
 
 exports.worker = new _Worker();
@@ -213,6 +213,9 @@ exports.getRoleAndRegions = function(req,res){
             }]
         },function(err,result){
             if(err === null){
+
+                delete result['get_token'];
+
                 res.json({
                     result: 'success',
                     content: result})
@@ -267,6 +270,10 @@ exports.getCapitalAccountById = function(req,res){
 exports.chargeAccount = function(req,res){
 
     var obj = req.body.content;
+
+    var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+
     async.auto(
         {
             get_token: function (callback) {
@@ -287,6 +294,7 @@ exports.chargeAccount = function(req,res){
                 optionItem['path'] = path;
 
                 var content = obj;
+                content['city']=cityId;
 
                 var bodyString = JSON.stringify(content);
 
@@ -294,6 +302,10 @@ exports.chargeAccount = function(req,res){
             }]
         },function(err,result){
             if(err === null){
+
+                var desc = '';
+                desc = '为账号ID是' + obj.account_id + '的' + obj.type + '账户充值了' + obj.amount / 100 + '元';
+                historyMgt.addLogsEx(req,res,desc);
 
                 res.json({
                     result: 'success',
@@ -357,7 +369,7 @@ exports.findInviteesById = function(req,res){
 exports.getCapitalAccountDetailsById = function(req,res){
     var accountId = req.params.id;
     var type = req.query.accountType;
-    //var filter = req.query.filter;
+    var filter = req.query.filter;
     async.auto(
         {
             get_token: function (callback) {
@@ -372,7 +384,7 @@ exports.getCapitalAccountDetailsById = function(req,res){
             },
             get_details:['get_token',function(callback,results){
                 var token = results.get_token;
-                var path = '/capitalAccount/' + accountId +'/details?limit=-1&accountType=' + type + '&accessToken=' + token;
+                var path = '/capitalAccount/' + accountId +'/details?limit=-1&accountType=' + type +'&filter='+filter +'&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
                 request.get(optionItem,callback);

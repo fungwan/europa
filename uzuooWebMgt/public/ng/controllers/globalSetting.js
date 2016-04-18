@@ -18,13 +18,9 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
         $scope.selectRoleType = {};
         $scope.roleTypeArray = [{'name':'大工种','value':'roles'},{'name':'小工种','value':'crafts'}];
         $scope.appTypeArray = [
-/*            {'name':'请选择app类型：','value':'-1'},
-            {'name':'悠住工友安卓版','value':'0027d25e-1bd6-4f6c-99b5-d19a4de5d491'},
-            {'name':'悠住业主安卓版','value':'6b35b34d-d82a-4dc7-9861-093fb705e1e1'},
-            {'name':'悠住商家安卓版','value':'fe6dfe4d-248a-4f56-b0e6-cd7742bff70f'},
-            {'name':'悠住业主IOS版','value':'6b35b34d-d82a-4dc7-9861-093fb705e1e1'}*/
+
         ];
-        //$scope.selectAppType = {} ;
+
         var originalRole2Map = {};
         $scope.appVersionInfoArray = [];//版本列表
 
