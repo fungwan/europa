@@ -33,7 +33,13 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             'withdraw':'余额提现',
             'refund':'退款',
             'earnest':'定金支付',
-            'trustee':'托管尾款支付'
+            'trustee':'托管尾款支付',
+            'giving_ubeans':'系统赠送现金券',
+            'giving_margin':'系统赠送保证金',
+            'cash_back':'返现',
+            'withhold_commission_b':'抽取基础佣金',
+            'withhold_commission_f':'抽取绩效佣金',
+            '':''
         };
 
         //系统账户
@@ -41,7 +47,27 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
             'UzuooBasicCommission':'基础佣金账户',
             'UzuooFloatCommission':'绩效佣金账户',
             'UzuooTrusteedEarnest':'托管定金账户',
-            'UzuooTrusteedFinalPayment':'托管尾款账户'
+            'UzuooTrusteedFinalPayment':'托管尾款账户',
+            'capital':'个人余额账户',
+            'margin':'个人保证金账户',
+            'ubean':'业主现金券账户',
+            'recharge_offline':'余额线下充值',
+            'commision_basic':'基础佣金账户',
+            'commision_float':'绩效佣金账户',
+            'third_part':'第三方账户',
+            'earnest':'托管定金账户',
+            'trustee':'托管尾款账户',
+            'pre_withdraw':'待提现账户',
+            'bank':'银行卡账户',
+            '':''
+        };
+
+        //支付来源
+        var backendObj = {
+            'wxpay':'微信支付',
+            'alipay':'支付宝',
+            'uzuoopay':'悠住支付',//包含余额、现金券等,
+            '':''
         };
 
 
@@ -125,16 +151,31 @@ angular.module('myApp').controller('BillsCtrl', ['$scope', '$location', '$rootSc
         }
 
 
-        $scope.getCashStr = function(payInfo){
-            if(tradeTypeCNTranslateObj[payInfo.capital_account_id] !== undefined){
+        $scope.getCashStr = function(type,payInfo){
+
+            var result = '';
+            if(type === 'source'){
+
+                result += payInfo.account_name/*who*/ + ','
+                    +tradeTypeCNTranslateObj[payInfo.account_type] /*where*/+','+backendObj[payInfo.backend] /*which*/;
+
+
+
+            }else if(type === 'target'){
+
+                result += payInfo.account_name/*who*/ +','+ tradeTypeCNTranslateObj[payInfo.account_type] /*where*/;
+            }
+
+            return result;
+            /*if(tradeTypeCNTranslateObj[payInfo.capital_account_id] !== undefined){
                 return tradeTypeCNTranslateObj[payInfo.capital_account_id];
             }else if(tradeTypeCNTranslateObj[payInfo.capital_account_id] === undefined && payInfo.phone !== ''){
                 return payInfo.phone;
             }else if(tradeTypeCNTranslateObj[payInfo.capital_account_id] === undefined && payInfo.capital_account_id !== ''){
-                return payInfo.capital_account_id;//eg:ACSFAS321aliPay/weixinPay
+                return payInfo.account_name;//eg:ACSFAS321aliPay/weixinPay
             }else{
-                return '悠住网络平台';
-            }
+                return payInfo.account_name;
+            }*/
         };
 
         $scope.translateBillType = function(type){

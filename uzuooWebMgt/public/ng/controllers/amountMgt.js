@@ -118,8 +118,8 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
                  if (data.result == 'success') {
                      var rulesObj = data.content;
                      rulesObj.order.need_trustee = rulesObj.order.need_trustee ? true:false;
-                     rulesObj.order.non_earnest_keep_time = rulesObj.order.non_earnest_keep_time / 3600 /24; //天
-                     rulesObj.order.non_candidates_keep_time = rulesObj.order.non_candidates_keep_time / 3600; //天
+                     rulesObj.order.non_earnest_keep_time = rulesObj.order.non_earnest_keep_time / 3600 ; //小时
+                     rulesObj.order.non_candidates_keep_time = rulesObj.order.non_candidates_keep_time / 3600; //小时
 
                      rulesObj['order']['earnest'] = rulesObj['order']['earnest'] /100;
                      rulesObj['ubeans']['up_threshold'] = rulesObj['ubeans']['up_threshold'] / 100;
@@ -232,7 +232,7 @@ angular.module('myApp').controller('AmountMgtCtrl', ['$scope', '$location', '$ro
 
             craftRule['order']['need_trustee'] = craftRule['order']['need_trustee'] ? 1 : 0;
             craftRule['order']['max_candidates'] = parseInt(craftRule['order']['max_candidates']);
-            craftRule['order']['non_earnest_keep_time'] = parseInt(craftRule['order']['non_earnest_keep_time']) * 24 * 3600;
+            craftRule['order']['non_earnest_keep_time'] = parseInt(craftRule['order']['non_earnest_keep_time'])  * 3600;
             craftRule['order']['non_candidates_keep_time'] = parseInt(craftRule['order']['non_candidates_keep_time']) * 3600;
 
             craftRule['commission']['basic'] = parseFloat(craftRule['commission']['basic'] /100);

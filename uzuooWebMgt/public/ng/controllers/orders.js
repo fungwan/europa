@@ -160,7 +160,7 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
             ApiService.get(url, obj, function (data) {
                 if (data.result == 'success') {
                     $scope.orderDetailInfo = data.content;
-                    var gender = ($scope.orderDetailInfo.gender == 0) ? '女士' : '先生';
+                    var gender = ($scope.orderDetailInfo.gender == 2) ? '女士' : '先生';
                     $scope.orderDetailInfo.houseOwnerName = $scope.orderDetailInfo.first_name + gender;
 
                     var candidatesArray = $scope.orderDetailInfo.worker_candidates;
@@ -242,6 +242,7 @@ angular.module('myApp').controller('OrdersCtrl', ['$scope', '$location', '$rootS
                 return;
             }
             var obj = {
+                log_type:'supervision',
                 building_logs: [{description:$scope.newBuildingLog.descriptive,
                 photos:[]}]
             }

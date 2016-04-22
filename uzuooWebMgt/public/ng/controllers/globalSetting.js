@@ -66,6 +66,7 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
                 if (data.result == 'success') {
                     $scope.sysConfig = data.content;
                     $scope.sysConfig.margin_freeze = data.content.margin_freeze / 3600 /24;
+                    $scope.sysConfig.balance_freeze = data.content.balance_freeze / 3600 /24;
                 } else if(data.content === 'Permission Denied'){
                     window.location.href="/permissionError";
                 }
@@ -222,9 +223,10 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
             ApiService.get('/setting/recommendRole', obj, function (data) {
                 if (data.result == 'success') {
                     $scope.recommendRoleArray = data.content;
+                    $('#edit_recommendRole_dlg').modal('hide');
+                }else{
+                    alert('推广工种刷新失败！');
                 }
-
-                $('#edit_recommendRole_dlg').modal('hide');
 
             }, function (errMsg) {
                 alert(errMsg.message);
@@ -261,7 +263,7 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
             }).progress(function(evt) {
                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
             }).success(function(data, status, headers, config) {        // file is uploaded successfully
-                $('#edit_recommendRole_dlg').modal('hide');
+                $scope.refreshRecommendRole();
             }).error(function(){
                 alert('推广工种更新失败！');
                 $scope.refreshRecommendRole();
@@ -301,7 +303,8 @@ angular.module('myApp').controller('GlobalSettingCtrl', ['$scope', '$location', 
 
         $scope.updateSysForFreezeTime = function(){
             var obj = {
-                'margin_freeze':$scope.sysConfig.margin_freeze * 24 * 3600
+                'margin_freeze':$scope.sysConfig.margin_freeze * 24 * 3600,
+                'balance_freeze':$scope.sysConfig.balance_freeze * 24 * 3600
             };
             ApiService.post('/setting/global', obj, function (data) {
                 if (data.result == 'fail') {
