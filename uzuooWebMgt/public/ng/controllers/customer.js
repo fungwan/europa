@@ -844,7 +844,7 @@ angular.module('myApp').controller('CustomerCtrl', ['$scope', '$location', '$roo
             ApiService.get(url, {}, function (data) {
                 if (data.result == 'success') {
                     $scope.selectHouseOwner.balance = data.content.balance / 100;
-                    $scope.selectHouseOwner.ubeans = data.content.ubeans / 100;
+                    $scope.selectHouseOwner.ubeans = data.content.ubeans;
                     $scope.selectHouseOwner.mBalanceOwns = data.content.margin_balance.owns / 100;
                     $scope.selectHouseOwner.mBalanceSystem = data.content.margin_balance.system / 100;
 

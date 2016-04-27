@@ -125,7 +125,7 @@
                                         <td ng-bind="worker.phone"></td>
                                         <td ng-bind="timeToStr(worker.create_time *1000)"></td>
                                         <td><span class="label label-sm" ng-class="{0:'label-warning',1:'label-dark',2:'label-success',3:'label-primary'}[worker.verified]" ng-bind="getVerifiedStatus(worker.verified)">未认证</span></td>
-                                        <td ng-bind="getCityAndRegionStr(worker.regions).city">城市</td>
+                                        <td ng-bind="getCityAndRegionStr(worker.city_id).city">城市</td>
                                         <td ng-bind="getCityAndRegionStr(worker.regions).regions">区域</td>
                                         <td ng-bind="getCategoryStr(worker.categories).firt">第一工种</td>
                                         <!--td ng-bind="getCategoryStr(worker.categories).second">第二工种</td-->
@@ -922,11 +922,10 @@
                             <tbody>
                             <tr ng-repeat="trad in tradDetailArray">
                                 <td ng-bind="timeToStr(trad.time*1000)"></td>
-                                <td ng-if='tradDetailType != "现金券"' ng-bind="trad.amount / 100"></td>
-                                <td ng-if='tradDetailType == "现金券"' ng-bind="trad.amount"></td>
+                                <td ng-bind="trad.amount / 100"></td>
                                 <td ng-bind="translateBillType(trad.type)"></td>
-                                <td ng-if='tradDetailType != "现金券"' ng-bind="trad.balance / 100"></td>
-                                <td ng-if='tradDetailType == "现金券"' ng-bind="trad.balance "></td>
+                                <td ng-if="tradDetailType =='现金券'" ng-bind="trad.balance"></td>
+                                <td ng-if="tradDetailType !='现金券'" ng-bind="trad.balance / 100"></td>
                             </tr>
                             </tbody>
                         </table>

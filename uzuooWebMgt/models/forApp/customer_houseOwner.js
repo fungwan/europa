@@ -27,6 +27,7 @@ HouseOwner.prototype.findHouseOwnersByPage = function(req,res){
     if(filters.indexOf('all')!== -1){
         filters = 'city::' + cityId;
     }
+
     async.auto(
         {
             get_token: function (callback) {
@@ -42,7 +43,7 @@ HouseOwner.prototype.findHouseOwnersByPage = function(req,res){
             get_all: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/houseOwners?'+ 'limit=-1&filter=' + filters+'&accessToken=' + token ;//&countOnly=true
+                var path = '/houseOwners?'+ 'limit=-1&countOnly=true&filter=' + filters+'&accessToken=' + token ;//&countOnly=true
                 var optionItem = {};
                 optionItem['path'] = path;
 
@@ -76,8 +77,9 @@ HouseOwner.prototype.findHouseOwnersByPage = function(req,res){
             }
 
 
-            var houseownersArray = jsonConvert.stringToJson(results.get_all)['houseowners'];
-            if(houseownersArray === null){//db里面一个屋主也没有.
+            //var houseownersArray = jsonConvert.stringToJson(results.get_all)['houseowners'];
+            var houseowners = jsonConvert.stringToJson(results.get_all)['count'];
+            if(houseowners === 0){//db里面一个屋主也没有.
                 res.json({
                         result: 'success',
                         pages:1,
@@ -85,7 +87,7 @@ HouseOwner.prototype.findHouseOwnersByPage = function(req,res){
                 );
                 return;
             }
-            var allUserCounts = houseownersArray.length;
+            var allUserCounts = houseowners;
 
             //get product list
             var pageCounts = 1;
@@ -146,6 +148,9 @@ HouseOwner.prototype.findHouseOwnersById = function(req,res){
 
 HouseOwner.prototype.createHouseOwner = function(req,res){
 
+    var cityStr = req.session.user.city;
+    var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
+
     async.auto(
         {
             get_token: function (callback) {
@@ -165,7 +170,7 @@ HouseOwner.prototype.createHouseOwner = function(req,res){
                 optionItem['path'] = path;
 
                 var content = req.body;
-
+                content['city'] = cityId;
                 var bodyString = JSON.stringify(content);
 
                 request.post(optionItem,bodyString,callback);

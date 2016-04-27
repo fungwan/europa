@@ -229,6 +229,8 @@ Worker.prototype.findWorkersByFilters = function(req,res){
     var cityId  = cityStr.substr(cityStr.indexOf(',')+1,cityStr.length);
     if(filters.indexOf('all')!== -1){
         filters = 'city::' + cityId;
+    }else{
+        filters += ',city::' + cityId;
     }
     async.auto(
         {

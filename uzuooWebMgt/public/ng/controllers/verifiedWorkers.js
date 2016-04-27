@@ -54,7 +54,7 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
         }
 
         $scope.onRejectVerify = function () {
-            verifiedWorker([$scope.selectWorker.workerId],3,$scope.selectWorker.virifiedDescriptive);
+            verifiedWorker([$scope.selectWorker.workerId],3,'个人认证驳回 '+$scope.selectWorker.virifiedDescriptive);
         }
 
         $scope.onVerify = function () {
@@ -278,7 +278,7 @@ angular.module('myApp').controller('VerifiedCustomerCtrl', ['$scope', '$location
 
 
         $scope.onRejectVerifyMerchant = function () {
-            verifiedMerchant([$scope.selectMerchant.merchantId],3,$scope.selectMerchant.virifiedDescriptive);
+            verifiedMerchant([$scope.selectMerchant.merchantId],3,'商家认证驳回 '+$scope.selectMerchant.virifiedDescriptive);
         };
 
         $scope.onVerifyMerchant = function () {

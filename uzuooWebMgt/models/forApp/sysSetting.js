@@ -456,7 +456,7 @@ exports.getSysConfig = function(req,res){
             get_rules: ['get_token',function (callback,results) {
 
                 var token = results.get_token;
-                var path = '/settings?city=' + cityId +'&accessToken=' + token;
+                var path = '/settings?city_id=' + cityId +'&accessToken=' + token;
                 var optionItem = {};
                 optionItem['path'] = path;
 

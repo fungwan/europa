@@ -69,13 +69,13 @@
                                 <td ng-bind="timeToStr(billInfo.create_time*1000)"></td>
                                 <!--td ng-bind="getCityAndRegionStr(billInfo.city).city"></td-->
                                 <td ng-bind="billInfo.contract_item_no"></td>
-                                <td ng-bind="billInfo.order_no"></td>
+                                <td >{{billInfo.order_no+billInfo.order_brief}}</td>
                                 <td ng-bind="translateBillType(billInfo.type)"></td>
                                 <td ng-bind="billInfo.contract_item_text"></td>
                                 <td ng-bind="billInfo.amount / 100"></td>
                                 <!--td ng-bind="billInfo['source'][0].phone"></td-->
-                                <td ng-bind="getCashStr(billInfo['source'][0])"></td>
-                                <td ng-bind="getCashStr(billInfo['target'][0])"></td>
+                                <td ng-bind="getCashStr('source',billInfo['source'][0])"></td>
+                                <td ng-bind="getCashStr('target',billInfo['target'][0])"></td>
                                 <!--td ng-bind="billInfo.actual_pay /100"></td>
                                 <td ng-bind="billInfo.arrival_amount / 100"></td-->
                                 <td>
@@ -104,7 +104,7 @@
         <div class="modal-content">
             <div class="modal-header modal-header-primary">
                 <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                <h4 class="modal-title">更多明细</h4>
+                <h4 class="modal-title">{{translateBillType(billInfo.type)}}明细</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -112,24 +112,24 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-md-6" style="border:1px solid #009966 ;">
+                    <div class="col-md-12" style="border:1px solid #009966 ;">
                         <br>
                         <div>
                             <label >账目来源明细：</label>
                         </div>
                         <div class="list-group">
-                            <a class="list-group-item" ng-repeat="item in billInfo['source']" >{{getCashStr(item)}}<span class="badge badge-success pull-right">{{item.amount / 100}}</span></a>
+                            <a class="list-group-item" ng-repeat="item in billInfo['source']" >{{getCashStr('source',item)}}<span class="badge badge-success pull-right">{{item.amount / 100}}</span></a>
                         </div>
                         <br>
                     </div>
-                    <div class="col-md-6" style="border:1px solid #0066ff">
+                    <div class="col-md-12" style="border:1px solid #0066ff">
                         <br>
                         <div>
                             <label >账目去向明细：</label>
                         </div>
                         <div class="list-group">
-                            <a class="list-group-item" ng-repeat="item in billInfo['target']" >{{getCashStr(item)}}<span class="badge badge-info pull-right">{{item.amount / 100}}</span></a>
-                            <a ng-if="billInfo.type === 'withdraw' || billInfo.type === 'withdraw_margin'" class="list-group-item" >开户行：{{billInfo.bank_card.bank_name}}，姓名：{{billInfo.bank_card.owner_name}}</a>
+                            <a class="list-group-item" ng-repeat="item in billInfo['target']" >{{getCashStr('target',item)}}<span class="badge badge-info pull-right">{{item.amount / 100}}</span></a>
+                            <a ng-if="billInfo.type === 'withdraw' || billInfo.type === 'withdraw_margin'" class="list-group-item" >卡号：{{billInfo.bank_card.card_no}} ,开户行：{{billInfo.bank_card.bank_name}}，姓名：{{billInfo.bank_card.owner_name}}</a>
                         </div>
                         <br>
                     </div>
