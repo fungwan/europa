@@ -1,9 +1,0 @@
-{
-    "name": "uzuooBMPMgt",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "node-odata": "0.7.6",
-        "acl":"0.4.9"
-    }
-}

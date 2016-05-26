@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="text" id="username" ><input type="password" id="password" >
+<button id="login-btn">登录 &nbsp;
+</button>
+</body>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="libs/md5.js"></script>
+</html>
+
+<script>
+
+    if(window.localStorage){
+        var storage = window.localStorage;
+        //console.log(storage.getItem("tokenInfo"));//null
+        //alert('This browser supports localStorage');
+        /*
+         var details = {author:"isaac","description":"fresheggs","rating":100};
+         storage.setItem("details",JSON.stringify(details));
+         details = JSON.parse(storage.getItem("details"));
+         */
+    }else{
+        alert('This browser does NOT support localStorage');
+        //return;
+    }
+
+    $("#login-btn").bind("click", function () {
+         //alert('got it');
+
+
+        if(!$("#username").val()){
+            alert('username cannot be null');
+            return;
+        }
+
+        var hash = '';
+        hash = hex_md5($("#password").val());
+
+        $.post("http://127.0.0.1:3000/api/loginSessions",{name:$("#username").val(),
+                    password:hash},
+                function (data) {
+                    // window.location.href="/inbox.html";
+                    console.log(typeof data);//data is object
+                    if(data.result === 'ok'){
+
+                        var tokenInfo = data.content;
+                        storage.setItem("tokenInfo",JSON.stringify(tokenInfo));
+
+                        //test /api/tasks
+
+                        //window.location.href="/todoList/forend/inbox.html";
+
+                        document.location = './inbox.html'
+
+                    }else{
+                        alert('password was wrong...');
+                    }
+                });
+
+
+    });
+
+</script>
