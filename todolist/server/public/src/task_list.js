@@ -36,8 +36,9 @@ var TaskDetail = React.createClass({
                     }
                 }else{
 
-                    if(result === 'Unauthorized')
-                        document.location = '../singin.html'
+                    if(result === 'Unauthorized'){
+                        document.location = '../singin.html';return;
+                    }
 
                     alert(err + result);
 
@@ -147,8 +148,9 @@ var Item = React.createClass({
                         }
                     } else {
 
-                        if(result === 'Unauthorized')
-                            document.location = '../singin.html'
+                        if(result === 'Unauthorized'){
+                            document.location = '../singin.html';return;
+                        }
 
                         alert(err + result);
                     }
@@ -171,8 +173,9 @@ var Item = React.createClass({
                         }
                     } else {
 
-                        if(result === 'Unauthorized')
-                            document.location = '../singin.html'
+                        if(result === 'Unauthorized'){
+                            document.location = '../singin.html';return;
+                        }
 
                         alert(err + result);
                     }
@@ -192,8 +195,9 @@ var Item = React.createClass({
                         }
                     } else {
 
-                        if(result === 'Unauthorized')
-                            document.location = '../singin.html'
+                        if(result === 'Unauthorized'){
+                            document.location = '../singin.html';return;
+                        }
 
                         alert(err + result);
                     }
@@ -303,8 +307,9 @@ var TaskNew = React.createClass({
                          }
                      }else{
 
-                         if(result === 'Unauthorized')
-                             document.location = '../singin.html'
+                         if(result === 'Unauthorized'){
+                             document.location = '../singin.html';return;
+                         }
 
                          alert(err + result);
                      }
@@ -355,8 +360,9 @@ var TaskCollections = React.createClass({
                         });
                     }
                 } else {
-                    if(result === 'Unauthorized')
-                        document.location = '../singin.html'
+                    if(result === 'Unauthorized'){
+                        document.location = '../singin.html';return;
+                    }
 
                     alert(err + result);
                 }

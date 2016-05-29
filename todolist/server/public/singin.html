@@ -68,7 +68,7 @@
                     if(data.result === 'ok'){
                         var tokenInfo = data.content;
                         storage.setItem("tokenInfo",JSON.stringify(tokenInfo));
-                        document.location = './inbox.html'
+                        document.location = './index.html'
                     }else{
                         alert('password was wrong...');
                     }

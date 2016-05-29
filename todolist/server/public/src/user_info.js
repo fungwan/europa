@@ -1,5 +1,61 @@
 
+var request = new ApiService();
+
 var UserInfo = React.createClass({
+
+    getInitialState: function() {
+        return {
+            userInfo: {
+                id: '',
+                name: ''
+            }
+        };
+    },
+
+    componentDidMount: function() {
+
+        request.get(this.props.source,
+            function(err, result) {
+                if (err === null) {
+
+                    if (this.isMounted()) {
+
+                        this.setState({
+                            userInfo : result.content
+                        });
+                    }
+                } else {
+                    if(result === 'Unauthorized'){
+                        document.location = '../singin.html';return;
+                    }
+
+
+                    alert(err +' : ' +result);
+                }
+            }.bind(this));
+    },
+
+    logout: function() {
+
+        request.delete('/api/loginSessions',
+            function(err, result) {
+                if (err === null) {
+
+                    if (this.isMounted()) {
+
+                        document.location = '../singin.html';
+                    }
+                } else {
+                    if(result === 'Unauthorized'){
+                        document.location = '../singin.html';return;
+                    }
+
+                    alert(err +' : ' +result);
+                }
+            }.bind(this));
+
+    },
+
 
 	render: function() {
 
@@ -8,7 +64,7 @@ var UserInfo = React.createClass({
                     <a href="#" id="userToggle" data-toggle="dropdown">
                         <img src="images/profile/profile1.jpg" alt="" className="img-circle inline-block user-profile-pic"/>
                         <div className="user-detail inline-block">
-                            冯云
+                        {this.state.userInfo.name}
                                 <i className="fa fa-angle-down"></i>
                         </div>
                     </a>
@@ -16,8 +72,9 @@ var UserInfo = React.createClass({
                         <div className="panel-body paddingTB-sm">
                              <ul>
                                 <li>
-                                   <a href="signin.html">
-                                      <i className="fa fa-power-off fa-lg"></i><span className="m-left-xs">Sign out</span>
+
+                                    <a href="#"  >
+                                      <i className="fa fa-power-off fa-lg"></i><span onClick={this.logout} className="m-left-xs">Sign out</span>
                                    </a>
                                 </li>
                              </ul>
@@ -32,7 +89,7 @@ var UserInfo = React.createClass({
 //alert(userInfo.name);
 ReactDOM.render(
 
-  <UserInfo  />,
+  <UserInfo  source="/api/loginSessions"/>,
 
   document.getElementById('header-right')
 );

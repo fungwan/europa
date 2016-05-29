@@ -48,7 +48,7 @@ ApiService.prototype.get = function(url,cb){
             url:url,
             dataType:"json",
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown === 'Unauthorized')
+                if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
                 cb('error',errorThrown);
@@ -114,7 +114,7 @@ ApiService.prototype.post = function(url,data,cb){
             dataType:"json",
             data:JSON.stringify(data),
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown === 'Unauthorized')
+                if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
                 cb('error',errorThrown);
@@ -179,7 +179,7 @@ ApiService.prototype.put = function(url,data,cb){
             dataType:"json",
             data:JSON.stringify(data),
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown === 'Unauthorized')
+                if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
                 cb('error',errorThrown);
@@ -244,7 +244,7 @@ ApiService.prototype.delete = function(url,cb){
             url:url,
             //dataType:"json",
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown === 'Unauthorized')
+                if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
                 cb('error',errorThrown);

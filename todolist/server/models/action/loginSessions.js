@@ -38,6 +38,32 @@ exports.use = function(server){
 
     });
 
+    server.delete('/loginSessions', function(req, res, next) {
+
+        if(req.authInfo === undefined) res.status(401).end();
+
+        var userId = req.authInfo.owner_id;
+        var tokenModel = db.getDataModel('tokens');
+        var conditions = {owner_id: userId};
+        tokenModel.remove(conditions, function(error){
+            if(error) {
+                res.json({
+                    result:'fail',
+                    content:{
+                        error_code : 500,
+                        error_msg : 'server may be internal error...'
+                    }
+                });
+            } else {
+                res.json({
+                    result:'ok',
+                    content:''
+                });
+            }
+        });
+
+    });
+
     server.post('/loginSessions', function(req, res, next) {
 
         var userModel = db.getDataModel('users');
