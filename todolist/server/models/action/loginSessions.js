@@ -9,9 +9,33 @@ var jwt = require('jwt-simple'),
 exports.use = function(server){
 
     server.get('/loginSessions', function(req, res, next) {
-        res.json({
-            date: new Date()
+
+        if(req.authInfo === undefined) res.status(401).end();
+
+        var userId = req.authInfo.owner_id;
+        var userModel = db.getDataModel('users');
+        userModel.findOne({_id:userId},function(err,person){
+            if(err === null){
+
+                var _userInfo = person._doc;
+                delete _userInfo['password'];
+
+                res.json({
+                    result:'ok',
+                    content:_userInfo
+                });
+
+            }else{
+                res.json({
+                    result:'fail',
+                    content:{
+                        error_code : 500,
+                        error_msg : 'server may be internal error...'
+                    }
+                });
+            }
         });
+
     });
 
     server.post('/loginSessions', function(req, res, next) {

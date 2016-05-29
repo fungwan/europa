@@ -12,8 +12,9 @@ odata.resources = server.resources
 var db = require('./models/db');
 db.setupDb(server._db);
 
-server.use('/', express.static(path.join(__dirname, 'public')));
 server.use(require("./models/tokenMgt").authorization);
+server.use('/', express.static(path.join(__dirname, 'public')));
+
 server.set('prefix','/api');
 server.set('jwtTokenSecret','fungwan_todolist');
 

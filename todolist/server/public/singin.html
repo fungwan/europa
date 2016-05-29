@@ -1,4 +1,30 @@
 <!DOCTYPE html>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="libs/base64.min.js"></script>
+<script src="controller/c_tools_apiServices.js"></script>
+<script>
+
+    var storage = window.localStorage;
+    if(window.localStorage){
+        var request = new ApiService();
+        var url = '/api/loginSessions';
+        request.get(url,
+                function(err, result) {
+                    if (err === null) {
+                        //location to index
+                        console.log(result.content);
+                        document.location = './index.html'
+                    }
+                }
+        );
+
+    }else{
+        (function(){ alert('This browser does NOT support localStorage');return;})();
+    }
+
+</script>
+
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -9,7 +35,6 @@
 <button id="login-btn">登录 &nbsp;
 </button>
 </body>
-<script src="js/jquery-1.11.1.min.js"></script>
 <script src="libs/md5.js"></script>
 </html>
 
@@ -17,13 +42,7 @@
 
     if(window.localStorage){
         var storage = window.localStorage;
-        //console.log(storage.getItem("tokenInfo"));//null
-        //alert('This browser supports localStorage');
-        /*
-         var details = {author:"isaac","description":"fresheggs","rating":100};
-         storage.setItem("details",JSON.stringify(details));
-         details = JSON.parse(storage.getItem("details"));
-         */
+
     }else{
         alert('This browser does NOT support localStorage');
         //return;
@@ -41,22 +60,15 @@
         var hash = '';
         hash = hex_md5($("#password").val());
 
-        $.post("http://127.0.0.1:3000/api/loginSessions",{name:$("#username").val(),
+        $.post("/api/loginSessions",{name:$("#username").val(),
                     password:hash},
                 function (data) {
                     // window.location.href="/inbox.html";
                     console.log(typeof data);//data is object
                     if(data.result === 'ok'){
-
                         var tokenInfo = data.content;
                         storage.setItem("tokenInfo",JSON.stringify(tokenInfo));
-
-                        //test /api/tasks
-
-                        //window.location.href="/todoList/forend/inbox.html";
-
                         document.location = './inbox.html'
-
                     }else{
                         alert('password was wrong...');
                     }
