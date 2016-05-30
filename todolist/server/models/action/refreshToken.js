@@ -36,7 +36,7 @@ exports.use = function(server){
                             }
                         });
                     }else{
-                        var token_expires = moment().add(150,'seconds').valueOf();
+                        var token_expires = moment().add(10,'seconds').valueOf();
                         //console.log('有用户在刷新token...');
                         var access_token = jwt.encode({
                             iss: token._doc.owner_id,

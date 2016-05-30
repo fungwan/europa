@@ -19,8 +19,11 @@ function doRefreshToken(refreshInfoObj,cb){
             cb('error',errorThrown);
         },
         success: function(data,textStatus) {
-            //console.log(data);
-            cb(null,data);
+            if(data.result === 'fail'){
+                cb('error',data.content.error_msg);
+            }else{
+                cb(null,data);
+            }
         }
     };
 
@@ -51,12 +54,35 @@ ApiService.prototype.get = function(url,cb){
                 if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
-                cb('error',errorThrown);
+                //cb('error',errorThrown);
+                var that = this;
+                doRefreshToken({
+                    refresh_token:tokenInfo.refresh_token,
+                    owner_id:tokenInfo.owner_id},function(err,data){
+                    if(err === null){
+
+                        tokenInfo.exp = data.content.exp;
+                        tokenInfo.access_token = data.content.access_token;
+                        window.localStorage.setItem("tokenInfo",JSON.stringify(tokenInfo));
+
+                        var base64Code = Base64.encode(tokenInfo.owner_id+':'+data.content.access_token);
+                        that.headers.Authorization = 'Bearer '+ base64Code;
+
+                        $.ajax(that);
+
+                    }else{
+                        cb('err','Unauthorized');
+                    }
+                });
             },
             success: function(data,textStatus) {
                 var that = this;
                 //console.log(this);
-                cb(null,data);
+                if(data.result === 'fail'){
+                    cb('error',data.content.error_msg);
+                }else{
+                    cb(null,data);
+                }
             },
             headers: {
                 'Accept': '/',
@@ -117,11 +143,33 @@ ApiService.prototype.post = function(url,data,cb){
                 if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
-                cb('error',errorThrown);
+                var that = this;
+                doRefreshToken({
+                    refresh_token:tokenInfo.refresh_token,
+                    owner_id:tokenInfo.owner_id},function(err,data){
+                    if(err === null){
+
+                        tokenInfo.exp = data.content.exp;
+                        tokenInfo.access_token = data.content.access_token;
+                        window.localStorage.setItem("tokenInfo",JSON.stringify(tokenInfo));
+
+                        var base64Code = Base64.encode(tokenInfo.owner_id+':'+data.content.access_token);
+                        that.headers.Authorization = 'Bearer '+ base64Code;
+
+                        $.ajax(that);
+
+                    }else{
+                        cb('err','Unauthorized');
+                    }
+                });
             },
             success: function(data,textStatus) {
                 //console.log(data);
-                cb(null,data);
+                if(data.result === 'fail'){
+                    cb('error',data.content.error_msg);
+                }else{
+                    cb(null,data);
+                }
             },
             headers: {
                 'Accept': '/',
@@ -182,11 +230,33 @@ ApiService.prototype.put = function(url,data,cb){
                 if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
-                cb('error',errorThrown);
+                var that = this;
+                doRefreshToken({
+                    refresh_token:tokenInfo.refresh_token,
+                    owner_id:tokenInfo.owner_id},function(err,data){
+                    if(err === null){
+
+                        tokenInfo.exp = data.content.exp;
+                        tokenInfo.access_token = data.content.access_token;
+                        window.localStorage.setItem("tokenInfo",JSON.stringify(tokenInfo));
+
+                        var base64Code = Base64.encode(tokenInfo.owner_id+':'+data.content.access_token);
+                        that.headers.Authorization = 'Bearer '+ base64Code;
+
+                        $.ajax(that);
+
+                    }else{
+                        cb('err','Unauthorized');
+                    }
+                });
             },
             success: function(data,textStatus) {
                 //console.log(data);
-                cb(null,data);
+                if(data.result === 'fail'){
+                    cb('error',data.content.error_msg);
+                }else{
+                    cb(null,data);
+                }
             },
             headers: {
                 'Accept': '/',
@@ -247,12 +317,34 @@ ApiService.prototype.delete = function(url,cb){
                 if(errorThrown !== 'Unauthorized')
                     alert(errorThrown);
 
-                cb('error',errorThrown);
+                var that = this;
+                doRefreshToken({
+                    refresh_token:tokenInfo.refresh_token,
+                    owner_id:tokenInfo.owner_id},function(err,data){
+                    if(err === null){
+
+                        tokenInfo.exp = data.content.exp;
+                        tokenInfo.access_token = data.content.access_token;
+                        window.localStorage.setItem("tokenInfo",JSON.stringify(tokenInfo));
+
+                        var base64Code = Base64.encode(tokenInfo.owner_id+':'+data.content.access_token);
+                        that.headers.Authorization = 'Bearer '+ base64Code;
+
+                        $.ajax(that);
+
+                    }else{
+                        cb('err','Unauthorized');
+                    }
+                });
             },
             success: function(data,textStatus) {
                 var that = this;
                 //console.log(this);
-                cb(null,data);
+                if(data.result === 'fail'){
+                    cb('error',data.content.error_msg);
+                }else{
+                    cb(null,data);
+                }
             },
             headers: {
                 'Accept': '/',

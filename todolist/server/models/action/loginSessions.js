@@ -10,7 +10,7 @@ exports.use = function(server){
 
     server.get('/loginSessions', function(req, res, next) {
 
-        if(req.authInfo === undefined) res.status(401).end();
+        if(req.authInfo === undefined) {res.status(401).end();return;}
 
         var userId = req.authInfo.owner_id;
         var userModel = db.getDataModel('users');
@@ -40,7 +40,7 @@ exports.use = function(server){
 
     server.delete('/loginSessions', function(req, res, next) {
 
-        if(req.authInfo === undefined) res.status(401).end();
+        if(req.authInfo === undefined) {res.status(401).end();return;}
 
         var userId = req.authInfo.owner_id;
         var tokenModel = db.getDataModel('tokens');
@@ -84,7 +84,7 @@ exports.use = function(server){
                     var _userInfo = person._doc;
 
                     //return access_token & refresh_token
-                    var token_expires = moment().add(150,'seconds').valueOf();
+                    var token_expires = moment().add(10,'seconds').valueOf();
                     //console.log('access_token生成时的预期时间：' + token_expires);
                     var access_token = jwt.encode({
                         iss: person._doc._id,
