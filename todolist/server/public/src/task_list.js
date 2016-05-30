@@ -9,6 +9,25 @@ var TaskDetail = React.createClass({
         desc: ''
     },
 
+    levelMgt:[
+        {
+            style:"btn btn-info btn-xs dropdown-toggle",
+            desc:'低优先级'
+        },
+        {
+            style:"btn btn-warning btn-xs dropdown-toggle",
+            desc:'中优先级'
+        },
+        {
+            style:"btn btn-danger btn-xs dropdown-toggle",
+            desc:'高优先级'
+        },
+        {
+            style:"fy-task-header",
+            desc:''
+        }
+    ],
+
     /*getInitialState: function() {
 
         //alert(this.props.task.id);
@@ -59,6 +78,12 @@ var TaskDetail = React.createClass({
         this.updateItem(this.props.task);
     },
 
+    levelHandleChange: function(event) {
+        this.props.task['level'] = event.target.value;
+        this.setState({taskDetail: this.props.task});
+        this.updateItem(this.props.task);
+    },
+
     render: function() {
         var detail = this.taskDetail;
         return (
@@ -66,25 +91,24 @@ var TaskDetail = React.createClass({
                 <div style={{ 'padding': '20px', 'border-bottom':
                     '1px solid rgba(0,0,0,.1)'}}>
                     <div className="btn-group marginTB-xs">
-                        <button type="button" className="btn btn-info btn-xs dropdown-toggle"
+                        <button type="button" className={this.levelMgt[this.props.task.level].style}
                         data-toggle="dropdown">
-                        中优先级
-                            <span className="caret">
-                            </span>
+                            {this.levelMgt[this.props.task.level].desc}
+                            <span className="caret"></span>
                         </button>
                         <ul className="dropdown-menu" role="menu">
                             <li>
-                                <a href="#">
+                                <a onClick={this.levelHandleChange} href="#" value={0} >
                                 低优先级
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a onClick={this.levelHandleChange} href="#" value={1} >
                                 中优先级
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a onClick={this.levelHandleChange} href="#" value={2} >
                                 高优先级
                                 </a>
                             </li>
@@ -100,21 +124,15 @@ var TaskDetail = React.createClass({
                 </div>
                 <div className="padding-md">
                     <div id="task-caption" style={{ "padding": "0px 14px 16px 0px"}}>
-                        <h4>
-				{this.props.task.name}
-                        </h4>
-                    </div>
-                    <div className="form-group">
-                        <div class="col-lg-12">
-                            <textarea class="form-control" value={detail.desc} rows="3" onChange={this.descHandleChange}>
+                        <textarea className="fy-task-textarea-title" value={this.props.task.name} onChange={this.nameHandleChange}>
 
-                            </textarea>
-                        </div>
+                        </textarea>
                     </div>
+                    <textarea className="fy-task-textarea-content" value={detail.desc} onChange={this.descHandleChange}>
+
+                    </textarea>
                 </div>
-                <div id="task-footer" style={{ "position": "absolute", "bottom":
-                    "50px", "width": "100%", "padding": "20px", "border-top":
-                    "1px solid rgba(0,0,0,.1)"}}>
+                <div id="task-footer" className="fy-task-footer">
                 任务末尾
                 </div>
             </div>
@@ -134,9 +152,9 @@ var Item = React.createClass({
         var ev = ev || window.event;
         var target = ev.target || ev.srcElement;
         if (target.nodeName.toLowerCase() == "li") {
-            console.log('我点的是li'); //show
+
             var taskId = target.id;
-            console.log(taskId);
+
             var url = '/api/tasks(' + taskId + ')';
             request.get(url,
                 function(err, result) {
@@ -156,9 +174,9 @@ var Item = React.createClass({
                     }
                 }.bind(this));
         } else if (target.nodeName.toLowerCase() == "input") {
-            console.log('我点的是input'); //finished
+
             var taskId = target.parentNode.parentNode.id;
-            console.log(taskId);
+
             var content = {
                 "status": 1
             };
@@ -181,9 +199,9 @@ var Item = React.createClass({
                     }
                 }.bind(this));
         } else if (target.nodeName.toLowerCase() == "i") {
-            console.log('我点的是i'); //del
+
             var taskId = target.parentNode.parentNode.id;
-            console.log(taskId);
+
             var url = '/api/tasks(' + taskId + ')';
             request.delete(url,
                 function(err, result) {
@@ -275,14 +293,11 @@ var TaskList = React.createClass({
 var TaskNew = React.createClass({
   handleAdd: function (e) {
          e.preventDefault();
-         // 通过 refs 获取dom元素，然后获取输入的内容
-         console.log(this.refs.inputnew.value.trim());
-         //var inputDom = this.refs.inputnew.getDOMNode();
+
          var newtask = this.refs.inputnew.value.trim();
-         // 获取传入的todolist数据
+
          var rows = this.props.todo;
          if (newtask !== '') {
-             // 更新数据，并使用 onAdd 更新到 TodoList 组件的 state 中            
 
             var tokenInfo = JSON.parse(window.localStorage.getItem("tokenInfo"));
             var ownerId = tokenInfo.owner_id;
@@ -337,7 +352,8 @@ var TaskCollections = React.createClass({
             todoItem: {
                 id: '',
                 name: '',
-                desc: ''
+                desc: '',
+                level:3
             },
             todoList: []
         };
@@ -349,7 +365,12 @@ var TaskCollections = React.createClass({
 
     componentDidMount: function() {
 
-        request.get(this.props.source,
+        var tokenInfo = JSON.parse(window.localStorage.getItem("tokenInfo"));
+        var ownerId = tokenInfo.owner_id;
+
+        var url = this.props.source + '?$filter=account_id eq \'' + ownerId + '\'';
+        //alert(url);
+        request.get(url,
             function(err, result) {
                 if (err === null) {
 
@@ -420,7 +441,7 @@ var TaskCollections = React.createClass({
 
 ReactDOM.render(
 
-  <TaskCollections source="/api/tasks"/>,
+  <TaskCollections source= "/api/tasks" />,
 
   document.getElementById('task_list')
 );
