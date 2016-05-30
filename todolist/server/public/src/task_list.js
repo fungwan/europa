@@ -28,7 +28,7 @@ var TaskDetail = React.createClass({
         }
     ],
 
-    /*getInitialState: function() {
+    formatDate : function(unixOffset) {
 
         //alert(this.props.task.id);
 
@@ -37,8 +37,11 @@ var TaskDetail = React.createClass({
                 name: this.props.task.name,
                 desc: this.props.task.desc
             }
-        };
-    },*/
+        };*/
+        var newDate = new Date();
+        newDate.setTime(unixOffset);
+        return newDate.toLocaleString();
+    },
 
     componentWillReceiveProps: function(nextProps){
         this.taskDetail = nextProps.task;
@@ -115,11 +118,15 @@ var TaskDetail = React.createClass({
                         </ul>
                     </div>
                     <div className="marginTB-xs pull-right">
-                        <button type="button" className="btn btn-info btn-xs ">
+                    {/*<button type="button" className="btn btn-info btn-xs ">
                             <i className="fa fa-calendar-o m-right-xs">
                             </i>
                         设置时间
-                        </button>
+                        </button>*/}
+                        <small className="block text-muted m-bottom-xs">
+                        {/*<i className="fa fa-calendar"></i>*/}
+                        {this.formatDate(this.props.task.time)}
+                        </small>
                     </div>
                 </div>
                 <div className="padding-md">
@@ -307,6 +314,7 @@ var TaskNew = React.createClass({
                 "status": 0,
                 "desc": "",
                 "name": newtask,
+                "time":Date.parse(new Date()),
                 "account_id": ownerId
             };
 
@@ -353,7 +361,8 @@ var TaskCollections = React.createClass({
                 id: '',
                 name: '',
                 desc: '',
-                level:3
+                level:3,
+                time:0
             },
             todoList: []
         };
