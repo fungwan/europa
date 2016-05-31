@@ -62,7 +62,7 @@ var UserInfo = React.createClass({
 	    return (
                 <div className="user-block hidden-xs">
                     <a href="#" id="userToggle" data-toggle="dropdown">
-                        <img src="images/profile/profile1.jpg" alt="" className="img-circle inline-block user-profile-pic"/>
+                        <img src="images/profile/coder.jpg" alt="" className="img-circle inline-block user-profile-pic"/>
                         <div className="user-detail inline-block">
                         {this.state.userInfo.name}
                                 <i className="fa fa-angle-down"></i>

@@ -225,6 +225,14 @@ var Item = React.createClass({
                         if (this.isMounted()) {
 
                             this.props.del(taskId);
+
+                            this.props.showItem({
+                                id: '',
+                                name: '',
+                                desc: '',
+                                level:3,
+                                time:0
+                            });
                         }
                     } else {
 

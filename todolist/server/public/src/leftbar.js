@@ -53,7 +53,7 @@ var LeftBar = React.createClass({
 									</span>
 								</a>
 					</li>
-					<li className={'bg-palette2' + (this.props.sideBarSelect.firstClassSel === 'taskMgt2' ? ' active' : '')}>
+                {/*<li className={'bg-palette2' + (this.props.sideBarSelect.firstClassSel === 'taskMgt2' ? ' active' : '')}>
 								<a href="#">
 									<span className="menu-content block">
 										<span className="menu-icon"><i className="block fa fa-list fa-lg"></i></span>
@@ -68,7 +68,7 @@ var LeftBar = React.createClass({
 										<span className="text m-left-sm">收集箱</span>
 									</span>
 								</a>
-					</li>
+					</li>*/}
 					<ProjectList/>
 
 				</ul>		

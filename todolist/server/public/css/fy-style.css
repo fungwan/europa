@@ -11,6 +11,12 @@
     float: left;
 }
 
+.fy-inbox-menu .fy-section{
+
+    height:500px;
+    overflow:auto;
+}
+
 .fy-inbox-body {
     border-top: none;
     height: 93vh;
