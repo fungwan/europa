@@ -65,7 +65,7 @@ var TaskDetail = React.createClass({
                 }else{
 
                     if(result === 'Unauthorized'){
-                        document.location = '../singin.html';return;
+                        document.location = '../signin.html';return;
                     }
 
                     alert(err + result);
@@ -182,7 +182,7 @@ var Item = React.createClass({
                     } else {
 
                         if(result === 'Unauthorized'){
-                            document.location = '../singin.html';return;
+                            document.location = '../signin.html';return;
                         }
 
                         alert(err + result);
@@ -207,7 +207,7 @@ var Item = React.createClass({
                     } else {
 
                         if(result === 'Unauthorized'){
-                            document.location = '../singin.html';return;
+                            document.location = '../signin.html';return;
                         }
 
                         alert(err + result);
@@ -237,7 +237,7 @@ var Item = React.createClass({
                     } else {
 
                         if(result === 'Unauthorized'){
-                            document.location = '../singin.html';return;
+                            document.location = '../signin.html';return;
                         }
 
                         alert(err + result);
@@ -347,7 +347,7 @@ var TaskNew = React.createClass({
                      }else{
 
                          if(result === 'Unauthorized'){
-                             document.location = '../singin.html';return;
+                             document.location = '../signin.html';return;
                          }
 
                          alert(err + result);
@@ -407,7 +407,7 @@ var TaskCollections = React.createClass({
                     }
                 } else {
                     if(result === 'Unauthorized'){
-                        document.location = '../singin.html';return;
+                        document.location = '../signin.html';return;
                     }
 
                     alert(err + result);

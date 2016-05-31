@@ -26,7 +26,7 @@ var UserInfo = React.createClass({
                     }
                 } else {
                     if(result === 'Unauthorized'){
-                        document.location = '../singin.html';return;
+                        document.location = '../signin.html';return;
                     }
 
 
@@ -43,11 +43,11 @@ var UserInfo = React.createClass({
 
                     if (this.isMounted()) {
 
-                        document.location = '../singin.html';
+                        document.location = '../signin.html';
                     }
                 } else {
                     if(result === 'Unauthorized'){
-                        document.location = '../singin.html';return;
+                        document.location = '../signin.html';return;
                     }
 
                     alert(err +' : ' +result);
