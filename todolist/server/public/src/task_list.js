@@ -9,6 +9,12 @@ var TaskDetail = React.createClass({
         desc: ''
     },
 
+    /*componentDidUpdate: function() {
+        if(this.props.task.id === ''){
+
+        }
+    },*/
+
     levelMgt:[
         {
             style:"btn btn-info btn-xs dropdown-toggle",
@@ -23,8 +29,8 @@ var TaskDetail = React.createClass({
             desc:'高优先级'
         },
         {
-            style:"fy-task-header",
-            desc:''
+            style:"btn btn-info btn-xs dropdown-toggle",
+            desc:'无'
         }
     ],
 
@@ -90,10 +96,9 @@ var TaskDetail = React.createClass({
     render: function() {
         var detail = this.taskDetail;
         return (
-            <div className="fy-inbox-body " style={{ "position": "absolute"}}>
-                <div style={{ 'padding': '20px', 'border-bottom':
-                    '1px solid rgba(0,0,0,.1)'}}>
-                    <div className="btn-group marginTB-xs">
+            <div id='taskDetail' className={this.props.task.id === '' ? 'fy-widget-hide' : 'fy-inbox-body'} >
+                <div className="fy-task-header">
+                    <div className="btn-group marginTB-xs taskHeader-margin-left ">
                         <button type="button" className={this.levelMgt[this.props.task.level].style}
                         data-toggle="dropdown">
                             {this.levelMgt[this.props.task.level].desc}
@@ -119,10 +124,10 @@ var TaskDetail = React.createClass({
                     </div>
                     <div className="marginTB-xs pull-right">
                     {/*<button type="button" className="btn btn-info btn-xs ">
-                            <i className="fa fa-calendar-o m-right-xs">
-                            </i>
-                        设置时间
-                        </button>*/}
+                     <i className="fa fa-calendar-o m-right-xs">
+                     </i>
+                     设置时间
+                     </button>*/}
                         <small className="block text-muted m-bottom-xs">
                         {/*<i className="fa fa-calendar"></i>*/}
                         {this.formatDate(this.props.task.time)}
@@ -130,14 +135,17 @@ var TaskDetail = React.createClass({
                     </div>
                 </div>
                 <div className="padding-md">
-                    <div id="task-caption" style={{ "padding": "0px 14px 16px 0px"}}>
-                        <textarea className="fy-task-textarea-title" value={this.props.task.name} onChange={this.nameHandleChange}>
+
+                    <div>
+                        <textarea className="fy-task-textarea-title " value={this.props.task.name} onChange={this.nameHandleChange}>
+
+                        </textarea>
+
+                        <textarea className="fy-task-textarea-content " value={detail.desc} onChange={this.descHandleChange}>
 
                         </textarea>
                     </div>
-                    <textarea className="fy-task-textarea-content" value={detail.desc} onChange={this.descHandleChange}>
 
-                    </textarea>
                 </div>
                 <div id="task-footer" className="fy-task-footer">
                 任务末尾
@@ -415,7 +423,7 @@ var TaskCollections = React.createClass({
 
         return (
                 <div>
-                    <TaskDetail task={this.state.todoItem} showItem={ this.showTaskDetail}/>
+
                     <div className="fy-inbox-menu padding-md">
                         <h3 style={ { 'font-weight': 'bold', 'font-family': 'Microsoft YaHei'}}>
                         任务
@@ -442,6 +450,7 @@ var TaskCollections = React.createClass({
                                </div>
                                </div>}*/}
                     </div>
+                    <TaskDetail task={this.state.todoItem} showItem={ this.showTaskDetail}/>
                 </div>
             );
     }
