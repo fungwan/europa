@@ -341,7 +341,7 @@ var TaskNew = React.createClass({
 
                          if (this.isMounted()) {
                              content.id = result.id;
-                             rows.push(content);
+                             rows.splice(0, 0, content);
                              this.props.onAdd(rows);
                          }
                      }else{
@@ -393,7 +393,7 @@ var TaskCollections = React.createClass({
         var tokenInfo = JSON.parse(window.localStorage.getItem("tokenInfo"));
         var ownerId = tokenInfo.owner_id;
 
-        var url = this.props.source + '?$filter=account_id eq \'' + ownerId + '\'';
+        var url = this.props.source + '?$filter=account_id eq \'' + ownerId + '\'&$orderby=status asc';
         //alert(url);
         request.get(url,
             function(err, result) {
