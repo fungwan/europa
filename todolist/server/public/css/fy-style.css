@@ -16,6 +16,9 @@
     overflow:auto;
 }
 
+.fy-logon-header{
+    font-family: "PingFang SC","Helvetica Neue","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif
+}
 .fy-inbox-body {
     border-top: none;
     height: 93vh;
@@ -43,9 +46,12 @@
     background-color: #ececec;
 }
 
+.fy-task-padding-left {
+    padding-left: 51%;
+}
+
 .fy-task-textarea-title {
     width: 50%;
-    left: 50%;
     height: 20px;
     margin-bottom: 20px;
     border-style:solid;
@@ -53,18 +59,19 @@
     resize:none;
     border-color:rgb(245,245,245);
     background-color:rgb(245,245,245);
+    display: block;
 }
 
 .fy-task-textarea-content {
     overflow:auto;
     resize:none;
     width: 50%;
-    left: 50%;
     height: 400px;
     margin-bottom: 20px;
     border-style:solid;
     border-color:rgb(245,245,245);
     background-color:rgb(245,245,245);
+    display: block;
 }
 
 .fy-task-header {

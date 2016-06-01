@@ -74,7 +74,7 @@ var LeftBar = React.createClass({
 				</ul>		
 			</div>	
 			<div className="sidebar-fix-bottom clearfix">
-				<div className="user-dropdown dropup pull-left">
+            {/*<div className="user-dropdown dropup pull-left">
 							<a href="#" className="dropdwon-toggle font-18" data-toggle="dropdown"><i className="ion-person-add"></i>
 							</a>
 							<ul className="dropdown-menu">
@@ -102,7 +102,7 @@ var LeftBar = React.createClass({
 								</li>			  	  
 							</ul>
 				</div>
-				<a href="lockscreen.html" className="pull-right font-18"><i className="ion-log-out"></i></a>
+				<a href="lockscreen.html" className="pull-right font-18"><i className="ion-log-out"></i></a>*/}
 			</div>
 		</div>
     );

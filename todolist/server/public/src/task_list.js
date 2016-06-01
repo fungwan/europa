@@ -136,11 +136,9 @@ var TaskDetail = React.createClass({
                 </div>
                 <div className="padding-md">
 
-                    <div>
+                    <div className="fy-task-padding-left">
                         <textarea className="fy-task-textarea-title " value={this.props.task.name} onChange={this.nameHandleChange}>
-
                         </textarea>
-
                         <textarea className="fy-task-textarea-content " value={detail.desc} onChange={this.descHandleChange}>
 
                         </textarea>
@@ -260,7 +258,12 @@ var Item = React.createClass({
         return (
 			<li  onClick={this.handleClick} id={this.props.id} className={'list-group-item ' + (this.props.status === 1 ? 'selected' : '')} draggable="true">
 				<div className="custom-checkbox todo-checkbox">
-						<input type="checkbox" disabled={this.state.isDisabled} checked={this.state.isChecked} onChange={this.handleChangeChk} id={'input-' + this.props.id} />
+						<input type="checkbox"
+                        disabled={this.props.status === 1 ? 'disabled' : ''}
+                        checked={this.props.status === 1 ? 'checked' : ''}
+                        onChange={this.handleChangeChk}
+                        id={'input-' + this.props.id} />
+
 						<label htmlFor={'input-' + this.props.id}></label>
 				</div>
 				{this.props.name}
@@ -290,7 +293,7 @@ var TaskList = React.createClass({
         var rows = this.props.taskList;
         for(var index = 0; index < rows.length; index++){
             if(id === rows[index].id){
-                rows[index].status = 1;;
+                rows[index].status = 1;
                 break;
             }
         }

@@ -49,34 +49,80 @@
 <div class="wrapper no-navigation preload">
     <div class="sign-in-wrapper">
 
-        <div class="sign-in-inner">
+        <div class="row" >
+            <div class="col-sm-4 col-md-offset-2 m-top-md">
 
-            <div class="login-brand text-center">
-                <!--img src="images/lists.ico" style="width: 50px;height: 50px"-->
-                <strong class="text-skin">土豆任务</strong>
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="images/carousel3.jpg"  style="height:300px;width: 100%">
+                            <div class="carousel-caption">
+
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="images/carousel2.jpg"  style="height:300px;width: 100%">
+                            <div class="carousel-caption">
+
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="images/carousel1.jpg"  style="height:300px;width: 100%">
+                            <div class="carousel-caption">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+
+                    </a>
+                </div>
+
             </div>
-            <div class="form-group m-bottom-md">
-                <!--span></span-->
-                <div class="alert alert-info alert-dismissible" >
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-exclamation-circle m-right-xs"></i>
-                    登录体验可用测试账号，用户名密码均为
-                    <strong>test</strong>
-                </div>
+            <div class="col-sm-6">
+                <div class="sign-in-inner">
+                    <div class="login-brand text-center">
+                        <!--img src="images/lists.ico" style="width: 50px;height: 50px"-->
+                        <span class="text-skin fy-logon-header">土豆任务</span>
+                    </div>
+                    <div class="form-group m-bottom-md">
+                        <!--span></span-->
+                        <div class="alert alert-info alert-dismissible" >
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <i class="fa fa-exclamation-circle m-right-xs"></i>
+                            登录体验可用测试账号，用户名密码均为
+                            <strong>test</strong>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="form-group m-bottom-md">
+                            <input id="username" type="text" class="form-control" placeholder="用户名">
+                        </div>
+                        <div class="form-group">
+                            <input id="password" type="password" class="form-control" placeholder="密码">
+                        </div>
+                        <div id="signin_error" class="fy-widget-hide"><span class="label label-danger">请输入正确的账号和密码...</span></div>
+                        <div class="m-top-md p-top-sm">
+                            <a href="#" onclick="logon()" class="btn btn-success block">登入</a>
+                        </div>
+                    </form>
+                </div><!-- ./sign-in-inner -->
             </div>
-            <form>
-                <div class="form-group m-bottom-md">
-                    <input id="username" type="text" class="form-control" placeholder="用户名">
-                </div>
-                <div class="form-group">
-                    <input id="password" type="password" class="form-control" placeholder="密码">
-                </div>
-                <div id="signin_error" class="fy-widget-hide"><span class="label label-danger">请输入正确的账号和密码...</span></div>
-                <div class="m-top-md p-top-sm">
-                    <a href="#" onclick="logon()" class="btn btn-success block">登入</a>
-                </div>
-            </form>
-        </div><!-- ./sign-in-inner -->
+        </div>
     </div><!-- ./sign-in-wrapper -->
 </div><!-- /wrapper -->
 
@@ -111,6 +157,11 @@
 
     if(window.localStorage){
         var storage = window.localStorage;
+
+        $('#carousel-example-generic').carousel({
+            interval: 2500
+        })
+
 
     }else{
         alert('This browser does NOT support localStorage');
