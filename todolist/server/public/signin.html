@@ -42,7 +42,7 @@
 
     <!-- Simplify -->
     <link href="css/simplify.min.css" rel="stylesheet">
-
+    <link href="css/fy-style.css" rel="stylesheet">
 </head>
 
 <body class="overflow-hidden light-background">
@@ -52,9 +52,18 @@
         <div class="sign-in-inner">
 
             <div class="login-brand text-center">
+                <!--img src="images/lists.ico" style="width: 50px;height: 50px"-->
                 <strong class="text-skin">云任务</strong>
             </div>
-
+            <div class="form-group m-bottom-md">
+                <!--span></span-->
+                <div class="alert alert-info alert-dismissible" >
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-exclamation-circle m-right-xs"></i>
+                    登录体验可用测试账号，用户名密码均为
+                    <strong>test</strong>
+                </div>
+            </div>
             <form>
                 <div class="form-group m-bottom-md">
                     <input id="username" type="text" class="form-control" placeholder="用户名">
@@ -62,6 +71,7 @@
                 <div class="form-group">
                     <input id="password" type="password" class="form-control" placeholder="密码">
                 </div>
+                <div id="signin_error" class="fy-widget-hide"><span class="label label-danger">请输入正确的账号和密码...</span></div>
                 <div class="m-top-md p-top-sm">
                     <a href="#" onclick="logon()" class="btn btn-success block">登入</a>
                 </div>
@@ -129,7 +139,8 @@
                         storage.setItem("tokenInfo",JSON.stringify(tokenInfo));
                         document.location = './index.html'
                     }else{
-                        alert('password was wrong...');
+                        //alert('password was wrong...');
+                        $("#signin_error").css('display','inline');
                     }
                 });
 

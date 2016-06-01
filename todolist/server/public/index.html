@@ -61,7 +61,7 @@
 						</a>
 					</div>
 					<div class="nav-container">
-						<button type="button" class="btn btn-success btn-sm pull-left" style="margin-top: 10px">
+						<button type="button" data-toggle="modal" data-target="#normalModal" class="btn btn-success btn-sm pull-left" style="margin-top: 10px">
 	                        关于云任务
 						</button>
 						<!--ul class="nav-notification">
@@ -92,7 +92,33 @@
 		</div><!-- /wrapper -->
 
 		<a href="#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
-		
+        <div class="modal fade" id="normalModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">云任务，一个旨在帮您高效完成任务和规划时间的应用！</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            它特别适用于跟我一样喜欢做Todolist的童鞋们。虽然市面上有很多类似这样的
+                            sass服务，但我还是想做一个属于自己的todolist，去繁就简，做成一个干净、实用的工具！
+                        </p>
+                        <p>
+                            目前，云任务仅完成了部分基础功能，后期会加上如‘任务tag’、‘任务统计’等功能，网站所有为笔者一人在实作。UI方面是基于bootstrap的模板后台上进行，前端是react.js
+                            ，后台为Node.js,server方面是基于express的node-odata的RESTful架构，数据库方面还是mongodb驱动。
+                        </p>
+                        <p>
+                            更多关于项目的介绍可移步Github<a href="https://github.com/fungwan/europa/tree/master/todolist/server" target="_Blank">
+                            <span style="color: dodgerblue">这里</span></a>,有任何问题也欢迎在我的<a href="http://fungwan.me/about/" target="_Blank"><span style="color: dodgerblue">个人主页</span></a>联系我。
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 	    <!-- Le javascript
 	    ================================================== -->
 	    <!-- Placed at the end of the document so the pages load faster -->
