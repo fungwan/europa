@@ -45,7 +45,7 @@ var LeftBar = React.createClass({
     	<div  className="sidebar-inner scrollable-sidebar">
 			<div className="main-menu">	
 				<ul class="accordion">					
-					<li className={'bg-palette1' + (this.props.sideBarSelect.firstClassSel === 'taskMgt' ? ' active' : '')}>
+					<li className={'bg-palette2' + (this.props.sideBarSelect.firstClassSel === 'taskMgt' ? ' active' : '')}>
 								<a href="#">
 									<span className="menu-content block">
 										<span className="menu-icon"><i className="block fa fa-list fa-lg"></i></span>

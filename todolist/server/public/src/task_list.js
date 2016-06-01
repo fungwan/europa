@@ -17,7 +17,7 @@ var TaskDetail = React.createClass({
 
     levelMgt:[
         {
-            style:"btn btn-info btn-xs dropdown-toggle",
+            style:"btn btn-success btn-xs dropdown-toggle",
             desc:'低优先级'
         },
         {
@@ -258,7 +258,7 @@ var Item = React.createClass({
         return (
 			<li  onClick={this.handleClick} id={this.props.id} className={'list-group-item ' + (this.props.status === 1 ? 'selected' : '')} draggable="true">
 				<div className="custom-checkbox todo-checkbox">
-						<input type="checkbox"
+						<input type="checkbox" className="checkbox-blue"
                         disabled={this.props.status === 1 ? 'disabled' : ''}
                         checked={this.props.status === 1 ? 'checked' : ''}
                         onChange={this.handleChangeChk}
