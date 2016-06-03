@@ -75,6 +75,11 @@
     display: block;
 }
 
+.fy-taskList-header-front {
+    font-weight:bold;
+    font-family: Microsoft YaHei
+}
+
 .fy-task-header {
     padding: 20px;
     border-bottom:1px solid rgba(0,0,0,.1);

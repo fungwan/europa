@@ -3,17 +3,14 @@ var request = new ApiService();
 
 var TaskDetail = React.createClass({
 
-
-    taskDetail:{
-        name: '',
-        desc: ''
+    getInitialState: function() {
+        return {
+            taskDetail:{
+                name: '',
+                desc: ''
+            }
+        };
     },
-
-    /*componentDidUpdate: function() {
-        if(this.props.task.id === ''){
-
-        }
-    },*/
 
     levelMgt:[
         {
@@ -36,21 +33,13 @@ var TaskDetail = React.createClass({
 
     formatDate : function(unixOffset) {
 
-        //alert(this.props.task.id);
-
-        /*return {
-            taskDetail:{
-                name: this.props.task.name,
-                desc: this.props.task.desc
-            }
-        };*/
         var newDate = new Date();
         newDate.setTime(unixOffset);
         return newDate.toLocaleString();
     },
 
     componentWillReceiveProps: function(nextProps){
-        this.taskDetail = nextProps.task;
+        this.state.taskDetail = nextProps.task;
     },
 
     updateItem : function(newObj){
@@ -78,13 +67,15 @@ var TaskDetail = React.createClass({
     descHandleChange: function(event) {
         this.props.task['desc'] = event.target.value;
         this.setState({taskDetail: this.props.task});
+    },
+
+    HandleChange: function(event) {
         this.updateItem(this.props.task);
     },
 
     nameHandleChange: function(event) {
         this.props.task['name'] = event.target.value;
         this.setState({taskDetail: this.props.task});
-        this.updateItem(this.props.task);
     },
 
     levelHandleChange: function(event) {
@@ -94,7 +85,7 @@ var TaskDetail = React.createClass({
     },
 
     render: function() {
-        var detail = this.taskDetail;
+        var detail = this.state.taskDetail;
         return (
             <div id='taskDetail' className={this.props.task.id === '' ? 'fy-widget-hide' : 'fy-inbox-body'} >
                 <div className="fy-task-header">
@@ -137,9 +128,9 @@ var TaskDetail = React.createClass({
                 <div className="padding-md">
 
                     <div className="fy-task-padding-left">
-                        <textarea className="fy-task-textarea-title " value={this.props.task.name} onBlur={this.nameHandleChange}>
+                        <textarea className="fy-task-textarea-title " value={detail.name} onChange={this.nameHandleChange} onBlur={this.HandleChange}>
                         </textarea>
-                        <textarea className="fy-task-textarea-content " value={detail.desc} onBlur={this.descHandleChange}>
+                        <textarea className="fy-task-textarea-content " value={detail.desc} onChange={this.descHandleChange} onBlur={this.HandleChange}>
 
                         </textarea>
                     </div>
@@ -422,6 +413,17 @@ var TaskCollections = React.createClass({
         this.setState({
             todoItem: item
         });
+
+        for(x in this.state.todoList){
+
+            if(item.id  === this.state.todoList[x].id){
+
+                this.state.todoList[x] = item;
+
+                break;
+            }
+        }
+
     },
 
     handleChange: function(rows) {
@@ -436,7 +438,7 @@ var TaskCollections = React.createClass({
                 <div>
 
                     <div className="fy-inbox-menu padding-md">
-                        <h3 style={ { 'font-weight': 'bold', 'font-family': 'Microsoft YaHei'}}>
+                        <h3 className="fy-taskList-header-front">
                         任务
                         </h3>
                         <div className="paddingTB-sm">

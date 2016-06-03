@@ -14,7 +14,7 @@ function doRefreshToken(refreshInfoObj,cb){
         error: function(XHR,textStatus,errorThrown) {
             //console.log (errorThrown);
             if(errorThrown === 'Unauthorized')
-                console.log('refersh token is expire...' + errorThrown);
+                console.log('refresh token is expire...' + errorThrown);
 
             cb('error',errorThrown);
         },
@@ -321,7 +321,7 @@ ApiService.prototype.delete = function(url,cb){
         var settings = {
             type: "DELETE",
             url:url,
-            //dataType:"json",
+            dataType:'text',
             error: function(XHR,textStatus,errorThrown) {
                 if(errorThrown !== 'Unauthorized'){
                     console.log(errorThrown);
@@ -359,9 +359,7 @@ ApiService.prototype.delete = function(url,cb){
                 }
             },
             headers: {
-                'Accept': '/',
-                'Content-Type':'text/plain'//,
-                //'Authorization': 'Bearer ' + base64Code
+                'Accept': '/'
             }
         };
 

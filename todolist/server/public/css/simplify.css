@@ -29,7 +29,7 @@ body {
 body {
   font-size: 13px;
   background-color: #f5f5f5;
-  font-family: 'Raleway', sans-serif;
+  font-family: -apple-system,".SFNSText-Regular","Helvetica Neue","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif,Meiryo;
   color: #666666;
   -webkit-font-smoothing: antialiased;
 }

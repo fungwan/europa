@@ -44,12 +44,12 @@ server.use(function(req, res, next) {
 server.listen(3000,function(){
     console.log('Todolist server has been started...');
     //fill data
-    var data = require("./users.json");
+    /*var data = require("./users.json");
     var model = server._db.model('users');
     model.remove({}, function(err, result) {
         data.map(function(item) {
             var entity = new model(item);
             entity.save();
         });
-    });
+    });*/
 });
