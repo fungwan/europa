@@ -3,8 +3,8 @@
  */
 
 var db = require('./db');
-var jwt = require('jwt-simple'),
-    moment = require('moment');
+var jwt = require('../libs/jwt'),
+    moment = require('../libs/moment');
 
 var resources = require('node-odata').resources;
 

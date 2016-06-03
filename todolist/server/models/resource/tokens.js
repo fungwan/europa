@@ -3,8 +3,6 @@
  */
 
 var db = require('../db');
-var jwt = require('jwt-simple'),
-    moment = require('moment');
 
 exports.use = function(server){
 

@@ -68,7 +68,7 @@ var TaskDetail = React.createClass({
                         document.location = '../signin.html';return;
                     }
 
-                    alert(err + result);
+                    console.log(err + result);
 
                 }
             }.bind(this)
@@ -137,9 +137,9 @@ var TaskDetail = React.createClass({
                 <div className="padding-md">
 
                     <div className="fy-task-padding-left">
-                        <textarea className="fy-task-textarea-title " value={this.props.task.name} onChange={this.nameHandleChange}>
+                        <textarea className="fy-task-textarea-title " value={this.props.task.name} onBlur={this.nameHandleChange}>
                         </textarea>
-                        <textarea className="fy-task-textarea-content " value={detail.desc} onChange={this.descHandleChange}>
+                        <textarea className="fy-task-textarea-content " value={detail.desc} onBlur={this.descHandleChange}>
 
                         </textarea>
                     </div>
@@ -183,7 +183,7 @@ var Item = React.createClass({
                             document.location = '../signin.html';return;
                         }
 
-                        alert(err + result);
+                        console.log(err + result);
                     }
                 }.bind(this));
         } else if (target.nodeName.toLowerCase() == "input") {
@@ -208,7 +208,7 @@ var Item = React.createClass({
                             document.location = '../signin.html';return;
                         }
 
-                        alert(err + result);
+                        console.log(err + result);
                     }
                 }.bind(this));
         } else if (target.nodeName.toLowerCase() == "i") {
@@ -238,7 +238,7 @@ var Item = React.createClass({
                             document.location = '../signin.html';return;
                         }
 
-                        alert(err + result);
+                        console.log(err + result);
                     }
                 }.bind(this));
         }
@@ -353,7 +353,7 @@ var TaskNew = React.createClass({
                              document.location = '../signin.html';return;
                          }
 
-                         alert(err + result);
+                         console.log(err + result);
                      }
                  }.bind(this)
              );
@@ -413,7 +413,7 @@ var TaskCollections = React.createClass({
                         document.location = '../signin.html';return;
                     }
 
-                    alert(err + result);
+                    console.log(err + result);
                 }
             }.bind(this));
     },

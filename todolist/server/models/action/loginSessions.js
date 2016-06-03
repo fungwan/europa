@@ -3,8 +3,8 @@
  */
 
 var db = require('../db');
-var jwt = require('jwt-simple'),
-    moment = require('moment');
+var jwt = require('../../libs/jwt'),
+    moment = require('../../libs/moment');
 
 exports.use = function(server){
 
@@ -16,13 +16,21 @@ exports.use = function(server){
         var userModel = db.getDataModel('users');
         userModel.findOne({_id:userId},function(err,person){
             if(err === null){
+                //var _userInfo = person;//person._doc;
 
-                var _userInfo = person._doc;
-                delete _userInfo['password'];
+                if(person === null){
+                    res.json({
+                        result:'fail',
+                        content:''
+                    });
+
+                    return;
+                }
+                delete person['password'];
 
                 res.json({
                     result:'ok',
-                    content:_userInfo
+                    content:person
                 });
 
             }else{
@@ -81,26 +89,26 @@ exports.use = function(server){
                     });
                 }else{
 
-                    var _userInfo = person._doc;
+                    //var _userInfo = person;//person._doc;
 
                     //return access_token & refresh_token
                     var token_expires = moment().add(10,'seconds').valueOf();
                     //console.log('access_token生成时的预期时间：' + token_expires);
                     var access_token = jwt.encode({
-                        iss: person._doc._id,
+                        iss: person._id,
                         exp: token_expires
                     }, server.get('jwtTokenSecret'));
 
                     var refresh_token_expires = moment().add(1,'days').valueOf();
                     var refresh_token = jwt.encode({
-                        iss: _userInfo._id,
+                        iss: person._id,
                         exp: refresh_token_expires
                     }, server.get('jwtTokenSecret'));
 
                     var additionalBody = {
                         access_token : access_token,
                         refresh_token : refresh_token,
-                        owner_id: _userInfo._id,
+                        owner_id: person._id,
                         exp:token_expires
                     };
                     res.json({

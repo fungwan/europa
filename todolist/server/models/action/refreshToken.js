@@ -3,8 +3,8 @@
  */
 
 var db = require('../db');
-var jwt = require('jwt-simple'),
-    moment = require('moment');
+var jwt = require('../../libs/jwt'),
+    moment = require('../../libs/moment');
 
 exports.use = function(server){
 
@@ -25,7 +25,7 @@ exports.use = function(server){
                     });
                 }else{
                     //check refresh_token has expired?
-                    var decoded = jwt.decode(token._doc.refresh_token, server.get('jwtTokenSecret'));
+                    var decoded = jwt.decode(token.refresh_token, server.get('jwtTokenSecret'));
                     if (decoded.exp <= Date.now()) {// refresh_token has expired
                         //res.end('Access token has expired', 400);
                         res.json({
@@ -39,7 +39,7 @@ exports.use = function(server){
                         var token_expires = moment().add(10,'seconds').valueOf();
                         //console.log('有用户在刷新token...');
                         var access_token = jwt.encode({
-                            iss: token._doc.owner_id,
+                            iss: token.owner_id,
                             exp: token_expires
                         }, server.get('jwtTokenSecret'));
 

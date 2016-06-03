@@ -2,7 +2,7 @@
  * Created by LAU TAK-WAH on 2016/5/20.
  */
 
-var RESTfulUrl = 'http://127.0.0.1:3000';
+var RESTfulUrl = '';
 
 function doRefreshToken(refreshInfoObj,cb){
 
@@ -14,7 +14,7 @@ function doRefreshToken(refreshInfoObj,cb){
         error: function(XHR,textStatus,errorThrown) {
             //console.log (errorThrown);
             if(errorThrown === 'Unauthorized')
-                alert(errorThrown);
+                console.log('refersh token is expire...' + errorThrown);
 
             cb('error',errorThrown);
         },
@@ -51,8 +51,11 @@ ApiService.prototype.get = function(url,cb){
             url:url,
             dataType:"json",
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown !== 'Unauthorized')
-                    alert(errorThrown);
+                if(errorThrown !== 'Unauthorized'){
+                    console.log(errorThrown);
+                    cb('error',errorThrown);
+                    return;
+                }
 
                 //cb('error',errorThrown);
                 var that = this;
@@ -140,8 +143,11 @@ ApiService.prototype.post = function(url,data,cb){
             dataType:"json",
             data:JSON.stringify(data),
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown !== 'Unauthorized')
-                    alert(errorThrown);
+                if(errorThrown !== 'Unauthorized'){
+                    console.log(errorThrown);
+                    cb('error',errorThrown);
+                    return;
+                }
 
                 var that = this;
                 doRefreshToken({
@@ -227,8 +233,11 @@ ApiService.prototype.put = function(url,data,cb){
             dataType:"json",
             data:JSON.stringify(data),
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown !== 'Unauthorized')
-                    alert(errorThrown);
+                if(errorThrown !== 'Unauthorized'){
+                    console.log(errorThrown);
+                    cb('error',errorThrown);
+                    return;
+                }
 
                 var that = this;
                 doRefreshToken({
@@ -314,8 +323,11 @@ ApiService.prototype.delete = function(url,cb){
             url:url,
             //dataType:"json",
             error: function(XHR,textStatus,errorThrown) {
-                if(errorThrown !== 'Unauthorized')
-                    alert(errorThrown);
+                if(errorThrown !== 'Unauthorized'){
+                    console.log(errorThrown);
+                    cb('error',errorThrown);
+                    return;
+                }
 
                 var that = this;
                 doRefreshToken({
