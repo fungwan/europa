@@ -1,0 +1,70 @@
+<div class="qoupon-addproduction">
+    <div class="add-production-container">
+        <div class="add-production-container-header">
+            <!--关闭按钮-->
+            <i class="fa fa-times-circle" 
+               ng-click="addQoupon.getBack()"
+               title="关闭">
+            </i>
+        </div>
+
+        <!--搜索 start-->
+        <div class="production-filter">
+            <div class="filter-up">
+                <div>
+                    <label>商品名称：</label>
+                    <input type="text"
+                           ng-model="addQoupon.defaultProductionQuery.query.productname">
+                </div>
+            </div>
+            <div style="margin:10px auto 0 auto">
+                <button class="butn butn-primary"
+                        ng-click="addQoupon.getProductionList(1)">
+                        <i class="fa fa-search"></i> 查询
+                </button>
+                <button class="butn butn-default" 
+                        ng-click="addQoupon.resetProduct()">
+                        <i class="fa fa-undo"></i> 重置
+                </button>
+            </div>
+        </div>
+        <!--搜索 end-->
+        
+        <div class="view-table" id="mallproductiontable">
+            <table style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th width="160px">商品名称</th>
+                        <th width="140px">描述</th>
+                        <th width="80px">价格</th>
+                        <th width="60px">状态</th>
+                        <th width="60px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in addQoupon.mallProductList">
+                        <td ng-bind="item.productname"></td>
+                        <td ng-bind="item.productinfo"></td>
+                        <td ng-bind="item.cost.toFixed(2)"></td>
+                        <td>
+                            <span ng-bind="item.state | forstate"></span>
+                        </td>
+                        <td style="padding: 0">
+                            <button class="butn butn-link"
+                                    ng-disabled="addQoupon.selectedMallProductListId.indexOf(item.productid)>=0"  
+                                    ng-click="addQoupon.addProduction(item)">
+                                <i class="fa fa-plus"></i>
+                                <span> 添加</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<div style="display: flex">
+            <div style="margin:auto">
+                <button class="butn butn-default" ng-click="addQoupon.getBack()">返回</button>
+            </div>-->
+        </div>
+    </div>
+</div>

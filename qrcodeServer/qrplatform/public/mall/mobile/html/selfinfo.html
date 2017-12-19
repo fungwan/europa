@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>个人中心</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selfinfo.css">
+</head>
+<body>
+<div class="page-group">
+    <div class="page">
+        <nav class="bar bar-tab">
+            <a class="tab-item external" href="./marketindex.html">
+                <img src="../images/marketindex/web-page-home.svg" alt="首页">
+                <span class="tab-label">首页</span>
+            </a>
+            <a class="tab-item external" href="./marketshopcar.html">
+                <img src="../images/marketindex/online-shopping-cart.svg" alt="购物车" >
+                <span class="tab-label">购物车</span>
+            </a>
+            <a class="tab-item external active" href="./selfinfo.html">
+                <!--<span class="icon icon-me" style="font-size: 2.3rem;"></span>-->
+                <img src="../images/marketindex/useractive.svg" alt="个人中心" class="selfcenter">
+            </a>
+            <a class="tab-item external" href="./marketorderlist.html">
+                <img src="../images/marketindex/reusable-shopping-bag.svg" alt="我的订单">
+                <span class="tab-label">我的订单</span>
+            </a>
+            <a class="tab-item external" href="#">
+                <img src="../images/marketindex/headphones.svg" alt="客服">
+                <span class="tab-label">客服</span>
+            </a>
+        </nav>
+        <div class="content" style="margin: 0;">
+            <!--个人基础信息-->
+            <div class="selfinfo">
+                <div class="editinfo clear">
+                    <a href="./selfsafe.html" class="external">
+                        <span class="iconfont icon-shezhi" style="width: 3rem;
+                                                                  height: 1.2rem;
+                                                                  line-height: 1.2rem;
+                                                                  float: right;
+                                                                  margin-top: 0.3rem;
+                                                                  font-size: 1rem;
+                                                                  color: #fff;"></span>
+                        <!-- <div class="btnedit"></div> -->
+                    </a>
+                </div>
+                <div class="row no-gutter">
+                    <div class="col-40"><img class="headpic" src="" alt="用户头像" id="wxhead"></div>
+                    <div class="col-60 winfo" style="text-align: left">
+                        <div class="name" id="wxnickname" style="text-indent: 0.3rem;"></div>
+                        <div class="grade" id="gradleve"></div>
+                        <div class="autograph" id="onlusign" style="text-indent: 0.3rem;"></div>
+                    </div>
+                </div>
+            </div>
+            <!--菜单-->
+            <div class="menu">
+                <div class="row no-gutter">
+                    <div class="col-25 firs">
+                        <a class="tab-item external">
+                            <img src="../images/self/clipboard.svg" alt="我的订单">
+                            <br/>
+                            <span class="tab-label">我的订单</span>
+                        </a>
+                        <span class="trgin"></span>
+                    </div>
+                    <div class="col-25">
+                        <a class="sred tab-item external" href="./selfgetrec.html" id="receiving-goods" data-red="neworderreceivin">
+                            <img src="../images/self/delivery-truck.svg" alt="待收货订单">
+                            <br/>
+                            <span class="tab-label">待收货订单</span>
+                        </a>
+                    </div>
+                    <div class="col-25">
+                        <a class="sred tab-item external" href="./selfgetwaiteval.html" id="eva" data-red="newordereva">
+                            <img src="../images/self/edit-comment-interface-symbol.svg" alt="待评价订单">
+                            <br/>
+                            <span class="tab-label">可评价订单</span>
+                        </a>
+                    </div>
+                    <div class="col-25">
+                        <a class="tab-item external" href="./marketorderlist.html">
+                            <img src="../images/self/clipboard-with-a-list.svg" alt="历史订单">
+                            <br/>
+                            <span class="tab-label">历史订单</span>
+                        </a>
+                    </div>
+                </div>
+                <!--菜单2-->
+                <div class="row no-gutter" style="margin-bottom: 0;">
+                    <div class="col-25 firs">
+                        <a class="tab-item external">
+                            <img src="../images/self/qr-code-2.svg" alt="我的扫码">
+                            <br/>
+                            <span class="tab-label">我的扫码</span>
+                        </a>
+                        <span class="trgin"></span>
+                    </div>
+                    <div class="col-25">
+                        <a class="sred tab-item external" href="./qrrecord.html" id="receiving-award" data-red="newprizereceivin">
+                            <img src="../images/self/qr-code-3.svg" alt="扫码记录">
+                            <br/>
+                            <span class="tab-label">扫码记录</span>
+                        </a>
+                    </div>
+                    <div class="col-25">
+                        <a class="sred tab-item external" href="./getawardrecord.html" id="Award-record" data-red="newprize">
+                            <img src="../images/self/gift.svg" alt="中奖记录">
+                            <br/>
+                            <span class="tab-label">中奖记录</span>
+                        </a>
+                    </div>
+                    <!--<div class="col-25">
+                        <a class="tab-item external" href="./selfcollect.html">
+                            <img src="../images/self/clover.svg" alt="我的收藏">
+                            <br/>
+                            <span class="tab-label">我的收藏</span>
+                        </a>
+                    </div>-->
+                </div>
+            </div>
+            <!--我的积分-->
+            <div class="grades ">
+                <div class="boxgdd clear">
+                    <div class="boxgd">
+                        <img src="../images/self/piggy-bank.png" alt="">
+                    </div>
+                    <div class="boxgd">
+                        <div class="">剩余可用积分</div>
+                        <div class="num" id="Grade"></div>
+                        <div class="rank">当前排名：第<span style="margin: 0 0.2rem"></span>名</div>
+                    </div>
+                </div>
+                <!--按钮组-->
+                <div class="row no-gutter bugroup">
+                    <div class="col-50"><a href="./marketgradeexchange.html" class="external button button-fill button-primary">去换礼品</a></div>
+                    <!--<div class="col-33"><a href="../lottery/index.html" class="external button button-fill button-primary">去抽奖</a></div>-->
+                    <div class="col-50"><a href="./selfgrade.html" class="external button button-fill button-primary">查看积分明细</a></div>
+                </div>
+            </div>
+            <!--抽奖-->
+            <!--<div class="cjiang">-->
+                <!--<a href="../lottery/index.html"><img src="../images/self/lo.jpg" alt=""></a>-->
+            <!--</div>-->
+            <div id="ad1" class="swiper-container" data-space-between='10'>
+                <div class="swiper-wrapper" id="adimg1">
+                </div>
+                <div class="swiper-pagination swiper-p1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/swiper-3.4.2.jquery.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../config.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/selfinfo.js' charset='utf-8'></script>
+</body>
+</html>

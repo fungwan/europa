@@ -1,0 +1,88 @@
+<div class="view">
+    <h3 class="view-title">
+        <i class="fa fa-shopping-bag"></i>
+        商品分类管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="/enterprise/manage.mcdqr.html">商品管理</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">商品分类管理</a>
+            </li>
+        </ul>
+    </div>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">分类名称:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入分类名称" ng-model="categoryList.queryOptions.query.name">
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="categoryList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default" ng-click="categoryList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="action-bar-item butn butn-default"
+                ng-click="categoryForm.showAddForm()">
+                <i class="fa fa-plus"></i>
+                添加
+            </button>
+            <button class="action-bar-item butn butn-default"
+                ng-disabled="categoryList.selectedItems.length != 1"
+                ng-click="categoryForm.showEditForm(categoryList.selectedItems[0])">
+                <i class="fa fa-pencil"></i>
+                修改
+            </button>
+            <button class="action-bar-item butn butn-danger"
+                ng-disabled="categoryList.selectedItems.length == 0"
+                ng-click="categoryList.deleteSelectedItems()">
+                    <i class="fa fa-trash"></i>
+                    删除
+            </button>
+        </m-action>
+    </div>
+    <div class="view-table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="check">
+                        <input type="checkbox"
+                            ng-checked="categoryList.isCheckedAll()"
+                            ng-click="categoryList.toggleCheckedAll()">
+                    </th>
+                    <th width="250px">名称</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in categoryList.items">
+                    <td class="check">
+                        <input type="checkbox" ng-checked="categoryList.isChecked(item)" ng-click="categoryList.toggleChecked(item)">
+                    </td>
+                    <td ng-bind="item.name"></td>
+                    <td ng-bind="item.categorydesc"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="categoryForm.showAdd"
+        ng-include="'views/templates/commondity.category.add.html'"></div>
+    <div ng-if="categoryForm.showEdit" 
+        ng-include="'views/templates/commondity.category.edit.html'"></div>
+</div>

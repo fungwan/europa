@@ -1,0 +1,143 @@
+<div class="view">
+    <h3 class="view-title">
+        <i class="fa fa-user"></i>
+        消费者管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="/enterprise/managehome.html">消费者管理</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">消费者管理</a>
+            </li>
+        </ul>
+    </div>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">昵称:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入昵称" ng-model="customerList.queryOptions.query.nickname">
+                    </div>
+                    <div class="filter-item" style="height: 28px;"></div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">最低中奖次数:</span>
+                        <input type="number" class="filter-item-input" placeholder="请输入最低中奖次数" ng-model="customerList.queryOptions.query.minlotterytime">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">最高中奖次数:</span>
+                        <input type="number" class="filter-item-input" placeholder="请输入最高中奖次数" ng-model="customerList.queryOptions.query.maxlotterytime">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">最低积分:</span>
+                        <input type="number" class="filter-item-input" placeholder="请输入最低积分" ng-model="customerList.queryOptions.query.minpoint">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">最高积分:</span>
+                        <input type="number" class="filter-item-input" placeholder="请输入最高积分" ng-model="customerList.queryOptions.query.maxpoint">
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary"
+                        ng-click="customerList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default" 
+                        ng-click="customerList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <div m-dropdown ng-disabled="!customerList.selectedItems.length > 0" class="butn-primary">
+                <m-dropdown-text>
+                    <i class="fa fa-pencil"></i>
+                    <span>更改分组</span>
+                </m-dropdown-text>
+                <m-dropdown-menu>
+                    <li class="dropdown-menu-item"
+                        ng-repeat="item in customerList.dropDownItems"
+                        ng-bind="item.groupname"
+                        ng-click="customerList.setGroup(item)"></li>
+                </m-dropdown-menu>
+            </div>
+        </m-action>
+    </div>
+    <div class="view-table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="check">
+                        <input type="checkbox"
+                            ng-checked="customerList.isCheckedAll()"
+                            ng-click="customerList.toggleCheckedAll()">
+                    </th>
+                    <th width="120px">昵称</th>
+                    <th width="100px">组别</th>
+                    <th width="50px">性别</th>
+                    <th width="400px">地址</th>
+                    <th width="130px">电话</th>
+                    <th width="120px">积分</th>
+                    <th width="100px">中奖次数</th>
+                    <th width="120px">中奖金额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in customerList.items">
+                    <td class="check">
+                        <input type="checkbox"
+                            ng-checked="customerList.isChecked(item)"
+                            ng-click="customerList.toggleChecked(item)">
+                    </td>
+                    <td ng-bind="item.nickname"></td>
+                    <td style="padding: 0">
+                        <div m-dropdown class="butn-link">
+                            <m-dropdown-text>
+                                <span ng-bind="item.groupname"></span>
+                            </m-dropdown-text>
+                            <m-dropdown-menu>
+                                <li class="dropdown-menu-item"
+                                    ng-repeat="dropDownItem in customerList.dropDownItems"
+                                    ng-bind="dropDownItem.groupname"
+                                    ng-click="customerList.setGroup(dropDownItem, item)"
+                                    ng-class="{selected: dropDownItem.groupname == item.groupname}"></li>
+                            </m-dropdown-menu>
+                        </div>
+                    </td>
+                    <td ng-bind="item.sex"></td>
+                    <td ng-bind="item.address"></td>
+                    <td ng-bind="item.phone"></td>
+                    <td style="padding:0">
+                        <button class="butn butn-link"
+                            ng-click="pointRecordList.show(item)">
+                            <span ng-bind="item.totalpoint"></span>
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </td>
+                    <td style="padding: 0">
+                        <button class="butn butn-link"
+                            ng-click="prizeRecordList.show(item)">
+                            <span ng-bind="item.countlottery"></span>
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </td>
+                    <td ng-bind="item.totallottery"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="pointRecordList.showList"
+        ng-include="'views/templates/customer.customer.point.html'">
+    </div>
+    <div ng-if="prizeRecordList.showList"
+        ng-include="'views/templates/customer.customer.prize.html'">
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<div style="padding:10px;">
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <!--<div class="filter-item">
+                        <span class="filter-item-label">创建时间:</span>
+                        <input type="date" 
+                               class="filter-item-input" 
+                               ng-model="qouponList.queryOptions.query.productdate">
+                    </div>-->
+                    <div class="filter-item">
+                        <span class="filter-item-label">关键字:</span>
+                        <input type="text" 
+                               class="filter-item-input" 
+                               placeholder="礼券商品名称关键字查询" 
+                               ng-model="qouponList.queryOptions.query.productname">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">商品状态:</span>
+                        <select ng-model="qouponList.queryOptions.query.state" >
+                            <option value="">请选择礼品状态</option>
+                            <option value="sell">已上架</option>
+                            <option value="offshelf">已下架</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" 
+                            ng-click="qouponList.getQouponList(1)">
+                            <i class="fa fa-search"></i> 查询
+                    </button>
+                    <button class="butn butn-default" 
+                            ng-click="qouponList.init()">
+                            <i class="fa fa-undo"></i> 重置
+                    </button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn butn-primary" 
+                    ng-click="addQoupon.showAdd()" 
+                    title="添加礼券"><i class="fa fa-plus"></i> 添加
+            </button>
+        </m-action>
+    </div>
+
+    <div class="qoupon-detail">
+        <!--<div class="qoupon-total">
+            <div>
+                <span ng-bind="qouponList.selectedTapItem.name"></span>数目:
+                <span class="qoupon-number">11250</span>张
+            </div>
+            <div><span ng-bind="qouponList.selectedTapItem.name"></span>价值:
+                <span class="qoupon-number">355600</span>元
+            </div>
+        </div>-->
+
+        <div class="view-table" id="qouponlist">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="160px">礼券商品名称</th>
+                        <th width="160px">创建时间</th>
+                        <th width="60px">状态</th>
+                        <th width="60px">售价(元)</th>
+                        <th width="60px">成本价(元)</th>
+                        <th width="60px">总数</th>
+                        <th width="120px">描述</th>
+                        <th width="60px">编辑</th>
+                        <th width="60px">下架</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in qouponList.items">
+                        <td ng-bind="item.productname"></td>
+                        <td ng-bind="item.productdate | timFmart"></td>
+                        <td ng-bind="item.state | forstate"></td>
+                        <td>￥{{item.price | toFixed}}</td>
+                        <td>￥{{item.cost | toFixed}}</td>
+                        <td ng-bind="item.amount"></td>
+                        <td ng-bind="item.productinfo"></td>
+                        <td style="padding:0">
+                            <button class="butn butn-link" 
+                                ng-click="addQoupon.showEdit(item)" 
+                                ng-disabled="item.productor == 'erathink'">
+                                <i class="fa fa-edit"></i>
+                                修改
+                            </button>
+                        </td>
+                        <td style="padding:0">
+                            <button class="butn butn-link"
+                                ng-show="item.state == 'sell'"
+                                ng-disabled="item.productor == 'erathink'"
+                                ng-click="qouponList.offShelve(item)">
+                                <i class="fa fa-shopping-cart"></i>
+                                下架
+                            </button>
+                            <button class="butn butn-link"
+                                ng-show="item.state == 'offshelf'"
+                                ng-disabled="item.productor == 'erathink'"
+                                ng-click="qouponList.shelve(item)">
+                                <i class="fa fa-shopping-cart"></i>
+                                上架
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div ng-if="addQoupon.showAddForm" 
+     ng-include="'views/templates/mall/mall.manage.qoupon.add.html'"></div>
+<div ng-if="addQoupon.showEditForm" 
+     ng-include="'views/templates/mall/mall.manage.qoupon.edit.html'"></div>

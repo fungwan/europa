@@ -1,0 +1,185 @@
+
+.customer {
+    /*  text-align: center;*/
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.icoManageCustomer::before {
+    content: '\f007' !important;
+}
+
+.icoManage {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    font-size: 30px;
+    color: white;
+    font-family: FontAwesome;
+}
+
+.topTool {
+    margin: 30px 100px 20px 100px;
+    justify-content: flex-end;
+}
+
+.topTool > .editorItem:first-child {
+    position: absolute;
+    left: 0;
+}
+
+.topTool .editorItem:last-child {
+    margin-right: 0px !important;
+}
+
+.topTool button, .queryitem button {
+    display: inline-block;
+    width: 150px;
+    margin: 0 auto;
+    background-color: #61AEF5;
+    color: white;
+    text-overflow: ellipsis;
+    height: 41px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.topTool button:hover, .queryitem button:hover {
+    background-color: #1b88ee;
+    color: white;
+}
+
+#query, #seniorquery {
+    width: 100px;
+}
+
+.customerList {
+    flex: 1;
+    margin: 0 100px 10px 100px;
+    overflow-y: auto;
+}
+
+.editorItem label {
+    text-align: left;
+}
+
+.editorItem input {
+    width: 150px;
+    height: 41px;
+}
+
+#groupItems {
+    max-height: 407px;
+    overflow-y: auto;
+}
+
+#groupItems button {
+    width: 100%;
+}
+
+#changeGroup {
+    width: 200px;
+    background-color: #61AEF5;
+    color: white;
+    border: none;
+}
+
+#changeGroup:disabled:hover {
+    background-color: #F5F5F5 !important;
+}
+
+#customerMessage {
+    display: none;
+    font-size: 22px;
+    margin: 0 100px 10px 100px;
+}
+
+
+/*高级查询*/
+
+.queryitem {
+    margin: 30px 50px 10px 50px;
+    background-color: #ffffff;
+}
+
+.queryitem .editorItem input, .queryitem .editorItem button {
+    width: 300px;
+}
+
+@media all and (max-width: 1280px) {
+    .customerData {
+        margin: 0px 50px;
+    }
+
+    .topTool {
+        margin: 30px 50px 20px 50px;
+    }
+
+    .customerList, #customerMessage{
+        margin: 0 50px 10px 50px;
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .customerData {
+        margin: 0px;
+    }
+
+    .topTool {
+        margin: 30px 0px 20px 0px;
+    }
+
+    .customerList, #customerMessage{
+        margin: 0 0px 10px 0px;
+    }
+}
+
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, .3);
+    display: none;
+    z-index: 2;
+}
+
+.prize-detail {
+    height: 100%;
+    width: 600px;
+    position: absolute;
+    right: -600px;
+    top: 0;
+    background: white;
+    transition: right .5s;
+    z-index: 3;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.prize-detail > .header {
+    color: white;
+    padding: 10px 20px;
+    background-color: #1b88ee;
+    border-bottom: rgba(0, 0, 0, 0.1) solid 1px;
+    flex: none;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.prize-detail > .header .close {
+    color: #fff;
+    cursor: pointer;
+}
+
+.prizeDetail {
+    flex-grow: 1;
+    padding: 20px;
+}

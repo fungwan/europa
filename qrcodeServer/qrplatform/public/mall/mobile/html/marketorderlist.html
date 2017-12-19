@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marketorderlist.css">
+</head>
+<body>
+<div class="page-group">
+    <div class="page">
+        <header class="bar bar-nav bartop">
+            <!--查询-->
+            <!--我的积分-->
+            <div class="gradebo lf">
+                <span class="pig"><img style="vertical-align: middle" src="../images/self/piggy-bank.png" alt=""></span>
+                <span>当前可用积分</span>
+                <span class="num" id="Grade">0</span>
+            </div>
+            <!--过滤-->
+            <div class="gradeboo rt" style="display: none">
+                <label>时间：<input type="text" value="近一年" id="picker" class="changetime"><span class="tring"></span></label>
+            </div>
+        </header>
+        <div class="content infinite-scroll infinite-scroll-bottom"  data-distance="50">
+            <!--渲染列表-->
+            <div id="myorderbox" class="list-container">
+
+            </div>
+            <!-- 加载提示符 -->
+            <div class="infinite-scroll-preloader">
+                <div class="preloader"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+<script>
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker" id="sure">确定</button>\
+  <h1 class="title">选择时间</h1>\
+  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['近一个月', '近三个月', '近六个月', '近一年']
+            }
+        ]
+    });
+</script>
+<script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/marketorderlist.js' charset='utf-8'></script>
+<script>$.init()</script>
+</body>
+</html>

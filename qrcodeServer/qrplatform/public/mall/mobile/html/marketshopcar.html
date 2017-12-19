@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>购物车</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marketshopcar.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="page" id="list">
+            <nav class="bar bar-tab" style="height: 5rem;border-top: 0px">
+                <div class="row no-gutter bom">
+                    <div class="col-20 bottomcheck">
+                        <label class="tollabel">√<input type="checkbox" id="allselect" style="display:none;"></label>
+                    </div>
+                    <div class="col-50" style="font-size:0.8rem">合计：<span id="fitptal">0</span></div>
+                    <div class="col-30" style="font-size:0.8rem"><a href="./marketgopay.html" class="gopay external" id="gogopay">去结算</a></div>
+                </div>
+                <div class="shopBar">
+                    <a class="tab-item external" href="./marketindex.html">
+                    <img src="../images/marketindex/web-page-home.svg" alt="个人中心">
+                    <span class="tab-label">首页</span>
+                </a>
+                    <a class="tab-item external activebar" href="./marketshopcar.html">
+                    <img src="../images/marketindex/online-shopping-cartactive.svg" alt="购物车">
+                    <span class="tab-label">购物车</span>
+                </a>
+                    <a class="tab-item external" href="./selfinfo.html">
+                        <!--<span class="icon icon-me" style="font-size: 2.3rem;"></span>-->
+                        <img src="../images/marketindex/user.svg" alt="个人中心" style="display: inline-block;width: 80%">
+                    </a>
+                    <a class="tab-item external" href="./marketorderlist.html">
+                    <img src="../images/marketindex/reusable-shopping-bag.svg" alt="我的订单">
+                    <span class="tab-label">我的订单</span>
+                </a>
+                    <a class="tab-item external" href="#">
+                    <img src="../images/marketindex/headphones.svg" alt="客服">
+                    <span class="tab-label">客服</span>
+                </a>
+                </div>
+            </nav>
+            <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" style="bottom:5rem">
+                <!--列表-->
+                <div class="cardbox shopcart list-container">
+                    <!--<div class="card clear">
+                        <div class="checkit">
+                            <label>
+                                √<input type="checkbox">
+                            </label>
+                        </div>
+                        <div class="pic">
+                            <a class="external" href="./marketgoodsdetail.html?proid=${d[i].productid}"><img src="../images/qr.jpg" alt=" 商品图片"></a>
+                        </div>
+                        <div class="maininfo">
+                            <div class="pname">商品名称什么鬼</div>
+                            <div class="price">￥123.00</div>
+                            <div class="control clear">
+                                <span class="delnum">-</span>
+                                <span class="controlnum"><input type="text"></span>
+                                <span class="addnum">+</span>
+                            </div>
+                        </div>
+                        <span class="icon icon-remove"></span>
+                    </div>-->
+
+                </div>
+                <!-- 加载提示符 -->
+                <div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+    <script>
+        $("#allselect").prop('checked', false)
+    </script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/marketshopcar.js' charset='utf-8'></script>
+    <script>
+        $.init()
+    </script>
+</body>
+
+</html>

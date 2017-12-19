@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>签到</title>
+    <link rel="stylesheet" href="../../../templates/css/base.css">
+    <link rel="stylesheet" href="../../../templates/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/attendance.css">
+</head>
+
+<body>
+    <header class="box box-tb no-bar">
+        <nav class="box box-lr box-align-center">
+            <button class="fa fa-chevron-left btn-back">&nbsp;&nbsp;返回</button>
+            <label class="flex shrink">签到</label>
+            <button class="fa fa-chevron-left btn-back hidden">&nbsp;&nbsp;返回</button>
+        </nav>
+        <div class="flex shrink box box-lr box-pack-center">
+            <div id="head-image" class="checked"></div>
+        </div>
+        <label id="nickname">...</label>
+        <label id="attendance-loader" class="hide fs-small">正在为您签到，请稍候……</label>
+        <label id="attendance-success" class="hide fs-small"></label>
+        <label id="attendance-fail" class="hide fs-small">抱歉，今日的签到未能成功，请点击头像重试。</label>
+    </header>
+    <section class="box box-lr" id="pr">
+        <div class=" box box-tb box-align-center">
+            <label class="fs-small gray">我的积分</label>
+            <label id="point" class="txt">...</label>
+        </div>
+        <div class=" box box-tb box-align-center">
+            <label class="fs-small gray">我的排名</label>
+            <label id="rank" class="txt r1">...</label>
+        </div>
+    </section>
+
+    <script type='text/javascript' src='../config.js' charset='utf-8'></script>
+    <!--<script type='text/javascript' src='../js/common.js' charset='utf-8'></script>-->
+    <script type="text/javascript" src="../js/attendance.js"></script>
+</body>
+
+</html>

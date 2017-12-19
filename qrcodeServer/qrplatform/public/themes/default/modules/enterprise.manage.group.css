@@ -1,0 +1,134 @@
+.icoManage {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    font-size: 30px;
+    color: white;
+    font-family: FontAwesome;
+}
+
+.icoManageGroup::before {
+    content: '\f0c0' !important;
+}
+
+.selected {
+    background-color: white;
+}
+
+.groupManage {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.topTool {
+    margin: 30px 100px 20px 100px;
+    justify-content: flex-end;
+}
+
+.topTool .editorItem:first-child {
+    position: absolute;
+    left: 0;
+}
+
+.topTool .editorItem:last-child {
+    margin-right: 0px !important;
+}
+
+.topTool button {
+    display: inline-block;
+    width: 150px;
+    margin: 0 auto;
+    background-color: #61AEF5;
+    color: white;
+    text-overflow: ellipsis;
+    height: 41px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.topTool button:hover {
+    background-color: #1b88ee;
+    color: white;
+}
+
+#query {
+    width: 100px;
+}
+
+.groupList {
+    flex: 1;
+    margin: 0 100px 10px 100px;
+    overflow-y: auto;
+}
+
+.editorItem lable {
+    text-align: left;
+}
+
+.editorItem input {
+    width: 150px;
+    height: 41px;
+}
+
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, .3);
+    display: none;
+    z-index: 2;
+}
+
+.form {
+    height: 100%;
+    width: 500px;
+    position: absolute;
+    right: -500px;
+    top: 0;
+    background-color: white;
+    transition: right .5s;
+    z-index: 3;
+}
+
+.form .header {
+    color: white;
+    padding: 10px 20px;
+    background-color: #1b88ee;
+    border-bottom: rgba(0, 0, 0, 0.1) solid 1px;
+    flex: none;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.form .content {
+    padding: 20px;
+}
+
+.item {
+    margin-top: 20px;
+}
+
+.item label {
+    display: inline-block;
+    width: 80px;
+}
+
+.item input {
+    width: 355px;
+}
+
+.command {
+    padding: 20px;
+}
+
+.command button {
+    display: inline;
+    left: 310px;
+}

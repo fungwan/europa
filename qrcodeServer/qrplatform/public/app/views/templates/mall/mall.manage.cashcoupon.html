@@ -1,0 +1,135 @@
+<div class="manage manageproduct" ng-controller="mallCashCouponManage">
+    <h3 class="view-title">
+        <i class="fa fa-tags"></i> 优惠券管理
+    </h3>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">优惠券名称:</span>
+                        <input type="text" class="filter-item-input" placeholder="优惠券名称" ng-model="productList.queryOptions.query.productname">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">状态:</span>
+                        <select ng-model="productList.queryOptions.query.state" style="padding: 4px;">
+                            <option value="">请选择优惠券状态</option>
+                            <option value="sell">已上架</option>
+                            <option value="offshelf">已下架</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="productList.query(1)">
+                        <i class="fa fa-search"></i> 查询
+                    </button>
+                    <button class="butn butn-default" ng-click="productList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn butn-primary" ng-click="productForm.showAdd()"><i class="fa fa-plus"></i> 添加</button>
+        </m-action>
+    </div>
+
+    <div class="view-table" id="productTable">
+        <table>
+            <thead>
+                <tr>
+                    <th width="200px">创建时间</th>
+                    <th width="200px">优惠券名称</th>
+                    <th width="120px">状态</th>
+                    <th width="120px">售价(元)</th>
+                    <th width="120px">成本(元)</th>
+                    <th width="100px">总数</th>
+                    <th width="240px">优惠券描述</th>
+                    <th width="80px">编辑</th>
+                    <th width="80px">操作</th>
+                    <th width="80px">导入</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in productList.items">
+                    <td ng-bind="item.productdate | timFmart"></td>
+                    <td ng-bind="item.productname"></td>
+                    <td ng-bind="item.state | forstate"></td>
+                    <td ng-bind="item.price | currency : ''"></td>
+                    <td ng-bind="item.cost | currency : ''"></td>
+                    <td ng-bind="item.amount"></td>
+                    <td ng-bind="item.productinfo"></td>
+                    <td style="padding:0">
+                        <button class="butn butn-link" ng-click="productForm.showEdit(item)" ng-disabled="item.productor == 'erathink'">
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </button>
+                    </td>
+                    <td style="padding:0">
+                        <button class="butn butn-link" ng-show="item.state == 'sell'" ng-disabled="item.productor == 'erathink'" ng-click="productForm.offShelve(item)">
+                            <i class="fa fa-shopping-cart"></i>
+                            下架
+                        </button>
+                        <button class="butn butn-link" ng-show="item.state == 'offshelf'" ng-disabled="item.productor == 'erathink'" ng-click="productForm.shelve(item)">
+                            <i class="fa fa-shopping-cart"></i>
+                            上架
+                        </button>
+                    </td>
+                    <td style="padding:0">
+                        <button class="butn butn-link" ng-click="productForm.showImport(item)" ng-disabled="item.productor == 'erathink'">
+                            <i class="fa fa-cloud-download"></i>
+                            导入
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="productForm.showImportForm">
+        <div class="shade">
+            <div class="content" style="width: 400px;">
+                <div class="content-top">
+                    <h3 class="title">导入优惠券</h3>
+                </div>
+                <div class="content-body">
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            优惠券名称
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{productForm.product.productname}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            优惠券数量
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{productForm.product.amount}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            优惠券描述
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{productForm.product.productinfo}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            优惠券导入
+                        </h4>
+                        <div class="input-group-input">
+                            <label class="butn butn-primary"><i class="fa fa-cloud-download"></i> 导入<input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  type="file" style="display:none;" file-model="myFile" onchange="angular.element(this).scope().productForm.uploadExcel()"/></label>{{productForm.product.xls}}
+                        </div>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <button class="butn butn-primary" ng-click="productForm.confirmUpdate()">提交</button>
+                    <button class="butn butn-default" ng-click="productForm.confirmClose()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="productForm.showAddForm" ng-include="'views/templates/mall/mall.manage.cashcoupon.add.html'"></div>
+    <div ng-if="productForm.showEditForm" ng-include="'views/templates/mall/mall.manage.cashcoupon.edit.html'"></div>
+</div>

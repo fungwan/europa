@@ -1,0 +1,91 @@
+{
+    "button": [
+        {
+            "name": "商城福利",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "首页",
+                    "url": "http://n.51s.co/mall/mobile/html/marketindex.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "购物车",
+                    "url": "http://n.51s.co/mall/mobile/html/marketshopcar.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "个人中心",
+                    "url": "http://n.51s.co/mall/mobile/html/selfinfo.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "我的订单",
+                    "url": "http://n.51s.co/mall/mobile/html/marketorderlist.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "客服",
+                    "url": "http://n.51s.co/mall/mobile/html/marketindex.html",
+                    "sub_button": []
+                }
+            ]
+        },
+        {
+            "name": "品牌故事",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "申请加盟",
+                    "url": "http://n.51s.co/mall/mobile/html/getjoin.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "产品全知道",
+                    "url": "http://n.51s.co/introduce/products.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "那佰峰酒庄",
+                    "url": "http://n.51s.co/introduce/introduce.html",
+                    "sub_button": []
+                }
+            ]
+        },
+        {
+            "name": "个人中心",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "我的优惠券",
+                    "url": "http://n.51s.co/mall/mobile/html/selfdiscountcp.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "中奖记录",
+                    "url": "http://n.51s.co/mall/mobile/html/getawardrecord.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "扫码记录",
+                    "url": "http://n.51s.co/mall/mobile/html/qrrecord.html",
+                    "sub_button": []
+                },
+                {
+                    "type": "view",
+                    "name": "我的订单",
+                    "url": "http://n.51s.co/mall/mobile/html/marketorderlist.html",
+                    "sub_button": []
+                }
+            ]
+        }
+    ]
+}

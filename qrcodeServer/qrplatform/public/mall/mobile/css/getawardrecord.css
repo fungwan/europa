@@ -1,0 +1,86 @@
+html{
+    font-size: 20px;
+}
+.iconfont{
+    font-size:  1.5rem;
+}
+.clear:after{
+    display: table;
+    content: "";
+    clear: both;
+}
+.lf{
+    float: left;
+}
+.rt{
+    float: right;
+}
+/*页面背景色*/
+.page, .page-group {
+    background: #FFFFFF;
+}
+
+
+
+
+
+.listtitle{
+    padding-left: 1rem;
+    border-bottom: 1px solid #474646;
+    font-size: 0.7rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.4rem;
+    color: #706c6b;
+}
+.icontype{
+    display: inline-block;
+    height: 0.8rem;
+    width: 0.8rem;
+    margin-right: 0.4rem;
+}
+.list-container>div {
+    border-bottom: 1px solid #c0bfbe;
+    font-size: 0.65rem !important;
+}
+.list-container{
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+}
+
+.list-container>div{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+
+}
+#gradelistbox .bar-nav~.content {
+    top: 9.8rem;
+    color: #706c6b;
+    font-size: 0.6rem;
+}
+.row .red{
+    color: #fa4007 !important;
+}
+.row .blue{
+    color: #189c02 !important;
+}
+.col-20{
+    width: 20%;;
+}
+.col-25{
+    width: 25%;;
+}
+.col-40{
+    width: 40%;;
+}
+.col-40{
+    width: 40%;;
+}
+#gradelistbox .content{
+    margin-top: 1.8rem !important;
+}
+#gradelistbox .content .list-container >div{
+    padding-left: 0rem !important;
+}
+.listtitle {
+    padding-left: 0.4rem !important;
+}

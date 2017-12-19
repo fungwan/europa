@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商城产品</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <!-- <link rel="stylesheet" href="../css/static/sm-extend.min.css"> -->
+    <link rel="stylesheet" href="../css/static/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marketindex.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="page">
+            <nav class="bar bar-tab erNav">
+                <a class="tab-item external active" href="./marketindex.html">
+                        <img src="../images/marketindex/web-page-homeactive.svg" alt="个人中心">
+                        <span class="tab-label">首页</span>
+                    </a>
+                <a class="tab-item external" href="./marketshopcar.html">
+                        <img src="../images/marketindex/online-shopping-cart.svg" alt="购物车">
+                        <span class="tab-label">购物车</span>
+                    </a>
+                <a class="tab-item external" href="./selfinfo.html">
+                    <!--<span class="icon icon-me" style="font-size: 2.3rem;"></span>-->
+                    <img src="../images/marketindex/user.svg" alt="个人中心" class="selfcenter">
+                </a>
+                <a class="tab-item external" href="./marketorderlist.html">
+                        <img src="../images/marketindex/reusable-shopping-bag.svg" alt="我的订单" >
+                        <span class="tab-label" >我的订单</span>
+                    </a>
+                <a class="tab-item external" href="#">
+                        <img src="../images/marketindex/headphones.svg" alt="客服" >
+                        <span class="tab-label" >客服</span>
+                    </a>
+            </nav>
+            <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" style="bottom:3rem">
+                <!--列表-->
+                <!-- Slider -->
+                <!-- <div id="ad1" class="swiper-container" data-space-between='10'>
+                    <div class="swiper-wrapper" id="adimg1">
+                    </div>
+                    <div class="swiper-pagination swiper-p1"></div>
+                </div> -->
+                <div>
+                    <img src="../images/marketindex/ad.jpg" alt="" style="width:100%;">
+                </div>
+                <div class="exchange"><a href="./marketgradeexchange.html" class="button external" >立即兑换</a></div>
+                <div class="cardbox list-container">
+                    <!-- <div class="item">
+                        <img src="../images/marketindex/那千红.单品立式纸盒装.jpg" alt="">
+                        <div class="prizeBox">
+                            <div><span class="prizeTxt">价格：</span><span class="prize">100</span></div><div><a class="btnMore"></a></div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- 加载提示符 -->
+                <div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <!-- <script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script> -->
+    <script type='text/javascript' src='../js/static/swiper-3.4.2.jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../config.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/marketindex.js' charset='utf-8'></script>
+    <script>
+        $.init()
+    </script>
+</body>
+
+</html>

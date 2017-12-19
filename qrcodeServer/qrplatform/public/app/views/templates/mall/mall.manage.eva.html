@@ -1,0 +1,188 @@
+<div class="manage manageeva" ng-controller="mallevaManage">
+    <h3 class="view-title">
+        <i class="fa fa-star"></i>
+        评价管理
+    </h3>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">商品名称:</span>
+                        <input type="text" class="filter-item-input" 
+                            placeholder="商品名称" 
+                            ng-model="evalList.queryOptions.productname">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">关键字查询:</span>
+                        <input type="text" class="filter-item-input" placeholder="评价内容" ng-model="evalList.queryOptions.key">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">审核状态:</span>
+                        <select ng-model="evalList.queryOptions.state" style="padding: 4px;">
+                            <option value="">请选择审核状态</option>
+                            <option value="0">待审核</option>
+                            <option value="1">审核已通过</option>
+                            <option value="2">审核未通过</option>
+                        </select>
+                    </div>
+                    <!--<div class="filter-item">
+                        <span class="filter-item-label">
+                            <label style="cursor: pointer" for="sensitiveflag">
+                                启用敏感词查询:
+                            </label>
+                        </span>
+                        <input ng-model="evalList.queryOptions.sensitiveflag" 
+                            ng-true-value="1" 
+                            ng-false-value="0" 
+                            type="checkbox" class="filter-item-input" id="sensitiveflag">-->
+                        <!--<input type="text" class="filter-item-input" placeholder="敏感词" ng-model="eva.kk">-->
+                        <!--<button class="butn butn-primary" ng-click="isshowkey()"><i class="fa fa-cog"></i>敏感词设置</button>-->
+                    <!--</div>-->
+                    <!--<div class="filter-item" style="margin-left: 14px;" ng-show="eva.showkey">-->
+                        <!--<span class="filter-item-label" style="margin-bottom: 4px;">敏感词设置:</span>-->
+                        <!--<textarea cols="80" rows="10" placeholder="请用‘|’隔开，例如：你|我|他" style="margin-left: 30px;"></textarea>-->
+                        <!--<button class="butn butn-primary" style="margin-left: 30px;"><i class="fa fa-sub"></i>保存</button>-->
+                        <!--<button class="butn butn-default" style="margin-left: 30px;" ng-click="closeshow()"><i class="fa fa-sub"></i>取消</button>-->
+                    <!--</div>-->
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary"
+                            ng-click="evalList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default"
+                            ng-click="evalList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn" style="visibility: hidden;">占位按钮</button>
+        </m-action>
+    </div>
+    <div class="view-table" id="evalTable">
+        <table>
+            <thead>
+            <tr>
+                <th width="200px">评价时间</th>
+                <th width="200px">订单编号</th>
+                <th width="200px">商品名称</th>
+                <th width="100px">买家姓名</th>
+                <th width="100px">评分</th>
+                <th width="240px">评价内容</th>
+                <th width="100px">审核状态</th>
+                <th width="100px">审核</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in evalList.items">
+                <td ng-bind="item.createtime | timFmartm"></td>
+                <td ng-bind="item.mallorder.orderbm"></td>
+                <td ng-bind="item.mallproduct.productname"></td>
+                <td ng-bind="item.nickname"></td>
+                <td ng-bind="item.score"></td>
+                <td ng-bind="item.info"></td>
+                <td ng-bind="item.state | state"></td>
+                <td style="padding:0">
+                    <button class="butn butn-link"
+                            ng-click="auditForm.show(item)">
+                        <i class="fa fa-edit"></i> 审核
+                    </button>
+                </td>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="auditForm.showForm">
+        <div class="shade">
+            <div class="content" style="width: 400px;">
+                <div class="content-top">
+                    <h3 class="title">评价详情</h3>
+                </div>
+                <div class="content-body">
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            评价时间
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{auditForm.eval.createtime | timFmartm}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            订单编号
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{auditForm.eval.mallorder.orderbm}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            商品名称
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{auditForm.eval.mallproduct.productname}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            买家姓名
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{auditForm.eval.nickname}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            评分
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{auditForm.eval.score}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            评价内容
+                        </h4>
+                        <div class="input-group-input">
+                            <span><textarea name="info"  cols="30" disabled>{{auditForm.eval.info||""}}</textarea></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            审核通过
+                        </h4>
+                        <div class="input-group-input">
+                            <span style="display: inline-block;width: 100px">
+                                <label style="cursor: pointer;display: inline-block;width: 100%;">
+                                    是
+                                    <input name="evastate" type="radio" value="1" style="display: inline-block;width: 20px;" ng-model="auditForm.state">
+                                </label>
+                            </span>
+                            <span style="display: inline-block;width: 100px">
+                                <label style="cursor: pointer;display: inline-block;width: 100%;">
+                                    否
+                                    <input name="evastate" type="radio" value="2" style="display: inline-block;width: 20px;" ng-model="auditForm.state">
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            备注
+                        </h4>
+                        <div class="input-group-input">
+                            <textarea name="remark" id="" cols="30" rows="2" ng-model="auditForm.remark" ng-class="{error: auditForm.errors.remark}"></textarea>
+                            <span ng-if="auditForm.errors.remark"
+                                class="error-msg">{{auditForm.errors.remark}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <button class="butn butn-primary" ng-click="auditForm.audit()">提交</button>
+                    <button class="butn butn-default" ng-click="auditForm.close()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

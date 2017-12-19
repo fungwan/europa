@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marketgoodsdetail.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="page page-current" style="background: white" id="sw">
+            <div class="opup">
+                <!--<div class="picimg"><img src="../images/self/1.jpg" alt="" width="80"></div>-->
+                <!--<span class="clos">×</span>-->
+                <!--<div class="ppname">名字</div>-->
+                <!--<div class="pppice">￥50积分</div>-->
+                <!--<div class="tol">合计：2×34 <span class="ptol">233</span>积分</div>-->
+                <!--<div class="ponum clear"><span class="lf">数量</span><span class="numgroup rt"><span class="numdel" data-sid="${d[i].mallproduct.productid}">-</span><input data-sid="${d[i].mallproduct.productid}" data-numid="${d[i].id}" id="${d[i].mallproduct.productid}val" type="number" class="goodsnum" value="${d[i].number}" data-max="${d[i].mallproduct.amount}"><span class="numadd" data-sid="${d[i].mallproduct.productid}">+</span></span></div>-->
+                <!--<div class="sureaddshop">确定</div>-->
+            </div>
+            <div class="opupnet">
+                <!--<div class="picimg"><img data-img="${info.productimage}" src="${config.mall.productimageurl+info.productimage+'-'+config.mall.productimagestyle}" alt="" width="80" height="80"></div>-->
+                <!--<div class="picimg" id='fly'><img data-img="${info.productimage}" src="${config.mall.productimageurl+info.productimage+'-'+config.mall.productimagestyle}" alt="" width="80" height="80"></div>-->
+                <!--<span data-type="net" class="clos">×</span>-->
+                <!--<div class="ppname">订购流量包</div>-->
+                <!--<div class="tolnet">-->
+                <!--<div class="netphone clear">-->
+                <!--<div class="tname lf">充值号码：</div>-->
+                <!--<div class="module lf"><input id="netphonenumber" type="phone" placeholder="充值号码"></div>-->
+                <!--</div>-->
+                <!--<div class="nettype clear">-->
+                <!--<div class="tname lf">充值类型：</div>-->
+                <!--<div class="module lf"><label><input type="radio" name="nettype" value="1"><span>省内</span></label><label><input type="radio" name="nettype" value="0"><span>全国</span></label></div>-->
+                <!--</div>-->
+                <!--<div class="netval clear">-->
+                <!--<div class="tname lf">充值规格：</div>-->
+                <!--<div class="module lf"><label><input type="radio" name="netval" value="5"><span>5M</span></label><label><input type="radio" name="netval" value="100"><span>100M</span></label><label><input type="radio" name="netval" value="1024"><span>1G</span></label></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="ponum clear"></div>-->
+                <!--<div data-type="net" class="sureaddshop" data-productid=${info.productid}>确定</div>-->
+            </div>
+            <header class="bar bar-nav" style="padding: 0;height: 2rem">
+                <div class="buttons-tab" style="height: 2rem;border-bottom: 1px solid #fc4606;">
+                    <a href="#tab1" class="tab-link active button" id="spp">商品</a>
+                    <a href="#tab2" class="tab-link button" id="xq">详情</a>
+                    <a href="#tab3" class="tab-link button" id="pjj" style="display:none;">评价</a>
+                </div>
+                <div class="evahead row no-gutter">
+                    <div class="evaitem col-25 active" data-leve="" id="alleva">全部评价<br/></div>
+                    <div class="evaitem col-25" data-leve="0" id="inittricker">好评<br/></div>
+                    <div class="evaitem col-25" data-leve="1" id="initmid">中评<br/></div>
+                    <div class="evaitem col-25" data-leve="2" id="initbad">差评<br/></div>
+                </div>
+            </header>
+            <nav class="bar bar-tab bbar" style="height: 2rem;border-top: 0px;font-size: 0.8rem;display:flex;flex-flow:row nowrap">
+                <a style="height: 2rem;line-height:2rem;display:none;background: #f1f1f1; color:#111;width: 8rem;" class="tab-item mycart external" href="./marketshopcar.html">
+                    购物车
+                </a>
+                <!--<span style="height: 2rem;background: red;border-right:1px solid #fff;color:#fff" class="tab-item external addcollect">加入收藏</span>-->
+                <span style="height: 2rem;line-height:2rem;background: red; flex:1;text-align:center" class="addshop"></span>
+            </nav>
+            <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" style="top:2rem;">
+                <div class="content-block" style="margin: 0;padding: 0">
+                    <div class="tabs">
+                        <!--商品基本信息-->
+                        <div id="tab1" class="tab active">
+                            <div class="content-block" style="margin: 0;padding: 0">
+                                <!-- Slider -->
+                                <div class="swiper-container" data-space-between='10' style="height: 16rem">
+                                    <div class="swiper-wrapper">
+                                        <!--<div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>-->
+                                        <!--<div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>-->
+                                        <!--<div class="swiper-slide"><img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""></div>-->
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                                <!--标题信息-->
+                                <!--<div class="inbom clear">-->
+                                <!--<div class="bx lf">-->
+                                <!--<div class="bomiem mark product lf">礼品</div>-->
+                                <!--<div class="bomiem txtt lf">-->
+                                <!--<div class="tit">百威啤酒</div>-->
+                                <!--<div class="leve"><span class="iconfont icon-heart2"></span><span class="iconfont icon-heart2"></span><span class="iconfont icon-heart2"></span><span class="iconfont icon-heart3"></span></div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="bomiem price rt">-->
+                                <!--<div>所需积分 <span class="pics">100</span></div>-->
+                                <!--<div>市场参考价 <span>￥65.00</span></div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <div class="clear pro-info-box">
+                                    <!--<div class="pro-info lf pro-info-lf">-->
+                                    <!--<div class="pro-info-lf-item lf pro-lf lf">-->
+                                    <!--<span class="type product">礼品</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="pro-info-lf-item lf pro-right">-->
+                                    <!--<div class="pro-info-lf-item-name">百威啤酒百威啤酒百威啤酒百威啤酒百威啤酒百威啤酒百威啤酒百威啤酒百威啤酒百威啤酒</div>-->
+                                    <!--<div class="leve"></div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="pro-info lf pro-info-rt">-->
+                                    <!--<div>所需积分 <span class="pics">100</span></div>-->
+                                    <!--<div>市场参考价 <span>￥65.00</span></div>-->
+                                    <!--</div>-->
+                                </div>
+                                <!--商品简介-->
+                                <div class="maincon">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--商品介绍-->
+                        <div id="tab2" class="tab">
+                            <div class="content-block" id="produce">
+                                <div class="qouponList">
+                                    <div class="qouponList-title" style="display: none;">礼券包含商品 <span>（点击查看详情）</span></div>
+                                    <div class="qouponListBox">
+                                        <!--<div class="row">-->
+                                        <!--<div class="col-33">名称</div>-->
+                                        <!--<div class="col-33">单价</div>-->
+                                        <!--<div class="col-33">数量</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                    <div class="qouponListBoxtime">
+                                        <!--<div class="row">-->
+                                        <!--<div class="col-33">名称</div>-->
+                                        <!--<div class="col-33">单价</div>-->
+                                        <!--<div class="col-33">数量</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                                <div class="produce">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--评价-->
+                        <div id="tab3" class="tab" style="margin-top: 3rem;">
+                            <div class="content-block cardbox list-container" style="margin: 0;padding: 0">
+                            </div>
+                            <!-- 加载提示符 -->
+                            <div class="infinite-scroll-preloader">
+                                <div class="preloader"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--红包提交之后的消息-->
+        <div class="page " id="orderinfo">
+            <div class="content">
+                <div class="orinfo">
+                    <!--<p class="mtit"><img src="../images/marketindex/redsucc.gif" alt="">您的订单提交成功,请注意接收红包。</p>-->
+                    <!--&lt;!&ndash;<p class="mtit"><img src="../images/marketindex/redfail.gif" alt="">您的订单提交失败,请去我的订单尝试重新发送。</p>&ndash;&gt;-->
+                    <!--<p class="order">订单编号：123123123 </p>-->
+                    <!--<p class="order">订单时间：2017-01-22 22:22:22</p>-->
+                    <!--<p class="order">订单总额：123积分</p>-->
+                    <!--<p><a href="./marketorderlist.html" class="button-big button button-success button-fill">查看订单</a></p>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/moment.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/swiper-3.4.2.jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../config.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/marketgoodsdetail.js' charset='utf-8'></script>
+    <script>
+        $.init()
+    </script>
+</body>
+
+</html>

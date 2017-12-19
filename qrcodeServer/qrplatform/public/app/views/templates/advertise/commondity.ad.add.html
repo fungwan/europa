@@ -1,0 +1,85 @@
+<div class="ad-add-container">
+    <div class="add-container">
+
+        <div class="filter-top">
+            <!--搜索-->
+            <div class="filter-search">
+                <div class="filter-title">标题关键字搜索</div>
+                <input class="filter-ip" 
+                    type="text" 
+                    placeholder="请输入标题关键字" 
+                    ng-model="setarticleAdid.queryOptions.key">
+                <button class="butn butn-default" ng-click="setarticleAdid.getArticlesList()">
+                    <i class="fa fa-search"></i> 搜索
+                </button>
+            </div>
+            <!--广告位设置-->
+            <div class="filter-setting">
+                <div class="setting-item">
+                    <div class="filter-title">广告位选择：</div>
+                    <select ng-model="setarticleAdid.adverOptions.adtype" style="padding: 4px;">
+                        <option value="">请选择广告位</option>
+                        <option ng-repeat="item in positionlist" 
+                                ng-bind="item.title" 
+                                value="{{item.adtype}}">
+                        </option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <div class="filter-title">广告展示时间设置：</div>
+                    <input class="filter-ip" 
+                           type="date" 
+                           placeholder="请选择开始时间" 
+                           ng-model="setarticleAdid.adverOptions.begtime"><label class="time-mid">~
+                    </label><input class="filter-ip" 
+                           type="date" 
+                           placeholder="请选择结束时间" 
+                           ng-model="setarticleAdid.adverOptions.endtime">
+                </div>
+            </div>
+
+        </div>
+
+        <!--促销文章列表 start-->
+        <div class="filter-table">
+            <div class="view-table" id="viewTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="18%">标题</th>
+                            <th width="14%">关键字</th>
+                            <th width="25%">创建时间</th>
+                            <th width="10%">状态</th>
+                            <th width="25%">摘要</th>
+                            <th width="8%">添加</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in setarticleAdid.articleslist">
+                            <td ng-bind="item.title"></td>
+                            <td ng-bind="item.keyword"></td>
+                            <td ng-bind="item.createtime | timFmartm"></td>
+                            <td ng-bind="item.state | commonditySaleState"></td>
+                            <td ng-bind="item.summary" style="overflow: hidden"></td>
+                            <td>
+                                <button class="butn butn-link" 
+                                        ng-click="setarticleAdid.add(event, item.artid)">
+                                    <i class="fa fa-plus"></i> 添加
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--促销文章列表 end-->
+
+        <div class="btn-back">
+            <i class="fa fa-times-circle" 
+               ng-click="setarticleAdid.closeForm()"
+               title="关闭">
+            </i>
+        </div>
+
+    </div>
+</div>

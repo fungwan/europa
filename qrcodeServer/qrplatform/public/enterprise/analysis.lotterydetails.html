@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中奖明细查询--万码易联</title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<body>
+<div class="horizontalFlexBox fb">
+    <div class="activityInfo">
+        <div class="chooseActivity">活动列表</div>
+        <div class="activities verticalFlexBox vscrollable">
+        </div>
+    </div>
+    <div class="lottery flex verticalFlexBox">
+        <div class="quesNoAct">
+            您还未创建活动，马上前往： <span class='goCreateAct'>创建活动</span>
+        </div>
+        <div class="editorSet">
+            <div class="editorGroup">
+                <div class="editorItem">
+                    <label data-lang="questionnaire.chooseArea"></label>
+                    <button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="areacode">选择区域</button>
+                </div>
+                <div class="editorItem">
+                    <label data-lang="开始时间"></label>
+                    <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date" data-level="top"
+                            name="start_time" value="" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                </div>
+                <div class="editorItem">
+                    <label data-lang="结束时间"></label>
+                    <button class="endTime datetimepicker" data-type="datepicker" data-popup="datepicker" data-format="date"
+                            data-level="top" name="end_time" value="" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                </div>
+                <div class="editorItem">
+                    <label for="prize" data-lang="奖项等级"></label>
+                    <button id="prize" class="choosePrize" value="" data-popup="choosePrize" data-type="selector" name="prize">全部</button>
+                </div>
+                <div class="editorItem">
+                    <label for="state" data-lang="派发状态"></label>
+                    <button class="choosePrize" id="state" value="" data-popup="chooseState" data-type="selector" name="state">全部</button>
+                </div>
+                <div class="editorItem">
+                    <label for="keywords" data-lang="关键字"></label>
+                    <input id="keywords" class="keywords" placeholder="请输入关键字" title="15字符以内" maxlength='15' value="" name="keywords" />
+                </div>
+                <div class="editorItem">
+                    <label>&nbsp;</label>
+                    <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                </div>
+                <div class="editorItem">
+                    <label>&nbsp;</label>
+                    <button class="wfico distribute submit" value="distribute">派发失败红包</button>
+                </div>
+            </div>
+        </div>
+        <div class="flex content">
+            <div id="noticeMessage"></div>
+            <div class="lotteryList datagrid"></div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="choosePrize" data-type="selector"></div>
+<div class="popup" id="chooseState" data-type="selector">
+    <button value="">全部</button>
+    <button value="normal">红包未发送</button>
+    <button value="sending">正在发送中</button>
+    <button value="success">发送成功</button>
+    <button value="sendfalse">发送失败</button>
+    <button value="refund">已退款</button>
+</div>
+<div class="popup" data-type="datepicker" id="datepicker"></div>
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.analysis.lotterydetails" data-deps="datagrid,citypicker,moment,dateTimePicker"></script>
+
+</body>
+</html>

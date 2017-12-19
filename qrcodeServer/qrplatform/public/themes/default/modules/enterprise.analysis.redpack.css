@@ -1,0 +1,460 @@
+.fb {
+    padding-top: 70px!important;
+}
+.tabContent {
+    margin-bottom: 40px;
+}
+.timeAnalysis > .editorGroup {
+    flex-flow: row wrap!important;
+}
+.lotteryDateAnalysis, .eachDrawAnalysis {
+    min-height: 400px;
+}
+.progress-bar {
+    /*background-color: #ffcf5b;*/
+    height: 30px;
+    /*padding: 5px;*/
+    line-height: 30px;
+    width: 350px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.progress-bar > span {
+    text-align: right;
+    display: inline-block;
+    height: 100%;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5) inset;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    word-break:keep-all;
+    white-space:nowrap;
+}
+.orange > span {
+    background-color: #fecf23;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fecf23), to(#fd7a0b));
+    background-image: -webkit-linear-gradient(top, #fecf23, #fd7a0b);
+    background-image: linear-gradient(top, #fecf23, #fd7a0b);
+}
+.shine > span {
+    position: relative;
+}
+.shine > span:after {
+    content: "";
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-animation: animate-shine 2s ease-out infinite;
+}
+@-webkit-keyframes animate-shine {
+    0% {
+        opacity: 0;
+        width: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 0;
+        width: 95%;
+    }
+}
+.activityInfo {
+    min-width: 120px;
+    margin: 10px 10px 40px 10px;
+    padding-right: 10px;
+    border-right: 1px solid #d6d6d6;
+}
+.editorItem > progress {
+    height: 25px;
+    color: #fff;
+}
+.chooseActivity {
+    margin-bottom: 6px;
+}
+.labelLinkCheckbox + label {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.activities {
+    max-height: 320px;
+    overflow-x: hidden;
+}
+.activities > div {
+    margin-bottom: 2px;
+}
+.activities > .spinnerLoader{
+    display: none!important;
+}
+.activities button {
+    min-width: 150px;
+    max-width: 200px;
+    justify-content: flex-start;
+    border: none;
+    background-color: transparent;
+    word-break: break-all;
+}
+.activities button:hover {
+    background-color: #f0f0f0;
+ }
+.activityClicked {
+    /*transform: skewX(10deg);*/
+    /*transition: transform 500ms linear;*/
+    background-color: #4fcaff!important;
+    /*background: linear-gradient(-45deg, transparent 10px, #4fcaff 0);*/
+    color: #fff;
+}
+.activityClicked::after {
+    content: "";
+    width:0;
+    height:10px;
+    position: absolute;
+    right: 14px;
+    top: 0;
+    z-index: 999;
+    border-left:5px solid #C93636;
+    border-right:5px solid #C93636;
+    border-bottom:5px solid transparent;
+    /*-webkit-transform: rotate(20deg);*/
+    /*-webkit-animation: ribbonshake 1s linear infinite forwards alternate;*/
+}
+/*@-webkit-keyframes ribbonshake {*/
+    /*from {*/
+        /*-webkit-transform: rotate(20deg);*/
+    /*}*/
+    /*to {*/
+        /*-webkit-transform: rotate(-20deg);*/
+    /*}*/
+/*}*/
+.analysisChooseActivities {
+    margin:10px
+}
+.analysisChooseActivities div {
+    margin-right:15px
+}
+.survey {
+    direction: rtl;
+    position: absolute;
+    right: 20px;
+}
+.survey > div {
+    margin-right: 30px;
+    display: inline-block;
+}
+.number, .allmoney, .person {
+    font-size: 18px;
+    color: #f40;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+.number::after, .allmoney::after, .person::after {
+    position: absolute;
+    bottom: -10px;
+    right: -15px;
+    font-size: 13px;
+    font-style: normal;
+}
+.number::after {
+    content: "个";
+}
+.allmoney::after {
+    content: "元";
+}
+.person::after {
+    content: "人";
+}
+.prize::before {
+    content:"\f0e0"
+}
+.map::before {
+    content:"\f041"
+}
+.clock::before {
+    content:"\f017"
+}
+.times::before {
+    content:"\f0e4"
+}
+.search::before {
+    content:"\f002"
+}
+.global::before {
+    content: "\f085";
+}
+button.global {
+    background-color: #24a5ff!important;
+    color: #fff;
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+}
+button.global:hover {
+    background-color: #0e93ff !important;
+}
+.editorSet {
+    padding: 10px 0!important;
+}
+.chooseArea {
+    margin-left:15px;
+    margin-right:15px
+}
+#citySelector {
+    max-height:300px !important;
+    overflow:hidden !important
+}
+#citySelector {
+    display:flex;
+    flex-flow:row nowrap
+}
+#citySelector .title {
+    padding:10px 25px 10px 20px;
+    font-weight:bold
+}
+#citySelector button.link {
+    background-color:#aaaaaa
+}
+.btn_citySelector {
+    width: auto!important;
+}
+.startTime, .endTime {
+    width: auto!important;
+}
+#topNum {
+    width: 80px;
+}
+.chooseTitle {
+    left:10px
+}
+.entiretyPrize {
+    width:100%;
+    padding-bottom:10px;
+    border-bottom:1px dashed #f40
+}
+.entiretyPrize::before {
+    content:"\f0c4";
+    font-size:20px;
+    position:absolute;
+    bottom:-8px;
+    left:-10px;
+    -webkit-transform:rotate(20deg)
+}
+.areaAnalysisBoard {
+    overflow-x: hidden;
+}
+.areaAnalysisBoard > div {
+    width:50%;
+    margin-top:10px;
+    overflow-x: hidden;
+}
+.lotteryDateAnalysis,.eachDrawAnalysis {
+    width:100% !important;
+    margin-top:20px;
+    overflow-x: hidden;
+}
+
+.countPrize {
+    border-collapse:collapse;
+    width:90%;
+    margin-left:5%;
+    margin-right:5%
+}
+.countPrize td {
+    border:1px solid #ccc;
+    height:50px;
+    padding:0 20px;
+    text-align:center
+}
+.countOption {
+    color:#f40;
+    min-width:120px
+}
+.countNumber {
+    font-weight:bold;
+    min-width:80px
+}
+.lotteryAreaAnalysis {
+    width: 50%;
+    min-height: 400px;
+}
+.btnChoosePrize {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:999
+}
+.hasPrizeAnalysis {
+    width: 50%;
+    height: 400px
+}
+.prizeprogress {
+    overflow-x: hidden;
+}
+.prizeDesc {
+    width: 50%;
+}
+.desc {
+    width: 90%;
+    margin-left: 10px;
+}
+.desc p {
+    margin: 0 0 10px 0;
+    word-break: break-all;
+}
+.prizeTable {
+    border-collapse:collapse;
+    width:30%;
+    min-width: 230px;
+    margin-left:2%;
+}
+.prizeTable th,.prizeTable td {
+    min-width: 125px;
+    border:1px solid #b0b0b0;
+    text-align:center;
+    padding:10px 20px
+}
+.prizeTable th {
+    font-weight:bold;
+    color:#f40
+}
+.quesNoAct {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.98;
+    padding-top: 50px;
+    padding-left: 50px;
+    font-size: 18px;
+}
+.goCreateAct {
+    display: inline-block;
+    margin-left: 5px;
+    text-decoration: underline;
+    color: #f40;
+    cursor: pointer;
+    font-size: 25px;
+}
+/**sleepman*/
+.nodata {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #484751;
+}
+.sleepman{
+    height: 180px;
+    width: 100px;
+    margin: 0 auto;
+}
+.sleepman div {
+    background: #00a5ff;
+    position: relative;
+}
+.head{
+    width: 80px;
+    height: 50px;
+    top: 35px;
+    border-radius: 80px 80px 0 0;
+    -webkit-transition: all 0.1s ease-in;
+}
+.eye {
+    background: #fff;
+    width: 50px;
+    height: 10px;
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    -webkit-border-radius: 20px;
+    -webkit-transform: rotate(-15deg);
+}
+.body{
+    width: 80px; height: 80px;
+    top: 40px;
+    border-radius: 0 0 25px 25px;
+    -webkit-border-radius: 0 0 25px 25px;
+    -moz-border-radius: 0 0 25px 25px;
+}
+.l_leg, .r_leg {
+    width: 25px;
+    height: 30px;
+    position: absolute;
+    -webkit-transition: all 0.1s ease-in;
+    -webkit-border-radius: 0 0 15px 15px;
+}
+.l_leg {
+    top: 60px;
+    left: 16px;
+}
+.llegAni {
+    -webkit-animation: lleg 300ms infinite;
+    animation-direction: alternate;
+}
+@-webkit-keyframes lleg {
+    from {
+        -webkit-transform: rotate(0deg) translate(5px, 0px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}
+.r_leg {
+    top: 28px;
+    left: 45px;
+}
+.rlegAni {
+    -webkit-animation: rleg 300ms infinite;
+    animation-direction: alternate;
+    animation-delay: 200ms;
+}
+@-webkit-keyframes rleg {
+    from {
+        -webkit-transform: rotate(0deg) translate(5px, 0px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}
+.sleep {
+    -webkit-animation: head 2s infinite;
+    animation-direction: alternate;
+}
+@-webkit-keyframes head {
+    from {
+        -webkit-transform: rotate(-5deg) translate(-4px, -8px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}
+/*.l_arm:hover{*/
+    /*-webkit-transform: rotate(-100deg) translate(-10px, 110px);*/
+/*}*/
+.happy {
+    -webkit-animation: happy 300ms infinite;
+    animation-direction: alternate;
+}
+@-webkit-keyframes happy {
+    from {
+        -webkit-transform: rotate(0deg) translate(0px, -1px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}
+
+.qr-footer {
+    z-index: 999;
+    padding: 10px 0;
+}

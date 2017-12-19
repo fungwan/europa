@@ -1,0 +1,74 @@
+<div>
+            <div class="shade">
+                <div class="content" style="width: 400px;">
+                    <div class="content-top">
+                        <h3 class="title">添加奖项</h3>
+                    </div>
+                    <div class="content-body">
+                        <div class="input-group">
+                            <h4 class="input-group-label">
+                                奖项名称
+                            </h4>
+                            <div class="input-group-input">
+                                <input type="text" placeholder="奖项名称不超过10个字" ng-model="lotteryForm.lotteryitems.prizename" ng-class="{error: lotteryForm.error.prizename}">
+                                <span class="error-msg" ng-if="lotteryForm.error.prizename">
+                        {{lotteryForm.error.prizename}}
+                    </span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <h4 class="input-group-label">
+                                中奖概率(1表示必定中该奖项)
+                            </h4>
+                            <div class="input-group-input">
+                                <input type="number" placeholder="0-1小数" ng-model="lotteryForm.lotteryitems.ratio" ng-class="{error: lotteryForm.error.ratio}">
+                                <span class="error-msg" ng-if="lotteryForm.error.ratio">
+                        {{lotteryForm.error.ratio}}
+                        </div>
+                        <div class="input-group">
+                            <h4 class="input-group-label">
+                                最大中奖人数(中奖概率为1时，最大中奖人数不限)
+                            </h4>
+                            <div class="input-group-input">
+                                <input ng-hide="lotteryForm.lotteryitems.ratio==1" ng-disabled="lotteryForm.lotteryitems.ratio==1" type="number" placeholder="请输入正整数" ng-model="lotteryForm.lotteryitems.maxnumber" ng-class="{error: lotteryForm.error.maxnumber}">
+                                <span class="error-msg" ng-if="lotteryForm.error.maxnumber">
+                        {{lotteryForm.error.maxnumber}}
+                    </span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <h4 class="input-group-label">
+                                奖品
+                                <button class="butn butn-primary" ng-click="lotteryForm.showProductionList()">
+                            <i class="fa fa-plus"></i> 添加
+                        </button>
+                        <span class="error-msg" ng-if="lotteryForm.error.productname" style="font-size:14px;color:red;">
+                        {{lotteryForm.error.productname}}
+                    </span>
+                            </h4>
+                            <div class="input-group-input">
+                                <span ng-bind="lotteryForm.lotteryitems.productname"></span>
+                            </div>
+                        </div>
+                         <div class="input-group">
+                            <h4 class="input-group-label">
+                                每次中奖的奖品个数
+                            </h4>
+                            <div class="input-group-input">
+                                <input type="number" placeholder="请输入正整数" ng-model="lotteryForm.lotteryitems.productnumber" ng-class="{error: lotteryForm.error.productnumber}">
+                                <span class="error-msg" ng-if="lotteryForm.error.productnumber">
+                        {{lotteryForm.error.productnumber}}
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <button class="butn butn-primary" ng-click="lotteryForm.addLotteryFormItem()">提交</button>
+                    <button class="butn butn-default" ng-click="lotteryForm.closelotteryFormItem()">关闭</button>
+                </div>
+            </div>
+            <div ng-if="lotteryForm.showProduct" 
+     ng-include="'views/templates/mall/mall.manage.lottery.addProductList.html'"></div>
+        </div>
+        

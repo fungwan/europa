@@ -1,0 +1,201 @@
+/*
+.info {margin-bottom: 20px}
+
+/!*找回密码--填写邮件界面*!/
+#sendMessage {
+    /!*display: none;*!/
+/!*bacskground-color:#F8FCFF ;*!/
+}
+
+#editSendMessage {
+    text-align: left;
+    margin: 100px auto;
+    /!*border: 1px solid #cccccc;*!/
+    background-color: white;
+    width: 800px;
+
+}
+.editHead {
+    text-align: left;
+    margin-bottom: 10px;
+
+}
+.editHead span {
+    vertical-align: middle;
+}
+
+.editBody {
+    margin-bottom: 40px;
+}
+.editFooter label,.editFooter a {
+    display: none;
+}
+#submit {
+    display: inline-block;
+
+}
+#mail {
+    width: 300px;
+}
+/!*#redirectMailConfirm{
+      display: inline-block;
+}*!/
+
+
+
+/!*找回密码--找回成功界面*!/
+#getNewPassSuccess {
+    /!*background-color:#F8FCFF ;*!/
+    display: none;
+}
+#editGetNewPassSuccess {
+    text-align: center;
+    margin: 100px auto;
+    /!*border: 1px solid #cccccc;*!/
+    background-color: white;
+    width: 800px;
+}
+.successHead {
+    text-align: left;
+    margin-bottom: 10px;
+
+}
+.successHead span {
+    vertical-align: middle;
+}
+
+.successBody {
+
+}
+
+.successBody>button {
+    margin-top: 20px;
+}
+*/
+
+#getNewPassSuccess {
+    /*background-color:#F8FCFF ;*/
+    /*display: none;*/
+}
+/*
+#editGetNewPassFalse {
+    text-align: left;
+    margin: 100px auto;
+    /!*border: 1px solid #cccccc;*!/
+    background-color: white;
+    width: 800px;
+
+}
+.falseHead {
+    text-align: left;
+    margin-bottom: 10px;
+
+}
+.falseHead span {
+    vertical-align: middle;
+}
+
+.falseBody {
+
+}
+
+.falseBody>button {
+    margin-top: 20px;
+}
+.falseFooter {
+    margin-top: 30px;
+}
+.falseFooter label{
+    display: none;
+}
+#sendMessageAgain {
+    display: inline-block;
+}*/
+
+.fb {
+    bottom: 15%;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h3 {
+    font-size: 16px;
+    line-height: 180%;
+}
+
+.header{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: #019fa0;
+    color: white;
+    font-size: 84px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+.successHeader{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: #FFF987;
+    color: white;
+    font-size: 84px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+.successHeader::before {
+    font-family: FontAwesome;
+    content: '\f118';
+    text-shadow: rgba(0, 111, 111, .6) 0px 2px 3px;
+}
+
+.header::before {
+    font-family: FontAwesome;
+    content: '\f13e';
+    text-shadow: rgba(0, 111, 111, .6) 0px 2px 3px;
+}
+
+.buttonGroup button {
+    font-size: 20px;
+    padding: 10px 50px;
+    height: auto;
+}
+
+.buttonGroup {
+    margin: 20px 0px 0px 0px;
+}
+
+.buttonGroup .send,.buttonGroup .change {
+    background-color: #019fde;
+    color: white;
+}
+
+.buttonGroup .send:hover,.buttonGroup .change:hover {
+    background-color: #007cdc;
+}
+
+.buttonGroup .go,.buttonGroup .close {
+    background-color: #ff8345;
+    color: white;
+}
+
+.buttonGroup .go:hover ,.buttonGroup .close:hover{
+    background-color: #ff1344;
+    color: white;
+}
+
+input {
+    font-size: 18px;
+    padding: 15px;
+    min-width: 480px;
+    text-align: center;
+}
+
+#resend.closed, #go.closed {
+    display: none;
+}
+

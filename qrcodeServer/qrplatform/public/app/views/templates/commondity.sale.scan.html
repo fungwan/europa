@@ -1,0 +1,20 @@
+<div class="shade saleScale">
+    <div class="content">
+        <div class="phonecontent" style="height:590px;width: 290px">
+            <div class="continfo" style="overflow-y:scroll">
+                <div class="card" style="margin: 0">
+                    <div class="card-header" ng-bind="commondity.title" style="font-size: 1.3rem;"></div>
+                    <div class="subtitle auth" style="font-size: 0.7rem;"><span class="tim" ng-bind="commondity.publishtime | timF"></span><span class="auo" ng-bind="commondity.author"></span></div>
+                    <div class="subtitle" style="text-indent: 1rem" ng-bind="commondity.summary"></div>
+                    <div class="card-content contcont" style="padding-left: 10px;padding-right: 10px">
+                        <div class="card-content-inner" ng-bind-html="commondity.content" id="sccont"></div>
+                    </div>
+                    <div class="foot" title="{{commondity.authorurl}}" style="cursor: pointer;margin-top: 10px;margin-left: 10px;color: blue">原文地址</div>
+                </div>
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-primary" ng-click="closescan()">关闭</button>
+        </div>
+    </div>
+</div>

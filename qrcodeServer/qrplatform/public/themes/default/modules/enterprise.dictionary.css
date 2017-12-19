@@ -1,0 +1,128 @@
+
+.groupManage {
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#hand {
+    position: absolute;
+    top: 120px;
+    font-size: 32px;
+    color: #61AEF5;
+    left: 45px;
+    z-index: 5;
+
+}
+
+.groupMenu {
+    width: 220px;
+    background-color: #F5F5F5;
+}
+
+.pageIcon {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.icoManage {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    font-size: 22px;
+    color: white;
+    font-family: FontAwesome;
+    margin-left: 10px;
+}
+
+.icoManageGroup::before {
+    content: '\f0c0' !important;
+}
+
+.menu {
+
+}
+
+.menu .item {
+    cursor: pointer;
+    padding: 20px;
+    font-size: 18px;
+    text-align: center;
+    font-family: "Microsoft Yahei", Verdana;
+}
+
+.menu .item:hover {
+    z-index: 2;
+    background-color: white;
+    opacity: 1;
+    /*transform: scaleY(1.2);*/
+    box-shadow: rgba(0, 0, 0, .5) 0 0 5px;
+}
+
+.selected {
+    background-color: white;
+}
+
+.dealerGroupInfo, .customerGroupInfo {
+    /*margin: 30px 20px 0px 20px;*/
+    flex: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex ;
+    flex-flow: column nowrap;
+    background-color: white;
+    z-index: 2;
+
+}
+
+.customerGroupInfo {
+    display: flex;
+    z-index: 1;
+}
+
+.dealerGroupList, .customerGroupList {
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.customerGroupInfo .buttonGroups, .dealerGroupInfo .buttonGroups {
+    margin-bottom: 20px;
+}
+
+.customerGroupInfo .buttonGroups button, .dealerGroupInfo .buttonGroups button {
+    width: 120px;
+    background-color: #61aef5;
+    color: white;
+    display: inline-block;
+}
+
+.customerGroupInfo .buttonGroups button:hover, .dealerGroupInfo .buttonGroups button:hover {
+    background-color: #1b88ee;
+    color: white;
+}
+
+.buttonGroups div {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+}
+
+#querycustomer, #querydealer {
+    width: 300px;
+}
+
+#dealerMessage, #customerMessage {
+    text-align: left;
+    font-size: 22px;
+    margin: 0px 0px 10px 0px ;
+}
+
+

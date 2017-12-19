@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>地址管理</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selfsafe.css">
+</head>
+<body>
+<div class="page-group">
+    <!--第四页，地址管理-->
+    <div class="page page-current" id="page-modyfiyaddr">
+        <nav class="bar bar-tab addrbar" style="border-top:0">
+            <span class="button button-fill button-warning" id="doaddaddr" style="height: 1.8rem;line-height: 1.8rem;font-size: 0.8rem;">添加新地址</span>
+        </nav>
+        <div class="content" id="addrlist">
+            <!--地址管理-->
+            <!--<div class="card">-->
+            <!--<div class="card-header">${d[i].contact}<span>${d[i].phone}</span></div>-->
+            <!--<div class="card-content">-->
+            <!--<div class="list-block media-list">-->
+            <!--<ul>-->
+            <!--<li class="item-content">-->
+            <!--<div class="item-subtitle">${d[i].country}${d[i].province}${d[i].city}${d[i].address}</div>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="card-footer addrmo">-->
+            <!--<span>-->
+            <!--<label><input type="radio" name="addr" id="${d[i].addid}" class="mydeaufly">默认地址</label>-->
+            <!--</span>-->
+            <!--<span><span class="editmyaddr iconfont icon-qianming" data-bjid="${d[i].addid}"><a href="#page-addradd" class="bj">编辑</a></span><span class="iconfont icon-shanchu mydel" style="margin-left: 10px" data-selid="${d[i].addid}">删除</span></span>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <!--第五页，地址添加-->
+    <div class="page" id="page-addradd">
+        <div class="content">
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">收货人</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="请输入不超过10个字汉字" id="addname">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">联系电话</div>
+                                <div class="item-input">
+                                    <input type="tel" placeholder="请输入正确的电话" id="addphone">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-link">
+                        <!--<div class="item-content">-->
+                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                        <!--<div class="item-inner">-->
+                        <!--<div class="item-title label">收货地址</div>-->
+                        <!--<div class="item-input">-->
+                        <!--<input type="text" id='city-picker'class="addaddr" value="四川 成都 武侯区"/>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                            <div class="item-inner" id="getaddr">
+
+                                <div class="item-title">收货地址</div>
+
+                                <div class="item-after addaddr" style="display: block"></div>
+                            </div>
+                    </li>
+                    <!-- Switch (Checkbox) -->
+                    <li class="align-top"  style="margin-top: 10px">
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">详细地址</div>
+                                <div class="item-input" style="padding-bottom: 0.5rem">
+                                    <textarea style="border: 1px solid #e1e1e1;" id="addaddress" placeholder="不超过50字"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-toggle"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">设为默认</div>
+                                <div class="item-input">
+                                        <input type="radio" id="isdefault">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50"><span class="button button-big button-fill button-danger" id="resub">取消</span></div>
+                    <div class="col-50"><span class="button button-big button-fill button-success" id="tjnewaddr">提交</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--第七页，省份-->
+    <div class="page" id="address">
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50">
+            <div class="list-block" style="margin: 0">
+                <ul class="list-container">
+                    <!--<li class="item-content item-link">-->
+                    <!--<div class="item-media"><i class="icon icon-f7"></i></div>-->
+                    <!--<div class="item-inner">-->
+                    <!--<div class="item-title">商品名称</div>-->
+                    <!--</div>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+<script>
+    //    性别
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">选择时间</h1>\
+  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['男', '女']
+            }
+        ]
+    });
+</script>
+<script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/safeaddr.js' charset='utf-8'></script>
+<script>$.init()</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+.content{
+    background: white;
+}
+.lottery{
+    background: url(../images/lottery/shakebg.png) no-repeat 0 0;
+    background-size:100% 100%;
+   
+}
+.selectPoint{
+    position: absolute;
+    bottom:1.5rem;
+    left: 3rem;
+}
+.selectPointItem{
+    width: 23vw;
+    height: 23vw;
+    line-height: 23vw;
+    text-align: center;
+    display: inline-block;
+    color: red;
+}
+.selectPointItem+.selectPointItem{
+    margin-left: 0.5rem;
+}
+.one{
+background: url(../images/lottery/1.png) no-repeat 0 0;
+background-size:100% 100%;
+}
+.two{
+background: url(../images/lottery/2.png) no-repeat 0 0;
+background-size:100% 100%;
+}
+.three{
+background: url(../images/lottery/3.png) no-repeat 0 0;
+background-size:100% 100%;
+}
+.finger{
+    position: absolute;
+    bottom: -1rem;
+    left: 7vw;
+     width: 10vw;
+     height: 12vw;
+    background: url(../images/lottery/finger.png) no-repeat 0 0;
+background-size:100% 100%;
+}
+.down{
+    color: white;
+    position: absolute;
+    top: 0.5rem;
+    left: -2rem;
+    font-size: 1rem;
+}
+.lottery .title{
+color:white;
+    font-size: 1rem;
+}
+.lottery .time{
+    color:white;
+    font-size: 0.7rem;
+    text-align: right;
+}
+.lottery .desc{
+        
+    width: 15rem;
+    height: 12rem;
+    overflow-y: scroll;
+    color: #6f1610;
+    font-size: 0.8rem;
+    background: white;
+    border-radius: 8px;
+    margin: 0 auto;
+    padding: 0.5rem;
+    text-indent: 1rem;
+}
+.lottery .current{
+    margin: 0 auto;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
+.lottery .currentpoint{
+    
+    color: #ff0c73;
+}
+.loadLottery{
+    position: absolute;
+        top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    line-height: 100vh;
+    text-align: center;
+}
+.loadLottery img{
+    display: inline-block;
+    margin: auto;
+    margin-top: 25vh;
+}
+.award{
+    position: absolute;
+        top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    
+    text-align: center;
+}
+.award img{
+        width: 70vw;
+    display: inline-block;
+    margin: auto;
+    margin-top:20vh;
+}
+.close{
+    color: white;
+    width: 10vw;
+    height: 10vw;
+    line-height: 10vw;
+    text-align: center;
+    border: 1px solid white;
+    position: absolute;
+       top: 5rem;
+    right: 2rem;
+    font-size: 2rem;
+    border-radius: 50%;
+}
+.lotteryname{
+    position: absolute;
+    width: 10rem;
+    color: #e5f078;
+    top: 43vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.scanlottery{
+     position: absolute;
+    width: 5rem;
+    color:#e55f82;
+    top: 61vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    padding: 2px 6px;
+}
+.onestep{
+left: 7vw;
+transition: 0.5s;
+}
+.twostep{
+left: 34vw;
+transition: 0.5s;
+}
+.threestep{
+    left: 61vw;
+    transition: 0.5s;
+}
+header.bar{
+    height: 3rem;
+    font-size: 0.8rem;
+    background: white;
+}
+.bar .icon {
+    padding: 1rem .1rem;
+}
+.bar-nav~.content {
+    top: 3rem;
+}
+
+.addressInfo{
+    font-size: 0.8rem;
+    padding-top: 0.5rem;
+}
+.icon-right{
+    color: gray;
+}
+.defau{
+    background: red;
+    color: white;
+    font-size: 0.6rem;
+    border-radius: 4px;
+    padding: 0 4px;
+    margin-left: 0.2rem;
+}
+.addressInfo div{
+    text-indent: 1rem;
+
+}
+.phone{
+    margin-left: 0.5rem;
+}
+.addressInfoBottom{
+    font-size: 0.6rem;
+    max-width: 100%;
+    
+}
+
+/*下导航*/
+.bar-tab,.gopay{
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+}
+.gopay{
+    display: block;
+    background: #fd3531;
+    color: white;
+}
+
+.lotteryinfo-title{
+        font-size: 1.3rem;
+    color: red;
+    text-align: center;
+}
+.lotteryinfo-img{
+  margin-top: 0.5rem;
+      text-align: center;
+}
+.lotteryinfo-img img{
+    max-width: 80%;
+  
+}
+.lotteryinfo-name{
+      font-size: 1rem;
+    color: red;
+    text-align: center;
+}
+.title{
+    position: static;
+    margin-top: 4rem;
+}
+
+.panel{
+    background: gray;
+}
+
+.page.theme-dark, .panel.theme-dark, .theme-dark .content, .theme-dark .login-screen-content, .theme-dark .page, .theme-dark .panel {
+     background:raba(0,0,0,0.1); 
+    color: #e1e1e1;
+}
+.cardAddr{
+    font-size: 0.7rem;
+        border-bottom: 1px solid;
+    margin-bottom: 0.5rem;
+}
+.popright{
+    width: 100%;
+        overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.button.button-fill {
+    width: 100%;
+    background: #ff531e;
+}

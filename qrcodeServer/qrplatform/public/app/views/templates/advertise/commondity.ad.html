@@ -1,0 +1,107 @@
+<div class="view">
+    <h3 class="view-title">
+        <i class="fa fa-audio-description"></i> 商城广告位管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">促销信息管理</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">广告位管理</a>
+            </li>
+        </ul>
+    </div>
+    <div class="view-bar view-opt-group">
+        <section class="action-bar" ng-class='{collapse: isCollapse}'>
+            <button class="butn butn-primary" ng-click="setarticleAdid.showAddForm()">
+                <i class="fa fa-plus"></i> 添加
+            </button>
+        </section>
+    </div>
+    <div class="ad-view">
+        <div class="ad-position-list">
+            <div ng-repeat="item in positionlist" 
+                 ng-bind="item.title" 
+                 ng-click="advertiseList.selectPos(item)">
+            </div>
+        </div>
+        <div class="ad-article-list view-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="check">
+                            <input type="checkbox" 
+                                   ng-checked="advertiseList.isCheckedAll()" 
+                                   ng-click="advertiseList.toggleCheckedAll()">
+                        </th>
+                        <th>标题</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>状态</th>
+                        <th>广告位</th>
+                        <th>删除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in advertiseList.articleList" 
+                        ng-click="advertiseList.preview(item.artid)"
+                        ng-class="{selectedart: item.artid == advertiseList.active}">
+
+                        <td class="check">
+                            <input type="checkbox" 
+                                   ng-checked="advertiseList.isChecked(item)" 
+                                   ng-click="advertiseList.toggleChecked($event,item)">
+                        </td>
+                        <td ng-bind="item.title" style="word-break: break-all"></td>
+                        <td ng-bind="item.begtime | timSlice"></td>
+                        <td ng-bind="item.endtime | timSlice"></td>
+                        <td ng-bind="item.state | commonditySaleState"></td>
+                        <td ng-bind="item.adtype | articleAdState"></td>
+                        <td>
+                            <button class="butn butn-link" 
+                                    ng-click="advertiseList.delArticle($event,item.adid)">
+                                <i class="fa fa-trash"></i> 删除
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="preview">
+            <!--<img src="img/phone_gray.png" alt="">-->
+            <div class="preview-content">
+                <!--<div class="preview-content-bar">Topbar</div>-->
+                <!--<div class="preview-content-menu"></div>-->
+                
+                <div class="preview-content-main">
+                    <!--<div class="img-mask">
+                        <img src="{{advertiseList.preData.titleimageurl}}" alt="">
+                    </div>-->
+                    <div class="pre-top" 
+                         style="background: url({{advertiseList.preData.titleimageurl}}) center">
+                        <div>
+                            <div class="pre-title" 
+                                 ng-bind="advertiseList.preData.title">文章预览标题</div>
+                            <div class="pre-summary" 
+                                 ng-bind="advertiseList.preData.summary">文章预览概括</div>
+                            <div class="pre-author" 
+                                 ng-bind="advertiseList.preData.author">作者</div>
+                        </div>
+                    </div>
+                    <div class="pre-content" ng-bind-html="advertiseList.preData.content">文章预览内容</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-if='setarticleAdid.showAdd' 
+         ng-include="'views/templates/advertise/commondity.ad.add.html'"></div>
+</div>

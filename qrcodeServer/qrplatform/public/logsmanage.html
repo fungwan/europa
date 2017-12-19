@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html style="min-width: 1000px;">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>万码易联 - 企业平台</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" style="margin-top:20px">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">选择服务名：</label>
+                    <select class="form-control" name="servername">
+                        <!--billnoserver,qrgenerator,qrlotterymanager,qrplatform,wechattokkenserver,wxpayserver-->
+                        <option value="qrplatform">qrplatform</option>
+                        <option value="blhmanager">blhmanager</option>
+                        <option value="billnoserver">billnoserver</option>
+                        <option value="qrgenerator">qrgenerator</option>
+                        <option value="qrlotterymanager">qrlotterymanager</option>
+                        <option value="wechattokenserver">wechattokenserver</option>
+                        <option value="wxpayserver">wxpayserver</option>
+                        <option value="qrdownloader">qrdownloader</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">选择年</label>
+                    <input type="number" name="year" class="form-control" value="2017">
+                </div>
+                <div class="form-group">
+                    <label for="">选择月<span style="font-size:50%;color:red">(输入个位数月请加0，如06)</span></label>
+                    <input type="number" name="month" class="form-control" value="06">
+                </div>
+                <div class="form-group">
+                    <label for="">选择日<span style="font-size:50%;color:red">(输入个位数日请加0，如06)</span></label>
+                    <input type="number" name="day" class="form-control" value="08">
+                </div>
+                <div class="form-group">
+                    <label for="">选择末尾读取行数<span style="font-size:50%;color:red">(默认1000行)</span></label>
+                    <input type="number" name="readline" class="form-control" value="1000">
+                </div>
+                <div>
+                    <button class="btn btn-primary search">查询</button>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="col-md-12" style="height:900px;border-left: 2px solid #adadad">
+                    <textarea id="showlog" style="width:100%;height:100%;font-size:13px" disabled></textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/lib/jquery.js"></script>
+    <script>
+        var url;
+
+        (function(){
+
+            var initDate = new Date();
+            $("input[name=year]").attr("value", initDate.getFullYear());
+            var m = 0; initDate.getMonth()+1 < 10 ? m = '0'+(initDate.getMonth()+1) : m;
+            $("input[name=month]").attr("value", m);
+            var d = 0; initDate.getDate() < 10 ? d = '0'+initDate.getDate() : d;
+            $("input[name=day]").attr("value", initDate.getDate());
+
+        })();
+
+        function createUrl() {
+            var servername = $('select[name=servername]').val();
+            var year = $("input[name=year]").val();
+            var month = $("input[name=month]").val();
+            var day = $("input[name=day]").val();
+            var readline = $("input[name=readline]").val();
+            var _url = {
+                servername: servername,
+                year: year,
+                month: month,
+                day: day,
+                readline: readline
+            }
+            return _url
+        }
+
+        $('.search').on('click', function () {
+            url = createUrl();
+            console.log(url)
+            $.get("/logs/readlogs", url, function (res) {
+                $("#showlog").val(res);
+            });
+
+        })
+    </script>
+</body>
+
+</html>

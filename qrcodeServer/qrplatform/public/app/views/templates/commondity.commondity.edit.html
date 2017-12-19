@@ -1,0 +1,61 @@
+<div class="shade">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">修改商品信息</h3>
+        </div>
+        <div class="content-body">
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    商品名称 <span class="require">*</span>
+                </h4>
+                <div class="input-group-input">
+                    <input type="text" placeholder="请输入商品名称" ng-model="commondityForm.commondity.mcdname"
+                    ng-class="{error: commondityForm.errors.mcdname}">
+                    <span class="error-msg" ng-if="commondityForm.errors.mcdname">
+                        {{commondityForm.errors.mcdname}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="input-group-label">商品分类 <span class="require">*</span></h4>
+                <div class="input-group-input">
+                    <select ng-model="commondityForm.commondity.categoryid"
+                    ng-class="{error: commondityForm.errors.categoryid}">
+                        <option value="">请选择商品分类</option>        
+                        <option ng-repeat="item in commondityList.dropDownItems" value="{{item.categoryid}}">{{item.name}}</option>
+                    </select>
+                    <span class="error-msg" ng-if="commondityForm.errors.categoryid">
+                        {{commondityForm.errors.categoryid}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="input-group-label">预设积分 <span class="require">*</span></h4>
+                <div class="input-group-input" >
+                    <input type="number" ng-model="commondityForm.commondity.point"
+                    ng-class="{error: commondityForm.errors.point}"
+                    style="width: 120px;">
+                    <span class="error-msg" ng-if="commondityForm.errors.point">
+                        {{commondityForm.errors.point}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    商品描述
+                </h4>
+                <div class="input-group-input">
+                    <textarea placeholder="请输入商品描述" ng-model="commondityForm.commondity.mcddesc"
+                    ng-class="{error: commondityForm.errors.mcddesc}"></textarea>
+                    <span class="error-msg" ng-if="commondityForm.errors.mcddesc">
+                        {{commondityForm.errors.mcddesc}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="commondityForm.closeForm()">取消</button>
+            <button class="butn butn-primary" ng-click="commondityForm.saveCommondity()">保存</button>
+        </div>
+    </div>
+</div>

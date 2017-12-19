@@ -1,0 +1,219 @@
+/**
+ * Created by ivan on 15/12/29.
+ */
+var fs=require('fs');
+var config={
+    /*
+    加密相关
+     */
+    salt: 'erathink2015',
+    setname:'erathink',
+    session_secret: 'erathink',
+    dateformat:'YYYY-MM-DD HH:mm:ss',
+    qrgenpath:'/var/erathink/qrcode',
+	qrgentable:'test_db.proqrcode',
+    host: 'http://cs.51s.co/',
+    systemUser: 'SYS',
+    retrytime:30,//token获取失败后重试间隔,单位:秒
+    staticPath: 'public',
+    qrpercent:0.2,
+    qrcodesizemax:10000,
+    qrcodesizemin:100,
+    log: {
+        type: 'dateFile',
+        filename: 'logs/log',
+        pattern: "_yyyy-MM-dd",
+        maxLogSize: 1024,
+        alwaysIncludePattern: true,
+        backups: 3,
+        category: 'logger'
+    },
+    mysql: {
+        host: 'erathink.mysql.rds.aliyuncs.com',//192.168.1.138
+        user: 'qrtest',
+        password: 'q6!ObNej',
+        port: '3306',
+        database: 'test_db',
+        pool: {
+            max: 20,
+            min: 0,
+            idle: 10000
+        }
+    },
+    //redis配置
+    redis:{
+        host:'r-uf6978cad780c094.redis.rds.aliyuncs.com',
+        port:6379,
+		auth:'e4ZUzLgs'
+    },
+    email: {
+        mail_options: {
+            host: 'smtp.qiye.163.com',
+            port: 25,
+            auth: {
+                user: 'pms@erathink.com',
+                pass: 'Pms20152015'
+            }
+        },
+        sitehost: 'http://cs.51s.co/',
+        //邮件确认超时时间
+        hours: 2
+    },
+    page: {
+        home: 'enterprise/do.html',
+        qrgen: 'p.html?id=',
+        activePage: 'active.html'
+    },
+    authentic:{
+        defaulerole:'admin',
+        login:{path:'../controllers/sign',fun:'login'},
+        checkauthority:{path:'../controllers/sign',fun:'rolecheck'},
+        checkstate:{path:'../controllers/sign',fun:'statecheck'}
+    },
+    wechat:{
+        appId:"wxaabcaab73e9592f6",
+        appSecret:"2b52e15e1fb3f9cb149f34d1fe45e255",
+        appToken: 'erathink',
+        mch_id: '1271138901',
+        partner_key: 'fjiut543ertfgjki8756vbnmlkjexqpo',
+        webtokenkey:'webtoken_kepm2y',
+        pfx: fs.readFileSync('../apiclient_cert.p12')
+    },
+    sms:{
+        config:{
+            app_key: '23312434',
+            secret: '61272c3ceee971ad15724a6a227623b2'
+        },
+        options:{
+            sms_free_sign_name: '身份验证',
+            sms_param: {
+                code: ''
+            },
+            rec_num: '',  //多个手机号逗号隔开
+            sms_template_code: 'SMS_4993307'
+        },
+        resetPwdOptions: {
+            sms_free_sign_name: '密码重置',
+            sms_param: {
+                code: ''
+            },
+            rec_num: '',  //多个手机号逗号隔开
+            sms_template_code: 'SMS_71380502'
+        },
+        timeout:180
+    },
+    //登录相关配置
+    login: {
+        //登录错误尝试最大次数
+        maxtimes: 10
+    },
+    upload:{
+        encoding:'utf-8',
+        uploaddir:'public/upload',
+        uploadtempdir:'uploadtmp',
+        maxfieldssize: 200 * 1024 * 1024
+    },
+    port: {
+        qrplatform: 3000,
+        qrgenerator: 3001,
+        qrdownloader: 3002,
+        qrlotterymanager: 3003,
+        billnoserver: 3004,
+        wechattokenserver: 3005,
+        cussyncserver: 3006
+    },
+    services:{
+        qrplatform: {
+            url:'http://localhost:3000',
+            interfaces:{}
+        },
+        qrgenerator: {
+            url:'http://localhost:3001',
+            interfaces:{
+                qrcode:'/qrcode/gen',
+                qrcodeNew:'/qrcodeNew/gen'
+            }
+        },
+        qrdownloader: {
+            url:'http://localhost:3002',
+            interfaces:{}
+        },
+        qrlotterymanager: {
+            url:'http://localhost:3003',
+            interfaces:{
+                genlottery:'/generate',
+                checklottery:'/check',
+                start:'/start',
+                stop:'/stop',
+                progress:'/progress',
+                syncrulelottery:"/syncrule"
+            }
+        },
+        billnoserver: {
+            url:'http://localhost:3004',
+            interfaces:{
+                getbillno:'/getbillno'
+            }
+        },
+        wechattokenserver: {
+            url:'http://localhost:3005',
+            interfaces:{
+                gettoken:'/gettoken',
+                getsign:'/getsign',
+                getalltoken:'/getalltoken'
+            }
+        },
+        cussyncserver: {
+            url:'http://localhost:3006',
+            interfaces:{
+            }
+        },
+        wechat:{
+            url:'https://api.weixin.qq.com',
+            interfaces:{
+                getwebtoken:'/sns/oauth2/access_token?appid={1}&secret={2}&code={3}&grant_type=authorization_code',
+                getuserinfo:'/cgi-bin/user/info?access_token={1}&openid={2}&lang=zh_CN',
+                getwebuser:'/sns/userinfo?access_token={1}&openid={2}&lang=zh_CN'
+            }
+        },
+        webchatmch:{
+            url:"https://api.mch.weixin.qq.com",
+            interfaces:{
+                sendredpack:'/mmpaymkttransfers/sendredpack',
+                getredpackinfo:'/mmpaymkttransfers/gethbinfo',
+                paymoney:'/mmpaymkttransfers/promotion/transfers',
+                getpayinfo:'/mmpaymkttransfers/gettransferinfo'
+            }
+        },
+        baidumap:{
+            url:'http://api.map.baidu.com',
+            interfaces:{
+                geocoder:'/geocoder/v2/?ak=4tMOTx96QG0g2SKm7p3QI64m&callback=renderReverse&location={1},{2}&output=json&pois=0'
+            }
+        }
+    },
+    mall:{
+        productlistimageurl:'http://om5zaeh9b.bkt.clouddn.com/',
+        productlistimagestyle:'list',
+        productevalurl:'',
+        productevalstyle:'',
+        productimageurl:'http://om5zaeh9b.bkt.clouddn.com/',
+        productimagestyle:'info',
+        productshopcarimageurl:'http://om5zaeh9b.bkt.clouddn.com/',
+        productshopcarimagestyle:'shopcart',
+        articleUrl:'http://cs.51s.co/mall/mobile/html/newsdetail.html?artid=',
+        articleimageurl:'http://om5zzdb7m.bkt.clouddn.com/',
+        articleimagestyle:'title',
+        articleimagesmallstyle:'titlesmall',
+        article60style:'title60',
+        entimageurl:'http://om7umanto.bkt.clouddn.com/',
+        entlogosmallstyle:'logo'
+    },
+    qiniu:{
+        ACCESS_KEY:'Fgzgpew-8fnEcZh-4D1VU5qhwD5cMoZvueekz60e',
+        SECRET_KEY:'ZCSJU-m8ur-Q1IUrCnzfCuEqQ9mkBo70ZguuVAIr',
+        product:'product',
+        article:'article'
+    }
+};
+module.exports=config;

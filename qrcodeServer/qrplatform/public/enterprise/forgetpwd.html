@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>万码易联 - 企业平台 - 找回密码</title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<body>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="ccBox" style="margin: 40px 0;">
+    <div class="header"></div>
+    <h1>找回您的密码</h1>
+
+    <h3>欢迎使用密码找回功能，请填写您注册时使用的邮箱地址，点击“发送邮件”即可。<br/>请前往邮箱并访问邮件中的链接地址找回密码。</h3>
+
+    <input id="email" type="email" name="useraccount" placeholder="请输入邮箱地址" data-lang-name="邮箱地址" data-required="true"
+           data-expression="mail" maxlength="50"/>
+
+    <div id="message"></div>
+
+    <div class="buttonGroup" id="sendMailCmds">
+        <button value="send" class="send" disabled>发送邮件</button>
+        <button value="tomail" class="go">前往邮箱</button>
+    </div>
+</div>
+
+
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.forgetpwd" data-deps="moment,mail"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+.share{
+    background: url(../images/share/share.png) no-repeat 0 0;
+    background-size: 100% 100%;
+}
+.help{
+    background: url(../images/share/help.png) no-repeat 0 0;
+    background-size: 100% 100%;
+}
+.content{
+    position: relative;
+    height: 100%
+}
+.content>div{
+    position: absolute;
+
+}
+.point{
+        font-size: 1rem;
+    color: #48488c;
+        top: 40vh;
+    left: 45vw;
+}
+.havepoint{
+    width: 10rem;
+        font-size: 0.8rem;
+    color: white;
+    top: 50vh;
+    left: 50%;
+    margin-left: -5rem;
+    text-align: center;
+}
+.sharebtn{
+        width: 10rem;
+    top: 80vh;
+    left: 50%;
+    margin-left: -5rem;
+}
+.sharebtn img{
+        display: block;
+        width: 100%;
+}

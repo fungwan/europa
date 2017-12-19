@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消费者分析--万码易联</title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<body class="moduleBody">
+<div class="verticalFlexBox flex">
+    <ul class="tab" id="anlaysisItems">
+        <li value="customerAreaAnalysisBoard" class="wfico users" data-lang="customer.switch.customerArea"></li>
+        <li value="customerIncreaseAnalysisBox" class="wfico increase" data-lang="customer.switch.customerIncrease"></li>
+    </ul>
+    <div class="tabContent verticalFlexBox flex">
+        <div class="customerAreaAnalysisBoard verticalFlexBox">
+            <div class="editorSet">
+                <div class="editorGroup">
+                    <!--<div class="editorItem">-->
+                        <!--<label data-lang="questionnaire.chooseArea"></label>-->
+                        <!--<button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="area">选择区域</button>-->
+                    <!--</div>-->
+                    <div class="editorItem">
+                        <label data-lang="开始时间"></label>
+                        <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date"
+                                data-level="top" name="start_time" value="" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                    </div>
+                    <div class="editorItem">
+                        <label data-lang="结束时间"></label>
+                        <button class="endTime" data-type="datepicker" data-popup="datepicker" data-format="date"
+                                data-level="top" name="end_time" value="" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                    </div>
+                    <div class="editorItem">
+                        <label>&nbsp;</label>
+                        <button class="wfico global submit" value="global" data-lang="commands.global"></button>
+                    </div>
+                    <div class="editorItem">
+                        <label>&nbsp;</label>
+                        <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="horizontalFlexBox custAreaNoData" style="margin-top: 15px;">
+                <div class="customerAreaAnalysis"></div>
+                <div class="table">
+                    <div class="survey horizontalFlexBox">
+                        <div class="verticalFlexBox">
+                            <div class="total">0</div>
+                            <div class="statisticsOption tc">消费者人数总计</div>
+                        </div>
+                    </div>
+                    <table class="customerTable" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="3" class="topFive">集中度前五分布区：</td>
+                        </tr>
+                        <tr>
+                            <td class="th">区域</td>
+                            <td class="th">数量</td>
+                            <td class="th">占比</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="customerIncreaseAnalysisBox verticalFlexBox">
+            <div class="editorSet">
+                <div class="editorGroup">
+                    <div class="editorItem">
+                        <label data-lang="questionnaire.chooseArea"></label>
+                        <button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="area">选择区域</button>                    </div>
+                    <div class="editorItem">
+                        <label data-lang="开始时间"></label>
+                        <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date" data-level="top"
+                                name="start_time" value="" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                    </div>
+                    <div class="editorItem">
+                        <label data-lang="结束时间"></label>
+                        <button class="endTime datetimepicker" data-type="datepicker" data-popup="datepicker" data-format="date"
+                                data-level="top" name="end_time" value="" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                    </div>
+                    <div class="editorItem">
+                        <label data-lang="分析方式"></label>
+                        <button class="dateOrTime" value="months" name="dateOrTime" data-popup="dateOrTime" data-type="selector" data-lang="marketing.search.conditions.months"></button>
+                    </div>
+                    <div class="editorItem">
+                        <label>&nbsp;</label>
+                        <button class="wfico global submit" value="global" data-lang="commands.global"></button>
+                    </div>
+                    <div class="editorItem">
+                        <label>&nbsp;</label>
+                        <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="customerIncreaseAnalysis"></div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="dateOrTime" data-type="selector">
+    <button value="months" data-lang="marketing.search.conditions.months"></button>
+    <button value="days" data-lang="marketing.search.conditions.days"></button>
+</div>
+<div class="popup" data-type="datepicker" id="datepicker"></div>
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.analysis.customer" data-deps="chart,echarts,citypicker,moment,dateTimePicker"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<div class="shade sale" ng-init="productForm.initForm()">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">编辑促销信息</h3>
+        </div>
+        <div class="content-body">
+            <div class="input-group article-box">
+                <div class="heaite tit">
+                    <h4 class="input-group-label">
+                        文章标题 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 请输入文章标题不超过30字"
+                               ng-model="productForm.product.title"
+                               ng-class="{error: productForm.errors.title}">
+                        <span class="error-msg" ng-if="productForm.errors.title">
+                            {{productForm.errors.title}}
+                        </span>
+                    </div>
+                </div>
+                <div class="heaite tit">
+                    <h4 class="input-group-label">
+                        作者 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 请输入作者不超过10字"
+                               ng-model="productForm.product.author"
+                               ng-class="{error: productForm.errors.author}">
+                        <span class="error-msg" ng-if="productForm.errors.author">
+                            {{productForm.errors.author}}
+                        </span>
+                    </div>
+                </div>
+                <div class="heaite tit">
+                    <h4 class="input-group-label">
+                        关键字 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 请输入文章关键字不超过20字"
+                               ng-model="productForm.product.keyword"
+                               ng-class="{error: productForm.errors.keyword}">
+                        <span class="error-msg" ng-if="productForm.errors.keyword">
+                            {{productForm.errors.keyword}}
+                        </span>
+                    </div>
+                </div>
+                <div class="heaite tit">
+                    <h4 class="input-group-label">
+                        原文地址
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder="没有原文地址可以不填写。"
+                               ng-model="productForm.product.authorurl"
+                               ng-class="{error: productForm.errors.authorurl}">
+                        <span class="error-msg" ng-if="productForm.errors.authorurl">
+                            {{productForm.errors.authorurl}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group article-box-tit">
+                <div class="heaite">
+                    <h4 class="input-group-label">
+                        类型 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <select ng-model="productForm.product.arttype" style="padding: 6px"  ng-class="{error: productForm.errors.arttype}">
+                            <option value="">请选择文章类型</option>
+                            <option value="saleinfo">促销信息</option>
+                            <option value="newproduct">新品信息</option>
+                            <option value="knowledge">小知识</option>
+                        </select>
+                        <span class="error-msg" ng-if="productForm.errors.arttype">
+                            {{productForm.errors.arttype}}
+                        </span>
+                    </div>
+                </div>
+                <div class="heaite" style="width: 63rem;">
+                    <h4 class="input-group-label">
+                        文章摘要 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder="请输入文章摘要,不超过200字"
+                               ng-model="productForm.product.summary" style="width:81%;height: 38px;"
+                               ng-class="{error: productForm.errors.summary}">
+                    <span class="error-msg" ng-if="productForm.errors.summary">
+                        {{productForm.errors.summary}}
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom: 10px;">
+                <h4 class="input-group-label">
+                    标题图片上传
+                    <span class="require">*</span>
+                    <span style="font-size: 12px;">
+
+                    </span>
+                </h4>
+                <div class="input-group-input" id="btnbox">
+                    <button class="butn butn-primary" id="pickfiles">
+                        <i class="fa fa-cloud-upload"></i> 上传图片
+                    </button>
+                    <span class="error-msg" ng-if="productForm.errors.images">
+                        {{productForm.errors.images}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="img-preview-item">
+                    <img ng-src="{{productForm.imgItems.src}}" alt="请上传图片">
+                    <div class="cover">
+                        <a href="javascript:;" class="img-remove" title="移除图片" ng-click="productForm.removeImg(item)" ng-show="productForm.imgItems.src&&productForm.imgItems.src!='img/1.jpg'">
+                            <i class="fa fa-close"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group heaitebox">
+                <h4 class="input-group-label">
+                    文章内容编辑 <!-- <span class="require">*</span> -->
+                </h4>
+                <!-- <div class="input-group-input">
+                    <span class="error-msg" ng-if="productForm.errors.htmlinfo">
+                        {{productForm.errors.htmlinfo}}
+                    </span>
+                </div> -->
+            </div>
+            <div id="divedit" style="min-height:1000px;">
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="productForm.scan()">预览</button>
+            <button class="butn butn-default" ng-click="productForm.confirmClose()">取消</button>
+            <button class="butn butn-primary" ng-click="productForm.confirmUpdate()">保存</button>
+        </div>
+    </div>
+</div>

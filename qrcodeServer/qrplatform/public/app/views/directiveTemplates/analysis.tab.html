@@ -1,0 +1,13 @@
+<div>
+    <ul class="tab-list">
+        <li class="tab-item"
+            ng-repeat="item in mTabItems"
+            ng-click="selectItem(item)"
+            ng-class="{active: selectedItem == item}"
+            ng-bind="item.title">
+        </li>
+    </ul>
+    <div class="tab-content"
+        ng-include="selectedItem.src">
+    </div>
+</div>

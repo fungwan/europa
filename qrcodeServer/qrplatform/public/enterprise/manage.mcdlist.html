@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+    <title>万码易联 - 企业平台 - 经销商管理</title>
+</head>
+<body>
+
+<div class="maskLayer" id="userSelector">
+    <div class="maskLayerContent">
+        <div class="title wfico ico_users" data-lang="system.module.customer.seniorquery.title"></div>
+        <div style="background-color: white;overflow: auto;flex: 1">
+            <div class="queryitem verticalFlexBox">
+                <div class="editorItem">
+                    <label for="mcdname">商品名称:</label>
+                    <input type="text" id="mcdname" name="mcdname" placeholder="请输入查询名称"/>
+                </div>
+                <div class="editorItem">
+                    <label>商品类型：</label>
+                    <button id="gjbut" class="seniorGroup" name="seniorGroup" data-popup="customerTypes" data-type="selector">选择商品类型
+                    </button>
+                </div>
+                <div class="editorItem">
+                    <label for="mcddesc">关键字:</label>
+                    <input type="text" id="mcddesc" name="mcddesc" placeholder="请输入关键字"/>
+                </div>
+                <div class="editorItem">
+                    <label for="maxLotteryTime">二维码编号:</label>
+                    <input type="number" id="maxLotteryTime" name="maxLotteryTime" placeholder="请输入二维码编号"/>
+                </div>
+            </div>
+        </div>
+        <div class="command">
+            <button value="submit" class="wfico ico_query" data-lang-key="commands.search" id="gjcx">开始查询</button>
+            <button value="cancel" class="wfico ico_cancel" data-lang-key="commands.close">关闭</button>
+        </div>
+    </div>
+</div>
+<div class="dealer" style="overflow-x: hidden">
+    <div class="topTool horizontalFlexBox">
+        <div class="editorItem  horizontalFlexBox">
+            <div class="icoManage wfico ico_goods" style="background-color: #ff855c;"></div>
+            <h1 class="flex">商品信息</h1>
+        </div>
+        <div class="editorItem">
+            <label for="dealerName">商品名称：</label>
+            <input type="text" id="dealerName" name="dealerName" placeholder="请输入商品名称">
+        </div>
+        <div class="editorItem">
+            <label>类型</label>
+            <button name="customertype" data-type="selector" data-popup="customerTypes"
+                    style="width: 130px;" required data-lang-name="类型" value="1" id="querlei" class="seniorGroup">
+                商品类型
+            </button>
+        </div>
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button id="query" class="flex wfico ico_query">查询</button>
+        </div>
+        <div class="editorItem" style="margin-right: 40px">
+            <label>&nbsp;</label>
+            <button id="seniorquery">高级查询</button>
+        </div>
+        <div class="editorItem" style="margin-right: 0;">
+            <label>&nbsp;</label>
+            <button id="goodsadd" class="wfico ico_add" style="width: 100px">添加</button>
+        </div>
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button class="wfico ico_pair" style="width: 100px" id="goodrepaire" name="goodrepaire" disabled>修改</button>
+        </div>
+        <div class="editorItem" style="margin-left: 30px">
+            <label>&nbsp;</label>
+            <button id="qradd" disabled>添加二维码</button>
+        </div>
+    </div>
+    <div class="dealerList datagrid goodclic"></div>
+    <div id="dealerMessage"></div>
+    <!--<div class="customerGroupList datagrid"></div>-->
+    <!--<div id="customerMessage"></div>-->
+    <!--商品添加-->
+    <div class="popright poprighthh" id="popgood">
+        <div class="poprighttitle addin">
+            <h1>您正在编辑商品信息</h1>
+        </div>
+        <form name="myForm"  enctype="multipart/form-data" id="addform">
+        <div class="editorItem">
+            <label for="goodsname">商品名称:</label>
+            <input type="text" id="goodsname" name="nicknameSenior" placeholder="请输入商品名称" style="width: 100%" required/>
+        </div>
+        <div class="clear">
+            <div class="queryitem">
+            <div class="editorItem">
+                <label>商品类型：</label>
+                <button name="customertype" data-type="selector" data-popup="customerTypes"
+                        style="width: 100%;" required data-lang-name="类型" value="1" id="popleixing" class="seniorGroup">
+                    商品类型
+                </button>
+            </div>
+            <!--<div class="editorItem">-->
+                <!--<label>包装单位：</label>-->
+                <!--<button id="baozhuang" name="seniorGroup" data-popup="packTypes" data-type="selector">选择包装单位-->
+                <!--</button>-->
+            <!--</div>-->
+            <div class="editorItem">
+                <label for="goodsdesc">商品描述:</label>
+                <textarea name="" id="goodsdesc" cols="39" rows="6" placeholder="请输入商品描述" required></textarea>
+            </div>
+                </div>
+            <!--<div class="queryitem">-->
+                <!--&lt;!&ndash;ico_pho&ndash;&gt;-->
+                <!--<div  class="wfico  pic" id="picscanbox">-->
+                    <!--<img id="imgscan" src="./1.png" alt="">-->
+                <!--</div>-->
+                <!--<div class="editorItem">-->
+                    <!--<input type="file" name="img" style="visibility: hidden;display: inline-block;width: 0;height: 0;overflow: hidden" id="picup">-->
+                    <!--<label class="upuppic wfico ico_upload" for="picup">上传商品图片</label>-->
+                    <!--&lt;!&ndash;<button id="picupload" class="wfico ico_upload">上传商品图片</button>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        </form>
+        <div class="control clear">
+            <div class="editorItem" style="float: right">
+                <button id="popgoodscancel" class="wfico ico_cancel">取消</button>
+            </div>
+            <div class="editorItem" style="float: right">
+                <button id="goodsave" class=" wfico ico_save">保存</button>
+            </div>
+        </div>
+
+    </div>
+    <!--二维码添加-->
+    <div class="popright" id="popqr">
+        <div class="poprighttitle clear">
+            <div class="backbutton">
+                <p class="wfico ico_caret_right" title="收起" id="qrback"></p>
+            </div>
+            <div class="popqrtitle" id="qrtit">
+                <h1>草莓冰淇淋100g装 <span>二维码生成记录</span></h1>
+            </div>
+            <div class="addbutton" style="float: right;">
+                <div class="editorItem">
+                    <label>&nbsp;</label>
+                    <button id="qraddedit" class="wfico ico_add">添加二维码</button>
+                </div>
+            </div>
+        </div>
+        <div class="qrboxwarp">
+            <div class="qrboxtitle clear">
+                <div class="pcnum">批次号</div>
+                <div class="pctime">生成时间</div>
+                <div class="zs">总数</div>
+                <div>可消费数量</div>
+                <div class="cx">操作</div>
+                <div class="cz">生成</div>
+            </div>
+            <div class="qrboxcontent" id="qraddbox">
+                <!--<div class="qrboxcontentitem qrboxtitle clear">-->
+                    <!--<div>20161230001</div>-->
+                    <!--<div>2016-12-30</div>-->
+                    <!--<div class="zs"><input type="number"></div>-->
+                    <!--<div>1000</div>-->
+                    <!--<div class="cx">撤销</div>-->
+                    <!--<div class="cz">生成</div>-->
+                <!--</div>-->
+                <!--<div class="qrboxcontentitem qrboxtitle clear done">-->
+                    <!--<div>20161230001</div>-->
+                    <!--<div>2016-12-30</div>-->
+                    <!--<div class="zs"><input type="number" disabled></div>-->
+                    <!--<div>1000</div>-->
+                    <!--<div class="cx">撤销</div>-->
+                    <!--<div class="cz">下载</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" data-type="selector" id="groupSelector">
+    <div id="groupItems" data-scroll="y"></div>
+</div>
+<div class="popup" data-type="selector" id="customerTypes">
+</div>
+<div class="popup" data-type="selector" id="packTypes">
+    <button value="1" title="类型一">个</button>
+    <button value="2" title="类型二">包</button>
+    <button value="3" title="类型一">袋</button>
+    <button value="4" title="类型二">瓶</button>
+    <button value="5" title="类型二">杯</button>
+</div>
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.manage.mcdlist" data-deps="dateTimePicker,datagrid,citypicker"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="APP">
+
+<head>
+    <meta charset="UTF-8">
+    <title>万码易联</title>
+    <!-- rev-hash -->
+    <!-- build:css dist/app.css -->
+    <link rel="stylesheet" type="text/css" href="lib/bower_components/angular/angular-csp.css">
+    <link rel="stylesheet" type="text/css" href="lib/bower_components/normalize-css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="lib/bower_components/me-pageloading/me-pageloading.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/analysis.css">
+    <link rel="stylesheet" type="text/css" href="css/confirm.css">
+    <link rel="stylesheet" type="text/css" href="css/wechatmanage.css">
+    <!-- endbuild -->
+    <!-- end -->
+    <link rel="stylesheet" type="text/css" href="lib/bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="lib/bower_components/wangEditor/dist/css/wangEditor.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/bower_components/angular-confirm/dist/angular-confirm.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 头部导航:fixed -->
+        <div class="navbar" ng-controller="navbarCtrl">
+            <div class="navbar-logo">
+                <img src="img/logo.white.svg">
+            </div>
+            <ul class="navbar-menu">
+                <li class="menu-item" ng-repeat="menu in menuItems" ng-class="{selected: selectedMenu == menu}" ng-click="clickMenu(menu)">
+                    <a ng-if="!menu.isLink" href="{{menu.href || 'javascript:;'}}">
+                        <span class="title" ng-bind="menu.title"></span>
+                        <span class="selected-arrow"></span>
+                    </a>
+                    <a ng-if="menu.isLink" href="{{menu.href}}" target="_blank">
+                        <span class="title" ng-bind="menu.title"></span>
+                    </a>
+                    <ul class="navbar-sub-menu" ng-if="menu.subMenus">
+                        <li class="menu-item" ng-repeat="subMenu in menu.subMenus" ng-class="{'sub-selected': selectedSubMenu == subMenu}" ng-click="clickSubMenu($event, subMenu, menu)">
+                            <a href="{{subMenu.href || 'javascript:;'}}">
+                                <span class="title" ng-bind="subMenu.title"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-menu navbar-user">
+                <li class="menu-item">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i> 
+                        <span ng-bind="user.useraccount"></span>
+                    </a>
+                    <ul class="navbar-sub-menu" style="display: none;">
+                        <li class="menu-item" style="text-indent: 5px;">
+                            <a href="javascript:;">
+                                <i class="fa fa-lock"></i>
+                                <span>修改密码</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="javascript:;" ng-click="logout()">
+                        <i class="fa fa-sign-out"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 主体 -->
+        <div class="main">
+            <!-- 主体-内容 -->
+            <div class="main-content">
+                <div ng-view></div>
+            </div>
+        </div>
+    </div>
+    <!-- copyright 粘性布局 -->
+    <div class="footer">©2015-2020 51s.co all rights reserved. Powered by <a href="http://www.erathink.com" target="_blank">Erathink Co.,Ltd.</a></div>
+    <!-- rev-hash -->
+    <!-- build:js dist/angular-dep.js -->
+    <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="lib/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/angular-confirm/dist/angular-confirm.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/me-pageloading/snap.svg-min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/me-pageloading/me-pageloading.min.js"></script>
+    <!-- endbuild -->
+    <!-- end -->
+
+    <!-- rev-hash -->
+    <!-- build:js dist/vendor.js -->
+    <script type="text/javascript" src="lib/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/wangEditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/plupload/js/moxie.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/plupload/js/plupload.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/qiniu/dist/qiniu.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/echarts/echarts3.js"></script>
+    <script type="text/javascript" src="lib/bower_components/echarts/china.js"></script>
+    <script type="text/javascript" src="lib/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="lib/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <!-- endbuild -->
+    <!-- end -->
+
+    <!-- rev-hash -->
+    <!-- build:js dist/app.js -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <!-- 配置 -->
+    <script type="text/javascript" src="js/config/filter.js"></script>
+    <script type="text/javascript" src="js/config/config.js"></script>
+    <script type="text/javascript" src="js/config/route.js"></script>
+    <!-- 指令 -->
+    <script type="text/javascript" src="js/directives.js"></script>
+    <script type="text/javascript" src="js/directives/viewOptGroupDirective.js"></script>
+    <!-- 通用服务 -->
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/services/paginationService.js"></script>
+    <script type="text/javascript" src="js/services/postService.js"></script>
+    <script type="text/javascript" src="js/services/utilService.js"></script>
+    <script type="text/javascript" src="js/services/mapDataService.js"></script>
+    <script type="text/javascript" src="js/services/echartPieService.js"></script>
+    <script type="text/javascript" src="js/services/echartBarService.js"></script>
+    <script type="text/javascript" src="js/services/echartMapService.js"></script>
+    <script type="text/javascript" src="js/services/echartLineService.js"></script>
+    <script type="text/javascript" src="js/services/QiniuUploaderService.js"></script>
+    <script type="text/javascript" src="js/services/qiNiuService.js"></script>
+    <script type="text/javascript" src="js/services/editorService.js"></script>
+    <!-- 消费者分组模块 -->
+    <script type="text/javascript" src="js/services/customerGroupService.js"></script>
+    <script type="text/javascript" src="js/controllers/customerGroupController.js"></script>
+    <!-- 后台管理模块 -->
+    <script type="text/javascript" src="js/services/userManageService.js"></script>
+    <script type="text/javascript" src="js/controllers/sysManage/userManageController.js"></script>
+    <script type="text/javascript" src="js/controllers/sysManage/wechatController.js"></script>
+    <script type="text/javascript" src="js/controllers/sysManage/shareAccountController.js"></script>
+    <script type="text/javascript" src="js/controllers/sysManage/menuManageController.js"></script>
+    <!-- 消费者模块 -->
+    <script type="text/javascript" src="js/services/customerService.js"></script>
+    <script type="text/javascript" src="js/controllers/customerController.js"></script>
+    <!-- 商品分类模块 -->
+    <script type="text/javascript" src="js/services/commondityCategoryService.js"></script>
+    <script type="text/javascript" src="js/controllers/commondityCategoryController.js"></script>
+    <!-- 商品模块 -->
+    <script type="text/javascript" src="js/services/qrService.js"></script>
+    <script type="text/javascript" src="js/services/commondityService.js"></script>
+    <script type="text/javascript" src="js/controllers/commondityController.js"></script>
+    <script type="text/javascript" src="js/controllers/commondityAdController.js"></script>
+    <!-- 商品促销模块 -->
+    <script type="text/javascript" src="js/services/saleArticleService.js"></script>
+    <script type="text/javascript" src="js/controllers/sale/saleArticle.js"></script>
+    <!--商城管理模块-->
+    <script type="text/javascript" src="js/controllers/mall/mall.js"></script>
+    <!--商品管理-->
+    <script type="text/javascript" src="js/services/mallProductService.js"></script>
+    <script type="text/javascript" src="js/controllers/mall/mallProductManage.js"></script>
+    <script type="text/javascript" src="js/controllers/mall/addBLHController.js"></script>
+    <!--订单管理-->
+    <script type="text/javascript" src="js/services/mallOrderService.js"></script>
+    <script type="text/javascript" src="js/controllers/mall/mallOrderManage.js"></script>
+    <!--广告管理-->
+    <script type="text/javascript" src="js/controllers/mall/malladdManage.js"></script>
+    <!--评价管理-->
+    <script type="text/javascript" src="js/services/mallEvalService.js"></script>
+    <script type="text/javascript" src="js/controllers/mall/mallEvalManage.js"></script>
+    <!--客户星级规则管理-->
+    <script type="text/javascript" src="js/controllers/mall/malllevelManage.js"></script>
+    <!--商城模块管理-->
+    <script type="text/javascript" src="js/controllers/mall/mallmoduleManage.js"></script>
+    <!--礼券管理-->
+    <script type="text/javascript" src="js/controllers/mall/mallQouponManage.js"></script>
+    <!--优惠券管理-->
+    <script type="text/javascript" src="js/services/mallCashCouponService.js"></script>
+    <script type="text/javascript" src="js/controllers/mall/mallCashCouponManage.js"></script>
+    <!--积分抽奖管理-->
+    <script type="text/javascript" src="js/services/MalllotteryService.js"></script>
+    <script type="text/javascript" src="js/controllers/mall/mallLotteryManage.js"></script>
+    <!--积分抽奖记录-->
+    <script type="text/javascript" src="js/services/MalllotteryRecordService.js"></script>
+    <script type="text/javascript" src="js/controllers/mall/mallLotteryRecordManage.js"></script>
+    <!--会员分析模块-->
+    <script type="text/javascript" src="js/controllers/analysis/analysisMemberController.js"></script>
+    <!--订单分析模块-->
+    <script type="text/javascript" src="js/controllers/analysis/analysisOrderController.js"></script>
+    <!--积分分析模块-->
+    <script type="text/javascript" src="js/controllers/analysis/analysisPointController.js"></script>
+    <!--活动分析模块 -->
+    <script type="text/javascript" src="js/controllers/analysis/analysisActivityController.js"></script>
+    <!-- 财务管理模块 -->
+    <script type="text/javascript" src="js/controllers/sysManage/finance/finance.js"></script>
+    <script type="text/javascript" src="js/services/finance/financeIncome.js"></script>
+    <script type="text/javascript" src="js/services/finance/financeRedpacket.js"></script>
+    <script type="text/javascript" src="js/controllers/sysManage/finance/financeIncome.js"></script>
+    <script type="text/javascript" src="js/controllers/sysManage/finance/financeRedpacket.js"></script>
+    <!-- endbuild -->
+    <!-- end -->
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+/*个人基本信息*/
+.selfinfo{
+    height: 25vh;
+    font-size: 1rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    background:url(../images/self/back.jpg) no-repeat;
+    background-size: cover;
+
+}
+.btnedit{
+    width: 6rem;
+    height: 1.2rem;
+    background:url(../images/self/edit.png) no-repeat;
+    background-size: 100%;
+    float: right;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+}
+.headpic{
+    width: 25vw;
+    border: 5px solid #f39800;
+    border-radius: 50%;
+}
+.winfo{
+    color: white;
+    font-size: 0.8rem;
+    line-height: 1rem;
+    padding-top: 1rem;
+}
+.grade{
+    font-size: 0.7rem;
+    height: 0.7rem;
+    overflow-y: hidden;
+}
+.autograph{
+    font-size: 0.6rem;
+}
+.menu{
+    background: #e6e7e7;
+    padding-bottom: 0.5rem
+}
+.menu>div{
+
+    margin-bottom: 0.5rem;
+    background: white;
+}
+
+.menu a{
+    padding: 0.5rem 0;
+    text-align: center;
+    display: block;
+    position: relative;
+}
+/*小红点*/
+.badg{
+    width: 1rem;
+    height: 1rem;
+    right: 1rem;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    line-height: 1rem;
+    background: #ff531e;
+    border-radius: 50%;
+    color: white !important;
+}
+.menu img{
+    display: inline-block;width: 30%
+}
+.menu span{
+    display: block;
+    text-align: center;
+    color: #575453;
+    font-size: 0.6rem;
+}
+.firs{
+    border-right: 1px solid #a1a2a2;
+    position: relative;
+
+}
+.trgin{
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    position: absolute;
+    top: 50%;
+    margin-top: -0.25rem;
+    right: -0.3rem;
+    background:url(../images/self/trgin.jpg) no-repeat 0.1rem;
+    background-size: cover;
+}
+.grades{
+    text-align: center;
+    padding-top: 0.5rem;
+}
+.tstgrade{
+    color: #6d6b6a;
+}
+.boxgdd{
+    border-bottom: 1px solid #ff531e;
+    margin: 0 auto;
+    width: 60%;
+}
+.boxgd{
+
+    float: left;
+}
+.boxgd img{
+    width: 3rem;
+}
+.boxgd .num{
+    color:#ff531e;
+    font-size: 2rem;
+}
+.bugroup{
+    padding: 0.5rem 0;
+}
+.bugroup a{
+    margin: 0 0.6rem;
+}
+.button.button-fill {
+    background: #ff531e;
+}
+.cjiang img{
+    width: 100%;
+}
+.rank{
+    font-size: 0.6rem;
+}
+.rank span{
+    font-size: 0.8rem;
+    color: deepskyblue;
+}
+.swiper-wrapper img {
+    height: auto;
+    width: 100%;
+    margin: auto;
+}

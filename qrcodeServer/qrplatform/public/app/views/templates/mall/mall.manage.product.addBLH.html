@@ -1,0 +1,111 @@
+<div class="shade sale" ng-controller="addBLHController" ng-init="BLHProduction.init()">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">新增百礼汇商品</h3>
+        </div>
+        <div class="content-body">
+            <div m-view-opt-group>
+                <m-form>
+                    <form>
+                        <div class="filter">
+                            <div class="filter-item">
+                                <span class="filter-item-label">商品价格:</span>
+                                <input type="number" class="filter-item-input" style="width: 80px;" 
+                                    placeholder="最低价" 
+                                    ng-model="BLHProduction.queryOptions.low">
+                                ~
+                                <input type="number" class="filter-item-input" style="width: 80px;" 
+                                    placeholder="最高价" 
+                                    ng-model="BLHProduction.queryOptions.high">                            
+                            </div>
+                            <div class="filter-item">
+                                <span class="filter-item-label">商品分类:</span>
+                                <select ng-model="BLHProduction.queryOptions.categoryId" style="padding: 4px;">
+                                    <option value="">请选择百礼汇商品分类：</option>
+                                    <option ng-repeat="item in BLHProduction.BLHtype" value="{{item.category_id}}">{{item.category_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="butn butn-primary"
+                                    ng-click="BLHProduction.query(1)">
+                                <i class="fa fa-search"></i>
+                                查询
+                            </button>
+                            <button class="butn butn-default"
+                                    ng-click="BLHProduction.resetQuery()"><i class="fa fa-undo"></i> 重置</button>
+                        </div>
+                    </form>
+                </m-form>
+                <m-action>
+                    <button class="butn" style="visibility: hidden;">占位按钮</button>
+                </m-action>
+            </div>
+            <div class="nodata" ng-show="BLHProduction.items.length == 0">
+                暂无数据
+            </div>
+            <div class="view-table" id="BLHproductiontable" ng-show="BLHProduction.items.length > 0">
+                <table style="table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th width="70px">创建/更新时间</th>
+                            <th width="300px">商品名称</th>
+                             <th width="70px">分类</th> 
+                            <th width="70px">售价(元)</th>
+                            <th width="80px">编辑</th>
+                            <th width="80px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in BLHProduction.items">
+                            <td ng-bind="item.update_time*1000 | timSlice"></td>
+                            <td ng-bind="item.product_name"></td>
+                             <td ng-bind="item.category_name"></td> 
+                            <td ng-bind="item.market_price | currency : '￥'"></td>
+                            <td style="padding:0">
+                                <button class="butn butn-link" ng-click="BLHProduction.showDetail(item)">
+                                    <i class="fa fa-list-alt"></i>
+                                    详情
+                                </button>
+                            </td>
+                            <td style="padding:0">
+                                <button class="butn butn-link" ng-click="BLHProduction.addToList(item)" ng-disabled="BLHProduction.selectedIdList.indexOf(item.itemId)>=0">
+                                    <i class="fa fa-plus"></i>
+                                    添加
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 商品列表 end  -->
+            <div class="selected-list">
+                <div>已选取的百礼汇商品</div>
+                <div class="item-container">
+                    <div class="noproduction" ng-if="BLHProduction.selectedList.length == 0">尚无选取的商品</div>
+                    <div ng-repeat="item in BLHProduction.selectedList">
+                        <div class="item">{{item.name}}</div><span class="fa fa-times-circle" ng-click="BLHProduction.deleteItem(item)"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- selected production list end  -->
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="BLHProduction.confirmClose()">取消</button>
+            <button class="butn butn-primary" ng-click="BLHProduction.confirmSave()">提交</button>
+        </div>
+    </div>
+    <div ng-show="BLHProduction.detailToggle">
+        <div class="shade">
+            <div class="content" style="width: 600px;">
+                <div class="content-top">
+                    <h3 class="title">商品详情</h3>
+                </div>
+                <div class="content-body" ng-bind-html="BLHProduction.detailInfo"></div>
+                <div class="content-footer">
+                    <button class="butn butn-default" ng-click="BLHProduction.showDetail()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="manage managelottery" ng-controller="mallLotteryManage">
+    <h3 class="view-title">
+        <i class="fa fa-trophy"></i> 积分抽奖活动管理
+    </h3>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">起始日期:</span>
+                        <input type="date" class="filter-item-input" ng-model="lotteryList.queryOptions.begdate">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">截止日期:</span>
+                        <input type="date" class="filter-item-input" ng-model="lotteryList.queryOptions.enddate">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">活动名称:</span>
+                        <input type="text" class="filter-item-input" placeholder="活动名称" ng-model="lotteryList.queryOptions.key">
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="lotteryList.query(1)">
+                        <i class="fa fa-search"></i> 查询
+                    </button>
+                    <button class="butn butn-default" ng-click="lotteryList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn butn-primary" ng-click="lotteryForm.showAdd()"><i class="fa fa-plus"></i> 添加</button>
+        </m-action>
+    </div>
+
+    <div class="view-table" id="lotteryTable">
+        <table>
+            <thead>
+                <tr>
+                    <th width="100px">活动名称</th>
+                    <th width="50px">活动开始时间</th>
+                    <th width="50px">活动结束时间</th>
+                    <th width="50px">活动状态</th>
+                    <th width="600px">活动描述</th>
+                    <th width="70px">活动启用</th>
+                    <th width="70px">编辑</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in lotteryList.items">
+                    <td ng-bind="item.name"></td>
+                    <td ng-bind="item.begindate | momt"></td>
+                    <td ng-bind="item.enddate | momt"></td>
+                    <th ng-bind="item.state?'已启用':'已停用'"></th>
+                    <td ng-bind="item.info"></td>
+                    <td>
+                        <button class="butn butn-link" ng-show="item.state == 0"  ng-click="lotteryForm.shelve(item)">
+                            <i class="fa fa-edit"></i>
+                            启用活动
+                        </button>
+                        <button class="butn butn-link" ng-show="item.state == 1"  ng-click="lotteryForm.offShelve(item)">
+                            <i class="fa fa-edit"></i>
+                            停用活动
+                        </button>
+                    </td>
+                    <td style="padding:0">
+                        <button class="butn butn-link" ng-click="lotteryForm.showEdit(item)">
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-if="lotteryForm.showAddForm" ng-include="'views/templates/mall/mall.manage.lottery.set.html'"></div>
+</div>

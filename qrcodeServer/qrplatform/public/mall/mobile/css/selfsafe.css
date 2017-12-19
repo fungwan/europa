@@ -1,0 +1,179 @@
+/*backgrouund:#ff531e*/
+html{
+    font-size: 20px;
+}
+.iconfont{
+    font-size:  1.5rem;
+}
+.icon-jikediancanicon13{
+    margin-top: -10px;
+}
+.safetitle{
+    padding: 10px 0 10px 1rem;
+    border-bottom: 2px solid #f1f1f1;
+}
+.safetitle>.iconfont{
+    font-size: 1rem;
+}
+.titletext{
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 6px;
+}
+.mopass{
+    padding-right: 20px;
+}
+.safegrade{
+    /* padding-left: 1rem; */
+    font-size: 0.8rem;
+    color: #7d7d7d;
+}
+.safegrade>.iconfont{
+    font-size: 1rem;
+    color:#F2A400;
+}
+.passwordbox{
+    /* padding-top: 10px; */
+}
+.rowtext>div{
+    line-height: 2.5rem;
+    /*padding-left: 2rem;*/
+    overflow:hidden;     white-space:nowrap;  text-overflow:ellipsis;
+}
+.rowedit{
+    text-align: center;
+}
+.infobox>.row{
+    border-bottom: 1px solid #e1e1e1;
+}
+.row .icon-pen{
+    color:#F2A400 ;
+}
+.infobox .ahead{
+    font-size: 1rem;
+    padding-left:1.5rem;
+}
+.infobox .col-40,.infobox .col-90{
+    /* padding-left: 2.5rem; */
+}
+.passtip{
+    font-size: 0.8rem;
+    color: #C93636;
+    text-align: right;
+    line-height: 2rem;
+    padding-right: 1rem;
+}
+.card-footer label input{
+    margin-right: 4px;
+}
+.addrmo .iconfont{
+    font-size:0.8rem;
+}
+.addrbar{
+    position: fixed;
+    height: 2.5rem;
+}
+/*个人信息主页*/
+#inde .iconfont{
+    margin-right: 1rem;
+    color: #F2A400;
+}
+#inde .content{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background: #f1f1f1;
+}
+
+#modi{
+    background: #e95302;
+    color: white;
+    border: none;
+    margin: auto;
+    display: block;
+    height: 1.4rem;
+    line-height: 1.4rem;
+}
+/*地址列表*/
+ #page-modyfiyaddr .bar-tab:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: auto;
+      right: auto;
+      height: 1px;
+      width: 100%;
+       background-color: white;
+      display: block;
+      z-index: 15;
+      -webkit-transform-origin: 50% 0;
+      transform-origin: 50% 0;
+  }
+
+#page-modyfiyaddr .addrbar{
+    background: white;
+}
+#page-modyfiyaddr .buttons-row a{
+    background: #e95302;
+    color: white;
+    border: none;
+}
+#page-modyfiyaddr .addrmo a{
+    color:inherit
+}
+/*地址添加*/
+ .list-block {
+     margin: 0;
+
+}
+ .list-block .item-media+.item-inner {
+    margin-left: .75rem;
+    margin-right: 0.75rem;
+}
+/*选择省份和选择城市*/
+#getprove .list-block,#getcity .list-block{
+    margin: 0;
+}
+#getprove .item-inner,#getcity .item-inner{
+    margin-right: 0.5rem;
+}
+#getprove .list-block .item-content,#getcity .list-block .item-content{
+    padding-left: 0;
+}
+#getprove .iconfont ,#getcity .iconfont{
+    font-size: 1rem;
+}
+#getprove .icon-jikediancanicon13,#getcity .icon-jikediancanicon13 {
+     margin-top: 0;
+}
+.rowedit .icon-pen{
+    font-size: 1rem;
+}
+.rowtext>div{
+    /* padding-left: 1rem; */
+}
+.rowtext>div.col-50{
+    font-size: 0.7rem;
+}
+
+.buttons-row .button{
+    color:white;
+    border-radius: 8px !important;
+    border:none;
+}
+.buttons-row .button+.button{
+    margin-left: 0.4rem;
+}
+.bar-tab{
+    padding: 0 0.5rem;
+}
+.passbox {
+    margin: 0.2rem 0 0.3rem 0;
+    background: #fff;
+}
+.rowtext {
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    color: #7d7d7d;
+}

@@ -1,0 +1,40 @@
+<div class="view product">
+    <h3 class="view-title">
+        <i class="fa fa-money"></i>
+        财务管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">后台管理</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">财务管理</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mainContent clear">
+        <div class="side lf">
+            <div class="sideitem" 
+                ng-repeat="item in tabItems"
+                ng-bind="item.name"
+                ng-click="selectItem(item)"
+                ng-class="{active: selectedItem == item}">
+            </div>
+        </div>
+        <div class="tabbox" 
+            ng-if="selectedItem.code == 'income'"
+            ng-include="'views/templates/sysManage/finance/finance.manage.income.html'">
+        </div>
+        <div class="tabbox" 
+            ng-if="selectedItem.code == 'redpacket'"
+            ng-include="'views/templates/sysManage/finance/finance.manage.redpacket.html'">
+        </div>
+    </div>
+</div>

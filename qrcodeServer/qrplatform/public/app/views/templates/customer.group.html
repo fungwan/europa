@@ -1,0 +1,79 @@
+<div class="view" ng-contrller="customerGroupCtrl">
+    <h3 class="view-title">
+        <i class="fa fa-group"></i> 消费者分组管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="/enterprise/managehome.html">消费者管理</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">消费者分组管理</a>
+            </li>
+        </ul>
+    </div>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">分组名称:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入分组名称" ng-model="groupList.queryOptions.query.groupname">
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="groupList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default" ng-click="groupList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="action-bar-item butn butn-default" ng-click="groupForm.showAddForm()">
+                <i class="fa fa-plus"></i>
+                添加
+            </button>
+            <button class="action-bar-item butn butn-default" ng-disabled="!(groupList.selectedItems.length == 1)" ng-click="groupForm.showEditForm(groupList.selectedItems[0])">
+                <i class="fa fa-pencil"></i>
+                修改
+            </button>
+            <button class="action-bar-item butn butn-danger" ng-disabled="!(groupList.selectedItems.length >= 1)" ng-click="groupList.deleteSelectedItems()">
+                    <i class="fa fa-trash"></i>
+                    删除
+            </button>
+        </m-action>
+    </div>
+    <!-- 表格 -->
+    <div class="view-table">
+        <table>
+            <thead>
+                <tr>
+                    <th class="check">
+                        <input type="checkbox" ng-checked="groupList.isCheckedAll()" ng-click="groupList.toggleCheckedAll()">
+                    </th>
+                    <th width="250px">名称</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in groupList.items">
+                    <td class="check">
+                        <input type="checkbox" ng-checked="groupList.isChecked(item)" ng-click="groupList.toggleChecked(item)">
+                    </td>
+                    <td ng-bind="item.groupname"></td>
+                    <td ng-bind="item.groupdesc"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="groupForm.showAdd" ng-include="'views/templates/customer.group.add.html'"></div>
+    <div ng-if="groupForm.showEdit" ng-include="'views/templates/customer.group.edit.html'"></div>
+</div>

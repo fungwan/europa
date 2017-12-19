@@ -1,0 +1,196 @@
+.qr-footer {
+    z-index: 999;
+    padding: 10px 0;
+}
+.fb {
+    padding-top: 70px!important;
+}
+#toPoint {
+    border: none;
+    background-color: transparent!important;
+    padding: 10px 0!important;
+}
+/*.fb {*/
+    /*padding-top: 70px!important;*/
+/*}*/
+.editorSet {
+    padding-bottom: 0!important;
+}
+.startTime, .endTime {
+    width: auto!important;
+}
+.activityInfo {
+    min-width: 120px;
+    max-width: 200px;
+}
+.activityInfo {
+    min-width: 120px;
+    margin: 10px 10px 40px 10px;
+    padding-right: 10px;
+    border-right: 1px solid #d6d6d6;
+}
+.chooseActivity {
+    margin-bottom: 6px;
+}
+.activities {
+    max-height: 500px;
+    overflow-x: hidden;
+}
+.activities > button {
+    max-width: 160px;
+    justify-content: flex-start;
+    border: none;
+    background-color: transparent;
+    word-break: break-all;
+}
+.activityClicked {
+    background-color: #4fcaff!important;
+    color: #fff;
+}
+.activityClicked::after {
+    content: "";
+    width: 0;
+    height: 10px;
+    position: absolute;
+    right: 14px;
+    top: 0;
+    z-index: 999;
+    border-left: 5px solid #C93636;
+    border-right: 5px solid #C93636;
+    border-bottom: 5px solid transparent;
+}
+.pointList {
+    max-height: 450px;
+}
+.search::before {
+    content:"\f002"
+}
+.quesNoAct {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.98;
+    padding-top: 50px;
+    padding-left: 50px;
+    font-size: 18px;
+}
+.goCreateAct {
+    display: inline-block;
+    margin-left: 5px;
+    text-decoration: underline;
+    color: #f40;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+/**sleepman*/
+.nodata {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #484751;
+}
+.sleepman{
+    height: 150px;
+    width: 100px;
+    margin: 0 auto;
+}
+.sleepman div {
+    background: #00a5ff;
+    position: relative;
+}
+.head{
+    width: 80px;
+    height: 50px;
+    top: 35px;
+    border-radius: 80px 80px 0 0;
+    -webkit-transition: all 0.1s ease-in;
+}
+.eye {
+    background: #fff;
+    width: 50px;
+    height: 10px;
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    -webkit-border-radius: 20px;
+    -webkit-transform: rotate(-15deg);
+}
+.body{
+    width: 80px; height: 80px;
+    top: 40px;
+    border-radius: 0 0 25px 25px;
+    -webkit-border-radius: 0 0 25px 25px;
+    -moz-border-radius: 0 0 25px 25px;
+}
+.l_leg, .r_leg {
+    width: 25px;
+    height: 30px;
+    position: absolute;
+    -webkit-transition: all 0.1s ease-in;
+    -webkit-border-radius: 0 0 15px 15px;
+}
+.l_leg {
+    top: 60px;
+    left: 16px;
+}
+.llegAni {
+    -webkit-animation: lleg 300ms infinite;
+    animation-direction: alternate;
+}
+@-webkit-keyframes lleg {
+    from {
+        -webkit-transform: rotate(0deg) translate(5px, 0px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}
+.r_leg {
+    top: 28px;
+    left: 45px;
+}
+.rlegAni {
+    -webkit-animation: rleg 300ms infinite;
+    animation-direction: alternate;
+    animation-delay: 200ms;
+}
+@-webkit-keyframes rleg {
+    from {
+        -webkit-transform: rotate(0deg) translate(5px, 0px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}
+.sleep {
+    -webkit-animation: head 2s infinite;
+    animation-direction: alternate;
+}
+@-webkit-keyframes head {
+    from {
+        -webkit-transform: rotate(-5deg) translate(-4px, -8px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}
+.l_arm:hover{
+    -webkit-transform: rotate(-100deg) translate(-10px, 110px);
+}
+.happy {
+    -webkit-animation: happy 300ms infinite;
+    animation-direction: alternate;
+}
+@-webkit-keyframes happy {
+    from {
+        -webkit-transform: rotate(0deg) translate(0px, -1px);
+    }to
+     {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+     }
+}

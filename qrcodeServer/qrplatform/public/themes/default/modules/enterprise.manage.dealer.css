@@ -1,0 +1,141 @@
+
+.dealer {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
+.icoManageDealer::before {
+    content: '\f0d1' !important;
+}
+
+.icoManage {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    font-size: 30px;
+    color: white;
+    font-family: FontAwesome;
+}
+
+.topTool {
+    margin: 30px 100px 20px 100px;
+    justify-content: flex-end;
+}
+
+.topTool .editorItem:first-child {
+    position: absolute;
+    left: 0;
+}
+
+.topTool .editorItem:last-child {
+    margin-right: 0px !important;
+}
+
+.topTool button, .queryitem button {
+    display: inline-block;
+    width: 150px;
+    margin: 0 auto;
+    background-color: #61AEF5;
+    color: white;
+    text-overflow: ellipsis;
+    height: 41px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.topTool button:hover, .queryitem button:hover {
+    background-color: #1b88ee !important;
+    color: white;
+}
+
+#query, #seniorquery {
+    width: 100px;
+
+}
+
+.dealerList {
+    flex: 1;
+    margin: 0 100px 10px 100px;
+    overflow-y: auto;
+}
+
+.editorItem label {
+    text-align: left;
+}
+
+.editorItem input {
+    width: 150px;
+    height: 41px;
+}
+
+#groupItems {
+    max-height: 407px;
+    overflow-y: auto;
+}
+
+#groupItems button {
+    width: 100%;
+}
+
+#changeGroup {
+    width: 200px;
+    background-color: #61AEF5;
+    color: white;
+    border: none;
+}
+
+#changeGroup:disabled:hover {
+    background-color: #F5F5F5 !important;
+}
+
+#dealerMessage {
+    display: none;
+    font-size: 22px;
+    margin: 0 100px 10px 100px;
+    text-align: left;
+}
+
+/*高级查询*/
+
+.queryitem {
+    margin: 30px 50px 10px 50px;
+    background-color: #ffffff;
+}
+
+.queryitem .editorItem input, .queryitem .editorItem button {
+    width: 300px;
+}
+
+@media all and (max-width: 1280px) {
+    .dealerData {
+        margin: 0px 50px;
+    }
+
+    .topTool {
+        margin: 30px 50px 20px 50px;
+
+    }
+
+    .dealerList, #dealerMessage {
+        margin: 0 50px 10px 50px;
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .dealerData {
+        margin: 0px;
+    }
+
+    .topTool {
+        margin: 30px 0px 20px 0px;
+
+    }
+
+    .dealerList, #dealerMessage {
+        margin: 0 0px 10px 0px;
+    }
+}

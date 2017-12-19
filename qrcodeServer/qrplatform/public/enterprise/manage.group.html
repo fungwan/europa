@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../themes/common.css"/>
+    <title>万码易联 - 企业平台 - 消费者分组管理</title>
+</head>
+<body>
+<div class="groupManage">
+    <div class="topTool horizontalFlexBox">
+        <div class="editorItem horizontalFlexBox">
+            <div class="icoManage icoManageGroup" style="background: #ff855c"></div>
+            <h1 class="flex">消费者分组管理</h1>
+        </div>
+        <div class="editorItem">
+            <label for="groupName">分组名称:</label>
+            <input type="text" name="groupName" id="groupName" placeholder="请输入分组名称">
+        </div>
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button id="query" class="flex wfico ico_query">查询</button>
+        </div>
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button id="groupDelete" class="wfico ico_trash">删除分组</button>
+        </div>
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button id="groupAdd" class="wfico ico_add">添加分组</button>
+        </div>
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button id="groupEdit" class="wfico ico_trash">修改分组</button>
+        </div>
+    </div>
+    <div class="groupList datagrid"></div>
+    <div id="groupMessage"></div>
+
+    <div class="mask"></div>
+    <div class="form">
+        <div class="header wfico">
+            添加分组
+        </div>
+        <div class="content">
+            <div class="item">
+                <label for="formGroupName">分组名称:</label>
+                <input type="text" id="formGroupName" required maxlength="10" placeholder="请输入分组名称">
+            </div>
+            <div class="item">
+                <label for="formGroupDesc">分组描述:</label>
+                <input type="text" id="formGroupDesc" maxlength="25" placeholder="请输入分组描述">
+            </div>
+        </div>
+        <div class="command">
+            <button class="sub wfico ico_cancel commit" id="cancel">取消</button>
+            <button class="sub wfico ico_save commit" id="save">确定</button>
+        </div>
+    </div>
+</div>
+
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.manage.group" data-deps="dateTimePicker,colorPicker,datagrid"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<div class="shade sale new-qoupon" ng-init="addQoupon.initForm()">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">修改礼券</h3>
+        </div>
+        <div class="content-body" style="padding: 15px">
+            <div class="part-left">
+                <div class="horizontal-item">
+                    <label for="">礼券名称：</label>
+                    <div>
+                        <input type="text" 
+                               ng-model="addQoupon.defaultQoupon.productInfo.productname">
+                        <span class="error-msg" ng-if="addQoupon.error.productname">
+                            {{addQoupon.error.productname}}
+                        </span>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">礼券成本：</label>
+                    <div>
+                        <input type="number"
+                               ng-model="addQoupon.defaultQoupon.productInfo.cost">
+                        <span class="error-msg" ng-if="addQoupon.error.cost">
+                            {{addQoupon.error.cost}}
+                        </span>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">礼券售价：</label>
+                    <div>
+                        <input type="number"
+                               ng-model="addQoupon.defaultQoupon.productInfo.price">
+                        <span class="error-msg" ng-if="addQoupon.error.price">
+                            {{addQoupon.error.price}}
+                        </span>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">礼券总数：</label>
+                    <div>
+                        <input type="number"
+                               ng-model="addQoupon.defaultQoupon.productInfo.amount">
+                        <span class="error-msg" ng-if="addQoupon.error.amount">
+                            {{addQoupon.error.amount}}
+                        </span>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">生效时间：</label>
+                    <div>
+                        <input type="date"
+                               ng-model="addQoupon.defaultQoupon.productInfo.validity_beg">
+                        <span class="error-msg" ng-if="addQoupon.error.validity_beg">
+                            {{addQoupon.error.validity_beg}}
+                        </span>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">失效时间：</label>
+                    <div>
+                        <input type="date"
+                               ng-model="addQoupon.defaultQoupon.productInfo.validity_end">
+                        <span class="error-msg" ng-if="addQoupon.error.validity_end">
+                            {{addQoupon.error.validity_end}}
+                        </span>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">描述：</label>
+                    <div style="height:100px;">
+                        <textarea rows="4"
+                                  ng-model="addQoupon.defaultQoupon.productInfo.productinfo">
+                        </textarea>
+                        <span class="error-msg" ng-if="addQoupon.error.productinfo">
+                            {{addQoupon.error.productinfo}}
+                        </span>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">关联商品添加：</label>
+                    <div>
+                        <button class="butn butn-primary"
+                                ng-click="addQoupon.showProductionList()">
+                            <i class="fa fa-plus"></i> 添加
+                        </button>
+                        <span class="error-msg" ng-if="addQoupon.error.productList">
+                            {{addQoupon.error.productList}}
+                        </span>
+                    </div>
+                </div>
+                 <div class="horizontal-item">
+                    <label for="">关联商品列表：</label>
+                    <div>
+                        <div class="product-list-item" 
+                             ng-repeat="item in addQoupon.selectedMallProductList">
+                            <i class="fa fa-close" ng-click="addQoupon.deleteProduction(item)"></i>
+                            <span class="item-title" ng-bind="item.productname"></span>
+                            <span class="item-number">
+                                数量 <input type="number" ng-bind="item.number" ng-model="item.number">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">礼券轮播图上传：</label>
+                    <div>
+                        <button class="butn butn-primary" id="pickfiles">
+                            <i class="fa fa-cloud-upload"></i> 上传图片
+                        </button>
+                        <span class="error-msg" ng-if="addQoupon.error.thumb">
+                            {{addQoupon.error.thumb}}
+                        </span>
+                    </div>
+                    
+                </div>
+                <div class="horizontal-item">
+                    <label style="visibility: hidden;">占位</label>
+                    <div>
+                        <div class="img-preview-item" ng-repeat="item in addQoupon.thumbList">
+                            <img ng-src="{{item.src}}">
+                            <div class="cover">
+                                <a href="javascript:;" 
+                                   class="img-remove" 
+                                   title="移除图片" 
+                                   ng-click="addQoupon.removeImg(item)">
+                                    <i class="fa fa-close"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="part-right">
+                <!--<label for="">礼券详情编辑：</label>-->
+                <div id="detail-edit" style="min-height: 650px;min-width: 600px;"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="content-footer">
+        <button class="butn butn-default" ng-click="addQoupon.closeAdd(qouponList)">取消</button>
+        <button class="butn butn-primary" ng-click="addQoupon.confirmAdd(qouponList)">保存</button>
+    </div>
+</div>
+<div ng-show="addQoupon.showProduct" 
+     ng-include="'views/templates/mall/mall.manage.qoupon.addProductList.html'"></div>

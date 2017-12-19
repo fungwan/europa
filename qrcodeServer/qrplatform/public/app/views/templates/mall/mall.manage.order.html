@@ -1,0 +1,341 @@
+<div class="manage manageproduct" ng-controller="mallOrderManage">
+    <h3 class="view-title">
+        <i class="fa fa-file-text"></i>
+        订单管理
+    </h3>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">起始日期:</span>
+                        <input type="date" class="filter-item-input"
+                            ng-model="orderList.queryOptions.begtime">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">截至日期:</span>
+                        <input type="date" class="filter-item-input"
+                            ng-model="orderList.queryOptions.endtime">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">订单号:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入订单号"
+                            ng-model="orderList.queryOptions.orderbm">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">状态:</span>
+                        <select ng-model="orderList.queryOptions.state" style="padding: 4px;">
+                            <option value="">请选择订单状态</option>
+                            <option value="0">待付款</option>
+                            <option value="1">待发货</option>
+                            <option value="2">待收货</option>
+                            <option value="3">已完成</option>
+                            <option value="4">已取消</option>
+                            <!-- <option value="5">退货审核中</option>
+                            <option value="6">换货审核中</option>
+                            <option value="7">退货中</option>
+                            <option value="8">换货中</option> -->
+                            <option value="100">已关闭</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="orderList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default" ng-click="orderList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn butn-primary" ng-click="orderList.exports()"><i class="fa fa-upload"></i> 导出订单</button>
+        </m-action>
+    </div>
+    <div class="view-table" id="orderTable">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>客户名称</th>
+                        <th>创建时间</th>
+                        <th style="min-width: 40px;">状态</th>
+                        <th style="min-width: 80px;">总金额（元）</th>
+                        <th style="min-width: 80px;">实付款（元）</th>
+                        <th style="min-width: 75px;">使用积分（分）</th>
+                        <th>详情</th>
+                        <th>发货</th>
+                        <th>撤销</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in orderList.items">
+                        <td ng-bind="item.orderbm"></td>
+                        <td ng-bind="item.customer.nickname"></td>
+                        <td ng-bind="item.createtime"></td>
+                        <td ng-bind="item.state | orderStateFilter"></td>
+                        <td ng-bind="item.price | toFixed | lqbz: item.producttype "></td>
+                        <td ng-bind="item.paymoney | toFixed | lqbz: item.producttype"></td>
+                        <td ng-bind="item.tickmoney"></td>
+                        <td style="padding: 0;">
+                            <button class="butn butn-link"
+                                ng-click="orderInfo.showInfo(item)">
+                                <i class="fa fa-list"></i>
+                                查看详情
+                            </button>
+                        </td>
+                        <td style="padding: 0;">
+                            <button class="butn butn-link"
+                                ng-disabled="orderList.disableSend(item)"
+                                style="background: #fff !important;"
+                                ng-click="expressForm.show(item)">
+                                <i class="fa fa-ambulance"></i>
+                                点击发货
+                            </button>
+                        </td>
+                        <td style="padding: 0;">
+                            <button class="butn butn-link"
+                                style="background: #fff !important"
+                                ng-disabled="orderList.disableCancel(item)"
+                                ng-click="orderList.cancelOrder(item)"
+                                ng-if="item.state != 0">
+                                <i class="fa fa-close"></i>
+                                <span>撤销订单</span>
+                            </button>
+                            <button class="butn butn-link"
+                                style="background: #fff !important"
+                                ng-click="orderList.closeOrder(item)"
+                                ng-if="item.state == 0">
+                                <i class="fa fa-close"></i>
+                                <span>关闭订单</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        
+    <div ng-if="expressForm.showForm">
+        <div class="shade modal">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3 class="title">填写快递信息</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            快递公司 <span class="require">*</span>
+                        </h4>
+                        <div class="input-group-input">
+                            <select ng-model="expressForm.express" 
+                                ng-class="{error: expressForm.errors.express}">
+                                <option value="">请选择快递公司</option>
+                                <option value="申通快递">申通快递</option>
+                                <option value="EMS">EMS</option>
+                                <option value="顺丰快递">顺丰快递</option>
+                                <option value="圆通快递">圆通快递</option>
+                                <option value="韵达快递">韵达快递</option>
+                                <option value="宅急送">宅急送</option>
+                            </select>
+                            <span class="error-msg" ng-if="expressForm.errors.express">{{expressForm.errors.express}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            快递单号 <span class="require">*</span>
+                        </h4>
+                        <div class="input-group-input">
+                            <input type="text" style="width: 280px;" 
+                                ng-model="expressForm.trackingno"
+                                ng-class="{error: expressForm.errors.trackingno}"
+                                placeholder="请输入快递单号">
+                            <span class="error-msg" ng-if="expressForm.errors.trackingno">{{expressForm.errors.trackingno}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="butn butn-default"
+                        ng-click="expressForm.close()">取消</button>
+                    <button class="butn butn-primary"
+                        ng-click="expressForm.sendGood()">
+                        <i class="fa fa-ambulance"></i>
+                        发货
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="orderInfo.show">
+        <div class="shade">
+            <div class="content" style="width: 600px;">
+                <div class="content-top">
+                    <h3 class="title">订单详情</h3>
+                </div>
+                <div class="content-body">
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            订单号
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.orderbm}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            客户名称
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.item.customer.nickname}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            创建时间
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.createtime | timFmartm}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            收货信息
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.item.address || "无"}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            快递公司
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.item.express || "无"}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            快递单号
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.item.trackingno || "无"}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group" ng-if="orderInfo.info.producttype == 'blh'">
+                        <h4 class="input-group-label">
+                            物流信息
+                        </h4>
+                        <div class="input-group-input">
+                            <button ng-click="orderInfo.getExpressInfo()">查看</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            选购商品
+                        </h4>
+                        <div class="view-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>商品名称</th>
+                                        <th>购买数量</th>
+                                        <th>单价（元）</th>
+                                        <th>总价（元）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in orderInfo.info.items">
+                                        <td>{{item.productname}}</td>
+                                        <td>{{item.productnumber}}</td>
+                                        <td>{{item.price || 0 | toFixed | lqbz: orderInfo.info.producttype }}</td>
+                                        <td>{{item.sumprice || 0 | toFixed | lqbz: orderInfo.info.producttype }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            总金额（元）
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.price || 0 | toFixed | lqbz: orderInfo.info.producttype}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            实付款（元）
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.paymoney || 0 | toFixed | lqbz: orderInfo.info.producttype}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            折扣金额（元）
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.discountmoney || 0 | toFixed | lqbz: orderInfo.info.producttype}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            使用积分（分）
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.tickmoney}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            状态
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.state | orderStateFilter}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group" ng-if="orderInfo.info.finishtime">
+                        <h4 class="input-group-label">
+                            完成时间
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{(orderInfo.info.finishtime | timFmartm) || "尚未完成"}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group" ng-if="orderInfo.info.sendtime">
+                        <h4 class="input-group-label">
+                            发货时间
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{(orderInfo.info.sendtime | timFmartm) || "尚未发货"}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" ng-if="orderInfo.info.remak">
+                        <h4 class="input-group-label">
+                            备注
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{orderInfo.info.remak || "无"}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <button class="butn butn-default" ng-click="orderInfo.close()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="express-info" ng-if="orderInfo.expressInfo.show">
+        <div>状态：<span>{{orderInfo.expressInfo.state | expressState}}</span></div>
+        <div>快递公司：<span>{{orderInfo.expressInfo.company || '无信息'}}</span></div>
+        <div>快递单号：<span>{{orderInfo.express.id || '无信息'}}</span></div>
+        <div>进程：{{orderInfo.express.detail || '暂无信息'}}</div>
+        <div class="action">
+            <button ng-click="orderInfo.expressInfo.show = false" class="butn butn-primary">关闭</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column wrap;
+}
+header {
+    width: 100%;
+    height: 5.5rem;
+    background-image: url(../images/info_header.jpg);
+    background-repeat: no-repeat;
+    background-position: 57% 99%;
+    background-size: cover;
+}
+section.main {
+    position: absolute;
+    width: 100%;
+    top: 5.5rem;
+    bottom: 0;
+    background-image: url('../images/info_background.jpg');
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: cover;
+    display: flex;
+    flex-flow: column wrap;
+}
+div.info {
+    width: 90%;
+    display: flex;
+    flex-flow: column;
+    margin: 0.5rem auto;
+    /* background: #fff; */
+    color: #fff;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    font-size: 0.6rem;
+    line-height: 1.5;
+    font-family: 'Microsoft YaHei'
+}
+div.action {
+    position: absolute;
+    bottom: 1.5rem;
+    width: 100%;
+    display: flex;
+}
+div.action button {
+    width: 90%;
+    margin: auto;
+    font-size: 0.9rem;
+    padding: 0.2rem;
+    color: #fff;
+    background: #8a3031;
+    border: 0;
+    border-radius: .3rem;
+    font-family: 'Microsoft YaHei';
+    /* box-shadow: 2px 2px 10px #735b32; */
+}
+.attention {
+    color: red;
+}
+
+div.discount {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
+}   
+div.discount .number {
+    width: 30%;
+    display: flex;
+}
+div.discount .number >div {
+    margin: auto;
+    color: #fff;
+    font-size: 1.8rem;
+    display: flex;
+    flex-flow: row nowrap;
+}
+div.discount .number >div span {
+    display: block;
+}
+div.discount .number >div .iconfont {
+    font-size: 0.9rem;
+    padding-top: 13px;
+    padding-right: 11px;
+}
+div.discount .list-container {
+    width: 70%;
+    height: 7rem;
+    background: #e03939;
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
+    margin: 0.5rem;
+    box-shadow: 2px 2px 20px #56421F;
+}
+div.discount .list-container .content {
+    flex: 1;
+    margin: auto;
+    display: flex;
+    color: #fff;
+    font-size: 2.7rem;
+}
+div.discount .list-container .content >div {
+    margin: auto;
+}
+div.discount .list-container .title,
+div.discount .list-container .desc {
+    background: #fff;
+    font-size: 0.7rem;
+    padding: 0.2rem;
+    font-family: 'Microsoft YaHei'
+}

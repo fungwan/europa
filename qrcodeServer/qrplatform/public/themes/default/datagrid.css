@@ -1,0 +1,447 @@
+.datagrid {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.datagrid > .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    background-color: transparent;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    color: rgba(0, 0, 0, .6);
+    padding: 10px;
+}
+
+.datagrid > .loading::before {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, .6);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 12px 15px;
+    background-image: url("images/spinnerLoader.svg");
+    content: '';
+    margin-right: .5em;
+    vertical-align: middle;
+}
+
+.datagrid * {
+    line-height: normal;
+}
+
+.datagrid > .header {
+    overflow: hidden;
+    position: relative;
+    flex: none;
+}
+
+.datagrid > .header > .columns {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1;
+    overflow: hidden;
+}
+
+.datagrid > .header > .columns > .el {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.datagrid > .header > .columns > .free {
+    flex: 1;
+}
+
+.datagrid > .header > .columns > .el .col {
+    padding: 8px;
+    color: rgba(0, 0, 0, .6);
+    flex: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-flow: column nowrap;
+    line-height: 150%;
+    transition: opacity 200ms;
+}
+
+.datagrid > .header > .columns > .el .sort,
+.datagrid > .header > .columns > .el .sort_asc,
+.datagrid > .header > .columns > .el .sort_desc {
+    cursor: pointer;
+}
+
+.datagrid > .header > .columns > .el .sort *,
+.datagrid > .header > .columns > .el .sort_asc *,
+.datagrid > .header > .columns > .el .sort_desc *{
+    color: #1a1f25;
+    pointer-events: none;
+}
+
+.datagrid > .header > .columns > .el .sort::after {
+    content: '\f0dc';
+    opacity: .25;
+    font-family: FontAwesome;
+    margin-left: 5px;
+}
+
+.datagrid > .header > .columns > .el .sort_asc::after {
+    content: '\f0de';
+    font-family: FontAwesome;
+    margin-left: 5px;
+}
+
+.datagrid > .header > .columns > .el .sort_desc::after {
+    content: '\f0dd';
+    font-family: FontAwesome;
+    margin-left: 5px;
+}
+
+.datagrid > .header > .columns > .el .col,
+.datagrid > .header > .columns > .frozen > .rowheader {
+    border-bottom: 2px solid #505050;
+}
+
+.datagrid > .header > .columns > .el .col {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.datagrid > .header > .columns > .el .subcol {
+    margin: 10px -11px -10px -10px;
+    border-top: rgba(0, 0, 0, .1) solid 1px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.datagrid > .header > .columns > .el .subcol > .col:last-child {
+    border-right: none;
+}
+
+.datagrid > .header > .columns > .el .col:hover {
+    color: #000000;
+}
+
+.datagrid > .content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.datagrid > .content > .rows {
+    flex: 1;
+    overflow: hidden;
+}
+
+.datagrid > .content > .rows > .row {
+    display: flex;
+    flex-flow: row nowrap;
+    border-bottom: rgba(0, 0, 0, .1) solid 1px;
+}
+
+.datagrid > .content > .rows > .row > .el {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.datagrid > .header > .columns > .frozen > .rowheader,
+.datagrid > .content > .rows > .row > .frozen > .rowheader {
+    background-image: none;
+}
+
+.datagrid > .content > .rows > .selected > .frozen > .rowheader {
+    background-repeat: no-repeat;
+    background-size: 6px 6px;
+    background-position: 8px center;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI2cHgiIGhlaWdodD0iNnB4IiB2aWV3Qm94PSIwIDAgNiA2IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CjxwYXRoIGZpbGw9IiMxYjg4ZWUiIGQ9Ik0wLDAgTDYsMyBMMCw2IiAvPgo8L3N2Zz4=");
+}
+
+.datagrid > .header > .columnsWithHeader > .frozen > .rowheader {
+    padding: 8px 8px 0 0;
+    line-height: 150%;
+    display: flex;
+    flex-flow: column nowrap;
+    color: #505050;
+    width: 32px;
+    justify-content: flex-end;
+}
+
+.datagrid > .content > .rowsWithHeader > .row > .frozen > .rowheader {
+    display: -webkit-box;
+    width: 32px;
+}
+
+.datagrid > .content > .rows > .row:last-child {
+    margin-bottom: 0;
+}
+
+.datagrid > .content > .rows > .row:nth-child(2n) {
+}
+
+.datagrid > .content > .rows > .row:hover .cell,
+.datagrid > .content > .rows > .row:hover .cell > * {
+    color: black;
+}
+
+.datagrid > .content > .rows > .row > .el > .cell {
+    padding: 10px 8px;
+    line-height: 150%;
+    flex: none;
+    transition: background-color 50ms;
+    display: flex;
+    align-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.datagrid > .content > .rows > .row > .el > .cell:focus {
+    outline: none;
+}
+
+.datagrid > .content > .rows > .selected .cell,
+.datagrid > .content > .rows > .selected .cell > * {
+    color: #1b88ee !important;
+}
+
+.datagrid > .content > .rows > .row > .el > .cell.selected {
+    background-color: rgba(27, 136, 238, .3);
+    transition: background-color 50ms;
+}
+
+.datagrid > .content > .rows > .row > .el > .cell.editing {
+    padding: 0;
+    -webkit-box-align: stretch;
+}
+
+.datagrid > .content > .rows > .row > .el > .cell.editing::after {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    content: '\f040';
+    font-family: FontAwesome;
+    color: rgba(0, 0, 0, .2);
+}
+
+.datagrid > .content > .rows > .row > .el input[data-role=text],
+.datagrid > .content > .rows > .row > .el button {
+    flex: 1;
+    border-radius: 0;
+    padding: 10px 7px;
+    height: auto;
+    border-width: 0 1px;
+    margin: 0;
+    background-color: transparent;
+    text-align: left;
+}
+
+.datagrid > .content > .rows > .row button.opened {
+    background-color: transparent !important;
+}
+
+.datagrid > .content > .rows > .groupRow {
+    padding: 10px 8px;
+    background-color: rgba(0, 0, 0, .15);
+    color: #1a1f25;
+    font-weight: bold;
+    border-bottom: rgba(0, 0, 0, .2) solid 1px;
+    border-top: rgba(0, 0, 0, .1) solid 1px;
+}
+
+.datagrid > .content > .rows > span.empty {
+    background-color: transparent;
+    color: rgba(0, 0, 0, .6);
+    margin: 1em;
+}
+
+.datagrid > .content > .rows > .row > .el input.isopened {
+    background-color: #61aef5;
+}
+
+.datagrid > .content > .rows > div[data-group] > div:first-child {
+    text-indent: 2em;
+}
+
+.datagrid .checkboxcol, .datagrid .checkboxcell {
+    text-align: center;
+}
+
+.datagrid .checkboxcol input, .datagrid .checkboxcell input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+.datagrid label.checkboxlabel {
+    width: 32px;
+    height: 16px;
+    margin: 0;
+    display: block;
+    border-radius: 16px;
+    border: rgba(0, 0, 0, .2) solid 1px;
+    background-color: white;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8cmVjdCB4PSI0IiB5PSI0IiByeD0iMTIiIHJ5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZTJlMmUyIiBzdHJva2U9IiNhYWEiIHN0cm9rZS13aWR0aD0iMSIgIC8+Cjwvc3ZnPg==");
+    transition: background-color, background-position 200ms;
+    opacity: .5;
+}
+
+.datagrid .editable label.checkboxlabel {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.datagrid .editable label.checkboxlabel:hover {
+    background-color: #f5f5f5;
+    transition: background-color, background-position 200ms;
+}
+
+.datagrid label.checkedlabel {
+    background-position: right center;
+    background-color: #61aef5;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgo8cmVjdCB4PSI0IiB5PSI0IiByeD0iMTIiIHJ5PSIxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZmZmIiAgLz4KPC9zdmc+");
+    transition: background-color, background-position 200ms;
+}
+
+.datagrid .editable label.checkedlabel:hover {
+    background-color: #1b88ee;
+    transition: background-color, background-position 200ms;
+}
+
+.datagrid .editing label.checkboxlabel {
+    margin: 8px 8px 8px 0;
+}
+
+.datagrid > .content > .rows > .uneditable {
+    opacity: .6;
+}
+
+.datagrid > .content > .rows > .uncheckable .checkboxcell {
+    visibility: hidden;
+}
+
+.datagrid .template {
+    display: none;
+}
+
+.datagrid > .header > .columns > .el .last,
+.datagrid > .content > .rows > .row > .el .last {
+    border-right: none;
+    padding-right: 0;
+    min-width: 4px;
+    flex: 1;
+}
+
+.datagrid > .header > .commands {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 5px;
+    align-items: center;
+}
+
+.datagrid > .header > .commands button {
+    min-width: 32px;
+    height: 32px;
+    padding: 5px 10px;
+    border-radius: 50px;
+    background-color: #f5f5f5;
+    margin: 0 5px 5px 0;
+}
+
+.datagrid > .header > .commands button.opened {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.datagrid > .header > .commands .group {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0 5px 5px 0;
+}
+
+.datagrid > .header > .commands .group * {
+    border-radius: 0;
+    margin: 0 -1px 0 0;
+}
+
+.datagrid > .header > .commands .group *:first-child {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.datagrid > .header > .commands .group *:last-child {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    margin: 0;
+}
+
+.datagrid > .header > .commands button:hover {
+    background-color: #1b88ee;
+    color: white;
+}
+
+.datagrid > .footer {
+    padding: 8px;
+    background-color: #f5f5f5;
+}
+
+.datagrid-dark > .header > .columns > .el .col,
+.datagrid-dark > .header > .columnsWithHeader > .frozen > .rowheader {
+    color: white;
+    border-color: white;
+}
+
+.datagrid-dark > .header > .columns > .el .col > * {
+    color: white;
+}
+
+.datagrid-dark > .content > .rows > .row {
+    border-color: rgba(255, 255, 255, .2);
+}
+
+.datagrid-dark > .content > .rows > .row .cell,
+.datagrid-dark > .content > .rows > .row .cell > *,
+.datagrid-dark > .content > .rows > .row > .el input[data-role=text],
+.datagrid-dark > .content > .rows > .row > .el button {
+    color: rgba(255, 255, 255, .75);
+}
+
+.datagrid-dark > .content > .rows > .row > .el input[data-role=text],
+.datagrid-dark > .content > .rows > .row > .el button {
+    border-color: rgba(255, 255, 255, .2);
+}
+
+.datagrid-dark > .content > .rows > .row > .el button.error {
+    background-color: transparent !important;
+    color: #ffff00 !important;
+}
+
+.datagrid-dark > .content > .rows > .row:hover .cell,
+.datagrid-dark > .content > .rows > .row:hover .cell > * {
+    color: white;
+}
+
+.datagrid-dark > .content > .rows > .selected .cell,
+.datagrid-dark > .content > .rows > .selected .cell > * {
+    color: #61AEF5 !important;
+}
+
+.datagrid-dark > .content > .rows > span.empty {
+    color: white;
+}
+
+.nowrap .cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

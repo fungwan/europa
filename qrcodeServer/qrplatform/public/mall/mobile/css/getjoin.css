@@ -1,0 +1,129 @@
+.flex-col {
+  display: flex;
+  flex-flow: column wrap;
+}
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.active {
+  display: flex;
+  flex-flow: column wrap;
+}
+.not-active {
+  display: none;
+}
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Microsoft YaHei' !important;
+  display: flex;
+  flex-flow: column wrap;
+}
+section {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  /* background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
+  background-image: linear-gradient(120deg, #d9b866 0%, #E9CA7E 100%);  
+  display: flex;
+  flex-flow: column wrap;
+}
+section .info {
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0 auto;
+  background: #fff;
+  font-size: 0.6rem;
+  box-shadow: 2px 2px 10px #8c8c8c;  
+}
+section .info img {
+  height: 100%;
+  margin: 0 0.5rem;
+}
+section .info > div {
+  display: flex;
+}
+section .info div span {
+  display: block;
+  margin: auto 0.5rem auto 0;
+}
+section .form-container {
+  flex: 1;
+  min-height: 10rem;
+  margin: 1rem 0;
+  background: #f5f5f5;
+  position: relative;
+  display: flex;
+  flex-flow: column wrap;
+}
+section .form-container .item {
+  height: 2.5rem;
+  line-height: 2.5rem;
+  width: 100%;
+  background: #fff;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  display: flex;
+  flex-flow: row nowrap;
+}
+section .form-container .item .lef {
+  width: 30%;
+  box-sizing: border-box;
+  padding-left: 0.4rem;
+  color: #363636;
+}
+section .form-container .item .rit {
+  width: 70%;
+  font-size: 0.8rem;
+  display: flex;
+  flex-flow: row nowrap;
+}
+section .form-container .item .rit input {
+  border: 0;
+  height: 90%;
+  width: 100%;
+  padding: 0 0.4rem;
+  margin: auto 0;
+  box-sizing: border-box;
+  text-align: right;
+  font-size: 0.7rem;
+}
+section .form-container .item .rit input[type=button] {
+  background: #fff;
+  color: #3d4145;
+}
+section .form-container .item .rit select {
+  width: 80%;
+}
+section .form-container .action {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+section .form-container .action button {
+  width: 90%;
+  margin: 0 auto;
+  height: 1.6rem;
+  font-size: 0.8rem;
+  /* background: #d43f59; */
+  background: #b10000;
+  border: 0;
+  border-radius: 0.2rem;
+  color: #fff;
+  font-family: inherit;
+}
+.list-container {
+  position: absolute;
+  overflow: scroll;
+}
+.list-container .item-content {
+  width: 100%;
+}

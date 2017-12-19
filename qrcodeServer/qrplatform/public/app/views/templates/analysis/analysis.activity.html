@@ -1,0 +1,18 @@
+<div class="view analysis">
+    <h3 class="view-title">
+        <i class="fa fa-bar-chart"></i> 活动分析
+    </h3>
+    <div class="mainContent clear">
+        <!-- 这部分是显示的活动列表 -->
+        <div class="side lf" style="max-height:400px;overflow-y:scroll;">
+            <div class="sideitem" 
+                 ng-repeat="item in project.tableItems" 
+                 ng-bind="item.name" 
+                 ng-click="selectActivity(item)" 
+                 ng-class="{active: project.selectedItem == item}">
+            </div>
+        </div>
+        <!-- 这部分是包含tab的整体内容 -->
+        <div m-tab m-tab-items="items" class="tabbox"></div>
+    </div>
+</div>

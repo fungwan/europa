@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>申请加盟</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/getjoin.css">
+</head>
+
+<body>
+    <div class="page page-current" id="main" style="display:flex;height:100%;">
+        <section>
+            <div class="info">
+                <img src="../images/logo.jpg" alt="">
+                <div>
+                    <span>抓住财富第六波，搭乘健康大趋势。<br>诚挚邀请您加盟那佰峰桑椹原浆酒事业，带给人们健康与活力。分销政策细则请加微信号：13768509638，15177784592。</span>
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="item">
+                    <div class="lef">姓名</div>
+                    <div class="rit">
+                        <input type="text" name="name" placeholder="输入您的姓名">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="lef">性别</div>
+                    <div class="rit">
+                        <input type="text" name="sex" placeholder="选择您的性别" id="picker-sex">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="lef">联系电话</div>
+                    <div class="rit">
+                        <input type="text" name="phone"  placeholder="输入您的电话">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="lef">电子邮箱</div>
+                    <div class="rit">
+                        <input type="text" name="email" placeholder="输入您的电子邮箱">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="lef">加盟方式</div>
+                    <div class="rit">
+                        <input type="text" name="method" placeholder="选择您的加盟方式" id="picker-type">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="lef">加盟城市</div>
+                    <div class="rit">
+                        <input type="button" name="city" value="选择您的加盟城市" id="picker-city">
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="getjoin">提交</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="page" id="address">
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50">
+            <div class="list-block" style="margin: 0">
+                <ul class="list-container"></ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../config.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/getjoin.js' charset='utf-8'></script>
+    <script>
+        $.init();
+        $(document).ready(function () {
+        　　$('body').height($('body')[0].clientHeight);
+        });
+    </script>
+</body>
+
+</html>

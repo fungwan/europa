@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<body>
+
+<div class="fb ccBox s-panel" id="login-panel">
+    <div class="panel">
+        <div class="logo">登录到万码易联</div>
+        <div class="message"></div>
+        <input type="email" name="username" placeholder="请输入您的邮箱地址" autocomplete="off" data-lang-name="邮箱地址"
+               required maxlength="20"/>
+        <input type="password" name="password" placeholder="以及您的登录密码" data-lang-name="登录密码" required
+               data-expression="checkPass" maxlength="20"/>
+
+        <div id="login-msg"></div>
+        <div class="buttonGroup">
+            <button value="submit_in" class="submit">登录</button>
+            <button value="up" class="cancel">免费注册</button>
+        </div>
+        <p>
+            <a value="forgetpwd">忘记密码了? 点击这里找回</a><br/>
+        </p>
+        <!--<button value="close" class="close wficoonly ico_cancel"></button>-->
+    </div>
+</div>
+
+<div class="fb ccBox s-panel" id="reg-panel">
+    <div class="panel">
+        <div class="logo">免费创建帐号</div>
+        <div class="message"></div>
+        <input id="regAccount" type="email" name="useraccount" placeholder="请输入您的邮箱地址" autocomplete="off"
+               data-lang-name="邮箱地址"
+               required maxlength="20"/>
+        <input type="password" name="userpwd" id="reg_pwd" placeholder="以及您的登录密码" data-lang-name="登录密码"
+               required data-expression="checkPass" maxlength="20"/>
+        <input type="password" name="repwd" placeholder="请再次输入密码" data-lang-name="确认密码" required
+               maxlength="20" data-expression="checkPassConfirm"/>
+
+        <div id="reg-msg"></div>
+        <button value="submit_up" class="submit" id="regSubmit">注册</button>
+        <p>
+            <a value="in">已经有帐号了? 点击这里登录</a>
+        </p>
+       <!-- <button value="close" class="close wficoonly ico_cancel"></button>-->
+    </div>
+</div>
+
+
+<div class="fb ccBox s-panel" id="reset-panel">
+    <div class="panel">
+        <div class="logo">重置您的密码</div>
+        <div class="message"></div>
+        <div class="content verticalFlexBox iac">
+            <input type="password" name="userpwd" placeholder="请输入您当前的密码" data-lang-name="当前密码"
+                   required data-expression="checkPass" maxlength="20"/>
+            <input type="password" name="usernewpwd" placeholder="输入您的新密码" data-lang-name="新密码"
+                   required data-expression="checkPass" maxlength="20"/>
+            <input type="password" placeholder="请再次输入新密码" data-lang-name="确认密码" required
+                   maxlength="20" data-expression="checkPassConfirm"/>
+
+            <div id="reset-msg"></div>
+            <button value="submit_reset" class="submit" id="resetSubmit">确定</button>
+        </div>
+        <button value="close" class="close wficoonly ico_cancel" id="reset-panel-close"></button>
+    </div>
+</div>
+
+<div class="popup" data-type="selector" id="mailSelector"></div>
+
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="sign" data-deps="moment,mail" data-navigation="false"></script>
+</body>
+</html>

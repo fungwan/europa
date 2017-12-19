@@ -1,0 +1,126 @@
+
+.button.button-fill {
+    background: #ff531e;
+}
+.selfgrade .bar{
+    background: white;
+    z-index: 1000;
+    padding-right:0;
+    padding-left: 0;
+    border-bottom: none;
+}
+.selfgrade .gardehead{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ff531e ;
+    padding-right:0.5rem;
+    padding-left: 0.5rem;
+
+}
+.selfgrade .gardehead img{
+    width: 2.5rem;
+    margin-top: 0.3rem;
+    margin-left: 1rem;
+}
+.selfgrade .gardehead .num{
+    color:#ff531e;
+    font-size: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+}
+.selfgrade .gardehead a{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 0.2rem;
+}
+.selfgrade .gardehead .sy{
+    font-size: 0.65rem;
+    color: #575453;
+    margin-top: 0.5rem;
+}
+.selfgrade .queery input{
+    width: 4rem;
+    border: none;
+    background: #cfcdcc;
+}
+.queryarea{
+    font-size: 0.6rem;
+    background: #cfcdcc;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: #706c6b;
+}
+.lbiteminp{
+    border-bottom: 1px solid #545150;
+    height: 1.2rem;
+}
+.tring{
+    display: inline-block;
+    border: 6px solid transparent;
+    border-top: 6px solid #474646;
+}
+.queery .tit{
+    text-indent: 1rem;
+    padding-top: 0.3rem;
+}
+.queryarea .rt{
+    margin-right: 1rem;
+}
+.queryarea .rt input{
+    width: 3rem !important;
+}
+.queryarea .lf input{
+    width:6rem;
+}
+.listtitle{
+    padding-left: 1rem;
+    border-bottom: 1px solid #474646;
+    font-size: 0.7rem;
+    padding-top: 0.3rem;
+    color: #706c6b;
+}
+.icontype{
+    display: inline-block;
+    height: 0.8rem;
+    width: 0.8rem;
+    margin-right: 0.4rem;
+}
+.list-container>div {
+    border-bottom: 1px solid #c0bfbe;
+    font-size: 0.65rem !important;
+}
+.list-container{
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+}
+
+.list-container>div{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+
+}
+#gradelistbox .bar-nav~.content {
+    top: 9.8rem;
+    color: #706c6b;
+    font-size: 0.6rem;
+}
+.row .red{
+    color: #fa4007 !important;
+}
+.row .blue{
+    color: #189c02 !important;
+}
+
+
+/*我的关注*/
+.col-30{
+    width: 30%;
+}
+.col-50{
+    width: 50%;
+}
+.col-20{
+    width: 20%;
+    text-align: center;
+}

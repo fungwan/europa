@@ -1,0 +1,36 @@
+<div class="view product" ng-init="intpage()">
+    <h3 class="view-title">
+        <i class="fa fa-archive"></i> 商城管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">商城管理</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mainContent clear">
+        <!-- 这部分是显示的活动列表 -->
+        <div class="side lf">
+            <div class="sideitem" ng-repeat="item in tableItems" ng-bind="item.name" ng-click="selectActivity(item)" ng-class="{active: selectedItem == item}">
+            </div>
+        </div>
+        <!-- 这部分是操作区 -->
+        <div class="tabbox" ng-if="selectedshow == 'showproduct'" ng-include="'views/templates/mall/mall.manage.product.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showorder'" ng-include="'views/templates/mall/mall.manage.order.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showadd'" ng-include="'views/templates/mall/mall.manage.add.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showeva'" ng-include="'views/templates/mall/mall.manage.eva.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showlevel'" ng-include="'views/templates/mall/mall.manage.level.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showmodule'" ng-include="'views/templates/mall/mall.manage.module.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showqoupon'" ng-include="'views/templates/mall/mall.manage.qoupon.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showCashCoupon'" ng-include="'views/templates/mall/mall.manage.cashcoupon.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showlottery'" ng-include="'views/templates/mall/mall.manage.lottery.html'"></div>
+        <div class="tabbox" ng-if="selectedshow == 'showlotteryRecord'" ng-include="'views/templates/mall/mall.manage.lottery.record.html'"></div>
+    </div>
+
+</div>

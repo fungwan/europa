@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <title>404</title>
+    <style>
+        body {
+            background-color: #005eb5;
+            color: white;
+            padding: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, .6);
+        }
+
+        h1 {
+            font-size: 8rem;
+            font-weight: bold;
+        }
+
+        .line {
+            margin: 2rem 0;
+            height: 1px;
+            background-color: rgba(255, 255, 255, .1)
+        }
+
+        ul {
+            line-height: 150%;
+        }
+    </style>
+</head>
+<body>
+<h2>ERROR</h2>
+
+<h1>404</h1>
+
+<h3 id="message"></h3>
+
+<div class="line"></div>
+<ul>
+    您可以尝试
+    <li>检查您的网络是否正常</li>
+    <li>重新扫描二维码</li>
+</ul>
+<script type="text/javascript">
+    var msg = window.location.href.split("?");
+    if (msg.length > 1)
+        document.getElementById("message").innerText = msg[1];
+    else
+        document.getElementById("message").innerText = "Page not found! Don't worry, sometimes it happens even for the best of us:)";
+</script>
+</body>
+</html>

@@ -1,0 +1,599 @@
+.clear:after{
+    display: table;
+    content: "";
+    clear: both;
+}
+.lf{
+    float: left;
+}
+.rt{
+    float: right;
+}
+/*评价头部*/
+.evahead{
+    border-bottom: 1px solid #e1e1e1;
+    position: relative;
+    width: 100%;
+    z-index: 10002;
+    background: white;
+    display: none;
+}
+.evahead>div{
+    text-align: center;
+    font-size: 0.6rem;
+    height: 50px;
+   padding-top: 10px;
+}
+.evahead>div.active{
+   color: red;
+}
+.cardbox{
+    margin-top: 3.4rem;
+}
+.addshop{
+    background: #fd3531;
+    color: white !important;
+}
+.msg{
+    padding: 0 1rem;
+    text-indent: 1rem;
+    font-size: 0.6rem;
+}
+.icon-heart1{
+    color: #FF6458;
+    font-size: 1.5rem;
+}
+.icon-heart1.active{
+   color: gray;
+}
+.card-header {
+    border-radius: .1rem .1rem 0 0;
+    font-size: .6rem;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.card-footer, .card-header {
+    min-height: 1.5rem;
+}
+.card-footer{
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.card {
+     box-shadow: none;
+    border-bottom: 1px solid #dad9d9;
+}
+/*商品基本信息*/
+.proinfo{
+    text-indent: 2rem;
+    font-size: 0.8rem;
+}
+.goodsprice:after{
+    display: table;
+    content: "";
+    clear: both;
+}
+.goodsprice{
+
+}
+.goodsprice>.grade{
+    float: left;
+    padding-left: 1rem;
+}
+.goodsprice>.price{
+    float: right;
+    padding-right: 1rem;
+}
+.com{
+    color: red;
+    font-size: 1.2rem
+}
+.pname{
+    text-indent: 1rem;
+    font-size: 1rem;
+    color: black;
+}
+.icon-heart.active{
+    color: #d75a4a;
+}
+.mycart{
+    background: #e60012;
+    color: white;
+    border-right: 1px solid white;
+}
+.pro-info-box{
+    background: #f1f1f1;
+    display: flex;
+    flex-flow: column;
+}
+.pro-info-rt{
+    background: #fff;
+    width: 100%;
+    color: #111;
+    font-size: 0.7rem;
+    text-indent: 0.5rem;
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 2.5rem;
+    margin-bottom: 2px;
+}
+.pro-info-rt .p-price {
+    font-size: 1.5rem;
+    color: #fd4e09;
+    flex: 1;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+}
+.pro-info-rt .p-price >span {
+    font-size: 0.7rem;
+    margin-left: 0.2rem;
+    font-weight: 400;
+}
+.pro-info-rt .p-info {
+    flex: 1;
+    display: flex;
+    flex-flow: column wrap;
+    text-align: right;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+}
+.pro-info-rt .p-info .leve {
+    margin: auto 0;
+}
+.pro-info-rt .p-info .p-amount {
+    font-size: 0.6rem;
+    margin: auto 0;
+}
+.pro-info-lf{
+    background: #fffde0;
+    width: 100%;
+    min-height:3.3rem;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.pro-lf{
+    display: flex;
+    min-height: 3.3rem;
+    height: 100%;
+    width: 10%;
+}
+.pro-lf .type{
+    display: inline-block;
+    width: 0.7rem;
+    font-size: 0.6rem;
+    color: white;
+    text-align: center;
+    line-height: 1rem;
+    border-radius: 4px;
+    margin: auto;
+}
+.pro-right{
+    display: flex;
+    flex-flow: column wrap;
+    min-height: 3.3rem;
+    height: 100%;
+    width: 90%;
+    font-size: 0.7rem;
+    padding: 0.2rem;
+    box-sizing: border-box;
+}
+.pro-right >div {
+    margin: auto 0;
+}
+.pro-right .leve {
+    height: 1rem;
+    line-height: 1rem;
+    display: flex;
+}
+.pro-right .leve img {
+    margin: auto;
+}
+.pro-right .pro-info-lf-item-name{
+    flex: 1;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #111;
+}
+.pro-right .pro-info-lf-item-name >div {
+    margin: auto;
+}
+.inbom .mark{
+    width: 0.7rem;
+    font-size: 0.6rem;
+    color: white;
+    text-align: center;
+    line-height: 1rem;
+    border-radius: 4px;
+    margin-left: 0.4rem;
+    margin-top: 0.6rem;
+}
+.phone{
+    background: #0068b7;
+}
+.net{
+    background: #009944;
+}
+.redpacket{
+    background: #e60012;
+}
+.cinema{
+    background: #601986;
+}
+.product{
+    background: #eb6100;
+}
+.blh{
+    background: #eb6100;
+}
+.point{
+    background: pink;
+}
+.qoupon{
+    background: green;
+}
+.inbom .txtt{
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    margin-top: 0.6rem;
+}
+.inbom .txtt .tit{
+color: #232222;
+    line-height: 1rem;
+}
+.inbom{
+    box-sizing: border-box;
+}
+.inbom .bx{
+width: 60%;
+    background: #fffde0;
+    height: 3.3rem;
+}
+.inbom>.bomiem{
+    width: 40%;
+    background: #fd4e09;
+    color: white;
+    font-size: 0.7rem;
+    text-indent: 0.5rem;
+    height: 3.3rem;
+}
+.inbom>.bomiem .pics{
+   font-size: 1rem;
+}
+.icon-heart2{
+    color: #d75a4a;
+}
+.maincon{
+    padding: 0.5rem 0.6rem;
+    text-indent: 1rem;
+    font-size: 0.7rem;
+    line-height: 1.2rem;
+    color: #747171;
+    background: #fff;
+}
+.buttons-tab .button {
+    top: 0;
+}
+.buttons-tab .button.active {
+    color: #fc4606;
+    border-color: transparent;
+
+}
+.bar-tab~.content {
+    bottom: 2rem;
+}
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #fc4606;
+}
+.swiper-container {
+    padding-bottom: 0;
+
+}
+.opup{
+    width: 100%;
+    height: 12.2rem;
+    background: white;
+    position: fixed;
+    bottom: -14rem;
+    z-index: 10000;
+}
+.opupnet{
+    width: 100%;
+    height: 12.2rem;
+    background: white;
+    position: fixed;
+    bottom: -14rem;
+    z-index: 10000;
+}
+.tolnet{
+    position: absolute;
+    top: 4rem;
+    margin-left: 2rem;
+}
+.tolnet>div+div{
+    margin-top: 0.5rem;
+}
+#netphonenumber{
+    width: 130px;
+}
+.tname{
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+.nettype input,.netval input{
+    width: 0.7rem;
+    height: 0.7rem;
+    vertical-align: middle;
+    margin-right: 0.2rem;
+}
+.nettype label,.netval label{
+    margin-right: 1rem;
+
+}
+
+.picimg{
+    position: absolute;
+    left: 1rem;
+    top: -1rem;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.clos{
+    position: absolute;
+    right: 1rem;
+    top: 0rem;
+    color: #fff;
+    font-size: 2rem;
+    width: 2rem;
+    text-align: center;
+    background: #e41111;
+}
+.ppname{
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 10rem;
+    height: 1rem;
+    position: absolute;
+    left: 5.2rem;
+    top: 1rem;
+    color: #111;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.pppice{
+    width: 11rem;
+    height: 1rem;
+    position: absolute;
+    left: 6rem;
+    top: 2rem;
+    font-size: 0.8rem;
+    color: #d75a4a;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.ponum{
+    width: 100%;
+    position: absolute;
+    top: 4rem;
+    color: #5f646e;
+    font-size: 0.7rem;
+}
+.ponum .lf{
+    margin-left:1rem;
+}
+.ponum .rt{
+    margin-right: 1rem;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.ponum .rt span,
+.ponum .rt input {
+    margin-right: 0.2rem;
+}
+.sureaddshop{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    background: #fd3531;
+    color: white;
+    font-size: 0.85rem;
+}
+.tol{
+    position: absolute;
+    bottom: 3rem;
+    right: 0.5rem;
+    color: #5f646e;
+    font-size: 0.7rem;
+}
+.ptol{
+    color: #fd3531;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
+}
+.addn,.oneprice{
+    display: none;
+}
+/*商品数量*/
+.numgroup:after{
+    display: table;
+    content: "";
+    clear: both;
+}
+.numgroup span,.numgroup .goodsnum{
+    float: left;
+    width: 30px;
+    border: 1px solid #e1e1e1;
+    text-align:center;
+    height: 30px;
+    line-height: 30px;
+}
+.numgroup .goodsnum{
+    width: 60px;
+}
+.numdel,.numadd{
+    border-radius:6px;
+}
+/*发送红包后的页面*/
+#orderinfo{
+    background: white;
+}
+.orinfo .mtit{
+    text-align: center;
+    color: #fd3531;
+
+}
+.orinfo .mtit img{
+    width: 20vw;
+
+}
+.orinfo .order{
+    text-indent:2rem;
+}
+.orinfo p a{
+    width: 90vw;
+    margin: 0 auto;
+
+}
+#produce{
+    margin: 0.5rem 0;
+}
+/*忘记密码提示框*/
+.forgetalert{
+    text-align: right;
+    width: 100%;
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.6rem;
+    color: gray;
+}
+.swiper-slide > img{
+    /* width: 100%; */
+}
+.cardbox {
+    margin-top: 0rem;
+}
+.evahead {
+    border-bottom: 1px solid #e1e1e1;
+    position: fixed;
+    top: 2.2rem;
+    width: 100%;
+    z-index: 1000;
+    background: white;
+}
+.cardbox {
+    margin-top: 2.6rem;
+}
+#tab3 .card{
+    box-shadow: 0 .05rem .1rem rgba(0,0,0,.3);
+}
+.content-block img{
+    max-width: 100%;
+}
+table{
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    border-collapse: collapse;
+}
+table td ,table,th{
+    border: 1px solid #e1e1e1;
+}
+
+.qouponListBox .row{
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 0.7rem;
+}
+
+.qouponList-title>span{
+    font-size: 0.6rem;
+    color: red;
+}
+.useGrade{
+    position: absolute;
+    top: 6rem;
+    font-size: 0.7rem;
+}
+.currentGrade{
+    margin-left: 1rem;
+
+    margin-bottom: 0.5rem;
+}
+
+.currentGrade label{
+    line-height:20px;
+}
+.currentGrade label>input{
+    height: 20px;
+}
+.currentGrade label .txt{
+    margin-left: 0.5rem;
+}
+.inputgrade{
+    margin-left: 2rem;
+}
+.inputgrade input{
+    border: none;
+    border-bottom: 1px solid #e1e1e1;
+    width: 20vw;
+}
+.Calculation{
+    width: 100%;
+    position: absolute;
+    top: 10rem;
+    left: 1rem;
+    font-size: 0.8rem;
+}
+.Calculation .desc{
+     text-align: left;
+ }
+.Calculation .row{
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+.Calculation .number{
+    text-align: right;
+    margin-left:0;
+    padding-right: 4%;
+}
+.Calculation .number span{
+    margin-right: 0.2rem;
+}
+.Calculation .number span,.gradeTotal{
+    font-size: 0.8rem;
+    color: red;
+}
+.row .col-10{
+    width: 16%;
+
+}
+.row .col-90{
+    width: 80%;
+    padding-right:2rem;
+}
+.produce img{
+    vertical-align: bottom;
+}
+
+.special-blh div {
+    max-width: 100%!important;
+    max-height: 540px;
+    background-color: rgba(255, 255, 255, 0.00);
+    background-size: contain; 
+}
+.special-blh .ssd-widget-text {
+    margin: 20px 0;
+}

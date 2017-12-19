@@ -1,0 +1,171 @@
+html{
+    font-size: 20px;
+}
+.iconfont{
+   font-size:  1.5rem;
+}
+.clear:after{
+    display: table;
+    content: "";
+    clear: both;
+}
+.lf{
+    float: left;
+}
+.rt{
+    float: right;
+}
+/*页面背景色*/
+.page, .page-group {
+    background: #FFFFFF;
+}
+.pagegrade .content{
+    background: url("../images/club/bg.jpg") no-repeat 0 0;
+}
+.point{
+        margin-top: 3rem;
+     color: white;
+      font-size: 2.5rem;
+      text-align: center;
+          padding-bottom: 2rem;
+}
+.qr{
+    text-align: center;
+}
+.qr img{
+    display: inline-block;
+    margin: auto;
+}
+.info{
+     color: white;
+        font-size: 1rem;
+         text-align: center;
+         padding-top: 1rem;
+}
+.qrbox{
+    display: inline-block;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 10px;
+}
+.vipclub{
+    margin:0;
+}
+.button-success{
+background: #ff531e !important;
+}
+
+.range{
+        display: block;
+    width: 80%;
+    margin: auto;
+        margin-top: 2rem;
+}
+
+.givegrade{
+    background: url("../images/club/bg.jpg") no-repeat 0 0;
+}
+.gold{
+        text-align: center;
+    color: white;
+    font-size: 1.5rem;
+     /*background: url("../images/club/gold.png") no-repeat 0 0;*/
+     background-size: 60% 60%;
+}
+.mypoint{
+    font-size: 1.5rem;
+    color: white;
+}
+.givehead{
+       
+    margin: auto;
+        margin-top: 1rem;
+}
+.go{
+      width: 30vw;
+    height: 5vh;
+    position: absolute;
+      right: 1rem;
+    bottom: 2rem;
+    
+    background: url("../images/club/go.png") no-repeat 0 0;
+     background-size: 100% 100%;
+}
+.message{
+      margin: auto;
+    margin-top: 0.5rem;
+    width: 80vw;
+    height: 55vh;
+    background: url("../images/club/pael.png") no-repeat 0 0;
+    background-size: 100% 100%;
+}
+textarea{
+        background: transparent;
+     border: none; 
+    margin-top: 25vh;
+    text-indent: 1rem;
+ 
+    margin-left: 2vw;
+    margin-top: 26vh;
+    width: 75vw;
+    height: 22vh;
+    color: white;
+        font-size: 1rem;
+}
+.ihave{
+    font-size: 1rem;
+    color: white;
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+}
+.givebtn{
+    margin: auto;
+       width: 45vw;
+    height: 7vh;
+    background: url("../images/club/give.jpg") no-repeat 0 0;
+    background-size: 100% auto;
+    margin-top: 1rem;
+}
+.givebtn.active{
+ transition: 1s ease;
+    background: url("../images/club/give.jpg") no-repeat 0 -8vh;
+background-size: 100% auto;
+}
+input[type=range] {
+    -webkit-appearance: none;
+    width: 300px;
+    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}    
+input[type=range]::-webkit-slider-runnable-track {
+    height: 15px;
+    border-radius: 10px; /*将轨道设为圆角的*/
+    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+}
+input[type=range]::-moz-range-progress {
+    background: linear-gradient(to right, #059CFA, white 100%, white);
+    height: 13px;    
+    border-radius: 10px;
+}
+.currentpoint{
+    outline: none;
+    background: transparent;
+    border: none;
+    width: 34vw;
+    text-align: right;
+}

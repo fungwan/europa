@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>安全中心</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selfsafe.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="page-current" id="inde">
+            <div class="content">
+                
+                <!--个人信息-->
+                <div class="passbox infobox">
+                    <div class="safetitle clear"><span class="iconfont icon-icon10"></span><span class="titletext">基本信息</span><a href="./safeinfo.html"
+                            class="rt iconfont icon-pen external"></a></div>
+                    <div class="row no-gutter rowtext">
+                        <div class="col-40">性别：</div>
+                        <div class="col-60 wxsex"></div>
+                        <div class="col-10 rowedit"></div>
+                    </div>
+                    <div class="row no-gutter rowtext">
+                        <div class="col-40">年龄：</div>
+                        <div class="col-60 wxbir"></div>
+                        <div class="col-10 rowedit"></div>
+                    </div>
+                    <div class="row no-gutter rowtext">
+                        <div class="col-40">地址：</div>
+                        <div class="col-60 wxaddr"></div>
+                        <div class="col-10 rowedit"></div>
+                    </div>
+                    <div class="row no-gutter rowtext">
+                        <div class="col-40">签名：</div>
+                        <div class="col-60 signword">没有个性签名</div>
+                        <div class="col-10 rowedit"></div>
+                    </div>
+                </div>
+                <!--密码安全-->
+                <div class="row no-gutter passbox passwordbox">
+                    <div class="safetitle"><span class="iconfont icon-mima"></span><span class="titletext">密码安全</span></div>
+                    <div class="row no-gutter rowtext">
+                        <div class="col-60 passqr">
+                            <div class="safegrade"></div>
+                        </div>
+                        <div class="col-40 mopass" style="height:2.5rem;display:flex">
+                            <span class="button button-light" id="modi">设置支付密码</span>
+                        </div>
+                    </div>
+                </div>
+                <!--信息安全-->
+                <div class="passbox infobox">
+                    <div class="safetitle clear"><span class="iconfont icon-xinxianquan"></span><span class="titletext">信息安全</span></div>
+                    <div class="row no-gutter rowtext" style="position:relative">
+                        <div class="col-40">安全手机：</div>
+                        <div class="col-50 safephone"></div>
+                        <div class="col-10 rowedit" style="text-align: right;width: 20%;position: absolute;right: 1rem;">
+                            <span class="iconfont icon-pen" id="pagesafe" style="margin:0"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--常用地址-->
+                <div class="passbox infobox">
+                    <div class="safetitle clear"><span class="iconfont icon-dizhi"></span><span class="titletext">常用地址</span><span class="rt iconfont icon-pen"
+                            id="addrrepaire"></span></div>
+                    <div class="row no-gutter rowtext">
+                        <div class="col-90 commonaddr"></div>
+                        <div class="col-10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--，修改密码-->
+        <div class="page" id="page-modyfiypassword">
+            <nav class="bar bar-tab">
+                <div class="buttons-row">
+                    <span class="button button-big button-fill button-danger" id="resub">取消</span>
+                    <span class="button button-big button-fill button-success" id="passbtn">提交</span>
+                </div>
+            </nav>
+            <div class="content">
+                <!--个人基础信息-->
+                <!--<div class="selfinfo">-->
+                <!--<div class="photo">-->
+                <!--<img src="../images/self/1.jpg" alt="用户头像" class="zimg">-->
+                <!--</div>-->
+                <!--<div class="name zname"></div>-->
+                <!--<div class="grade">等级：<span class="cusleve"></span></div>-->
+                <!--<div class="autograph"></div>-->
+                <!--</div>-->
+                <!--表单-->
+                <div class="list-block" id="ispass">
+                    <ul>
+                        <li id="passshow" style="display: none">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">输入旧密码</div>
+                                    <div class="item-input">
+                                        <input type="password" placeholder="Password" class="" id="oldpass">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">输入新密码</div>
+                                    <div class="item-input">
+                                        <input type="password" placeholder="Password" id="npass">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">重复新密码</div>
+                                    <div class="item-input">
+                                        <input type="password" placeholder="Password" class="" id="newpass">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="clear"><button id="retry" style="display: none; margin-right: 1rem;margin-top: 0.5rem;" class="rt button button-danger"><span id="sec"></span> 秒后重试</button>
+                            <button id="reset" class="rt button button-warning button-fill" style="margin-right: 0.4rem;margin-top: 0.5rem;">忘记密码</button>
+                        </li>
+                        <li class="passtip">6-10位数字字母组成。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!---安全设置-->
+        <div class="page" id="page-safe">
+            <nav class="bar bar-tab">
+                <div class="buttons-row">
+                    <span class="button button-big button-fill button-danger" id="resubpass">取消</span>
+                    <span class="button button-big button-fill button-success" id="safebtn">提交</span>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="list-block">
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-email"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">支付密码</div>
+                                    <div class="item-input">
+                                        <input type="password" placeholder="请输入支付密码" id="safepas">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-email"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">安全手机</div>
+                                    <div class="item-input">
+                                        <input type="tel" placeholder="请输入正确手机号码" id="safephone">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-email"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">验证码</div>
+                                    <div class="item-input">
+                                        <input type="number" placeholder="验证码" id="safeCode">
+                                    </div>
+                                    <button class="button button-success button-fill" id="sendCode"><span id="codesend">发送验证码</span><span id="retryy" style="display: none"><i id="numsend"></i>秒后重试</span></button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="tipp"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/selfsafe.js' charset='utf-8'></script>
+    <script>$.init()</script>
+</body>
+
+</html>

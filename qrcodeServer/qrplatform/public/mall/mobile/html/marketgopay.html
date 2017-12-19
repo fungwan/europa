@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>确认订单信息</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marketgopay.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="panel-overlay"></div>
+        <!-- Left Panel with Reveal effect -->
+        <div class="panel panel-right panel-reveal theme-dark" id='panel-js-demo'>
+            <div class="content-block">
+                 <p><button href="./safeAddr.html" class="button button-success button-fill" id="manage">管理我的地址</button></p>
+                 <div class="addrlist" id="addrlist">
+                 </div>
+            </div>
+        </div>
+        <div class="page" id="listconfirm">
+            <nav class="bar bar-tab" style="border-top: 0;font-size:0.8rem">
+                <div class="row no-gutter">
+                    <div class="col-60">实付金额：<span class="currentPay"></span></div>
+                    <div class="col-40"><span class="gopay">提交订单</span></div>
+                </div>
+            </nav>
+            <!-- 标题栏 -->
+            <header class="bar bar-nav barAddr">
+                <a class="icon icon-right pull-right"></a>
+                <div class="addressInfo">
+                    <!--<div class="addressInfoTop"><span class="name">李钰</span><span class="phone">18980028787</span><span class="defaultIcon">默认</span></div>-->
+                    <!--<div class="addressInfoBottom">详细地址客户即可回家客户框架还</div>-->
+                    <!--<div class="emptyAddress">选择收货地址</div>-->
+                </div>
+            </header>
+            <div class="content" style="overflow: scroll">
+                <!--列表-->
+                <div class="cardboxx"></div>
+                <!--买家留言-->
+                <!-- <div class="custMessage">
+                    买家留言：<input type="text" placeholder="请输入留言内容" id="ordermsg">
+                </div> -->
+                <div class="riceinfo productSprice clear">
+                    商品总额： <span class="rt colorred">￥<span class="proPrice"></span></span>
+                </div>
+                <div class="riceinfo productSprice clear">
+                    使用折扣券： <span class="rt colorred"><input class="useDiscount" type="checkbox" name="useDiscount"></span>
+                </div>
+                <div class="riceinfo productSprice clear discountcoupon">
+                    可用折扣券信息： 
+                    <span class="rt colorred">
+                        <span class="discountName"></span> x <span class="discountNumber"></span>
+                    </span>
+                </div>
+                <div class="riceinfo productSprice clear">
+                    使用积分抵扣： <span class="rt colorred"><input class="usePoint" type="checkbox" name="usePoint"></span>
+                </div>
+                <div class="riceinfo productSprice clear discountrow">
+                    可用积分： <span class="rt colorred"><span class="proPoint"></span> 分</span>
+                </div>
+                <div class="riceinfo productSprice clear discountrow">
+                    输入抵扣积分： <span class="rt colorred"><input class="discountPoint" type="number" name="point" style="text-align:right;width:5rem"></span>
+                </div>
+                <div class="riceinfo productPostSprice clear">
+                    邮费：<span class="nopost">(3件包邮)</span> <span class="rt colorred">￥<span class="postPrice"></span></span>
+                </div>
+                <!-- <div class="riceinfo pointmoney clear">
+                    可使用<span class="colorred maxUseGrades"></span>积分抵扣<span class="colorred maxUseGradesMoney"></span>元
+                    <span
+                        class="rt"><label>√<input type="checkbox" id="checkuse" style="display:none;"/></label></span>
+                </div> -->
+            </div>
+        </div>
+        <div class="page" id="orderinfo">
+            <div class="content">
+                <div class="orinfo">
+                    <!--<p class="mtit">您的订单提交成功 <span class="iconfont icon-houtai-caidanlan-paisongguanli"></span></p>-->
+                    <!--<p class="order">订单编号：123123123 </p>-->
+                    <!--<p class="order">订单时间：2017-01-22 22:22:22</p>-->
+                    <!--<p class="order">订单总额：123积分</p>-->
+                    <!--<p><a href="./marketorderlist.html" class="button button-success button-fill">查看订单</a></p>-->
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="list-block media-list">
+                            <ul id="orderinfolist">
+                                <!--<li class="item-content">-->
+                                <!--<div class="item-media">-->
+                                <!--<img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">-->
+                                <!--</div>-->
+                                <!--<div  class="oritem"><span class="orname">优异服饰</span><span class="ornum">1×12</span><span class="ortol">12积分</span></div>-->
+                                <!--</li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="selectAddr">
+            <header class="bar bar-nav">
+                <span id="returnmanage" class="button button-link button-nav pull-left back">
+               返回确认订单
+            </span>
+                <span id="manage" class="button button-link button-nav pull-right back">
+               管理
+            </span>
+            </header>
+            <!-- 这里是页面内容区 -->
+            <div class="content addrlist" id="addrlist">
+                <!--<div class="card">-->
+                <!--<div class="card-header"><span>姓名</span><span>w31231231231</span></div>-->
+                <!--<div class="card-content">-->
+                <!--<div class="card-content-inner">头和尾的卡片。卡头是用来显示一些额外的信息，或自定义操作卡标题和页脚。</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="card">-->
+                <!--<div class="card-header"><span>姓名</span><span>w31231231231</span></div>-->
+                <!--<div class="card-content">-->
+                <!--<div class="card-content-inner">头和尾的卡片。卡头是用来显示一些额外的信息，或自定义操作卡标题和页脚。</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/moment.js' charset='utf-8'></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../config.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/marketgopay.js' charset='utf-8'></script>
+</body>
+
+</html>

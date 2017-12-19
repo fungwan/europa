@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>选择地址</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selectAddr.css">
+</head>
+<body>
+<div class="page-group selfgrade">
+    <div class="page" id="gradelistbox">
+        <!--头部-->
+        <header class="bar bar-nav" style="height: 9rem">
+            <!--我的积分-->
+            <div class="clear gardehead">
+                <div class="lf">
+                    <img src="../images/self/piggy-bank.png" alt="">
+                </div>
+                <div class="lf" style="margin-left: 1rem;">
+                    <div class="sy">剩余可用积分</div>
+                    <div class="num"></div>
+                </div>
+                <div class="rt">
+                    <a href="./marketgradeexchange.html" class="external button button-fill button-primary">去换礼品</a>
+                    <!--<a href="../lottery/index.html" class="external button button-fill button-primary">去抽奖</a>-->
+                </div>
+            </div>
+            <!--查询-->
+            <div class="queery clear">
+                <div class="tit">积分消费记录</div>
+                <div class="queryarea clear">
+                    <label class="lf">
+                        <div class="lbitem lf">积分类型：</div>
+                        <div class="lbiteminp lf"><input type="text" value="全部" id="pickertype" class="changetype"><span class="tring"></span></div>
+                    </label>
+                    <label class="rt">
+                        <div class="lbitem lf">时间：</div>
+                        <div class="lbiteminp lf"><input type="text" value="近一年" id="picker" class="changetime"><span class="tring"></span></div>
+                    </label>
+                </div>
+            </div>
+            <!--title-->
+            <div class="listtitle row no-gutter">
+                <div class="col-50">消费类型</div>
+                <div class="col-30">日期</div>
+                <div class="col-20">积分</div>
+            </div>
+        </header>
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50">
+            <div class="list-container" style="margin: 0;">
+                <!--<div class=" row no-gutter" style="padding-left: 1rem;">-->
+                <!--<div class="col-33"><span class="icontype"><img src="../images/self/in.svg" alt=""></span>消费类型</div>-->
+                <!--<div class="col-33">日期</div>-->
+                <!--<div class="col-33">积分</div>-->
+                <!--</div>-->
+            </div>
+            <!--//加载提示符-->
+            <div class="infinite-scroll-preloader">
+                <div class="preloader"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+<script>
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker" id="sure">确定</button>\
+  <h1 class="title">选择时间</h1>\
+  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['近一个月', '近三个月', '近六个月', '近一年']
+            }
+        ]
+    });
+    $("#pickertype").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker" id="suretype">确定</button>\
+  <h1 class="title">选择类型</h1>\
+  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['全部','积分抽奖', '订单消费', '积分赠送', '获赠积分','积分兑换']
+            }
+        ]
+    });
+</script>
+<script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/selectAddr.js' charset='utf-8'></script>
+<script>$.init()</script>
+</body>
+</html>

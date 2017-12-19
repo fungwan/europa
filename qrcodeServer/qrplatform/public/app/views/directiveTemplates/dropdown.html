@@ -1,0 +1,8 @@
+<button class="dropdown butn" 
+    ng-click="showDropDownMenu($event)"
+    ng-blur="closeDropDownMenu($event)">
+    <span ng-transclude="text"></span>
+    <i class="fa fa-caret-down"></i>
+    <ul class="dropdown-menu"
+        ng-transclude="menu"></ul>
+</button>

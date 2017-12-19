@@ -1,0 +1,20 @@
+<div class="shade saleScale">
+    <div class="content">
+        <div class="phonecontent" style="height:590px;width: 290px">
+            <div class="continfo" style="overflow-y:scroll">
+                <div class="card" style="margin: 0">
+                    <div class="card-header" ng-bind="productForm.product.title" style="font-size: 1.3rem;word-break: break-all;"></div>
+                    <div class="subtitle auth" style="font-size: 0.7rem;"><span class="auo" ng-bind="productForm.product.author"></span></div>
+                    <div class="subtitle" style="text-indent: 1rem" ng-bind="productForm.product.summary"></div>
+                    <div class="card-content contcont" style="padding-left: 10px;padding-right: 10px">
+                        <div class="card-content-inner" ng-bind-html="productForm.product.content" id="sccont"></div>
+                    </div>
+                    <div ng-if="productForm.product.authorurl" class="foot" title="{{productForm.product.authorurl}}" style="cursor: pointer;margin-top: 10px;margin-left: 10px;color: blue">原文地址</div>
+                </div>
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-primary" ng-click="productForm.closescan()">关闭</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../templates/js/config.js"></script>
+    <title>万码易联 - 企业平台 - 营销方案 - 详细</title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css"/>
+</head>
+<body>
+
+<div class="ccBox" id="attributesPanel" style="-webkit-box-orient: horizontal;">
+    <button value="prev" class="prev wficoonly ico_arrow_left" disabled></button>
+    <div class="horizontalFlexBox fw designer">
+        <div id="phone" class="gray">
+            <div id="preview" class="verticalFlexBox">
+                <div class="phoneTop horizontalFlexBox iac">
+                    <div class="cs horizontalFlexBox">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <b></b>
+                        <b></b>
+                    </div>
+                    <div>Network&nbsp;</div>
+                    <div class="wficoonly ico_wifi"></div>
+                    <div class="flex" style="text-align: center;" id="currentTime"></div>
+                    <div>50%&nbsp;</div>
+                    <div class="wficoonly ico_battery_half"></div>
+                </div>
+                <div class="header horizontalFlexBox">
+                    <button class="wficoonly ico_close"></button>
+                    <button class="wficoonly ico_back"></button>
+                    <div class="flex" id="caption">Untitled</div>
+                    <button class="wficoonly ico_navigation"></button>
+                </div>
+                <div class="flex">
+                    <iframe frameborder="0" id="previewFrame"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="verticalFlexBox flex" id="attributes">
+            <div class="horizontalFlexBox iac menus">
+                <div class="horizontalFlexBox">
+                    <button value="close" class="circle ico_list" title="返回列表"></button>
+                    <button value="qrcode" class="circle ico_qrcode" id="preview_qrcode" title="扫描二维码进行手机预览"></button>
+                    <div class="detail">
+                        <h1>预览</h1>
+                        使用微信扫描二维码，即可即时查看活动页面最终效果（修改的内容需要保存后才能生效）。<br/>注：本二维码仅供预览，不包含发送红包等功能；实际活动需要扫描下载的二维码才能参与。
+                        <div id="previewQRCodeImg"></div>
+                    </div>
+                    <button value="save" class="circle ico_submit c-commit" title="保存"></button>
+                </div>
+                <div id="attr-msg" class="flex"></div>
+            </div>
+            <div class="attributes flex">
+                <div class="attribute" data-step="base">
+                    <div class="title">基本信息</div>
+                    <div class="describe">设置本次活动的基本信息，包括活动说明及时间范围等。</div>
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <label>活动名称</label>
+                            <input type="text" name="name" maxlength="50" style="width: 360px;" required
+                                   value="" data-lang-name="活动名称"/>
+                        </div>
+                        <div class="editorItem">
+                            <label>标题</label>
+                            <input type="text" name="shortname" maxlength="10" style="width: 180px;"
+                                   required value="" data-lang-name="标题"/>
+                        </div>
+                    </div>
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <label>活动时间</label>
+
+                            <div class="buttonGroup">
+                                <button data-role="project_begdate" name="begdate" data-type="datepicker"
+                                        data-popup="datepicker"
+                                        data-level="top" style="width: 190px;" required data-format="date"
+                                        data-lang-name="开始时间" title="活动开始时间"></button>
+                                <label>~</label>
+                                <button data-role="project_enddate" name="enddate" data-type="datepicker"
+                                        data-popup="datepicker"
+                                        data-level="top" style="width: 190px;" required data-format="date"
+                                        data-lang-name="结束时间" title="活动结束时间"></button>
+                            </div>
+                        </div>
+                        <div class="editorItem">
+                            <label>目标群体</label>
+                            <button name="customertype" data-type="selector" data-popup="customerTypes"
+                                    style="width: 130px;" required data-lang-name="目标群体" value="1">
+                                消费者
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editorGroup">
+                        <div class="editorItem" style="margin-bottom: 0;margin-top: 14px;">
+                                <input type="checkbox" class="labelLinkCheckbox" name="georequired" id="" data-type="bool"/>
+                                <label for="_b_geo_required">参与活动获得积分</label>
+                        </div>
+                        <div class="editorItem">
+                            <button name="customertype" data-type="selector" data-popup="customerTypes1"
+                                    style="width: 130px;" required data-lang-name="固定积分" value="1">
+                                固定积分
+                            </button>
+                        </div>
+                        <div class="editorItem">
+                            <button name="customertype" data-type="selector" data-popup="customerTypes2"
+                                    style="width: 130px;" required data-lang-name="3" value="1">
+                                3
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <label>活动说明</label>
+                                <textarea name="description" maxlength="200" rows="5" style="width: 550px;"
+                                          required data-lang-name="活动说明"></textarea>
+                        </div>
+                    </div>
+                    <div class="editorGroup">
+                        <div class="editorItem flex">
+                            <label>地理信息</label>
+                            <input type="checkbox" class="labelLinkCheckbox" name="georequired" id="_b_geo_required" data-type="bool"/>
+                            <label for="_b_geo_required">勾选此项后，用户必须同意获取其地理位置信息才能参与活动。</label>
+                        </div>
+                    </div>
+                    <div class="editorGroup">
+                        <div class="editorItem flex">
+                            <label>信息验证</label>
+                            <input type="checkbox" class="labelLinkCheckbox" name="checktel" id="_b_ckeck_tel" data-type="bool"/>
+                            <label for="_b_ckeck_tel">勾选此项后，将对用户填写的电话号码进行验证（短信方式）。</label>
+                        </div>
+                    </div>
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <label>参与次数</label>
+                            <div class="horizontalFlexBox">
+                                <input type="number" min="0" max="10000" value="0" name="times" />
+                                <span class="flex desc">限定每个用户（微信帐号）参与本活动的次数<br />设置为0则表示不限制参与次数。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attribute" data-step="lottery">
+                    <div class="title">奖项设置</div>
+                    <div class="describe">设置本次活动的奖励内容，并且制定发奖规则等。<b>金额单位为：元（人民币）</b></div>
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <div class="datagrid" id="lotterySet" name="config.rpitems"></div>
+                            <div id="lotteryOperator" class='horizontalFlexBox flex'>
+                                <div class="group">
+                                    <button class='wfico ico_add' value='add' data-lang='commands.add'></button>
+                                    <button disabled class='wfico ico_remove' value='remove'
+                                            data-lang='commands.remove'></button>
+                                </div>
+                                <button disabled class='wfico ico_gear' value='strategy' data-lang='commands.strategy'
+                                        data-panel="editStrategy"></button>
+                            </div>
+                            <div id="lotteryCounter" class="group"><label>总金额:&nbsp;</label><label
+                                    id="lotteryPriceTotal"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="horizontalWrapFlexBox threeStateGroup">
+                        <label class="title">中奖机率</label>
+
+                        <div class="verticalFlexBox">
+                            <div class="horizontalFlexBox flex">
+                                <input id="lotteryPercentNumber" class="flex" type="number" min=".0001" max="100"
+                                       step=".0001"/>
+                                <label>%</label>
+                            </div>
+                            <input type="range" id="lotteryPercent" name="percent" max="1" min=".000001" value="1"
+                                   step=".000001" style="width: 250px;"/>
+                        </div>
+                        <span id="lotteryQrcodeTotal" title=""></span>
+                    </div>
+
+                    <div class="horizontalWrapFlexBox iac threeStateGroup" id="lotteryModes">
+                        <label class="title">抽奖方式</label>
+                        <input id="lm_bw" type="radio" name="lotteryMode" checked="checked" value="bigwheel"/>
+                        <label for="lm_bw">幸运大转盘</label>
+                        <input id="lm_sc" type="radio" name="lotteryMode" value="scratchcard"/>
+                        <label for="lm_sc">刮刮卡</label>
+                        <input id="lm_sm" type="radio" name="lotteryMode" value="slotmachine"/>
+                        <label for="lm_sm">老虎机</label>
+                    </div>
+                </div>
+                <!--问卷设置-->
+                <!--<div class="attribute" data-step="question">-->
+                    <!--<div class="title">问卷设置</div>-->
+                    <!--<div class="describe">设置本次调查的问题和答案。如果方式为单选或多选，使用“|”（不包括引号）分隔答案；为输入方式时，设置的答案将被作为提示信息。</div>-->
+                    <!--<div class="editorGroup">-->
+                        <!--<div class="editorItem">-->
+                            <!--<div class="datagrid" id="questionSet" name="config.qaitems"></div>-->
+                            <!--<div id="questionOperator" class='horizontalFlexBox flex'>-->
+                                <!--<div class="group">-->
+                                    <!--<button class='wfico ico_add' value='add' data-lang='commands.add'></button>-->
+                                    <!--<button disabled class='wfico ico_remove' value='remove'-->
+                                            <!--data-lang='commands.remove'></button>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--积分设置-->
+                <!--<div class="attribute" data-step="point">-->
+                    <!--<div class="title">积分活动设置</div>-->
+                    <!--<div class="describe">设置本次积分活动的内容，包括活动介绍、时间范围以及积分设置等。</div>-->
+                    <!--<div class="editorGroup">-->
+                        <!--<div class="editorItem">-->
+                            <!--<label>活动名称</label>-->
+                            <!--<input type="text" name="name" maxlength="50" style="width: 360px;" required-->
+                                   <!--value="" data-lang-name="活动名称"/>-->
+                        <!--</div>-->
+                        <!--<div class="editorItem">-->
+                            <!--<label>标题</label>-->
+                            <!--<input type="text" name="shortname" maxlength="10" style="width: 180px;"-->
+                                   <!--required value="" data-lang-name="标题"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="editorGroup">-->
+                        <!--<div class="editorItem">-->
+                            <!--<label>活动时间</label>-->
+
+                            <!--<div class="buttonGroup">-->
+                                <!--<button data-role="project_begdate" name="begdate" data-type="datepicker"-->
+                                        <!--data-popup="datepicker"-->
+                                        <!--data-level="top" style="width: 190px;" required data-format="date"-->
+                                        <!--data-lang-name="开始时间" title="活动开始时间"></button>-->
+                                <!--<label>~</label>-->
+                                <!--<button data-role="project_enddate" name="enddate" data-type="datepicker"-->
+                                        <!--data-popup="datepicker"-->
+                                        <!--data-level="top" style="width: 190px;" required data-format="date"-->
+                                        <!--data-lang-name="结束时间" title="活动结束时间"></button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="editorItem">-->
+                            <!--<label>目标群体</label>-->
+                            <!--<button name="customertype" data-type="selector" data-popup="customerTypes"-->
+                                    <!--style="width: 130px;" required data-lang-name="目标群体" value="1">-->
+                                <!--消费者-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="editorGroup">-->
+                        <!--<div class="editorItem">-->
+                            <!--<label>活动说明</label>-->
+                                <!--<textarea name="description" maxlength="200" rows="8" style="width: 550px;"-->
+                                          <!--required data-lang-name="活动说明"></textarea>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="editorGroup">-->
+                        <!--<div class="editorItem">-->
+                            <!--<label>积分</label>-->
+                            <!--<input type="number" name="config.pointitems" maxlength="5" required data-lang="积分"-->
+                                   <!--min="1" max="1000"/>-->
+                        <!--</div>-->
+                        <!--<div class="editorItem">-->
+                            <!--<label>数量</label>-->
+                            <!--<input type="number" name="qramounts" maxlength="5" required data-lang="数量" min="1"-->
+                                   <!--max="10000"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="attribute" data-step="result">
+                    <div class="title">设置完成</div>
+                    <div class="describe">本活动已经设置完毕，记得点击“保存”哦，然后就可以前往列表查看活动以及开启、停止活动和下载二维码等。</div>
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <button value="save" class="submit wfico ico_save">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="verticalFlexBox flex" id="extendSetting">
+            <div class="horizontalFlexBox iac menus">
+                <div class="horizontalFlexBox">
+                    <button value="save-extend" class="circle ico_submit c-commit" title="确定"></button>
+                    <button value="cancel-extend" class="circle ico_cancel" title="取消"></button>
+                </div>
+            </div>
+            <div class="attributes flex">
+                <div class="attribute -se-in-scale">
+                    <div class="title">页面元素内容编辑</div>
+                    <div class="describe">设置页面当前编辑区域的内容，完成后点击“确定“按钮进行保存。使用前请仔细阅读《<a href="#">51s.co资源使用免责声明</a>》</div>
+
+                    <input type="hidden" name="id" value=""/>
+
+                    <div class="setter horizontalFlexBox ial">
+                        <button data-type="colorpicker" data-popup="colorpicker"
+                                name="backgroundColor" value="" title="背景颜色">&nbsp;</button>
+                        <div class="flex">
+                            <b>背景颜色</b>
+
+                            <p>设置背景颜色，支持HEX格式，即#FFFFFF；该颜色可能被背景图片遮盖。</p>
+                        </div>
+                    </div>
+
+                    <div class="setter horizontalFlexBox ial">
+                        <button data-type="colorpicker" data-popup="colorpicker"
+                                name="color" value="" title="文字颜色">&nbsp;</button>
+                        <div class="flex">
+                            <b>文字颜色</b>
+
+                            <p>设置文字颜色，支持HEX格式，即#FFFFFF；该颜色只应用于该区域中的文字。</p>
+                        </div>
+                    </div>
+
+                    <div class="setter horizontalFlexBox ial">
+                        <button class="fixed" data-type="imagepicker" value="" name="backgroundImage"
+                                data-popup="pictureSelector"
+                                title="背景图片">&nbsp;</button>
+                        <div class="flex">
+                            <b>背景图片</b>
+
+                            <p>设置背景图片，图片将与背景颜色重叠，仅支持图片格式。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button value="next" class="next wficoonly ico_arrow_right" disabled></button>
+</div>
+<!--
+<div class="footer">
+    <div class="editorItem">
+        <label>手机颜色</label>
+
+        <div id="phoneColors">
+            <button value="black" class="black"></button>
+            <button value="gray" class="gray selected"></button>
+            <button value="gold" class="gold"></button>
+        </div>
+    </div>
+    <div class="editorItem">
+        <label>背景色</label>
+
+        <button class="fixed" data-type="colorpicker" data-popup="colorpicker" data-level="top"
+                name="backgroundColor" value="" title="背景色">&nbsp;</button>
+    </div>
+    <div class="editorItem">
+        <label>背景图片</label>
+
+        <button class="fixed" data-type="imagepicker" value="" name="backgroundImage" data-popup="pictureSelector"
+                title="背景图片">&nbsp;</button>
+    </div>
+    <div class="editorItem">
+        <label>标题图片</label>
+
+        <button class="fixed" data-type="imagepicker" value="" name="titleImage" data-popup="pictureSelector"
+                title="标题图片">&nbsp;</button>
+    </div>
+    <div class="editorItem">
+        <label>文本色</label>
+
+        <button class="fixed" data-type="colorpicker" data-popup="colorpicker" data-level="top"
+                style="background-color: #000000;" name="textColor" value="#000000" title="文本颜色">&nbsp;</button>
+    </div>
+    &lt;!&ndash;<div class="editorItem" id="lotteryModeSet">
+        <label>抽奖方式</label>
+
+        <div class="horizontalFlexBox" id="lotteryModes">
+            <input id="lm_bw" type="radio" name="lotteryMode" checked="checked" value="bigwheel"/>
+            <label for="lm_bw" class="wficoonly ico_futbol" data-lang-alt="幸运大转盘"></label>
+            <input id="lm_sc" type="radio" name="lotteryMode" value="scratchcard"/>
+            <label for="lm_sc" class="wficoonly ico_discover" data-lang-alt="刮刮卡"></label>
+            <input id="lm_sm" type="radio" name="lotteryMode" value="slotmachine"/>
+            <label for="lm_sm" class="wficoonly ico_gamepad" data-lang-alt="老虎机"></label>
+        </div>
+    </div>&ndash;&gt;
+    &lt;!&ndash;<div class="editorItem">
+        <label>预览</label>
+        <button value="qrcode" class="fixed wficoonly ico_qrcode" id="preview_qrcode"
+                title="保存后才能预览到修改的内容"></button>
+        <div class="detail">
+            <h1>预览</h1>
+            使用微信扫描二维码，即可即时查看活动页面最终效果。<br/>注：本二维码仅供预览，不包含发送红包等功能；实际活动需要扫描下载的二维码才能参与。
+            <div id="previewQRCodeImg"></div>
+        </div>
+    </div>
+    <div class="editorItem">
+        <label>&nbsp;</label>
+        <button value="save" class="submit wfico ico_save">保存</button>
+    </div>&ndash;&gt;
+</div>
+-->
+
+<div class="fb ctBox" id="strategySetting">
+    <div>
+        <h1>出奖策略设置</h1>
+
+        <div class="editorItem">
+            <div class="datagrid datagrid-dark" id="strategyList"></div>
+            <div id="strategyOperator" class='horizontalFlexBox flex'>
+                <button id="lotterySelector" data-type="selector" value='' data-popup="lotteryList"></button>
+
+                <div class="group">
+                    <button id="strategy_add" class='wfico ico_add' value='add' data-lang='commands.add'></button>
+                    <button class='wfico ico_remove' disabled value='remove' data-lang='commands.remove'></button>
+                </div>
+            </div>
+        </div>
+        <button value="submitStrategy" class="commit wfico ico_apply">确定</button>
+        <button value="cancelStrategy" class="cross"></button>
+    </div>
+</div>
+
+<div class="fb ccBox" id="typeBox">
+    <div class="verticalFlexBox iac">
+        <h1 class="wfico ico_add">我的营销方案 / 创建新方案</h1>
+
+        <h3>您正准备创建一个新方案：</h3>
+
+        <div class="typeItems">
+            <input id="_tb_type_redpacket" type="radio" name="_tb_type" value="redpacket"/>
+            <label for="_tb_type_redpacket">
+                <div class="ico_cny">立即创建活动</div>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div id="baseAttribute">
+    <input type="hidden" name="projectid" id="projectid"/>
+    <input type="hidden" name="type" id="projecttype"/>
+    <input type="hidden" name="templatename" id="templateName"/>
+</div>
+
+<div class="popup" id="pictureSelector">
+    <ul class="tab">
+        <li id="pictureSelectorTab_Internet" value="internet" class="selected">网络图片</li>
+        <li value="local">本地图片</li>
+    </ul>
+    <div class="tabContent">
+        <div class="internet selected">
+            <input id="internetFileSelector" name="internetImage" type="text" data-expression="url"
+                   placeholder="请输入或粘贴图片的网络地址" style="width: 480px;"/>
+        </div>
+        <div class="local">
+            <div id="localFileSelector" style="width: 480px;"></div>
+        </div>
+    </div>
+    <button id="clearPicture" class="wfico ico_remove">清除图片</button>
+</div>
+<div class="popup" data-type="selector" id="customerTypes1">
+    <button value="1" title="参与本次活动的用户将被归为消费者">固定积分</button>
+    <button value="2" title="参与本次活动的用户将被归为经销商">商品预设积分</button>
+    <button value="3" title="参与本次活动的用户将被归为经销商">双倍积分</button>
+</div>
+<div class="popup" data-type="selector" id="customerTypes2">
+    <button value="1" title="参与本次活动的用户将被归为消费者">3</button>
+    <button value="2" title="参与本次活动的用户将被归为经销商">2</button>
+</div>
+<div class="popup" data-type="selector" id="customerTypes">
+    <button value="1" title="参与本次活动的用户将被归为消费者">消费者</button>
+    <button value="2" title="参与本次活动的用户将被归为经销商">经销商</button>
+</div>
+
+<div class="popup" data-type="selector" id="ruleTypes">
+    <button value="1" title="在符合条件时，按照参与顺序依次分配此奖，直到本次分配数量归零。<br />如果所有奖项的中奖率和不为100%，则不能使用此出奖方式。">顺序出奖</button>
+    <button value="2" title="在符合条件时，大幅度提高此奖项的中奖率，本次分配数量可能会有剩余。">随机出奖</button>
+</div>
+
+<div class="popup" data-type="selector" id="answerTypes">
+    <button value="1">单选</button>
+    <button value="2">多选</button>
+    <button value="3">输入</button>
+</div>
+
+<div class="popup" data-type="datepicker" id="datepicker"></div>
+<div class="popup" data-type="colorpicker" id="colorpicker"></div>
+<div class="popup" data-type="selector" id="lotteryList"></div>
+
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.solution.detail"
+        data-deps="datagrid,qrCode,dateTimePicker,moment,citypicker,colorPicker,files"></script>
+</body>
+</html>

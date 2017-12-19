@@ -1,0 +1,35 @@
+<div class="shade userManage">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">分配角色</h3>
+        </div>
+        <div class="content-body">
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    账户名称
+                </h4>
+                <div class="input-group-input">
+                    <input type="text" style="border: none;background: white;color: gray" disabled ng-model="roleForm.useraccount">
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    分配角色
+                </h4>
+                <div class="rolebox" ng-repeat="item in roleList.roles">
+                    <div class="input-group-input">
+                        <label class="clear"><input ng-model="roleForm.roleid" type="radio" name="role" value="{{item.value}}" ng-checked="item.value==roleForm.roleid"><span>{{item.name}}</span></label>
+                        <div class="input-group-input roledesc">
+                            角色描述：{{item.descript}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="roleForm.closeForm()">取消</button>
+            <button class="butn butn-primary" ng-click="roleForm.saveRole()">保存</button>
+        </div>
+    </div>
+</div>

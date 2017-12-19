@@ -1,0 +1,165 @@
+<div style="padding:10px;">
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">开始时间:</span>
+                        <input type="date" 
+                               class="filter-item-input" 
+                               placeholder="礼品名称" 
+                               ng-model="qouponList.defaultRecord.begtime">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">结束时间:</span>
+                        <input type="date" 
+                               class="filter-item-input" 
+                               placeholder="礼品名称" 
+                               ng-model="qouponList.defaultRecord.endtime">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">状态:</span>
+                        <select ng-model="qouponList.defaultRecord.usetype" 
+                                style="padding: 4px;">
+                            <option value="">请选择礼券状态</option>
+                            <option value="create">已购买</option>
+                            <option value="use">已使用</option>
+                            <option value="give">已赠予</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" 
+                            ng-click="qouponList.getQouponList(1)">
+                            <i class="fa fa-search"></i> 查询
+                    </button>
+                    <button class="butn butn-default" 
+                            ng-click="qouponList.init()">
+                            <i class="fa fa-undo"></i> 重置
+                    </button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn" style="visibility: hidden;">占位按钮</button>
+        </m-action>
+    </div>
+
+    <div class="qoupon-detail">
+        <!--<div class="qoupon-total">
+            <div>
+                <span ng-bind="qouponList.selectedTapItem.name"></span>数目:
+                <span class="qoupon-number">522</span>张
+            </div>
+            <div><span ng-bind="qouponList.selectedTapItem.name"></span>价值:
+                <span class="qoupon-number">6684</span>元
+            </div>
+        </div>-->
+
+        <div class="view-table" id="qouponRecord">
+            <table>
+                <thead>
+                    <tr>
+                        <th>礼券商品名称</th>
+                        <th>信息</th>
+                        <th>使用者</th>
+                        <th>使用者地址</th>
+                        <th>接收者</th>
+                        <th>使用时间</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in qouponList.items">
+                        <td class="use-productname"
+                            ng-bind="item.productname" 
+                            ng-click="qouponList.getQouponDetail(item)"></td>
+                        <td ng-bind="item.info"></td>
+                        <td ng-bind="item.nickname"></td>
+                        <td ng-bind="item.province + '/' + item.city"></td>
+                        <td ng-bind="item.recivername || '商城'"></td>
+                        <td ng-bind="item.usetime | timSlice"></td>
+                        <td ng-bind="item.usetype | QouponState"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="shade" ng-if="qouponList.showProductDetail">
+           <div class="content" style="width: 600px;">
+                <div class="content-top">
+                    <h3 class="title">礼券商品详情</h3>
+                </div>
+                <div class="content-body">
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            礼券商品名称
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{qouponList.selectedProduct.productInfo.productname}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            礼券商品价格
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{qouponList.selectedProduct.productInfo.cost}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            礼券商品创建时间
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{qouponList.selectedProduct.productInfo.productdate}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            礼券商品使用期限
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{qouponList.selectedProduct.productInfo.validity_beg}}</span> —— 
+                            <span>{{qouponList.selectedProduct.productInfo.validity_end}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            礼券商品描述
+                        </h4>
+                        <div class="input-group-input">
+                            <span>{{qouponList.selectedProduct.productInfo.productinfo}}</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            关联商品列表
+                        </h4>
+                        <div class="view-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>商品名称</th>
+                                        <th>包含数量</th>
+                                        <th>单价（元）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in qouponList.selectedProduct.content">
+                                        <td>{{item.productname}}</td>
+                                        <td>{{item.number}}</td>
+                                        <td>{{item.price}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="content-footer">
+                    <button class="butn butn-default" ng-click="qouponList.close()">关闭</button>
+                </div>    
+           </div>
+        </div>
+    </div>
+</div>

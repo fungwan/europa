@@ -1,0 +1,14 @@
+<div class="manageqoupon" ng-controller="mallQouponManage" ng-init="qouponList.init()">
+    <div>
+        <ul class="tab-list">
+            <li class="tab-item" 
+                ng-repeat="item in qouponList.tabItems" 
+                ng-click="qouponList.selectTap(item)" 
+                ng-class="{active: qouponList.selectedTapItem == item}"
+                ng-bind="item.title">
+            </li>
+        </ul>
+        <div class="tab-content" 
+             ng-include="qouponList.selectedTapItem.src"></div>
+    </div>
+</div>

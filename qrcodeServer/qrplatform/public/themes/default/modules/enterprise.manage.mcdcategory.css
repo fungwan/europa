@@ -1,0 +1,165 @@
+
+.groupManage {
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow-x: hidden;
+}
+
+.groupMenu {
+    width: 220px;
+    background-color: #F5F5F5;
+}
+
+.pageIcon {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.icoManage {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    font-size: 22px;
+    color: white;
+    font-family: FontAwesome;
+    margin-left: 10px;
+}
+
+.icoManageGroup::before {
+    content: '\f0c0' !important;
+}
+
+.menu .item {
+    cursor: pointer;
+    padding: 20px;
+    font-size: 18px;
+    text-align: center;
+    font-family: "Microsoft Yahei", Verdana;
+}
+
+.menu .item:hover {
+    z-index: 2;
+    background-color: white;
+    opacity: 1;
+    /*transform: scaleY(1.2);*/
+    box-shadow: rgba(0, 0, 0, .5) 0 0 5px;
+}
+
+.selected {
+    background-color: white;
+}
+
+.categoryGroupInfo {
+    /*margin: 30px 20px 0px 20px;*/
+    flex: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex ;
+    flex-flow: column nowrap;
+    background-color: white;
+    z-index: 2;
+
+}
+
+.mcdCategoryList{
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.buttonGroups, .categoryGroupInfo .buttonGroups {
+    margin-bottom: 20px;
+}
+
+.buttonGroups button, .categoryGroupInfo .buttonGroups button {
+    width: 120px;
+    background-color: #61aef5;
+    color: white;
+    display: inline-block;
+}
+
+.buttonGroups button:hover, .categoryGroupInfo .buttonGroups button:hover {
+    background-color: #1b88ee;
+    color: white;
+}
+
+.buttonGroups div {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+}
+
+#queryCategory {
+    width: 300px;
+}
+
+#categoryMessage{
+    text-align: left;
+    font-size: 22px;
+    margin: 0px 0px 10px 0px ;
+}
+
+.popAddCategory{
+    height: 100%;
+    width: 500px;
+    position: absolute;
+    right: -500px;
+    top: 0;
+    background-color: white;
+    transition: right 0.5s;
+    z-index: 3;
+}
+
+.popAddCategory > .header {
+    color: white;
+    padding: 10px 20px;
+    background-color: #1b88ee;
+    border-bottom: rgba(0, 0, 0, .1) solid 1px;
+    flex: none;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.popAddCategory > .content{
+    padding:20px 20px 20px 20px;
+}
+
+.item {
+    margin-top:20px; 
+}
+
+.item > label{
+    display: inline-block;
+    width: 100px;
+}
+
+.item > input{
+    width: 355px;
+}
+
+.command {
+    padding: 20px 20px;
+}
+
+.command button{
+    display: inline;
+    left:310px;
+}
+
+.mask{
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 2;
+}

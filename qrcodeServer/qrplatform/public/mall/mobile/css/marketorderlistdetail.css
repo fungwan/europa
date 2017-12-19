@@ -1,0 +1,147 @@
+.iconfont {
+    font-size: 1.5rem;
+}
+
+.icon-heart1 {
+    color: #FF6458;
+}
+
+.icon-heart1.active {
+    color: gainsboro;
+}
+
+.list-block .item-subtitle {
+    overflow: visible;
+    white-space: normal;
+}
+
+
+/*订单列表*/
+
+.ordermoreimg {
+    width: 100%;
+    overflow: scroll;
+}
+
+.ordermoreimg>a {
+    margin-left: 4px;
+}
+
+#hongbao a {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.nothongbao a {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+.card {
+    box-shadow: none;
+}
+
+.iseval span {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+/*忘记密码提示框*/
+
+.forgetalert {
+    text-align: right;
+    width: 100%;
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.6rem;
+    color: gray;
+}
+
+.buttons-row .button {
+    color: white;
+    border-radius: 8px !important;
+}
+
+.buttons-row .button+.button {
+    margin-left: 0.4rem;
+}
+
+.bar-tab {
+    padding: 0 0.5rem;
+}
+
+.msgarea {
+    text-indent: 1rem;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    width: 90vw;
+    margin: auto;
+    display: block;
+    border: none;
+    display: block;
+    resize: none;
+}
+
+.buttontoggle {
+    display: block;
+    width: 1rem;
+    margin: auto;
+}
+
+.logistics {
+    margin-left: 45vw;
+    color: #27ad60;
+    font-size: 0.7rem;
+    text-decoration: underline;
+}
+
+.panel {
+    background: gray;
+}
+
+.page.theme-dark,
+.panel.theme-dark,
+.theme-dark .content,
+.theme-dark .login-screen-content,
+.theme-dark .page,
+.theme-dark .panel {
+    background: rgb(255, 251, 240);
+    color: #e2e2e2;
+}
+
+.cardAddr {
+    font-size: 0.7rem;
+  
+    padding-bottom: 0.5rem;
+     border-left: 1px dotted #e2e2e2;
+    padding-left: 0.5rem;
+    position:relative;
+}
+
+.popright {
+    width: 100%;
+}
+
+.button.button-fill {
+    background: #ff531e;
+}
+
+.dotted{
+        width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background:#e2e2e2;
+    display:inline-block;
+    position:absolute;
+    left: -3px;
+    top:50%;
+}
+.cardAddr.active{
+    color:#27ad60;
+}
+.cardAddr.active .dotted{
+    background:#27ad60;
+    box-shadow: 0px 0px 12px #27ad60;
+}

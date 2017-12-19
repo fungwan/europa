@@ -1,0 +1,98 @@
+<div class="view">
+    <h3 class="view-title">
+        <i class="fa fa-pencil-square-o"></i>
+        商品促销文章管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">商品促销信息管理</a>
+            </li>
+        </ul>
+    </div>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">标题:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入标题" ng-model="productList.queryOptions.key" maxlength="30">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">状态:</span>
+                        <select ng-model="productList.queryOptions.state" style="padding: 4px;">
+                            <option value="">请选择文章状态</option>
+                            <option value="0">未激活</option>
+                            <option value="1">已激活</option>
+                            <option value="2">已停用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="productList.query(1)">
+                        <i class="fa fa-search"></i> 查询
+                    </button>
+                    <button class="butn butn-default" ng-click="productList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn butn-primary" ng-click="productForm.showAdd()"><i class="fa fa-plus"></i> 添加</button>
+        </m-action>
+    </div>
+
+    <div class="view-table" id="articleTable">
+        <table>
+            <thead>
+                <tr>
+                    <th width="100px">创建时间</th>
+                    <th width="100px">状态</th>
+                    <th width="220px">标题</th>
+                    <th width="720px">摘要</th>
+                    <th width="100px">编辑</th>
+                    <th width="100px">停用</th>
+                    <th width="110px">激活</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in productList.items">
+                    <td ng-bind="item.createtime | timFmartday"></td>
+                    <td ng-bind="item.state | commonditySaleState"></td>
+                    <td ng-bind="item.title"></td>
+                    <td ng-bind="item.summary"></td>
+                    <td style="padding:0">
+                        <button class="butn butn-link" 
+                            ng-click="productForm.showEdit(item)">
+                            <i class="fa fa-edit"></i>
+                            编辑
+                        </button>
+                    </td>
+                    <td style="padding:0">
+                        <button class="butn butn-link"
+                            ng-click="productList.offShelve(item)">
+                            <i class="fa fa-trash"></i>
+                            停用
+                        </button>
+                    </td>
+                    <th style="padding:0">
+                        <button class="butn butn-link"
+                            ng-click="productList.immediatePublish(item)"
+                            ng-disabled="item.state == 1">
+                            <i class="fa fa-paper-plane"></i>
+                            激活
+                        </button>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="productForm.showAddForm" ng-include="'views/templates/sale/article.add.html'"></div>
+    <div ng-if="productForm.showEditForm" ng-include="'views/templates/sale/article.edit.html'"></div>
+    <div ng-if="productForm.showScan"
+         ng-include="'views/templates/sale/article.scan.html'"></div>
+</div>

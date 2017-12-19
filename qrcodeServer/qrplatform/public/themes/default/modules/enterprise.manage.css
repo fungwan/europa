@@ -1,0 +1,53 @@
+.manage {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+}
+.manage .item{
+    flex: 1;
+    /*background-color: #5B8BC3;*/
+    height: 100%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+}
+.manage .item:first-child{
+    background-color: #F5F5F5;
+}
+.manage .item:last-child {
+}
+
+.icoManage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    font-size: 60px;
+    color: white;
+    font-family: FontAwesome;
+    margin: 0 auto;
+    cursor: pointer;
+
+}
+.icoManageCustomer::before{
+    content: '\f007' !important;
+}
+.icoManageDealer::before{
+    content: '\f0d1' !important;
+}
+.customerDesc,.dealerDesc {
+    width: 300px;
+    margin: 0 auto;
+}
+.dealerDesc h3{
+    color: #A8A8A8 !important;
+}
+.customerDesc h3{
+    color: #AAAAAA   !important;
+}
+#dealer,#customer,h1{
+    cursor: pointer;
+}

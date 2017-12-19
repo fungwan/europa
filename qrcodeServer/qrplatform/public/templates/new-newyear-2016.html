@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css">
+    <link href="css/new-base.css" rel="stylesheet" type="text/css">
+    <link href="css/se.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/newyear-2016.css">
+
+    <script type="text/javascript" src="../scripts/lib/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="js/jquery.transit.min.js"></script>
+    <script type="text/javascript" src="js/jquery.eraser.min.js"></script>
+    <script type="text/javascript">
+        function _windowSizeChanged() {
+            var win = $(window),
+                w = win.width(),
+                h = win.height();
+            var pt = 280 * (w / 680);
+            $(".page").css("padding-top", pt);
+        }
+        $(function () {
+            _windowSizeChanged();
+        });
+    </script>
+
+</head>
+<body style="background-color: rgb(188, 0, 0); color: white;">
+    <!-- 活动首页 -->
+    <!-- 积分赠送: 弹窗 -->
+    <!-- 满减信息: 弹窗 -->
+    <!-- 抽奖 -->
+    <!-- 扫码即送: 弹窗 -->
+
+<div class="layer layer01"></div>
+<div class="layer layer02"></div>
+<div class="main box box-tb">
+    <div class="pages flex">
+        <!-- 活动首页 -->
+        <div class="page box box-tb opened" id="base">
+            <div class="caption"></div>
+            <div class="content flex">
+            </div>
+            <div class="command box box-lr">
+                <button class="flex" value="next">参与活动</button>
+            </div>
+        </div>
+        <!-- 积分赠送/扫码即送/满减 -->
+        <div class="page box box-tb" id="gift">
+            <div class="caption">信息提示</div>
+            <div class="content flex">
+            </div>
+            <div class="command box box-lr">
+                <button class="flex" value="next">下一步</button>
+            </div>
+        </div>
+        <!-- 抽奖 -->
+        <div class="page box box-tb box-pack-center box-align-center" id="lottery">
+            <div class="caption">活动抽奖</div>
+            <div class="flex">
+                <div id="lotteryContainer">
+                </div>
+            </div>
+            <div class="command box box-lr">
+                <!-- <button class="flex" value="next">下一步</button> -->
+            </div>
+        </div>
+        问卷调查
+        <div class="page box box-tb" id="question">
+            <div class="caption">问卷调查</div>
+            <div class="content flex">
+                <form id="questionForm" class="question">
+                    <ul>
+                        
+                    </ul>
+                </form>
+            </div>
+            <div class="command box box-lr">
+                <button class="flex" value="next">提交问卷</button>
+            </div>
+        </div>
+        <!-- 结束 -->
+        <div class="page box box-tb" id="finish">
+            <div class="caption">活动完成</div>
+            <div class="content flex">
+                谢谢参与此次活动。
+            </div>
+            <!-- <div class="command box box-lr">
+                <button class="flex" value="close">关闭</button>
+            </div> -->
+        </div>
+        <!-- 选择收货地址 -->
+        <div class="page box box-tb" id="addressSelect">
+            <div class="caption">请选择收货地址</div>
+            <div class="content flex" style="">
+                <ul class="address-list">
+                </ul>
+            </div>
+            <div class="command box box-lr">
+                <button class="flex" value="submit">确定地址</button>
+                <button class="flex" value="add">新增地址</button>
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="footer">
+        Powered by erathink.Co.,Ltd.
+    </div>
+</div>
+<!-- 新增/编辑收货地址 -->
+<div class="address-content" style="display: none;">
+    <div class="address-form">
+        <form>
+            <input type="hidden" id="addid">
+            <div class="form-item">
+                <span>收货人:</span>
+                <input type="text" placeholder="请输入收货人" id="contact">
+            </div>
+            <div class="form-item">
+                <span>联系电话:</span>
+                <input type="text" placeholder="请输入联系人电话" id="phone">
+            </div>
+            <div class="form-item area-item">
+                <span>收货地址:</span>
+                <div class="area">
+                    <span class="area-text"></span>
+                    <i class="fa fa-angle-right" style="font-size: 1.2em;color:#ccc"></i>
+                </div>
+            </div>
+            <div class="form-item address-detail">
+                <div>详细地址:</div>
+                <textarea id="address"></textarea>
+            </div>
+            <div class="form-item" style="line-height: normal;">
+                <input type="checkbox" id="default">
+                <label for="default">设为默认</label>
+            </div>
+        </form>
+        <div class="form-command">
+            <button class="btn-form" value="cancel">取消</button>
+            <button class="btn-form" style="margin-left: 6%;" value="submit">提交</button>
+        </div>
+    </div>
+    <div class="address-province" style="display: none;">
+        <ul class="address-province-list">
+        </ul>
+    </div>
+    <div class="address-city" style="display: none;">
+        <ul class="address-city-list">
+        </ul>
+    </div>
+</div>
+
+<!-- 弹出框: 用于提示中奖信息等 -->
+<div class="pickup box box-tb box-pack-center box-align-center" id="messagePickup">
+    <div class="box box-tb pickup-content" style="min-width: 250px;">
+        <div class="title"></div>
+        <div class="content" name="content"></div>
+        <div class="command box box-lr">
+            <button class="flex submit">确定</button>
+        </div>
+    </div>
+</div>
+
+<!-- 弹出框: 用于提示输入手机号等 -->
+<div class="pickup box box-tb box-pack-center box-align-center" id="phonePickup">
+    <div class="box box-tb pickup-content" style="min-width:280px;">
+        <div class="title">手机号码验证</div>
+        <div class="box box-tb content" style="margin-bottom: 0;">
+            <div class="box box-lr">
+                <input class="flex info" name="phone" type="tel" placeholder="请输入您的手机号" id="phoneNum">
+                <button class="info" id="sendCode">发送验证码</button>
+            </div>
+            <input type="text" name="" maxlength="4" class="info" placeholder="请输入收到的验证码" style="margin-top: 5px;" id="phoneCode">
+            <div id="pickupMessage" style="color: red;"></div>
+        </div>
+        <div class="command box box-lr">
+            <button class="flex submit" id="submitInfo">提交信息</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/newyear-2016.js"></script>
+</body>
+</html>

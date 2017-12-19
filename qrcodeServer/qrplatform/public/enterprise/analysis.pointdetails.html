@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>积分明细查询--万码易联</title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<body>
+<div class="horizontalFlexBox fb">
+    <div class="activityInfo">
+        <div class="chooseActivity">活动列表</div>
+        <div class="activities verticalFlexBox vscrollable">
+        </div>
+    </div>
+    <div class="lottery flex verticalFlexBox">
+        <div class="quesNoAct">
+            您还未创建活动，马上前往： <span class='goCreateAct'>创建活动</span>
+        </div>
+        <div class="editorSet">
+            <div class="editorGroup">
+                <div class="editorItem">
+                    <label data-lang="questionnaire.chooseArea"></label>
+                    <button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="areacode">选择区域</button>
+                </div>
+                <div class="editorItem">
+                    <label data-lang="开始时间"></label>
+                    <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date" data-level="top"
+                            name="start_time" value="" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                </div>
+                <div class="editorItem">
+                    <label data-lang="结束时间"></label>
+                    <button class="endTime datetimepicker" data-type="datepicker" data-popup="datepicker" data-format="date"
+                            data-level="top" name="end_time" value="" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                </div>
+                <div class="editorItem">
+                    <label for="minPoint">积分范围</label>
+                    <input name="minPoint" id="minPoint" type="number" min="0" value="0" style="width: 80px;" title="最小积分"/>
+                </div>
+                <div class="editorItem">
+                    <label for="">&nbsp&nbsp</label>
+                    <button  value="" disabled id="toPoint">至</button>
+                </div>
+                <div class="editorItem">
+                    <label for="maxPoint">&nbsp&nbsp</label>
+                    <input name="maxPoint" id="maxPoint" type="number" min="0" value="100" style="width: 80px;" title="最大积分"/>
+                </div>
+                <div class="editorItem">
+                    <label for="" data-lang="关键字"></label>
+                    <input class="keywords" placeholder="请输入关键字" title="15字符以内" maxlength='15' value="" name="keywords" />
+                </div>
+                <div class="editorItem">
+                    <label>&nbsp;</label>
+                    <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                </div>
+            </div>
+        </div>
+        <div class="flex content">
+            <div class="pointList datagrid"></div>
+        </div>
+    </div>
+</div>
+<div class="popup" data-type="datepicker" id="datepicker"></div>
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.analysis.pointdetails" data-deps="datagrid,citypicker,moment,dateTimePicker"></script>
+
+</body>
+</html>

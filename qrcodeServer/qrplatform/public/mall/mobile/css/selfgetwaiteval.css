@@ -1,0 +1,100 @@
+
+.bartop{
+    background: #FFFFFF;
+    border-bottom: 1px solid #cf4900;
+    font-size: 0.6rem;
+    color: #828481;
+}
+.bartop>div,.bartop>div span,.bartop>div label{
+    display: inline-block;
+
+    line-height: 2.2rem;
+}
+.bar-nav~.content {
+    top: 2.2rem;
+}
+.gradebo img{
+    width: 1.5rem;
+}
+.bartop input{
+    display: inline-block;
+    width: 1rem;
+    vertical-align: middle;
+}
+.gradebo .num{
+    color: #e95302;
+    font-size: 0.7rem;
+}
+.gradebo .pig{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+
+.gradeboo input{
+    width: 30vw;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+.tring{
+    display: inline-block;
+    border: 6px solid transparent;
+    border-top: 6px solid #474646;
+    margin-left: -0.5rem;
+}
+
+.item-inner .na{
+    font-size: 0.8rem;
+}
+.item-inner .puc{
+    font-size: 0.7rem;
+}
+#myorderbox .button-success {
+    background:#F2A400;
+    border: none;
+    color: white;
+}
+
+.item-media>a+a{
+    margin-left: 0.2rem;
+}
+.item-media{
+    max-width: 100% !important;
+    overflow-x: scroll;
+}
+.page{
+    background: #efeff4;
+}
+.card{
+    font-size: 0.7rem;
+    position: relative;
+}
+.card-footer{
+    justify-content: flex-end;
+    min-height: 1.2rem;
+}
+.card-mid{
+    text-indent: 0.5rem;
+}
+.card-footer, .card-header {
+
+    padding-bottom: 0;
+    padding-top: 0;
+    
+}
+.item-inner .na{
+    font-size: 0.7rem;
+}
+.item-inner .puc{
+    font-size: 0.6rem;
+}
+.card-header {
+    min-height: 1.2rem;
+    font-size: 0.7rem !important;
+}
+.card >img{
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    width: 3rem;
+}

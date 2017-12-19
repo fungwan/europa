@@ -1,0 +1,172 @@
+@CHARSET "UTF-8";
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('fonts/fontawesome-webfont.eot?v=4.3.0');
+    src: url('fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body, tr, td, div, span {
+    -webkit-text-size-adjust: none;
+}
+
+body {
+    margin: 0;
+    font-size: 14px;
+    padding: 69px 0 0 0;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    background-position: center center;
+    background-size: cover;
+    color: #666;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body, input, button, label, textarea, td, th, span, div {
+    font-family: 'open sans', 'Microsoft Yahei', sans-serif;
+}
+
+body, html {
+    height: 100%;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+}
+
+* {
+    cursor: default;
+    font-weight: normal;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    color: #000;
+    box-sizing: border-box;
+    position: relative;
+    min-height: 0;
+    min-width: 0;
+    flex: none;
+    -webkit-margin-collapse: separate;
+    outline: none;
+}
+
+.fb {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+}
+
+body > .fb {
+    padding-top: 100px;
+}
+
+#fixedLoader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    -webkit-box-orient: vertical;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 99990;
+}
+
+@-webkit-keyframes runFixedLoader {
+    0% {
+        -webkit-transform: rotateX(0deg) rotateY(0deg)
+    }
+    100% {
+        -webkit-transform: rotateX(360deg) rotateY(360deg)
+    }
+}
+
+#fixedLoader ul {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    margin-bottom: 20px;
+}
+
+#tooltiper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, .8);
+    padding: 5px 10px;
+    border-radius: 2px;
+    -ms-border-radius: 2px;
+    color: #fff;
+    z-index: 99999;
+    max-width: 480px;
+}
+
+#tooltiper * {
+    color: #fff;
+}
+
+#tooltiper > b {
+    font-size: 16px;
+}
+
+#fixedLoaderMsg {
+    color: rgba(255, 255, 255, .75);
+}
+
+#fixedLoader ul li {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: rgba(255, 255, 255, .25) solid 1px;
+    list-style: none;
+    text-align: center;
+    line-height: 40px;
+}
+
+#fixedLoader li:nth-child(1) {
+    -webkit-transform: rotateX(90deg) translateZ(20px);
+}
+
+#fixedLoader li:nth-child(2) {
+    -webkit-transform: rotateX(270deg) translateZ(20px);
+}
+
+#fixedLoader li:nth-child(3) {
+    -webkit-transform: rotateY(90deg) translateZ(20px);
+}
+
+#fixedLoader li:nth-child(4) {
+    -webkit-transform: rotateY(270deg) translateZ(20px);
+}
+
+#fixedLoader li:nth-child(5) {
+    -webkit-transform: translateZ(-20px);
+}
+
+#fixedLoader li:nth-child(6) {
+    -webkit-transform: translateZ(20px);
+}
+
+.loading > * {
+    display: none !important;
+}
+
+.loading #fixedLoader {
+    display: -webkit-box !important;
+}
+
+.loading #fixedLoader ul {
+    -webkit-animation: runFixedLoader 3s linear infinite;
+}
+

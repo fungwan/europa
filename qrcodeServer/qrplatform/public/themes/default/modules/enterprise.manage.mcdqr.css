@@ -1,0 +1,122 @@
+/*.moduleBody {*/
+/*background-color: #2C333A;*/
+/*}*/
+/*.analysisBoard {*/
+/*width: 600px;*/
+/*height: 140px;*/
+/*position: absolute;*/
+/*top: 50%;*/
+/*left: 50%;*/
+/*margin-left: -300px;*/
+/*margin-top: -100px;*/
+/*-webkit-perspective: 800px;*/
+/*}*/
+/*.cube {*/
+/*position: absolute;*/
+/*width: 100%;*/
+/*height: 100%;*/
+/*-webkit-transform-style: preserve-3d;*/
+/*-webkit-animation: 15s spin linear infinite;*/
+/*}*/
+/*.paused {*/
+/*-webkit-animation-play-state: paused;*/
+/*}*/
+/*.cube > div {*/
+/*background: -webkit-linear-gradient(left, rgba(54, 226, 248, 0.5) 0px, rgba(54, 226, 248, 0.5) 3px, rgba(0, 0, 0, 0) 0px),*/
+/*-webkit-linear-gradient(top, rgba(54, 226, 248, 0.5) 0px, rgba(54, 226, 248, 0.5) 3px, rgba(0, 0, 0, 0) 0px);*/
+/*-webkit-background-size: 2.5em 2.5em;*/
+/*background-color: rgba(232, 232, 232, 0.5);*/
+/*position: absolute;*/
+/*line-height: 130px;*/
+/*text-indent: 2em;*/
+/*width: 100%;*/
+/*height: 100%;*/
+/*border: 2px solid rgba(54, 226, 248, 0.5);*/
+/*-webkit-box-shadow: 0 0 10px rgb(56, 204, 255);*/
+/*}*/
+/*.cube > div::before {*/
+/*display: block;*/
+/*background: -webkit-radial-gradient(center, ellipse, rgba(0, 0, 0, 0) 30%, rgba(200, 255, 198, 0.2) 100%);*/
+/*background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 30%, rgba(200, 255, 198, 0.2) 100%);*/
+/*content:'';*/
+/*height: 100%;*/
+/*width: 100%;*/
+/*position: absolute;*/
+/*}*/
+/*.cube > div:hover {*/
+/*/!*background-color: rgba(205, 205, 205, 0.5);*!/*/
+/*/!*backface-visibility: hidden;*!/*/
+/*-webkit-box-shadow: 0 0 20px #ccc;*/
+/*}*/
+/*.shadow > div {*/
+/*font-size: 25px;*/
+/*}*/
+/*.font {*/
+/*-webkit-transform: translateZ(10em);*/
+/*}*/
+/*.redpack {*/
+/*text-align: center;*/
+/*}*/
+/*.back {*/
+/*-webkit-transform: rotateX(180deg) translateZ(10em);*/
+/*}*/
+/*.left {*/
+/*-webkit-transform: rotateY(-90deg) translateZ(10em);*/
+/*}*/
+/*.right {*/
+/*-webkit-transform: rotateY(90deg) translateZ(10em);*/
+/*}*/
+/*.top {*/
+/*width: 150%;*/
+/*background: #fff!important;*/
+/*-webkit-transform: rotateX(90deg) translateZ(10em);*/
+/*}*/
+/*.bottom {*/
+/*-webkit-transform: rotateX(88deg) translateZ(-10em);*/
+/*}*/
+/*.bottom .wfico{*/
+/*text-align: center;*/
+/*font-size: 30px;*/
+/*}*/
+/*@-webkit-keyframes spin {*/
+/*from {*/
+/*-webkit-transform: rotateX(-10deg) rotateY(0deg);*/
+/*}*/
+/*to {*/
+/*-webkit-transform: rotateX(-10deg) rotateY(360deg);*/
+/*}*/
+/*}*/
+/*.childMenu, .rpchildMenu {*/
+/*position: absolute;*/
+/*top: 10px;*/
+/*}*/
+/*.rpchildMenu {*/
+/*left: 10px;*/
+/*}*/
+/*.childMenu {*/
+/*right: 10px;*/
+/*}*/
+/*.childMenu > div, .rpchildMenu > div {*/
+/*font-size: 15px;*/
+/*height: 50px;*/
+/*line-height: 50px;*/
+/*}*/
+.b01 {
+    background-image: url(../images/analysis.jpg);
+    background-size: cover;
+}
+.ico_lottery::before {
+    content: "\f0d6";
+}
+.ico_questionnaire::before {
+    content: "\f15c";
+}
+.ico_customer::before {
+    content: "\f007";
+}
+.ico_ldetails::before {
+    content: "\f03a";
+}
+.ico_pdetails::before {
+    content: "\f03a";
+}

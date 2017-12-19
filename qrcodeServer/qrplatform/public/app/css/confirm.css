@@ -1,0 +1,24 @@
+.ng-confirm.ng-confirm-white .ng-confirm-box .ng-confirm-buttons button.ng-confirm-btn-cancel {
+    border-radius: 2px;
+    border: 1px solid silver;
+}
+
+.ng-confirm.ng-confirm-white .ng-confirm-box .ng-confirm-buttons button.ng-confirm-btn-cancel:hover {
+    background-color: #d8d8d8;
+}
+
+.ng-confirm.ng-confirm-white .ng-confirm-box .ng-confirm-buttons button.ng-confirm-btn-confirm {
+    border-radius: 2px;
+    border: 1px solid #64b254;
+    background: #6b5;
+}
+
+.ng-confirm.ng-confirm-white .ng-confirm-box .ng-confirm-buttons button.ng-confirm-btn-confirm:hover {
+    border-color: #3aa622;
+    background-color: #4b2;
+}
+
+ .ng-confirm.ng-confirm-white .ng-confirm-bg {
+    background: rgba(54, 70, 93, .5);
+    opacity: 1;
+ }

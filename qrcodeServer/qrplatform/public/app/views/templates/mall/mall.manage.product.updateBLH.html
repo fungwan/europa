@@ -1,0 +1,65 @@
+<div class="shade sale new-qoupon" ng-init="productForm.initBLH()">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">更新百礼汇商品</h3>
+        </div>
+        <div class="content-body" style="padding: 15px">
+            <div class="part-left">
+                <div class="horizontal-item">
+                    <label for="">商品名称</label>
+                    <div>
+                        <input type="text" 
+                               ng-model="productForm.product.productname" disabled>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">商品成本</label>
+                    <div>
+                        <input type="number"
+                               ng-model="productForm.product.cost" disabled>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">商品售价</label>
+                    <div>
+                        <input type="number"
+                               ng-model="productForm.product.price" disabled>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">商品总数</label>
+                    <div>
+                        <input type="number"
+                               ng-model="productForm.product.amount" disabled>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label for="">分类</label>
+                    <div style="height:100px;">
+                        <textarea rows="4"
+                                  ng-model="productForm.product.productinfo" disabled>
+                        </textarea>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <label>轮播图</label>
+                    <div>
+                        <div class="img-preview-item" ng-repeat="item in productForm.imgItems">
+                            <img ng-src="{{item.src}}">
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="part-right">
+                <!--<label for="">礼券详情编辑：</label>-->
+                <div ng-bind-html="productForm.product.productdetail.htmlinfo" style="min-height: 650px;min-width: 600px;"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="content-footer">
+        <button class="butn butn-default" ng-click="productForm.close()">取消</button>
+        <button class="butn butn-primary" ng-click="productForm.updateBLH()">更新</button>
+    </div>
+</div>

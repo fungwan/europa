@@ -1,0 +1,106 @@
+<div class="shade sale" ng-init="initEdit()">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">新增文章</h3>
+        </div>
+        <div class="content-body">
+            <div class="input-group heaitebox">
+                <div class="heaite" style="width: 50%">
+                    <h4 class="input-group-label">
+                        文章标题
+                        <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 请输入文章标题不超过30字" ng-model="commondity.title">
+                    </div>
+                </div>
+                <div class="heaite" style="width: 30%;margin-left: 1%">
+                    <h4 class="input-group-label">
+                        文章关键字
+                        <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 请输入文章关键字不超过20字" ng-model="commondity.keyword">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group heaitebox">
+                <h4 class="input-group-label">
+                    文章摘要
+                    <span class="require">*</span>
+                </h4>
+                <div class="input-group-input">
+                    <input type="text" placeholder=" 请输入文章摘要,不超过200字" ng-model="commondity.summary" style="width:81%">
+                </div>
+            </div>
+            <div class="input-group heaitebox">
+                <div class="heaite" style="width: 30%">
+                    <h4 class="input-group-label">
+                        作者
+                        <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 请输入作者不超过10字" ng-model="commondity.author">
+                    </div>
+                </div>
+                <div class="heaite" style="width: 50%;margin-left: 1%">
+                    <h4 class="input-group-label">
+                        原文地址
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 请输入正确URL地址，没有原文地址可以不填写。" ng-model="commondity.authorurl">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="inputitem">
+                    <h4 class="input-group-label">类型<span class="require">*</span></h4>
+                    <div class="input-group-input">
+                        <!-- TODO 实现自定义选择器 -->
+                        <select ng-model="commondity.arttype" style="padding: 6px">
+                            <option value="">请选择文章类型</option>
+                            <option value="saleinfo">促销信息</option>
+                            <option value="newproduct">新品信息</option>
+                            <option value="knowledge">小知识</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputitem">
+                    <h4 class="input-group-label">
+                        发布时间设置<span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="date" placeholder="请选择发布时间" ng-model="commondity.publishtime">
+                    </div>
+                </div>
+                <div class="inputitem">
+                    <h4 class="input-group-label">
+                        过期时间设置<span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="date" placeholder="请选择过期时间" ng-model="commondity.outtime">
+                    </div>
+                </div>
+                <div class="inputitem">
+                    <h4 class="input-group-label">
+                        标题图片设置<span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input" id="btnbox">
+                        <!--<input type="file" placeholder="请选择标题图片" ng-model="commondity.outtime" id="pickfiles">-->
+                        <button class="butn butn-primary" id="pickfiles">上传图片</button>
+                    </div>
+                </div>
+                <div class="inputitem">
+                    <img id="scanimg" src="" width="60" alt="请上传图片进行预览">
+                </div>
+            </div>
+            <div id="divedit" style="height:300px;">
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="scan()">预览</button>
+            <button class="butn butn-default" ng-click="close()">取消</button>
+            <button class="butn butn-primary" ng-click="save()">保存</button>
+        </div>
+    </div>
+</div>

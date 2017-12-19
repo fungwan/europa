@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../themes/common.css"/>
+    <title>万码易联 - 企业平台 - 消费者管理</title>
+</head>
+<body>
+
+<div class="maskLayer" id="userSelector">
+    <div class="maskLayerContent">
+        <div class="title wfico ico_users" data-lang="system.module.customer.seniorquery.title"></div>
+        <div style="background-color: white;overflow: auto;flex: 1">
+            <div class="queryitem verticalFlexBox">
+                <div class="editorItem">
+                    <label for="nicknameSenior">昵称:</label>
+                    <input type="text" id="nicknameSenior" name="nicknameSenior" placeholder="请输入查询昵称"/>
+                </div>
+                <div class="editorItem">
+                    <label for="minLotteryTime">最低中奖次数:</label>
+                    <input type="text" id="minLotteryTime" name="minLotteryTime" placeholder="请输入最低中奖次数"/>
+                </div>
+                <div class="editorItem">
+                    <label for="maxLotteryTime">最高中奖次数:</label>
+                    <input type="text" id="maxLotteryTime" name="maxLotteryTime" placeholder="请输入最高中奖次数"/>
+                </div>
+                <div class="editorItem">
+                    <label for="minScore">最低积分:</label>
+                    <input type="text" id="minScore" name="minScore" placeholder="请输入最低积分"/>
+                </div>
+                <div class="editorItem">
+                    <label for="maxLotteryTime">最高积分:</label>
+                    <input type="text" id="maxScore" name="maxScore" placeholder="请输入最高积分"/>
+                </div>
+                <div class="editorItem">
+                    <label>区域：</label>
+                    <button data-type="citypicker" data-popup="citypicker" data-level="top" id="seniorArea"
+                            name="seniorArea">
+                        选择区域
+                    </button>
+                </div>
+                <div class="editorItem">
+                    <label>分组：</label>
+                    <button id="seniorGroup" name="seniorGroup" data-popup="groupSelector" data-type="selector">选择分组
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="command">
+            <button value="submit" class="wfico ico_query" data-lang-key="commands.search">开始查询</button>
+            <button value="cancel" class="wfico ico_cancel" data-lang-key="commands.close">关闭</button>
+        </div>
+    </div>
+</div>
+<div class="customer">
+    <div class="topTool horizontalFlexBox">
+        <div class="editorItem  horizontalFlexBox">
+            <div class="icoManage icoManageCustomer " style="background-color: #ff855c;"></div>
+            <h1 class="flex">消费者管理</h1>
+        </div>
+        <div class="editorItem">
+            <label for="nickname">昵称:</label>
+            <input type="text" id="nickname" name="nickname" placeholder="请输入昵称"/>
+        </div>
+        <div class="editorItem">
+            <label>区域：</label>
+            <button data-type="citypicker" data-popup="citypicker" data-level="top" id="area" name="area">选择区域</button>
+        </div>
+
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button id="query" class="flex wfico ico_query">查询</button>
+        </div>
+        <div class="editorItem">
+            <label>&nbsp;</label>
+            <button id="seniorquery">高级查询</button>
+        </div>
+        <div class="editorItem">
+            <label for="changeGroup">&nbsp;</label>
+            <button id="changeGroup" name="changeGroup" data-popup="groupSelector" data-type="selector" value="更改分组"
+                    disabled>
+                更改分组
+            </button>
+        </div>
+    </div>
+    <div class="customerList datagrid">
+    </div>
+    <div id="customerMessage"></div>
+
+    <div class="mask"></div>
+    <div class="prize-detail">
+        <div class="header wfico">
+            中奖详细
+            <span class="close wfico ico_cancel"></span>
+        </div>
+        <!-- 查询条件 -->
+        <div class="toolbar">
+        </div>
+        <div class="prizeDetail datagrid"></div>
+    </div>
+</div>
+
+
+<div class="popup" data-type="selector" id="groupSelector">
+    <div id="groupItems" data-scroll="y"></div>
+</div>
+
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.manage.customer.new" data-deps="dateTimePicker,colorPicker,datagrid,citypicker"></script>
+</body>
+</html>

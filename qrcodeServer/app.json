@@ -1,0 +1,105 @@
+[{
+  "name"        : "qrplatform",
+  "script"      : "bin/www",
+  "cwd"         : "./qrplatform",
+  "error_file" : "platform-err.log",
+  "out_file"   : "platform-out.log",
+  "pid_file"   : "platform.pid",
+  "instances"  : 0,
+  "exec_mode"  : "cluster",
+  "env": {
+      "NODE_ENV": "production"
+  }
+},
+{
+  "name"        : "billnoserver",
+  "script"      : "bin/www",
+  "cwd"         : "./billnoserver",
+  "error_file" : "billnoserver-err.log",
+  "out_file"   : "billnoserver-out.log",
+  "pid_file"   : "billnoserver.pid",
+  "instances"  : 1,
+  "exec_mode"  : "fork",
+  "env": {
+      "NODE_ENV": "production"
+  }
+},
+{
+  "name"        : "qrdownloader",
+  "script"      : "bin/www",
+  "cwd"         : "./qrdownloader",
+  "error_file" : "qrdownloader-err.log",
+  "out_file"   : "qrdownloader-out.log",
+  "pid_file"   : "qrdownloader.pid",
+  "instances"  : 0,
+  "exec_mode"  : "cluster",
+  "env": {
+      "NODE_ENV": "production"
+  }
+},
+{
+  "name"        : "qrgenerator",
+  "script"      : "bin/www",
+  "cwd"         : "./qrgenerator",           
+  "error_file" : "generator-err.log",
+  "out_file"   : "generator-out.log",
+  "pid_file"   : "generator.pid",
+  "instances"  : 0,
+  "exec_mode"  : "cluster",
+  "env": {
+      "NODE_ENV": "production"
+  }
+},
+{
+  "name"        : "qrlotterymanager",
+  "script"      : "bin/www",
+  "cwd"         : "./qrlotterymanager",
+  "error_file" : "qrlotterymanager-err.log",
+  "out_file"   : "qrlotterymanager-out.log",
+  "pid_file"   : "qrlotterymanager.pid",
+  "instances"  : 1,
+  "exec_mode"  : "fork",
+  "env": {
+      "NODE_ENV": "production"
+  }
+},
+{
+  "name"        : "wechattokenserver",
+  "script"      : "bin/www",
+  "cwd"         : "./wechattokenserver",
+  "error_file" : "wechattokenserver-err.log",
+  "out_file"   : "wechattokenserver-out.log",
+  "pid_file"   : "wechattokenserver.pid",
+  "instances"  : 1,
+  "exec_mode"  : "fork",
+  "env": {
+      "NODE_ENV": "production"
+  }
+},
+{
+  "name"        : "wxpayserver",
+  "script"      : "bin/www",
+  "cwd"         : "./wxpayserver",
+  "error_file" : "wxpayserver-err.log",
+  "out_file"   : "wxpayserver-out.log",
+  "pid_file"   : "wxpayserver.pid",
+  "instances"  : 1,
+  "exec_mode"  : "fork",
+  "env": {
+      "NODE_ENV": "production"
+  }
+},
+{
+  "name"        : "blhmanager",
+  "script"      : "bin/www",
+  "cwd"         : "./blhmanager",
+  "error_file" : "blhmanager-err.log",
+  "out_file"   : "blhmanager-out.log",
+  "pid_file"   : "blhmanager.pid",
+  "instances"  : 1,
+  "exec_mode"  : "fork",
+  "env": {
+      "NODE_ENV": "production"
+  }
+}
+]

@@ -1,0 +1,114 @@
+<div class="view">
+    <h3 class="view-title">
+        <i class="fa fa-archive"></i> 商品管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="/enterprise/manage.mcdqr.html">商品管理</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">商品管理</a>
+            </li>
+        </ul>
+    </div>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">商品名称:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入商品名称" ng-model="commondityList.queryOptions.query.mcdname">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">二维码批次号:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入二维码批次号" ng-model="commondityList.queryOptions.query.batchcode">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">商品分类:</span>
+                        <select ng-model="commondityList.queryOptions.query.categoryid">
+                            <option value="">请选择商品分类</option>        
+                            <option ng-repeat="item in commondityList.dropDownItems" value="{{item.categoryid}}">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="commondityList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default" ng-click="commondityList.resetQuery()">
+                        重置
+                    </button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="action-bar-item butn butn-default" ng-click="commondityForm.showAddForm()">
+                <i class="fa fa-plus"></i>
+                新增
+            </button>
+            <button class="action-bar-item butn butn-default" ng-click="commondityForm.showEditForm(commondityList.selectedItems[0])" ng-disabled="commondityList.selectedItems.length != 1">
+                <i class="fa fa-pencil"></i>
+                修改
+            </button>
+        </m-action>
+    </div>
+    <div class="view-table" id="commondityTable">
+        <table>
+            <thead>
+                <tr>
+                    <th class="check">
+                        <input type="checkbox" ng-checked="commondityList.isCheckedAll()" ng-click="commondityList.toggleCheckedAll()">
+                    </th>
+                    <th width="160px">商品名称</th>
+                    <th width="100px">分类</th>
+                    <th width="140px">描述</th>
+                    <th width="100px">二维码总数</th>
+                    <!--<th width="140px">可消费二维码数量</th>-->
+                    <th width="110px">二维码信息</th>
+                    <th width="80px">预设积分</th>
+                    <th width="60px">状态</th>
+                    <th width="60px">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in commondityList.items">
+                    <td class="check">
+                        <input type="checkbox" ng-checked="commondityList.isChecked(item)" ng-click="commondityList.toggleChecked(item)">
+                    </td>
+                    <td ng-bind="item.mcdname"></td>
+                    <td ng-bind="item.categoryname"></td>
+                    <td ng-bind="item.mcddesc"></td>
+                    <td ng-bind="item.amount"></td>
+                    <!--<td ng-bind="item.count"></td>-->
+                    <td style="padding: 0">
+                        <button class="butn butn-link" ng-click="qrList.showList(item)">
+                            查看详情
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </td>
+                    <td ng-bind="item.point"></td>
+                    <td>
+                        <span ng-bind="item.state | commondityFilter"></span>
+                    </td>
+                    <th style="padding: 0">
+                        <button class="butn butn-link" ng-click="commondityList.offShelve(item)">
+                            <span>下架</span>
+                            <i class="fa fa-cart-arrow-down"></i>
+                        </button>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="commondityForm.showAdd" ng-include="'views/templates/commondity.commondity.add.html'"></div>
+    <div ng-if="commondityForm.showEdit" ng-include="'views/templates/commondity.commondity.edit.html'"></div>
+    <div ng-if="qrList.show" ng-include="'views/templates/commondity.commondity.qrcodeInfo.html'"></div>
+</div>

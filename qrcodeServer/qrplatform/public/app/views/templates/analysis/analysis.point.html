@@ -1,0 +1,94 @@
+<div class='view'>
+    <h3 class="view-title">
+        <i class="fa fa-list-ol"></i> 积分分析
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <!--<i class="fa fa-wrench"></i>-->
+                <a href="javascript:;">数据分析</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <!--<i class="fa fa-users"></i>-->
+                <a href="javascript:;">积分分析</a>
+            </li>
+        </ul>
+    </div>
+
+    <!--content-->
+
+    <div class="point">
+        <div class="point-one">
+            <!--筛选 start-->
+            <div class="point-item point-filter">
+                <!--<div class="filter-item filter-mc">
+                    <span>商品类别</span>
+                    <div class="button-container">
+                        <button ng-repeat="item in pointList.productionCategoryList" 
+                                ng-bind="item.name" ng-click="productionChange(item.categoryid)" 
+                                ng-class="{selectedone: item.categoryid == pointList.categoryid}">
+                        </button>
+                    </div>
+                </div>-->
+                <div class="filter-item filter-pos">
+                    <span><i class="fa fa-map-marker"></i> 省份</span>
+                    <div class="button-container">
+                        <button ng-click="provinceChange('')" 
+                                ng-class="{selectedone: pointList.selectedProvince == ''}"
+                                >所有
+                        </button>
+                        <button ng-repeat="item in pointList.provinceList" 
+                                ng-bind="item.name" 
+                                ng-click="provinceChange(item.code)" 
+                                ng-class="{selectedone: item.code == pointList.selectedProvince}">
+                        </button>
+                    </div>
+                </div>
+                <div class="filter-item filter-pos">
+                    <span><i class="fa fa-map-marker"></i> 城市</span>
+                    <div class="button-container">
+                        <button ng-repeat="item in pointList.cityList" 
+                                ng-bind="item.name" 
+                                ng-click="cityChange(item.code)" 
+                                ng-class="{selectedone: item.code == pointList.selectedCity}">
+                        </button>
+                    </div>
+                </div>
+                <div class="filter-item filter-time">
+                    <span><i class="fa fa-clock-o"></i> 时间</span>
+                    <div>
+                        <input type="date" 
+                               class="filter-item-input" 
+                               ng-model="pointList.defaultQuery.begtime" 
+                               style="display:block">
+                        <input type="date" 
+                               class="filter-item-input" 
+                               ng-model="pointList.defaultQuery.endtime" 
+                               style="display:block">
+                    </div>
+                    <div>
+                        <button class="butn butn-primary" ng-click="pointList.getPointList()">
+                            <i class="fa fa-pencil"></i> 统计
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--筛选 end-->
+
+            <div class="point-item" id="bar-chart"></div>
+
+        </div>
+
+        <div class="point-two">
+            <div class="point-item" id="pie-chart"></div>
+            <div class="point-item" id="line-chart"></div>
+        </div>
+
+    </div>
+</div>

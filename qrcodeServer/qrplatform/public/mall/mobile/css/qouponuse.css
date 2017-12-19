@@ -1,0 +1,153 @@
+.addressInfoBottom {
+    color: grey;
+}
+.liuyan{
+    padding-top: 0.5rem;
+    width: 100%;
+    border-bottom: none;
+    background: #fff;
+}
+.present{
+    display: block;
+    color: #8e8e8e;
+    background-color: #fff;
+    height: 2rem;
+    line-height: 2rem;
+}
+.gopay {
+    color: #8e8e8e;
+    background-color: #fff;
+}
+
+.qouponinfo {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 6.5rem;
+    margin-bottom: 1rem;
+    padding:0.5rem;
+    background: #fff;
+}
+.qouponthumb{
+    flex: 1;
+    height: 100%;
+}
+.qouponthumb img{
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+}
+.information{
+    flex: 2;
+    padding-left:0.5rem;
+    display: flex;
+    flex-flow: column;
+}
+.information div{
+    margin: auto 0 auto 0.5rem;
+    /*border-bottom: 1px solid #D2D2D2;*/
+}
+.information .qouponname {
+    font-weight: 600;
+    color:#E61515;
+}
+.qouponprice {
+    color:#E61515;
+    font-size: 1.2rem;
+}
+.productlist {
+    /*border: 1px solid #D4D4D4;*/
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+}
+.productlist .listtitle {
+    font-weight: 600;
+    color: #8e8e8e;
+    /*border-bottom: 1px solid #E0E0E0;*/
+}
+.listitem{
+    margin: 0.5rem 3rem 0.5rem 2rem;
+    border-bottom: 1px solid #CACACA;
+    font-size: 70%;
+    width: 220px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 1.25rem;
+    line-height: 1.25rem;
+}
+.listitem span{
+    float: right;
+    /*font-size: 50%;*/
+    color: #2C8BD2;
+}
+.qoupontime {
+    font-size: 75%;
+    font-style: italic;
+    color: #8e8e8e
+}
+.qoupondesc {
+    margin: 1rem 0;
+    /* border-bottom: 1px solid #CACACA; */
+    padding: 1rem;
+    background: #fff;
+}
+.qoupondesc .desc-title{
+    font-weight: 600;
+    color: #8e8e8e;
+    /* border-bottom: 1px solid; */
+    /*margin: 0.5rem 0;*/
+}
+.qoupondesc .desc-content {
+    font-size: 80%;
+    margin: 0.5rem;
+}
+.useqoupon{
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: none;
+}
+.gouse{
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: #8e8e8e;
+    background-color: #fff;
+}
+.cancel{
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: #8e8e8e;
+    background-color: #fff;
+}
+.cancelAddr,.setAddr {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.qouponconfirm{
+    position: relative;
+    top: 2rem;
+    padding: 0.5rem;
+    background: #fff;
+    margin: 2rem 0 4rem 0;
+    /*border-radius: 4px;*/
+    width: 100%;
+    overflow: scroll;
+}
+.addressList {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f1f1f1;
+    display: none;
+}

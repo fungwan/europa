@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的礼券</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selfqoupon.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <header class="bar bar-nav">
+                <div class="buttons-tab">
+                    <a href="#tab1" class="tab-link active button notusedtap" style="line-height:inherit">未使用</a>
+                    <a href="#tab2" class="tab-link button recordtap" style="line-height:inherit">礼券记录</a>
+                </div>
+            </header>
+
+            <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" style="-webkit-overflow-scrolling: touch;">
+                <!--未使用礼券容器-->
+                <div class="notUsed"></div>
+                <!-- 加载提示符 -->
+                <!--<div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/swiper-3.4.2.jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../config.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/selfqoupon.js' charset='utf-8'></script>
+    <script>
+        $.init()
+    </script>
+
+</body>
+
+</html>

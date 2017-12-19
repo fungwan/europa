@@ -1,0 +1,87 @@
+<div class="manage manageproduct" ng-controller="menuManageCtrl">
+    <h3 class="view-title">
+        <i class="fa fa-archive"></i> 公众号菜单管理
+    </h3>
+    <div class="menumanage-container">
+        <div class="preview">
+            <div class="preview-msg">
+                <h3>1. 单击预览图中一级菜单查看对应的二级菜单</h3>
+                <h3>2. 双击右侧一级菜单名修改名称</h3>
+                <h3>3. 单击预览图中二级菜单进行名称修改，类型修改，菜单删除</h3>
+                <h3>4. 单击加号新增二级菜单</h3>
+                <h3>5. 菜单更新按微信规定每日有次数限制：<br>
+                    <div>更新菜单接口每日次数为1000次</div>
+                    <div>获取菜单接口每日次数为10000次</div>
+                </h3>
+            </div>
+            <div class="footer-menu">
+                <div class="menu-edit"><i class="fa fa-keyboard-o" style="color:#6f6f6f"></i></div>
+                <div class="menu-item" 
+                     ng-repeat="item in menuManage.menus" 
+                     ng-click="menuManage.submenuToggle($event)">
+
+                    {{ item.name }}
+
+                    <div class="submenu-container hidden">
+                        <div class="submenu-item" 
+                             ng-repeat="subitem in item.sub_button"
+                             ng-click='menuManage.editSubmenu(subitem,item)'>
+                            {{ subitem.name }}
+                        </div>
+                        <div class="submenu-add" ng-click='menuManage.addSubmenu(item)'>
+                            <span class="fa fa-plus"></span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="menusetting-container">
+            <div class="first-menu">
+                <div class="menu-title">一级菜单：</div>
+                <div class="firstmenu-container">
+                    <div class="firstmenu-item"
+                          ng-repeat="item in menuManage.menus"
+                          ng-dblclick="menuManage.editFirstMenu($event,item,$index)"
+                          ng-bind="item.name"
+                          ng-class="{'selected':menuManage.activeFirstMenu == item.name}">
+                    </div>
+                </div>
+            </div>
+            <div class="first-menu">
+                二级菜单：<input type="text" style="width: 250px" ng-model="menuManage.selectedSubmenu.name">
+            </div>
+            <div class="submenu-content">
+                二级菜单内容：
+                <input type="radio" name="menutype" ng-model='menuManage.menutype' value='click'>发送消息
+                <input type="radio" name="menutype" ng-model='menuManage.menutype' value="view" style="margin-left:10px">跳转网页
+                <div class="submenu-url" ng-show="menuManage.menutype == 'view'">
+                    <div class="url-title">用户点击二级菜单将会跳转到以下链接</div>
+                    <div>
+                        <span style="margin-right: 10px;">页面地址:</span>
+                        <input type="text" style='width:400px' ng-model='menuManage.selectedSubmenu.url'>
+                    </div>
+                </div>
+                <div class="submenu-url" ng-show="menuManage.menutype == 'click'">
+                    <div class="url-title">
+                        请填入开发人员设置的key值
+                    </div>
+                    <div>
+                        <span style="margin-right: 10px;">key:</span>
+                        <input type="text" style='width:250px' ng-model='menuManage.selectedSubmenu.key'>
+                    </div>
+                </div>
+            </div>
+            <div class="save-menu">
+                <button class="butn butn-primary" ng-click='menuManage.saveMenu()'>保存</button>
+                <button class="butn butn-default" ng-click='menuManage.deleteMenu()'>删除</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+
+    </div>
+</div>

@@ -1,0 +1,57 @@
+.content-block {
+    margin: 0;
+    padding: 0
+}
+
+.qouponitem {
+    height: 5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    box-shadow: 0 0 0;
+    box-sizing: border-box;
+}
+
+.qouponimg {
+    width: 5rem;
+    height: 5rem;
+    padding: 0.01rem;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+}
+
+.qouponimg img {
+    height: 100%;
+    width: 100%;
+}
+
+.qouponinfo {
+    flex: 2;
+    display: flex;
+    flex-flow: column;
+    padding: 0.5rem;
+    height: 5rem;
+    /*background: #F7F7F7;*/
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff
+}
+
+.qouponinfo div {
+    margin: auto 0;
+}
+
+.validity-time {
+    color: #A5A5A5;
+    font-size: .5rem;
+}
+
+.coupondelete {
+    width: 2.5rem;
+    display: flex;
+    background-color: #C53636;
+}
+
+.coupondelete span {
+    margin: auto;
+    font-size: 150%;
+    color: #fff;
+}

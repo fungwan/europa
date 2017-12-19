@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>红包分析--万码易联</title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<body>
+<div class="horizontalFlexBox fb">
+    <div class="activityInfo">
+        <div class="chooseActivity">活动列表</div>
+        <div class="activities verticalFlexBox vscrollable"></div>
+    </div>
+    <div class="verticalFlexBox flex analysisContent">
+        <div class="quesNoAct">
+            <div>您还未创建活动，马上前往： <span class='goCreateAct'>创建活动</span></div>
+        </div>
+        <div class="horizontalFlexBox analysisChooseActivities">
+            <!--<div class="progress-bar orange shine">-->
+                <!--<span style="width:0%">当前活动进度：<span class="percent">0</span>%</span>-->
+            <!--</div>-->
+            <!--<div class="survey flex horizontalFlexBox">-->
+                <!--<div class="verticalFlexBox">-->
+                    <!--<div class="person">0</div>-->
+                    <!--<div class="statisticsOption tc">抽奖人数</div>-->
+                <!--</div>-->
+
+                <!--<div class="verticalFlexBox">-->
+                    <!--<div class="allmoney">0</div>-->
+                    <!--<div class="statisticsOption tc">中奖金额</div>-->
+                <!--</div>-->
+                <!--<div class="verticalFlexBox">-->
+                    <!--<div class="number">0</div>-->
+                    <!--<div class="statisticsOption tc">中奖数量</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <ul class="tab" id="anlaysisItems">
+            <li value="prizeAnalysis" class="wfico prize" data-lang="marketing.switch.prizeAnalysis"></li>
+            <li value="areaAnalysis" class="wfico map" data-lang="marketing.switch.areaAnalysis"></li>
+            <li value="timeAnalysis" class="wfico clock" data-lang="marketing.switch.timeAnalysis"></li>
+            <li value="drawTimesAnalysis" class="wfico times" data-lang="marketing.switch.drawTimesAnalysis"></li>
+        </ul>
+        <div class="flex tabContent verticalFlexBox vscrollable">
+            <div class="verticalFlexBox flex analysisBoard prizeAnalysis">
+                <div class="editorSet">
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <label data-lang="questionnaire.chooseArea"></label>
+                            <button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="areacode">选择区域</button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="开始时间"></label>
+                            <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date" data-level="top"
+                                    name="start_time" value="" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="结束时间"></label>
+                            <button class="endTime datetimepicker" data-type="datepicker" data-popup="datepicker" data-format="date"
+                                    data-level="top" name="end_time" value="" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico global submit" value="global" data-lang="commands.global"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex horizontalFlexBox prizeprogress">
+                    <div class="hasPrizeAnalysis"></div>
+                    <!--<div class="verticalFlexBox">-->
+                    <div class="prizeDesc">
+                        <div class="desc ltr">
+                            <p class="tit"></p>
+                            <p class="txt"></p>
+                        </div>
+                        <table class="prizeTable" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th>奖项</th>
+                                <th>数量</th>
+                                <th>金额</th>
+                            </tr>
+                        </table>
+                    </div>
+
+                        <!--<table class="prizeTableBody"></table>-->
+                    <!--</div>-->
+
+                </div>
+            </div>
+            <div class="verticalFlexBox flex analysisBoard areaAnalysis">
+                <div class="editorSet">
+                    <div class="editorGroup">
+                        <!--<div class="editorItem">-->
+                            <!--<label data-lang="questionnaire.chooseArea"></label>-->
+                            <!--<button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="areacode">选择区域</button>-->
+                        <!--</div>-->
+                        <div class="editorItem">
+                            <label data-lang="开始时间"></label>
+                            <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date" data-level="top"
+                                    name="start_time" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="结束时间"></label>
+                            <button class="endTime datetimepicker" data-type="datepicker" data-popup="datepicker" data-format="date"
+                                    data-level="top" name="end_time" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label for="" data-lang="奖项等级"></label>
+                            <button class="choosePrize" value="" data-popup="choosePrize" data-type="selector" name="prize">全部</button>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico global submit" value="global" data-lang="commands.global"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex horizontalFlexBox areaAnalysisBoard">
+                    <div class="lotteryAreaAnalysis"></div>
+                    <div class="eachAreaPrizeLevelAnalysis flex"></div>
+                </div>
+            </div>
+            <div class="verticalFlexBox flex analysisBoard timeAnalysis">
+                <div class="editorSet">
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <label data-lang="questionnaire.chooseArea"></label>
+                            <button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="areacode">选择区域</button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="开始时间"></label>
+                            <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date" data-level="top"
+                                    name="start_time" value="" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="结束时间"></label>
+                            <button class="endTime datetimepicker" data-type="datepicker" data-popup="datepicker" data-format="date"
+                                    data-level="top" name="end_time" value="" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label for="" data-lang="奖项等级"></label>
+                            <button class="choosePrize" value="" data-popup="choosePrize" data-type="selector" name="prize">全部</button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="分析方式"></label>
+                            <button class="dateOrTime" data-popup="dateOrTime" name="dateOrTime" value="months" data-type="selector"
+                                    data-lang="marketing.search.conditions.months"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico global submit" value="global" data-lang="commands.global"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex lotteryDateAnalysis"></div>
+            </div>
+            <div class="verticalFlexBox flex analysisBoard drawTimesAnalysis">
+                <div class="editorSet">
+                    <div class="editorGroup">
+                        <div class="editorItem">
+                            <label data-lang="questionnaire.chooseArea"></label>
+                            <button data-type="citypicker" data-popup="citypicker" data-level="top" class="area" name="areacode">选择区域</button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="开始时间"></label>
+                            <button class="startTime" data-type="datepicker" data-popup="datepicker" data-format="date" data-level="top"
+                                    name="start_time" value="" data-lang="请选择开始时间" data-expression="checkBeginTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label data-lang="结束时间"></label>
+                            <button class="endTime datetimepicker" data-type="datepicker" data-popup="datepicker" data-format="date"
+                                    data-level="top" name="end_time" value="" data-lang="请选择结束时间" data-expression="checkEndTime" style="width: 240px;"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label for="" data-lang="奖项等级"></label>
+                            <button class="choosePrize" value="" data-popup="choosePrize" data-type="selector" name="prize">全部</button>
+                        </div>
+                        <div class="editorItem">
+                            <label for="topNum">查询条数</label>
+                            <input name="topNum" id="topNum" type="number" min="0" value="10"/>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico global submit" value="global" data-lang="commands.global"></button>
+                        </div>
+                        <div class="editorItem">
+                            <label>&nbsp;</label>
+                            <button class="wfico search submit" value="search" data-lang="commands.search"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex eachDrawAnalysis"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="dateOrTime" data-type="selector">
+    <button value="months" data-lang="marketing.search.conditions.months"></button>
+    <button value="days" data-lang="marketing.search.conditions.days"></button>
+</div>
+<div class="popup" id="choosePrize" data-type="selector"></div>
+<div class="popup" data-type="datepicker" id="datepicker"></div>
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.analysis.redpack" data-deps="chartFull,echarts,citypicker,moment,dateTimePicker"></script>
+
+</body>
+</html>

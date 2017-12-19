@@ -1,0 +1,180 @@
+.clear:after{
+   display: table;
+    content: "";
+    clear: both;
+}
+.lf{
+    float: left;
+}
+.rt{
+    float: right;
+}
+.side{
+    width: 200px;
+    border-radius: 6px;
+   /*min-height: 500px;*/
+    border: 1px solid #e1e1e1;
+    color: gray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.main{
+    height: 100%;
+}
+.tabbox {
+    width: 100%;
+    padding-left: 210px;
+
+    box-sizing: border-box;
+}
+.mainContent{
+    box-sizing: border-box;
+}
+.tab-list>li{
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px 6px 0 0;
+    background: white;
+    border-bottom: none;
+    cursor: pointer;
+    color: gray;
+}
+.tab-list>li.active{
+    margin-bottom: -1px;
+    padding: 8px 10px;
+
+}
+.tab-list>li+li{
+    margin-left: 10px;
+
+}
+.tab-content{
+    border: 1px solid #e1e1e1;
+    border-radius: 0 6px 6px 6px;
+}
+.side>div{
+    padding: 6px 0;
+    text-indent: 4px;
+    cursor: pointer;
+    border-bottom: 1px solid #e1e1e1;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.side>div:hover,.side>div.active{
+    padding: 6px 0;
+    text-indent: 4px;
+    background: #e1e1e1;
+    color: white;
+    border-radius: 4px;
+}
+.side>div.active{
+    background: #8c8c8c;
+}
+.procss .filter{
+    padding: 20px 0;
+    height: 35px;
+}
+.procss .filter-item .filter-item-input {
+    width: 130px;
+}
+
+.picinfo{
+    font-size: 16px;
+text-indent: 50px;
+color: orange;
+}
+.product .tabbox>div{
+    border: 1px solid #e1e1e1;
+    border-radius:6px;
+    padding: 10px;
+}
+/*商城管理*/
+.heaiteboxtop>div{
+    width: 19.5%;
+}
+.heaiteboxtop>div+div{
+    margin-left: 1%;
+
+}
+.lotteryform .heaiteboxtop>div {
+    width: 32.2%;
+}
+/*优惠券管理*/
+.cashCoupon .heaiteboxtop>div {
+    width: 32.2%;
+}
+
+/*编辑器全屏*/
+/*.wangEditor-menu-container{*/
+    /*margin-top: 70px;*/
+/*}*/
+td.disabled{
+    color: #e1e1e1 !important;
+}
+.saleScale table{
+    border-collapse: collapse;
+    font-size:0.6rem ;
+}
+.saleScale th,.saleScale td{
+    border:1px solid #e1e1e1;
+min-width: 2rem;
+}
+
+.article-box>div{
+    width: 19%;
+}
+.article-box>div+div{
+    margin-left: 1%;
+}
+.article-box-tit>div+div{
+    margin-left: 2%;
+}
+/*后台管理，用户管理*/
+.userManage .content .content-body .input-group .input-group-input label{
+    cursor: pointer;
+}
+.userManage .content .content-body .input-group .input-group-input label span{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    float:left;
+    margin-left: 10px;
+}
+.userManage .content .content-body .input-group .input-group-input label input{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 20px;
+    float:left;
+    cursor: pointer;
+}
+.roledesc{
+    padding: 4px;
+    text-indent: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color:gray;
+}
+/*积分抽奖管理*/
+.lottery{
+    padding:20px;
+    min-height: 300px;
+    padding-top:0;
+}
+.btn-lottery{
+    margin: 0 auto;
+}
+.content-lottery .view-title{
+    font-size: 14px;
+    padding-left:20px;
+}
+.lotteryPoint{
+    padding-left: 20px;
+}
+.lotteryPoint>div{
+    display: inline-block;
+}

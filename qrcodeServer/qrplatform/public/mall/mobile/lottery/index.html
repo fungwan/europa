@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+<title></title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style-cj.css">
+
+</head>
+<body>
+<div class="main">
+  <div class="banner"><img src="images/banner-cj.jpg"/></div>
+  <div class="main-header">
+  <p>剩余积分:<span id="pergrade"></span>分</p>
+	  <p>每次抽奖将要消耗20积分</p>
+  </div>
+  <div class="main-body">
+     <div id="zhuanpan">
+          <img id="img" class="rotary-table" src="images/four_zhuanpan.png">
+          <img id="tip" class="point i_cont" src="images/Pointer1.png" >
+      </div>
+  </div>  
+
+  <!--<div class="main-footer"><a href="lotterycord.html" class="footer-a2">中奖记录>></a><a href="#" class="footer-a" data-toggle="modal" data-target="#myModal">活动规则>></a></div>-->
+
+</div>
+		<!-- 30元话费 -->
+			<div id="apply1" class="modal fade padding1" tabindex="-1" data-replace="true" data-backdrop="static" >
+				<div class="modal-dialog modal-content">
+					<div class="modal-body">
+					   <div class="img1"><img src="images/1.jpg"/></div>
+                       <p><span>恭喜你获得1元红包，去微信查收</span></p>
+                       <a href="#" class="colse1" data-dismiss="modal"></a>
+                       <button type="button" class="but5" data-dismiss="modal" data-toggle="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+            
+		<!--100M省内流量 -->
+			<div id="apply2" class="modal fade padding1" tabindex="-1" data-replace="true" data-backdrop="static">
+				<div class="modal-dialog modal-content">
+					<div class="modal-body">
+					   <div class="img1"><img src="images/1.jpg"/></div>
+                        <p><span>恭喜你获得5元红包，去微信查收</span></p>
+                       <a href="#" class="colse1" data-dismiss="modal"></a>
+                       <button type="button" class="but5" data-dismiss="modal" data-toggle="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+            
+       	<!--500M省内流量 -->
+			<div id="apply3" class="modal fade padding1" tabindex="-1" data-replace="true" data-backdrop="static">
+				<div class="modal-dialog modal-content">
+					<div class="modal-body">
+					   <div class="img1"><img src="images/1.jpg"/></div>
+                       <p><span>恭喜你获得10元红包，去微信查收</span></p>
+                       <a href="#" class="colse1" data-dismiss="modal"></a>
+                       <button type="button" class="but5" data-dismiss="modal" data-toggle="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+            
+            
+         	<!--300M省内流量 -->
+			<div id="apply4" class="modal fade padding1" tabindex="-1" data-replace="true" data-backdrop="static">
+				<div class="modal-dialog modal-content">
+					<div class="modal-body">
+					   <div class="img1"><img src="images/1.jpg"/></div>
+                        <p><span>很遗憾没有中奖</span></p>
+                       <a href="#" class="colse1" data-dismiss="modal"></a>
+                       <button type="button" class="but5" data-dismiss="modal" data-toggle="modal" >确定</button>
+					</div>
+				</div>
+			</div>
+<!--加载-->
+	<div id="applyLoading" class="modal fade" tabindex="-1" data-replace="true"  data-backdrop="static" >
+				<div class="modal-dialog modal-content">
+					<div class="modal-body">
+						<div class="loading-container" align="center">
+							<img src="images/ajax-loader.gif" alt="Loading" class="loading-gif">
+						</div>
+						<p align="center">后台在努力加载，稍等一会儿哦~</p>
+					</div>
+				</div>
+	</div>
+
+<!-- 温馨提示 -->
+<div id="myModal" class="modal fade s3" tabindex="-1" data-replace="true" data-backdrop="static">
+  <div class="modal-dialog">
+      <div class="hd-title"></div>
+      <a href="#" class="close2"></a>
+      <div class="modal-body" style="height: 250px; overflow: auto;">
+
+      <p>1、活动时间：2017年02月18日——2017年12月31日。<br/>
+      2、活动期间，积分每达300分，即可参与抽奖一次（例：600分即2次，900M分即3次，以此类推）。<br/>
+      3、活动抽奖只能在当月进行，抽奖机会次数当月月底清零，次月重新计算。<br/>
+      4、抽奖奖池：30元天翼手机话费（赠送话费不可抵扣SP业务、国际漫游、国际长话）、100M省内流量、300M省内流量、500M省内流量。<br/>
+      5、话费和流量奖品次月10日前到账。获赠的流量包到账后，仅限获赠当月使用。流量超出后由号码本身套餐或者标准资费来收取。天翼副号、天翼小号、6分卡（0元保底）、4G 0元日租卡、上网卡、个人定制及时长型套餐等不能加装流量包套餐的用户不能订购，详询10000号。<br/>
+       <span>备注：非实名制用户不能受理流量包，请进行实名补登记后再购买。 </span></p>
+      
+      </div>
+  
+  </div>
+</div>
+	
+<script src="js/jquery.min.js"></script> 
+<script src="js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

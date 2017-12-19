@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>扫码记录</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/qrrecord.css">
+</head>
+<body>
+<div class="page-group selfgrade">
+    <div class="page" id="gradelistbox">
+        <!--查询-->
+        <header>
+            <!--title-->
+            <div class="listtitle row no-gutter">
+                <div class="col-40">活动名称</div>
+                <div class="col-40">扫码信息</div>
+                <div class="col-20">日期</div>
+            </div>
+        </header>
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" style="margin-top: 4rem;">
+            <div class="list-container" style="margin: 0;">
+                <!--<div class=" row no-gutter" style="padding-left: 1rem;">-->
+                <!--<div class="col-33"><span class="icontype"><img src="../images/self/in.svg" alt=""></span>消费类型</div>-->
+                <!--<div class="col-33">日期</div>-->
+                <!--<div class="col-33">积分</div>-->
+                <!--</div>-->
+            </div>
+            <!--//加载提示符-->
+            <div class="infinite-scroll-preloader">
+                <div class="preloader"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/qrrecord.js' charset='utf-8'></script>
+<script>$.init()</script>
+</body>
+</html>

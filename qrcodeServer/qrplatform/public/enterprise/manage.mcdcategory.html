@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../themes/common.css"/>
+    <title>商品类别管理--万码易联</title>
+</head>
+<body>
+<div class="groupManage">
+    <div style=" margin: 30px 20px 0px 20px;flex: 1;position: relative">
+        <div class="categoryGroupInfo" id="dealerGroup">
+            <div class="buttonGroups">
+                <button id="categoryGroupDelete" class="wfico ico_trash">删除</button>
+                <button id="categotyGroupAdd" class="wfico ico_add">添加类别</button>
+                <!--div>
+                    <input id="queryCategory" type="text" placeholder="输入类别名称"><button id="queryd" class="wfico ico_query">查询</button>
+                </div-->
+            </div>
+            <div class="mcdCategoryList datagrid"></div>
+            <div id="categoryMessage"></div>         
+        </div>        
+    </div>
+    <div class="mask">
+        
+    </div>
+    <div class="popAddCategory">
+        <div class="header wfico ">
+            添加商品类别
+        </div>
+        <div class="content">
+            <div class="item">
+                <label for="categoryName">商品类别名:</label>
+                <input type="text" id="categoryName" name="categoryName" required maxlength="10" placeholder="请输入商品类别名" />
+            </div>
+            <div class="item">
+                <label for="categoryDesc">商品类别描述:</label>
+                <input type="text" id="categoryDesc" name="categoryDesc" maxlength="25" placeholder="请输入商品类别描述" />
+            </div>
+            <div id="category-empty-msg" class="_notice _notice_error" style="display: none;">
+                商品类别名为必填项</div>
+            <div id="category-exist-msg" class="_notice _notice_error" style="display: none;">已存在的商品类别名</div>
+        </div>
+
+        <div class="command">
+            <button class="sub wfico ico_cancel commit" id="cancel">取消</button>
+            <button class="sub wfico ico_save commit" id="save">确定</button>
+        </div>    
+    </div>
+</div>
+
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.manage.mcdcategory" data-deps="dateTimePicker,colorPicker,datagrid"></script>
+</body>
+</html>

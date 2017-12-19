@@ -1,0 +1,87 @@
+/**
+*create by codesmith
+**/
+
+/**
+*模型
+*/
+var sysuser = {
+    createnew: function(){
+        var info = {
+            /**
+            *用户ID
+            */
+		    userid:'',
+            /**
+            *企业ID
+            */
+		    entid:'',
+            /**
+            *登录账号
+            */
+		    useraccount:'',
+            /**
+            *登录密码
+            */
+		    userpwd:'',
+            /**
+            *最近一次成功登录时间
+            */
+		    logintime:'',
+            /**
+            *邮件是否确认
+            */
+		    confirmed:false,
+            /**
+            *邮件确认时间
+            */
+		    confirmtime:'',
+            /**
+            *邮件确认信息
+            */
+		    confirmcontent:'',
+            /**
+            *资料是否更新
+            */
+		    updateinfo:false,
+            /**
+            *资料更新时间
+            */
+		    updateinfotime:'',
+            /**
+            *是否锁定
+            */
+		    locked:false,
+            /**
+            *锁定时间
+            */
+		    locktime:'',
+            /**
+            *是否禁用
+            */
+		    disabled:false,
+            /**
+            *禁用时间
+            */
+		    disabletime:'',
+            /**
+            *注册时间
+            */
+		    registtime:'',
+            /**
+            *最近一次登录失败时间
+            */
+		    loginfailtime:'',
+            /**
+            *登录失败次数
+            */
+		    failtimes:0,
+            /**
+            *角色ID
+            */
+		    roleid:''
+        }
+        return info;
+    }
+};
+module.exports = sysuser;

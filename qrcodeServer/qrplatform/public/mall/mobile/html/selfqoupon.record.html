@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的礼券</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selfqouponrecord.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <header class="bar bar-nav">
+                <div class="buttons-tab">
+                    <a href="#tab1" class="tab-link button notusedtap" style="line-height:inherit">未使用</a>
+                    <a href="#tab2" class="tab-link active button recordtap" style="line-height:inherit">礼券记录</a>
+                </div>
+            </header>
+            <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" style="margin-bottom:2rem">
+                <!--礼券记录容器-->
+                <div class="qouponRecord"></div>
+                <!-- 加载提示符 -->
+                <!--<div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>-->
+            </div>
+
+            <nav class="bar bar-tab open-panel" style="border-top:0;height:2rem;
+                    text-align:center;line-height:2rem;
+                    background:#2685D8;color:#fff" ;>
+                <span>搜索记录</span>
+            </nav>
+        </div>
+        <!--侧边栏容器-->
+        <div class="panel-overlay"></div>
+        <div class="panel panel-left panel-reveal" style="padding: 0.5rem;background:#353535">
+            <div class="content-block" style="text-align:center">
+                <p>礼券记录搜索设置</p>
+            </div>
+            <div class="list-block" style="color:#fff">
+                <p>开始时间</p>
+                <input type="date" name="begtime" style="color:#fff;background: #808080">
+                <p>结束时间</p>
+                <input type="date" name="endtime" style="color:#fff;background: #808080">
+                <p>状态</p>
+                <select name="usetype" style="color:#fff;background: #808080">
+                    <option value="">请选择礼券状态</option>
+                    <option value="use">已使用</option>
+                    <option value="create">已购买</option>
+                    <option value="give">已赠予</option>
+                </select>
+            </div>
+            <div class="content-block">
+                <button id="searchrecord" class="button button-fill close-panel" style="width:11rem;margin-bottom:0.5rem">搜索</button>
+                <button id="resetrecord" class="button button-fill button-dark close-panel" style="width:11rem">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/swiper-3.4.2.jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../config.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/selfqoupon.record.js' charset='utf-8'></script>
+    <script>
+        $.init()
+    </script>
+</body>
+
+</html>

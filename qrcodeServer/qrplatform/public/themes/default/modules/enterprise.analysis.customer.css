@@ -1,0 +1,220 @@
+.custAreaNoData {
+    overflow-x: hidden;
+    min-height: 400px;
+}
+#anlaysisItems {
+    margin-top:10px;
+}
+.survey {
+    margin-right: 20px;
+    direction: rtl;
+}
+.survey > div {
+    margin-right: 30px;
+    display: inline-block;
+}
+.total {
+    font-size: 18px;
+    color: #f40;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 10px;
+    padding-right: 10px;
+}
+.total:after {
+    content: "个";
+    position: absolute;
+    bottom: -10px;
+    right: -15px;
+    font-size: 13px;
+    font-style: normal;
+}
+.analysisChooseActivities > div {
+    margin-right:15px
+}
+.editorSet {
+    margin-top: 0!important;
+}
+.users::before {
+    content:"\f0c0"
+}
+.increase::before {
+    content:"\f201"
+}
+.search::before {
+    content:"\f002"
+}
+.global::before {
+    content: "\f085";
+}
+button.global {
+    background-color: #24a5ff!important;
+    color: #fff;
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+}
+button.global:hover {
+    background-color: #0e93ff !important;
+}
+.editorSet {
+    padding: 10px 0!important;
+}
+.verticalCenter {
+    display:flex;
+    display:-webkit-flex;
+    -webkit-align-items:center;
+    -ms-align-items:center;
+    -moz-align-items:center;
+    align-items:center
+}
+.chooseArea {
+    margin-left:15px;
+    margin-right:15px
+}
+#citySelector {
+    max-height:300px !important;
+    overflow:hidden !important
+}
+#citySelector {
+    display:flex;
+    flex-flow:row nowrap
+}
+#citySelector .title {
+    padding:10px 25px 10px 20px;
+    font-weight:bold
+}
+#citySelector button.link {
+    background-color:#aaaaaa
+}
+.btn_citySelector {
+    /*margin-right:10px;*/
+    width: auto!important;
+}
+.startTime, .endTime {
+    width: auto!important;
+}
+.verticalCenter span {
+    margin:0 15px
+}
+.customerAreaAnalysis {
+    width: 60%;
+    min-height: 400px;
+}
+.customerIncreaseAnalysis {
+    width:100%;
+    min-height: 400px;
+}
+.table {
+    width: 30%;
+}
+.customerTable, .customerTableBody {
+    border-collapse:collapse;
+    width:80%;
+    margin-left:10%;
+    margin-right:10%
+}
+.customerTable td, .customerTableBody td {
+    padding:10px 20px
+}
+.sumCustomer {
+    color:#f40;
+    font-size:25px;
+    /*-webkit-text-reflect:below 1px -webkit-gradient(linear,0% 100%,100% 100%,from(rgba(255,255,255,0)),to(white));
+    */
+}
+.topFive {
+    font-size:16px;
+    font-weight:bold
+}
+.th {
+    font-size:18px;
+    color:#f40;
+    min-width: 80px;
+}
+.areaRank {
+    border-bottom:1px dashed #ff6e2d
+}
+.goCreateAct {
+    display: inline-block;
+    margin-left: 5px;
+    text-decoration: underline;
+    color: #f40;
+    cursor: pointer;
+    font-size: 25px;
+}
+    /**sleepman*/
+.nodata {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #484751;
+}
+.sleepman{
+    height: 150px;
+    width: 100px;
+    margin: 0 auto;
+}
+.sleepman div {
+    background: #00a5ff;
+    position: relative;
+}
+.head{
+    width: 80px;
+    height: 50px;
+    top: 35px;
+    border-radius: 80px 80px 0 0;
+    -webkit-transition: all 0.1s ease-in;
+}
+.eye {
+    background: #fff;
+    width: 50px;
+    height: 10px;
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    -webkit-border-radius: 20px;
+    -webkit-transform: rotate(-15deg);
+}
+.body{
+    width: 80px; height: 80px;
+    top: 40px;
+    border-radius: 0 0 25px 25px;
+    -webkit-border-radius: 0 0 25px 25px;
+    -moz-border-radius: 0 0 25px 25px;
+}
+.l_leg, .r_leg {
+    width: 25px;
+    height: 30px;
+    position: absolute;
+    -webkit-transition: all 0.1s ease-in;
+    -webkit-border-radius: 0 0 15px 15px;
+}
+.l_leg {
+    top: 60px;
+    left: 16px;
+}
+.r_leg {
+    top: 28px;
+    left: 45px;
+}
+.sleep {
+    -webkit-animation: head 2s infinite;
+    animation-direction: alternate;
+}
+@-webkit-keyframes head {
+    from {
+        -webkit-transform: rotate(-5deg) translate(-4px, -8px);
+    }to
+         {
+         -webkit-transform: rotate(0deg) translate(0px, 0px);
+    }
+}
+.l_arm:hover{
+    -webkit-transform: rotate(-100deg) translate(-10px, 110px);
+}
+
+.qr-footer {
+    z-index: 999;
+    padding: 10px 0;
+}

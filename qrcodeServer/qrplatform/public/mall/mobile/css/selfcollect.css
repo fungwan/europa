@@ -1,0 +1,67 @@
+.default-height {
+    height: 7rem;
+}
+
+.col-40 img {
+    width: 105%;
+    height: 6.9rem;
+    padding: 3px 0 0 2px
+}
+
+.default-height .col-60 {
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+.item-title {
+    font-size: 0.9rem;
+    font-weight: 400;
+    width: 7rem;
+}
+
+.item-desc {
+    font-size: 0.6rem;
+    font-style: italic;
+    color: #828282;
+    margin: 0.5rem 0;
+    width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.item-info {
+    position: absolute;
+    bottom: 0.5rem;
+    width: 9rem;
+}
+
+.info-left {
+    float: left;
+}
+
+.info-left span {
+    font-size: 1rem;
+    color: #f12828;
+    margin-left: 2px;
+}
+
+.right-bottom {
+    position: absolute;
+    font-size: 12px;
+    bottom: 2px;
+    right: 7px;
+    color: #f12828;
+}
+
+.right-top {
+    position: absolute;
+    color: #f12828;
+    right: 4px;
+    top: -2px;
+}
+
+.right-top i {
+    font-size: 25px;
+}

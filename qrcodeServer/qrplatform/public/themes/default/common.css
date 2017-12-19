@@ -1,0 +1,154 @@
+@CHARSET "UTF-8";
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    background-color: #0b2443;
+    box-shadow: 0 1px 2px rgba(29, 36, 42, .1);
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    z-index: 500;
+
+    padding-right: 0;
+}
+
+.navbar-header, .logo::before {
+    content: '';
+    display: block;
+    margin-right: 10px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.navbar-header {
+    width: 150px;
+    height: 40px;
+    background-image: url(images/logo.white.svg);
+}
+
+.logo::before {
+    width: 40px;
+    height: 40px;
+    background-image: url(images/logo.single.svg);
+}
+
+.navbar-nav {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1;
+    overflow: hidden;
+
+    padding-left: 10px;
+}
+.navbar-nav li {
+    padding: 10px 20px;
+    list-style: none;
+    color: rgba(255, 255, 255, .6);
+    transition: color 200ms;
+    cursor: pointer;
+    text-transform: capitalize;
+    white-space: nowrap;
+    font-size: 16px;
+
+    padding: 10px 10px;
+}
+
+.navbar-nav li.selected {
+    color: white;
+}
+
+.navbar-nav li.selected::after {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: -5px;
+    content: '\f0d7';
+    font-family: FontAwesome;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.navbar-nav li:hover {
+    color: white;
+}
+
+.navbar-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-self: stretch;
+}
+
+.navbar-footer button {
+    border: none;
+    border-radius: 0;
+    padding: 10px 15px;
+    background-color: transparent !important;
+    color: rgba(255, 255, 255, .6);
+}
+
+.navbar-footer button:hover {
+    background-color: transparent;
+    color: #61aef5;
+}
+
+.btn_login {
+    border: none;
+    background-color: #00bbde !important;
+    color: white !important;
+    padding: 10px 15px;
+    margin-right: 10px;
+    align-self: center;
+}
+
+.btn_login:hover {
+    color: white !important;
+    background-color: #019fde !important;
+}
+
+.btn_signup {
+    border: none;
+    background-color: #fe6672 !important;
+    color: white !important;
+    padding: 10px 15px;
+    align-self: center;
+}
+
+.btn_signup:hover {
+    color: white !important;
+    background-color: #ff1344 !important;
+}
+
+#signFr {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#userMenus {
+    background-color: #61aef5;
+}
+
+.signing {
+    overflow: hidden;
+}
+
+.signing > * {
+    -webkit-filter: blur(20px);
+}
+
+.signing > #signFr {
+    -webkit-filter: none !important;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 8999999;
+}

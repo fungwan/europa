@@ -1,0 +1,31 @@
+.new .subtitle{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.new .auth:after{
+    display: table;
+    content: "";
+    clear: both;
+}
+.new .auth{
+    font-size: 0.8rem;
+    color: gray;
+}
+.new .auth .tim{
+    float: left;
+}
+.new .auth .auo{
+    float: right;
+}
+#mymy img{
+    max-width: 100%;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #e1e1e1;
+}
+table td, table th{
+
+    border: 1px solid #e1e1e1;
+}

@@ -1,0 +1,149 @@
+.menumanage-container {
+    /*margin-top: 20px;*/
+    display: flex;
+    flex-flow: row;
+}
+.menumanage-container .preview {
+    min-width: 268px;
+    height: 614px;
+    margin: 15px;
+    background: url(../img/phone_gray.png) no-repeat;
+    background-size: 100%;
+    position: relative;
+}
+.menumanage-container .preview .preview-msg {
+    font-size: 10px;
+    color: #777;
+    position: absolute;
+    top: 110px;
+    left: 25px;
+    width: 220px;
+    background: rgba(202, 202, 202, 0.7);
+    padding: 10px;
+    box-sizing: border-box;
+}
+.footer-menu{
+    position: absolute;
+    bottom: 135px;
+    left: 20px;
+    height: 35px;
+    width: 231px;
+    background: rgb(239, 239, 239);
+    border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dedede;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.footer-menu .menu-edit{
+    height: 35px;
+    line-height: 35px;
+    flex:1;
+    font-size: 16px;
+    text-align: center;
+    border-right: 1px solid #d0d0d0;
+}
+.footer-menu .menu-item{
+    flex: 3;
+    height: 35px;
+    line-height: 35px;
+    font-size: 10px;
+    text-align: center;
+    border-right: 1px solid #d0d0d0;
+    cursor: pointer;
+}
+.footer-menu .menu-item i{
+    font-size: 5px
+}
+.submenu-container {
+    position: absolute;
+    bottom: 35px;
+    margin-left: -1px;
+    border: 1px solid #dcdcdc;
+    display: flex;
+    flex-flow: column;
+    background: #fff;
+    z-index: 1000;
+}
+.footer-menu .menu-item .showup {
+    visibility: visible;
+}
+.footer-menu .menu-item .hidden {
+    visibility: hidden;
+}
+.submenu-container .submenu-item {
+    display: flex;
+    padding: 0 4px;
+    border-bottom: 1px solid #dcdcdc;
+    width: 100%;
+    box-sizing: border-box;
+}
+.submenu-container .submenu-item:hover{
+    background: #eaeaea;
+}
+.submenu-container .submenu-add {
+    font-size: 150%;
+    color: #545454;
+    height: 30px;
+    line-height: 30px;
+}
+.menusetting-container {
+    background: #f7f7f7;
+    margin: 0 auto;
+    width: 700px;
+    display: flex;
+    flex-flow: wrap;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.menusetting-container .first-menu {
+    width: 100%;
+    height: 60px;
+    /*line-height: 60px;*/
+}
+.menusetting-container .first-menu .selected{
+    background: rgb(50, 127, 195);
+    border: 1px solid rgb(50, 127, 195);
+}
+.firstmenu-container {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+}
+.firstmenu-container div.firstmenu-item{
+    cursor: pointer;
+    background: #6b5;
+    color: #fff;
+    margin: 10px auto;
+    border: 1px solid #66bb55;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100px;
+    font-size: 14px;
+    text-align: center;
+}
+.firstmenu-container input {
+    display: block;
+    width: 100px;
+    margin: 10px auto;
+}
+.menusetting-container .save-menu{
+    display: flex;
+    width: 100%;
+}
+.menusetting-container .save-menu button{
+    margin: auto;
+}
+.submenu-url{
+    background: #fff;
+    padding: 10px 20px;
+    height: 150px;
+    margin: 20px 0
+}
+.url-title {
+    color: #a0a0a0;
+    margin: 10px 0 20px 0;
+}
+.menusetting-container .submenu-content{
+    width: 100%;
+    height: 250px;
+}

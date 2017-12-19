@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X8 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="256px" height="256px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 256 256"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil5 {fill:black}
+    .fil4 {fill:#7F184C}
+    .fil3 {fill:#F9A880}
+    .fil1 {fill:#FCC56B}
+    .fil0 {fill:#FDDF6D}
+    .fil2 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="图层_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_1049710136">
+   <circle class="fil0" cx="128" cy="128" r="123"/>
+   <path class="fil1" d="M154 233c-68,0 -123,-55 -123,-123 0,-36 16,-69 41,-92 -40,21 -67,62 -67,110 0,68 55,123 123,123 32,0 60,-12 82,-32 -17,9 -36,14 -56,14z"/>
+   <g>
+    <circle class="fil2" cx="107" cy="90" r="15"/>
+    <circle class="fil2" cx="191" cy="90" r="15"/>
+   </g>
+   <g>
+    <path class="fil3" d="M75 120c-9,0 -16,8 -16,17l33 0c0,-9 -8,-17 -17,-17z"/>
+    <path class="fil3" d="M219 118c-9,0 -16,8 -16,17l33 0c0,-9 -7,-17 -17,-17z"/>
+   </g>
+   <path class="fil4" d="M179 195c-2,0 -4,-1 -5,-3 -4,-8 -13,-13 -23,-13 -9,0 -18,5 -23,14 -2,2 -5,3 -7,1 -3,-1 -3,-4 -2,-7 7,-11 19,-18 32,-18 13,0 26,7 32,19 2,2 1,5 -2,6 -1,1 -1,1 -2,1z"/>
+   <path class="fil5" d="M188 15c-3,-2 -6,-1 -7,2 -1,2 0,5 2,7 39,20 63,60 63,104 0,65 -53,118 -118,118 -65,0 -118,-53 -118,-118 0,-65 53,-118 118,-118 3,0 5,-2 5,-5 0,-3 -2,-5 -5,-5 -71,0 -128,57 -128,128 0,71 57,128 128,128 71,0 128,-57 128,-128 0,-48 -26,-91 -68,-113z"/>
+   <path class="fil5" d="M127 90c0,-11 -9,-20 -20,-20 -11,0 -20,9 -20,20 0,11 9,20 20,20 11,0 20,-9 20,-20zm-20 10c-6,0 -10,-5 -10,-10 0,-6 4,-10 10,-10 5,0 10,4 10,10 0,5 -5,10 -10,10z"/>
+   <path class="fil5" d="M191 110c11,0 20,-9 20,-20 0,-11 -9,-20 -20,-20 -11,0 -20,9 -20,20 0,11 9,20 20,20zm0 -30c6,0 10,4 10,10 0,5 -4,10 -10,10 -5,0 -10,-5 -10,-10 0,-6 5,-10 10,-10z"/>
+   <path class="fil5" d="M119 187c-1,3 -1,6 2,7 2,2 5,1 7,-1 5,-9 14,-14 23,-14 10,0 19,5 23,13 1,2 3,3 5,3 1,0 1,0 2,-1 3,-1 4,-4 2,-6 -6,-12 -19,-19 -32,-19 -13,0 -25,7 -32,18z"/>
+   <circle class="fil5" cx="166" cy="12" r="5"/>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+   <g>
+   </g>
+  </g>
+ </g>
+</svg>

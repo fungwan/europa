@@ -1,0 +1,119 @@
+body {
+    background-color: rgba(0, 0, 0, .6) !important;
+}
+
+.s-panel .panel {
+    box-shadow: rgba(0, 0, 0, .75) 0px 0px 30px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px 50px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 460px;
+}
+
+.s-panel .logo {
+    margin: 0px 0px 10px 0px;
+    font-size: 28px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.s-panel .message {
+    margin: 20px 0px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, .5);
+}
+
+.s-panel input {
+    background-color: white;
+    z-index: 1;
+    margin-bottom: -1px;
+    padding: 10px;
+    font-size: 16px;
+    width: 360px;
+}
+
+.s-panel input:focus {
+    border-color: #61aef5;
+    box-shadow: #61aef5 0px 0px 5px;
+    z-index: 2;
+}
+
+.s-panel input:first-child {
+    border-radius: 5px 5px 0px 0px;
+}
+
+.s-panel input:last-child {
+    border-radius: 0px 0px 5px 5px;
+}
+
+.s-panel button {
+    width: 360px;
+    padding: 10px;
+    font-size: 21px;
+    margin-top: 20px;
+}
+
+.s-panel .buttonGroup > button {
+    width: 180px;
+}
+
+.s-panel button.close {
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    border: none;
+    background-color: transparent;
+    font-size: 42px;
+}
+
+.s-panel button:disabled {
+    background-color: transparent !important;
+    color: #aaaaaa !important;
+}
+
+.s-panel a {
+    line-height: 200%;
+    text-decoration: none;
+    color: #768798;
+}
+
+.s-panel a:hover {
+    color: #2c333a;
+    text-decoration: underline;
+}
+
+.s-panel {
+    z-index: 1;
+    opacity: 0;
+}
+
+#mailSelector.openedPopup {
+    box-shadow: #61aef5 0px 2px 5px;
+}
+
+#mailSelector.openedPopup::after {
+    border-color: #61aef5;
+}
+
+#mailSelector button {
+    font-size: 16px;
+}
+
+#reset-panel .content {
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.in #login-panel,
+.up #reg-panel,
+.reset #reset-panel {
+    opacity: 1;
+    z-index: 2;
+}

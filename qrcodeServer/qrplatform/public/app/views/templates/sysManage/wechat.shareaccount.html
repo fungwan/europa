@@ -1,0 +1,82 @@
+<div class="manage manageproduct" ng-controller="shareAccountCtrl">
+    <h3 class="view-title">
+        <i class="fa fa-archive"></i>
+        公众号分享管理
+    </h3>
+    <div class="sharesetting">
+        <div class="sharesetting-item">
+            <label class="item-title">分享公众号送积分是否开启：</label>
+            <div class="item-content">
+                <div class="toggleswitch">  
+                    <input class="toggleswitch-checkbox" 
+                           id="onoffswitch" 
+                           type="checkbox"
+                           ng-model="shareaccount.setting.enable"
+                           ng-true-value="1"
+                           ng-false-value="0"
+                           ng-change="shareaccount.setDisable()">  
+                    <label class="toggleswitch-label" for="onoffswitch">  
+                        <span class="toggleswitch-inner" data-on="开" data-off="关"></span>  
+                        <span class="toggleswitch-switch"></span>  
+                    </label>  
+                </div> 
+            </div>
+        </div>
+
+        <div class="sharesetting-item">
+            <label class="item-title">分享公众号赠送积分数目：</label>
+            <div class="item-content">
+                <input type="number" 
+                       ng-model="shareaccount.setting.sharePoint" 
+                       ng-disabled="!shareaccount.setting.enable"
+                       ng-class="{error: shareaccount.errors.sharePoint}">
+                <span class="error-msg" ng-if="shareaccount.errors.sharePoint">{{shareaccount.errors.sharePoint}}</span>
+            </div>
+        </div>
+
+        <div class="sharesetting-item">
+            <label class="item-title">分享公众号赠送积分上限：</label>
+            <div class="item-content">
+                <input type="number" 
+                       ng-model="shareaccount.setting.shareMaxPoint" 
+                       ng-disabled="!shareaccount.setting.enable"
+                       ng-class="{error: shareaccount.errors.shareMaxPoint}">
+                <span class="error-msg" ng-if="shareaccount.errors.shareMaxPoint">{{shareaccount.errors.shareMaxPoint}}</span>
+            </div>
+        </div>  
+
+
+        <div class="sharesetting-item">
+            <label class="item-title">助力分享赠送积分数目：</label>
+            <div class="item-content">
+                <input type="number" 
+                       ng-model="shareaccount.setting.helpPoint" 
+                       ng-disabled="!shareaccount.setting.enable"
+                       ng-class="{error: shareaccount.errors.helpPoint}">
+                <span class="error-msg" ng-if="shareaccount.errors.helpPoint">{{shareaccount.errors.helpPoint}}</span>
+            </div>
+        </div>
+
+        <div class="sharesetting-item">
+            <label class="item-title">助力分享赠送积分上限：</label>
+            <div class="item-content">
+                <input type="number" 
+                       ng-model="shareaccount.setting.helpMaxPoint" 
+                       ng-disabled="!shareaccount.setting.enable"
+                       ng-class="{error: shareaccount.errors.helpMaxPoint}">
+                <span class="error-msg" ng-if="shareaccount.errors.helpMaxPoint">{{shareaccount.errors.helpMaxPoint}}</span>
+            </div>
+        </div>
+
+        <div class="share-action">
+            <button class="butn butn-primary" ng-click="shareaccount.updateSetting()">
+                <i class="fa fa-edit"></i> 保存
+            </button>
+        </div>
+
+    </div>
+
+    <div>
+
+    </div>
+</div>

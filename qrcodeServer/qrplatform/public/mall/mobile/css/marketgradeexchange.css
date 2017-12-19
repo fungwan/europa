@@ -1,0 +1,207 @@
+.page {
+    background: #f1f1f1;
+}
+.bartop{
+    background: #FFFFFF;
+    border-bottom: 1px solid #cf4900;
+    font-size: 0.6rem;
+    color: #828481;
+}
+.bartop>div,.bartop>div span,.bartop>div label{
+    display: inline-block;
+
+    line-height: 2.2rem;
+}
+.bar-nav~.content {
+    top: 2.2rem;
+}
+.gradebo img{
+    width: 1.5rem;
+}
+.bartop input{
+    display: inline-block;
+    width: 1rem;
+    vertical-align: middle;
+}
+.gradebo .num{
+    color: #e95302;
+    font-size: 0.7rem;
+}
+.gradebo .pig{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.carditem{
+    box-sizing: border-box;
+    padding-top: 0.2rem;
+    /* border-bottom: 1px solid #c4c5c5; */
+    margin-bottom: 4px;
+    background: #fff;
+    position: relative;
+}
+.carditem img{
+    width: 100%;
+    height: 100%;
+}
+.col30{
+    width: 30vw;
+    padding-left: 0.2rem;
+}
+.col70{
+    width: 70vw;
+    padding-left: 0.5rem;
+    display: flex;
+    flex-flow: column wrap;
+    height: 100%;
+}
+.col70.lf {
+    height: 100%;
+}
+.col70 >div {
+    margin: auto 0;
+}
+.gradeboo input{
+    width: 30vw;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+.carditem .txt1{
+    color: #42403f;
+    font-size:0.7rem;
+    margin: 0.4rem 0;
+    font-weight: 600;
+}
+.carditem .type {
+    /* height: 0.7rem; */
+    display: flex;
+}
+.carditem .txt2{
+    color: #676565;
+    font-size: 0.6rem;
+    /* line-height: 1rem; */
+    /* text-indent: 1rem; */
+    margin-left: 0.5rem;
+}
+.carditem .txt3 {
+    position: absolute;
+    bottom: 0;
+    float: left;
+    width: 66%;
+    line-height: 1.1rem;
+    height: 1.1rem;
+}
+.carditem .txt3 .lf{
+    font-size: 0.6rem;
+}
+.carditem .txt3 .rt {
+    font-size: 0.7rem;
+}
+.carditem .txt3 .rt a{
+    display: inline-block;
+    /* margin-top: 0.3rem; */
+    margin-right: 0.5rem;
+    font-size: 0.6rem;
+    color: #266fae;
+}
+.carditem .txt3 .pric{
+    color: #FF6458;
+    font-size: 0.8rem;
+    /* margin-left: 0.5rem; */
+    margin-right: 0.2rem;
+    font-weight: 600;
+}
+/*5种商品的class*/
+.phone{
+    background: #0068b7;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+}
+.net{
+    background: #009944;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+}
+.redpacket{
+    background: #e60012;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+}
+.cinema{
+    background: #601986;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+}
+.product{
+    background: #eb6100;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.7rem;
+    height: 0.7rem;
+}
+.blh{
+    background: #eb6100;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+}
+.point{
+    background: pink;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+}
+.qoupon{
+    background: green;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+}
+.discount {
+    margin-left: 0.7rem;
+    padding: 0rem 0.3rem;
+    font-size: 0.6rem;
+    line-height: 0.7rem;
+    height: 0.7rem;
+    background: red;
+    border-radius: 20%;
+    color: #fff;
+}
+.notDiscount {
+    display: none;
+}

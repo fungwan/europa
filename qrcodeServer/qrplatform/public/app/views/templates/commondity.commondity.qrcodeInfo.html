@@ -1,0 +1,122 @@
+<div class="shade">
+    <div class="content" style="min-width: 1000px;border-right: 1px solid #ccc;">
+        <div class="content-top">
+            <h3 class="title">二维码信息</h3>
+        </div>
+        <div class="content-body">
+            <div class="view-bar">
+                <ul class="view-breadcrumb">
+                    <li class="view-breadcrumb-item">
+                        <a href="javascript:;" ng-bind="qrcode.commondity.categoryname"></a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="view-breadcrumb-item">
+                        <a href="javascript:;" ng-bind="qrcode.commondity.mcdname"></a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li class="view-breadcrumb-item">
+                        <a href="javascript:;">二维码信息</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="view-table table-header no-border">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 180px">批次号</th>
+                            <th style="width: 180px">生成时间</th>
+                            <th style="width: 90px">总数</th>
+                            <!--<th style="width: 110px">可消费数量</th>-->
+                            <th style="width: 110px">生成进度</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="view-table no-border table-body"
+                style="overflow: auto;">
+                 <table>
+                    <thead style="display: none;">
+                        <tr>
+                            <th>批次号</th>
+                            <th>生成时间</th>
+                            <th>总数</th>
+                            <!--<th>可消费数量</th>-->
+                            <th>生成进度</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in qrList.items">
+                            <td ng-bind="item.batchcode" style="width: 180px"></td>
+                            <td style="width: 180px">{{item.createtime | timFmartm1000}}</td>
+                            <td ng-bind="item.amount" style="width: 90px"></td>
+                            <!--<td ng-bind="item.count" style="width: 110px"></td>-->
+                            <td style="width: 110px">{{item.progress | qrcodeProgressFilter}}</td>
+                            <td>
+                                <button class="butn butn-link" 
+                                    ng-if="item.progress == 1 && item.key != ''"
+                                    ng-click="qrList.sendEmail(item)"
+                                    ng-disabled="item.countDown > 0"
+                                    title="二维码将发送至您的邮箱">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span ng-bind="item.emailBtnText"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="qrList.close()">关闭</button>
+            <button class="butn butn-primary" ng-click="qrForm.show()">
+                <i class="fa fa-plus"></i>
+                添加二维码
+            </button>
+        </div>
+    </div>
+    <div class="content" style="min-width: 300px;" ng-show="qrList.showForm">
+        <div class="content-top" style="background: #fff; color:#333;">
+            <h3 class="title" style="font-weight: 400;">添加二维码</h3>
+        </div>
+        <div class="content-body">
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    批次号
+                </h4>
+                <div class="input-group-input">
+                    <input type="text" ng-model="qrForm.qr.batchCode" disabled>
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    生成总数
+                </h4>
+                <div class="input-group-input">
+                    <input type="number" placeholder="请输入二维码生成数量" ng-model="qrForm.qr.amount" ng-class="{error: qrForm.errors.amount}" min="1" max="100000">
+                    <span class="error-msg" ng-if="qrForm.errors.amount">
+                        {{qrForm.errors.amount}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    生成进度: <span ng-bind="qrForm.progress"></span>%
+                </h4>
+                <div class="input-group-input">
+                    <div class="progress-container">
+                        <div class="progress-inner" style="width: {{qrForm.progress}}%"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="qrForm.close()">关闭</button>
+            <button class="butn butn-primary" ng-click="qrForm.addQr()" 
+                ng-disabled="!qrForm.isReady">生成</button>
+        </div>
+    </div>
+</div>

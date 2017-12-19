@@ -1,0 +1,78 @@
+.buttons-tab .button.active {
+    color: #fc4606;
+    border-color: transparent;
+}
+
+header.bar-nav {
+    padding: 0
+}
+
+header.bar-nav .buttons-tab {
+    height: 2.2rem;
+    border-bottom: 2px solid #fc4606;
+}
+
+.qouponitem {
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    width: 15.5rem;
+    height: 6.5rem;
+    margin: 0.5rem auto;
+}
+
+.qouponprice {
+    width: 31%;
+    display: flex;
+}
+
+.qouponprice div.price-content {
+    margin: auto 29px;
+    /*font-size: 1.4rem;*/
+    color: #fff;
+}
+
+.validity-time {
+    color: #A5A5A5;
+    font-size: .5rem;
+}
+
+.qouponcontent {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.baseinfo {
+    margin: auto;
+    font-size: 90%;
+    color: #111;
+    font-weight: 600;
+}
+
+.content-img {
+    width: 4rem;
+    height: 4rem;
+    margin: auto 24px auto auto;
+    /*background: #404040;*/
+}
+
+.content-img img {
+    height: 100%;
+    width: 100%;
+}
+
+.coupondelete {
+    width: 2.5rem;
+    display: flex;
+    background-color: #C53636;
+}
+
+.coupondelete span {
+    margin: auto;
+    font-size: 150%;
+    color: #fff;
+}

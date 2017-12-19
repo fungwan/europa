@@ -1,0 +1,60 @@
+<div class="manage manageproduct" ng-controller="mallLotteryRecordManage">
+    <h3 class="view-title">
+        <i class="fa fa-gift"></i>
+       积分抽奖记录
+    </h3>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">奖品名称:</span>
+                        <input type="text" class="filter-item-input" placeholder="奖品名称" ng-model="LotteryRecord.queryOptions.query.productname">
+                    </div>
+                    <div class="filter-item">
+                        <span class="filter-item-label">状态:</span>
+                        <select ng-model="LotteryRecord.queryOptions.query.state" style="padding: 4px;">
+                            <option value="">请选择奖品状态</option>
+                            <option value="sell">已上架</option>
+                            <option value="offshelf">已下架</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="LotteryRecord.query(1)">
+                        <i class="fa fa-search"></i> 查询
+                    </button>
+                    <button class="butn butn-default" ng-click="LotteryRecord.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn butn-primary" style="visibility:hidden;"><i class="fa fa-plus"></i> 添加</button>
+        </m-action>
+    </div>
+
+    <div class="view-table" id="productTable">
+        <table>
+            <thead>
+                <tr>
+                    <th width="200px">抽奖时间</th>
+                    <th width="200px">奖品名称</th>
+                    <th width="120px">中奖客户</th>
+                    <th width="120px">成本(元)</th>
+                    <th width="100px">总数</th>
+                    <th width="240px">奖品描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in LotteryRecord.items">
+                    <td ng-bind="item.productdate | timFmart"></td>
+                    <td ng-bind="item.productname"></td>
+                    <td ng-bind="item.price | currency : '￥'"></td>
+                    <td ng-bind="item.cost | currency : '￥'"></td>
+                    <td ng-bind="item.amount"></td>
+                    <td ng-bind="item.productinfo"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

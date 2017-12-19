@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>万码易联 - 企业平台 - 营销方案</title>
+    <script type="text/javascript" src="../templates/js/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<style>
+    #helpBox{
+        overflow-y: scroll !important;
+    }
+</style>
+<body>
+
+<div id="generalize">
+    <div class="qr-banner">
+        <div class="item s01">
+            <div class="txt">
+                <h1 class="in_t">营销方案<span>Solutions</span></h1>
+
+                <p class="in_b">为您的营销出谋划策，提供专业的营销一条龙服务<br/>同时提供快捷方便的模板, 快速开启营销活动</p>
+            </div>
+        </div>
+        <div class="mask"></div>
+    </div>
+    <a name="separation"></a>
+    <div class="qr-content"><div class="bigTitle">我的营销方案</div></div>
+
+    <div class="qr-content qr-content-base">
+        <div class="qr-points">
+            <div class="qr-point">
+                <div class="num"><b class="upper" style="color: #ff855c;">1</b></div>
+                <div class="title">方案数量</div>
+                <div class="txt">从注册之日起, 您总共发起了1次营销方案, 如果使用有什么困难, 请与我们联系</div>
+            </div>
+            <div class="qr-point">
+                <div class="num"><b class="upper" style="color: #5a9eed;">5</b><span class="unit">万</span></div>
+                <div class="title">参与人数</div>
+                <div class="txt">截止到目前, 已经总共有51823人参与了贵公司的营销活动</div>
+            </div>
+            <div class="qr-point">
+                <div class="num"><b style="color: #73d483;">100</b></div>
+                <div class="title">服务能力</div>
+                <div class="txt">万码易联100+服务人员, 对于专业客户提供服务经理, 及时了解并反馈营销信息</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="activityMenus" class="ccBox">
+    <div class="fw horizontalFlexBox">
+        <div class="horizontalFlexBox">
+            <input id="_m_type_all" type="radio" name="base-type" checked="checked" value=""/>
+            <label for="_m_type_all" class="ico_th_large">全部</label>
+        </div>
+        <button data-type="menu" data-popup="activityExtendMenu" class="wficoonly ico_navigation"></button>
+    </div>
+</div>
+
+<div id="listView" class="flex verticalFlexBox">
+    <div id="list" class="horizontalWrapFlexBox">
+    </div>
+    <!-- <button value="more" class="wficoonly ico_arrow_bottom" title="加载更多"></button> -->
+</div>
+
+<div class="fb ccBox dark" id="searchBox">
+    <div>
+        <h1 class="wfico ico_query">我的营销方案 / 查询</h1>
+
+         <!--<div class="editorItem">
+            <label>活动类型</label>
+
+            <div class="columnItems">
+                <input id="_q_type_all" type="radio" name="type" checked="checked" value=""/>
+                <label for="_q_type_all" data-lang-alt="全部" title>
+                    <div class="ico_navigation"></div>
+                </label>
+
+                <input id="_q_type_redpacket" type="radio" name="type" value="redpacket"/>
+                <label for="_q_type_redpacket" data-lang-alt="发红包" title>
+                    <div class="ico_cny"></div>
+                </label>
+
+                <input id="_q_type_point" type="radio" name="type" value="point"/>
+                <label for="_q_type_point" data-lang-alt="送积分" title>
+                    <div class="ico_rub"></div>
+                </label>
+
+                <input id="_q_type_question" type="radio" name="type" value="question"/>
+                <label for="_q_type_question" data-lang-alt="调查问卷" title>
+                    <div class="ico_star"></div>
+                </label>
+
+                <input id="_q_type_combination" type="radio" name="type" value="combination"/>
+                <label for="_q_type_combination" data-lang-alt="组合活动" title>
+                    <div class="ico_coffee"></div>
+                </label>
+            </div>
+        </div> -->
+        
+        <div class="editorItem">
+            <label>关键字</label>
+            <input type="text" maxlength="20" name="key" placeholder="请输入关键字" style="width: 480px;"/>
+        </div>
+        <div class="editorItem">
+            <label data-lang="活动开始/结束时间范围"></label>
+
+            <div class="buttonGroup">
+                <button data-type="datepicker" data-popup="datepicker" data-level="top" name="begdate" value=""
+                        data-format="date" class="flex"></button>
+                <label>~</label>
+                <button data-type="datepicker" data-popup="datepicker" data-level="top" name="enddate" value=""
+                        data-format="date" class="flex"></button>
+            </div>
+        </div>
+        <div class="editorItem">
+            <label data-lang="状态"></label>
+            <button data-type="selector" data-popup="stateSelector" value="" name="state" style="width: 120px;"><span
+                    data-lang="全部"></span></button>
+        </div>
+        <button value="submitSearch" class="commit wfico ico_submit">开始查询</button>
+
+        <button value="closeBox" class="cross"></button>
+    </div>
+</div>
+
+<div class="fb ccBox dark" id="helpBox">
+    <div>
+        <h1 class="wfico ico_help">我的营销方案 / 帮助</h1>
+        <ul>
+            关于活动方案的状态
+            <li>状态包括：编辑中、已开始、已停止、已结束</li>
+            <li>编辑中表示活动方案还在设计阶段，在生成二维码时将自动转为已开始状态</li>
+            <li>已开始表示活动方案执行中，其中包括二维码的下载、印刷、分发以及活动开展等环节，只有在设置的活动时间范围内才能正式使用二维码参与活动</li>
+            <li>已停止表示活动暂时停止，此时用户不能参与活动，可以随时恢复开始状态</li>
+            <li>当到活动结束时间时，该方案将自动结束，结束后用户将不能参与活动，也不能重新开始活动</li>
+            <li>如果活动不是编辑状态，将不能修改活动内容、奖项内容，但可以修改中奖策略</li>
+        </ul>
+        <ul>
+            关于活动二维码
+            <li>二维码根据活动类型不同所产生的数量不同，对于可能需要采用XXX印刷技术的，将考虑损耗率，下载的二维码数量可能比实际需要的要多</li>
+            <li>生成二维码数量如果超过1万个，则不提供图片，只提供文本内容</li>
+            <li>根据活动类型的不同，一个二维码可能只能参加一次活动，也可能多次参加活动，可以在活动设置界面进行了解</li>
+        </ul>
+        <ul>
+            关于活动方案的复制
+            <li>您可以复制任何一个活动方案为副本进行修改，并设置为新的活动方案</li>
+        </ul>
+
+        <button value="closeBox" class="cross"></button>
+    </div>
+</div>
+
+<div class="popup" data-type="selector" id="stateSelector">
+    <button value="">全部</button>
+    <button value="editing">编辑中</button>
+    <button value="start">已开始</button>
+    <button value="stop">已停止</button>
+    <button value="completed">已结束</button>
+</div>
+
+<div class="popup popupMenu popupVerticalMenu" data-type="menu" id="activityExtendMenu">
+    <button value="solution_create" class="ico_add">创建新方案</button>
+    <button value="solution_query" class="ico_query">查询</button>
+    <button value="solution_help" class="ico_help">帮助</button>
+</div>
+
+<div class="popup" data-type="datepicker" id="datepicker">
+</div>
+
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.solution" , data-deps="moment,qrCode,dateTimePicker"></script>
+</body>
+</html>

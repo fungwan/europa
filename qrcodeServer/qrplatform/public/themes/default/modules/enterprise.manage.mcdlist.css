@@ -1,0 +1,410 @@
+
+.dealer {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
+.icoManageDealer::before {
+    content: '\f0d1' !important;
+}
+
+.icoManage {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    font-size: 30px;
+    color: white;
+    font-family: FontAwesome;
+}
+
+.topTool {
+    margin: 30px 100px 20px 100px;
+    justify-content: flex-end;
+}
+
+.topTool .editorItem:first-child {
+    position: absolute;
+    left: 0;
+}
+
+.topTool .editorItem:last-child {
+    margin-right: 0px !important;
+}
+
+.topTool button, .queryitem button {
+    display: inline-block;
+    width: 150px;
+    margin: 0 auto;
+    background-color: #61AEF5;
+    color: white;
+    text-overflow: ellipsis;
+    height: 41px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.topTool button:hover, .queryitem button:hover {
+    background-color: #1b88ee !important;
+    color: white;
+}
+
+#query, #seniorquery {
+    width: 100px;
+
+}
+
+.dealerList {
+    flex: 1;
+    margin: 0 100px 10px 100px;
+    overflow-y: auto;
+}
+
+.editorItem label {
+    text-align: left;
+}
+
+.editorItem input {
+    width: 150px;
+    height: 41px;
+}
+
+#groupItems {
+    max-height: 407px;
+    overflow-y: auto;
+}
+
+#groupItems button {
+    width: 100%;
+}
+
+#changeGroup {
+    width: 200px;
+    background-color: #61AEF5;
+    color: white;
+    border: none;
+}
+
+#changeGroup:disabled:hover {
+    background-color: #F5F5F5 !important;
+}
+
+#dealerMessage {
+    display: none;
+    font-size: 22px;
+    margin: 0 100px 10px 100px;
+    text-align: left;
+}
+
+/*高级查询*/
+
+.queryitem {
+    margin: 30px 50px 10px 50px;
+    background-color: #ffffff;
+}
+
+.queryitem .editorItem input, .queryitem .editorItem button {
+    width: 300px;
+}
+
+@media all and (max-width: 1280px) {
+    .dealerData {
+        margin: 0px 50px;
+    }
+
+    .topTool {
+        margin: 30px 50px 20px 50px;
+
+    }
+
+    .dealerList, #dealerMessage {
+        margin: 0 50px 10px 50px;
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .dealerData {
+        margin: 0px;
+    }
+
+    .topTool {
+        margin: 30px 0px 20px 0px;
+
+    }
+
+    .dealerList, #dealerMessage {
+        margin: 0 0px 10px 0px;
+    }
+}
+/*头部商品信息图标*/
+.wfico::before{
+    margin-right: 0;
+}
+/*右侧商品添加弹出框*/
+.popright{
+    position: absolute;
+    right: -690px;
+    top: 0;
+    width: 690px;
+    height: 100%;
+    background: white;
+    border-left: 1px dotted black;
+    padding: 30px;
+    z-index: 490;
+}
+.poprighthh{
+    width:372px;
+}
+.poprighthh{
+    right:-372px;
+}
+.popright .queryitem{
+    margin: 0;
+    float: left;
+}
+.clear:after{
+    display: table;
+    content: "";
+    clear: both;
+}
+.queryitem .pic{
+    border: rgba(0, 0, 0, .1) solid 1px;
+    border-radius: 10px;
+    font-size: 206px;
+    text-align: center;
+    color: #e1e1e1;
+}
+.control button,.addbutton button,.upuppic{
+    display: inline-block;
+    width: 80px;
+    margin: 0 auto;
+    background-color: #61AEF5;
+    color: white;
+    text-overflow: ellipsis;
+    height: 41px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+label.upuppic{
+    text-align: center;
+    line-height:40px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    color: white;
+}
+.addbutton button{
+    width: 120px;
+}
+.control button:hover,.addbutton button:hover,.upuppic:hover{
+    background-color: #1b88ee !important;
+    color: white;
+}
+.poprighttitle>div{
+    float: left;
+}
+.popqrtitle span.a{
+    font-size: 14px;
+}
+.backbutton>p{
+    height: 75px;
+    line-height: 75px;
+    font-size: 60px;
+    margin: 0;
+    margin-right: 20px;
+    cursor: pointer;
+}
+/*二维码添加弹出框*/
+.qrmore{
+    cursor: pointer;
+    color: #1b88ee;
+}
+.goodsdown{
+
+}
+.qrboxtitle>div{
+    float: left;
+    width:16%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+.qrboxtitle>div.cx{
+    width:10%;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.qrboxtitle>div.pcnum{
+    width:26%;
+}
+.qrboxtitle>div.zs{
+    width:12%;
+}
+.qrboxtitle>div.zs>input{
+    width:100%;
+}
+.qrboxtitle>div.cz{
+    width:10%;
+
+    cursor: pointer;
+}
+.qrboxcontent div.cz{
+    background: #1b88ee;
+    color: white;
+}
+.qrboxcontent div.pctime,.qrboxtitle div.pctime{
+    width: 26%;
+}
+.qrboxtitle{
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+.qrboxcontentitem{
+    padding:10px 0;
+    border-bottom:1px dotted black;
+}
+.qrboxcontent{
+    height: 467px;
+    overflow: scroll;
+}
+/*生成二维码后的样式*/
+.done>div>input{
+    border: none;
+}
+#picscanbox img{
+    width: 264px;
+    height: 274px;
+    display: inline-block;
+}
+.control .editorItem{
+    margin-bottom: 0;
+}
+.datagrid > .content > .rows > .row > .el > .cell{
+    overflow:hidden;
+    white-space:nowrap !important;
+    text-overflow:ellipsis !important;
+}
+#qrtit>h1>span.b{
+    cursor: pointer;
+    display: inline-block;
+    width: 300px;
+    overflow:hidden;
+    white-space:nowrap !important;
+    text-overflow:ellipsis !important;
+}
+/*圆形进度*/
+.progressbar {
+    text-align: center;
+    line-height: 44px;
+    width: 44px; display: block;
+    background: url(http://www.w3cplus.com/sites/default/files/blogs/2014/1404/progressbar.png);
+    height: 44px;
+    font-size: 14px;
+    margin-left:10px;
+    float: left;
+    font-family: "微软雅黑";
+    font-size: 11px;
+}
+.progressbar-1 {background-position: 0px 0px;}
+.progressbar-2 {background-position: -54px 0px;}
+.progressbar-3 {background-position: -108px 0px;}
+.progressbar-4 {background-position: -162px 0px;}
+.progressbar-5 {background-position: -216px 0px;}
+.progressbar-6 {background-position: -270px 0px;}
+.progressbar-7 {background-position: -324px 0px;}
+.progressbar-8 {background-position: -378px 0px;}
+.progressbar-9 {background-position: -432px 0px;}
+.progressbar-10 {background-position: -486px 0px;}
+.progressbar-11 {background-position: -540px 0px;}
+.progressbar-12 {background-position: -594px 0px;}
+.progressbar-13 {background-position: -648px 0px;}
+.progressbar-14 {background-position: -702px 0px;}
+.progressbar-15 {background-position: -756px 0px;}
+.progressbar-16 {background-position: -810px 0px;}
+.progressbar-17 {background-position: -864px 0px;}
+.progressbar-18 {background-position: -918px 0px;}
+.progressbar-19 {background-position: -972px 0px;}
+.progressbar-20 {background-position: -1026px 0px;}
+.progressbar-21 {background-position: -1080px 0px;}
+.progressbar-22 {background-position: -1134px 0px;}
+.progressbar-23 {background-position: -1188px 0px;}
+.progressbar-24 {background-position: -1242px 0px;}
+.progressbar-25 {background-position: -1296px 0px;}
+.progressbar-26 {background-position: -1350px 0px;}
+.progressbar-27 {background-position: -1404px 0px;}
+.progressbar-28 {background-position: -1458px 0px;}
+.progressbar-29 {background-position: -1512px 0px;}
+.progressbar-30 {background-position: -1566px 0px;}
+.progressbar-31 {background-position: -1620px 0px;}
+.progressbar-32 {background-position: -1674px 0px;}
+.progressbar-33 {background-position: -1728px 0px;}
+.progressbar-34 {background-position: -1782px 0px;}
+.progressbar-35 {background-position: -1836px 0px;}
+.progressbar-36 {background-position: -1890px 0px;}
+.progressbar-37 {background-position: -1944px 0px;}
+.progressbar-38 {background-position: -1998px 0px;}
+.progressbar-39 {background-position: -2052px 0px;}
+.progressbar-40 {background-position: -2106px 0px;}
+.progressbar-41 {background-position: -2160px 0px;}
+.progressbar-42 {background-position: -2214px 0px;}
+.progressbar-43 {background-position: -2268px 0px;}
+.progressbar-44 {background-position: -2322px 0px;}
+.progressbar-45 {background-position: -2376px 0px;}
+.progressbar-46 {background-position: -2430px 0px;}
+.progressbar-47 {background-position: -2484px 0px;}
+.progressbar-48 {background-position: -2538px 0px;}
+.progressbar-49 {background-position: -2592px 0px;}
+.progressbar-50 {background-position: -2700px 0px;}
+.progressbar-51 {background-position: -2754px 0px;}
+.progressbar-52 {background-position: -2808px 0px;}
+.progressbar-53 {background-position: -2862px 0px;}
+.progressbar-54 {background-position: -2916px 0px;}
+.progressbar-55 {background-position: -2970px 0px;}
+.progressbar-56 {background-position: -3024px 0px;}
+.progressbar-57 {background-position: -3078px 0px;}
+.progressbar-58 {background-position: -3132px 0px;}
+.progressbar-59 {background-position: -3186px 0px;}
+.progressbar-60 {background-position: -3240px 0px;}
+.progressbar-61 {background-position: -3294px 0px;}
+.progressbar-62 {background-position: -3348px 0px;}
+.progressbar-63 {background-position: -3402px 0px;}
+.progressbar-64 {background-position: -3456px 0px;}
+.progressbar-65 {background-position: -3510px 0px;}
+.progressbar-66 {background-position: -3564px 0px;}
+.progressbar-67 {background-position: -3618px 0px;}
+.progressbar-68 {background-position: -3672px 0px;}
+.progressbar-69 {background-position: -3726px 0px;}
+.progressbar-70 {background-position: -3780px 0px;}
+.progressbar-71 {background-position: -3834px 0px;}
+.progressbar-72 {background-position: -3888px 0px;}
+.progressbar-73 {background-position: -3942px 0px;}
+.progressbar-74 {background-position: -3996px 0px;}
+.progressbar-75 {background-position: -4050px 0px;}
+.progressbar-76 {background-position: -4104px 0px;}
+.progressbar-77 {background-position: -4158px 0px;}
+.progressbar-78 {background-position: -4212px 0px;}
+.progressbar-79 {background-position: -4266px 0px;}
+.progressbar-80 {background-position: -4320px 0px;}
+.progressbar-81 {background-position: -4376px 0px;}
+.progressbar-82 {background-position: -4428px 0px;}
+.progressbar-83 {background-position: -4482px 0px;}
+.progressbar-84 {background-position: -4536px 0px;}
+.progressbar-85 {background-position: -4590px 0px;}
+.progressbar-86 {background-position: -4644px 0px;}
+.progressbar-87 {background-position: -4698px 0px;}
+.progressbar-88 {background-position: -4752px 0px;}
+.progressbar-89 {background-position: -4806px 0px;}
+.progressbar-90 {background-position: -4860px 0px;}
+.progressbar-91 {background-position: -4914px 0px;}
+.progressbar-92 {background-position: -4968px 0px;}
+.progressbar-93 {background-position: -5022px 0px;}
+.progressbar-94 {background-position: -5076px 0px;}
+.progressbar-95 {background-position: -5130px 0px;}
+.progressbar-96 {background-position: -5184px 0px;}
+.progressbar-97 {background-position: -5238px 0px;}
+.progressbar-98 {background-position: -5292px 0px;}
+.progressbar-99 {background-position: -5346px 0px;}
+.progressbar-100 {background-position: -5400px 0px;}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>万码易联</title>
+    <link rel="stylesheet" type="text/css" href="themes/web/common.css"/>
+    <link rel="stylesheet" type="text/css" href="themes/web/web.css"/>
+    <link rel="stylesheet" type="text/css" href="themes/default/ico.css"/>
+    <script type="text/javascript" src="scripts/lib/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/jquery.transit.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/easepack.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/tweenlite.min.js"></script>
+    <script type="text/javascript" src="scripts/default_new.js"></script>
+    <!--[if IE]>
+    <script type="text/javascript" src="scripts/lib/support.media.min.js"></script>
+    <![endif]-->
+</head>
+<body class="black">
+
+<nav class="navbar">
+    <div class="navbar-header"></div>
+    <ul class="navbar-nav">
+        <li data-module="home" class="selected">首页</li>
+        <li data-module="solution">解决方案与服务</li>
+        <li data-module="project">项目实例</li>
+        <li data-module="cooperate">合作伙伴</li>
+        <li data-module="about">关于我们</li>
+    </ul>
+    <div class="navbar-footer">
+        <button value="enterprise" class="commit">进入企业平台</button>
+    </div>
+</nav>
+
+<div class="panel" data-inx="0" id="home" data-black="true">
+    <canvas id="home_canvas"></canvas>
+    <div class="bottom"></div>
+    <div class="macbook">
+        <div class="box">
+            <div class="video">
+                <video id="_mainVideo" preload="auto" width="100%" height="100%"
+                       poster="themes/web/images/bigdata.01.jpg">
+                    <source src="video/trailer.mp4" type="video/mp4"/>
+                </video>
+            </div>
+            <div id="_mainVideoController">
+                <button id="_mainVideoController_button" value="play" class="play"></button>
+                <div class="progress"></div>
+            </div>
+        </div>
+        <div class="li_btns">
+            <button class="checked"></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+    </div>
+    <h1>万码易联　为您插上大数据的翅膀</h1>
+
+    <h3>很多人还没搞清楚什么是PC互联网，移动互联网来了<br>我们还没搞清楚移动互联的时候，大数据时代又来了</h3>
+</div>
+<div class="panel box box-pack-center" id="service" data-inx="1">
+    <div class="back"></div>
+    <div class="con box box-tb box-pack-center box-align-start">
+        <h1>快捷、稳定、全面</h1>
+
+        <h3>W-LINK is a high-quality solution for those who want a beautiful website in no time. It's fully responsive and
+            will adapt itself to any moblie device, iPad, iPhone, Android, it doesn't matter. Your content will always looks
+            its absolute best. </h3>
+
+        <h3>She'll be right paddock how lets throw a ciggies. She'll be right ute to built like a doovalacky. We're going
+            rack off bloody she'll be right pash. You little ripper tucker also get a dog up ya greenie.</h3>
+
+        <h3 class="tip">You little ripper boozer no worries she'll be right holy dooley!. Come a freo also as cross as a
+            your shout. Lets throw a khe sanh flamin dead dingo's donger. Lets get some fisho with grab us a trackie
+            dacks.</h3>
+
+        <button>Learn more</button>
+    </div>
+</div>
+<div class="panel box box-tb box-align-center box-pack-center" id="works" data-inx="2">
+    <h1>如何使用万码易联</h1>
+    <h3 class="sub">We're going rack off bloody she'll be right pash. You little ripper tucker also get a dog up ya greenie.</h3>
+    <ul class="box box-lr box-align-start">
+        <li class="box box-tb box-align-center"><i class="ico_apply"></i><b>Design</b><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p></li>
+        <li class="box box-tb box-align-center"><i class="ico_coffee"></i><b>Release</b><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p></li>
+        <li class="box box-tb box-align-center"><i class="ico_chain"></i><b>Collection</b><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p></li>
+        <li class="box box-tb box-align-center"><i class="ico_analysis"></i><b>Analysis</b><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p></li>
+    </ul>
+
+    <button>Get start now</button>
+</div>
+<div class="panel box box-lr box-align-center box-pack-center" id="partners" data-inx="3" data-black="true">
+    <div class="box box-lr">
+        <div class="left box box-tb box-pack-center box-align-end">
+            <h1>合作伙伴</h1>
+            <h3>Nullam fermentum metus dolor, non suscipit neque ornare id. Curabitur fermentum ac lectus vitaeultrices. In faucibus nisl massa, et elementum orci placerat at. </h3>
+            <button>Join us</button>
+        </div>
+        <div class="flex right box box-lr box-wrap box-align-center">
+            <div class="brand">
+                <img src="themes/web/brands/haagendazs.png" />
+                <div>哈根达斯（Häagen-Dazs）原为美国冰激凌品牌，1921年由鲁本·马特斯(Reuben Mattus)研制成功，并于1962在美国纽约布朗克斯命名并上市。</div>
+            </div>
+            <div class="brand">
+                <img src="themes/web/brands/xbox.one.jpg" />
+                <div>"湾仔码头”是一个速冻食品品牌，属于美国通用磨坊食品公司。创始人臧健和女士最初是在香港湾仔码头边摆地摊卖水饺起家的。</div>
+            </div>
+            <div class="brand">
+                <img src="themes/web/brands/loreal.jpg" />
+                <div>哈根达斯（Häagen-Dazs）原为美国冰激凌品牌，1921年由鲁本·马特斯(Reuben Mattus)研制成功，并于1962在美国纽约布朗克斯命名并上市。</div>
+            </div>
+            <div class="brand">
+                <img src="themes/web/brands/pepsi.jpg" />
+                <div>"湾仔码头”是一个速冻食品品牌，属于美国通用磨坊食品公司。创始人臧健和女士最初是在香港湾仔码头边摆地摊卖水饺起家的。</div>
+            </div>
+            <div class="brand">
+                <img src="themes/web/brands/pupa.jpg" />
+                <div>"湾仔码头”是一个速冻食品品牌，属于美国通用磨坊食品公司。创始人臧健和女士最初是在香港湾仔码头边摆地摊卖水饺起家的。</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel box box-tb" id="about" data-inx="4">
+    <div class="flex box box-tb box-align-center box-pack-center">
+        <div class="box box-tb box-align-center">
+            <h1>关于我们</h1>
+            <p>Phasellus est dolor, aliquam pellentesque pretium vitae, suscipit sed justo. Sed aliquam magna nec justo interdum, et malesuada dui facilisis.<br />
+                Morbi eu interdum massa, non posuere nunc. Proin ullamcorper magna sed tellus aliquam, eu viverra tortor porttitor. <br/>
+                Donec tempus, ligula sit amet</p>
+            <div class="info">
+                <i>技术支持</i>成都浪新软件有限公司<br />
+                <i>电子邮件</i>w-link@erathink.com<br />
+                <i>联系电话</i>+86-028-88888888<br />
+                <i>公司地址</i>成都市益州大道1800号移动互联大厦G1-1303/1304<br />
+                <i>浪新网址</i><a href="http://www.erathink.com" target="_blank">http://www.erathink.com</a>
+            </div>
+        </div>
+        <div class=""></div>
+    </div>
+    <div class="copyright">Powered by Erathink Co.,Ltd.　　&copy; Copy right www.51s.co 2016, All right Reserved.</div>
+</div>
+
+<div id="fixedBanner" class="li_btns li_btns_v">
+    <button class="checked" value="0"></button>
+    <button value="1"></button>
+    <button value="2"></button>
+    <button value="3"></button>
+    <button value="4"></button>
+</div>
+
+<div class="debug"></div>
+<script type="text/javascript" src="scripts/lib/se.line.js"></script>
+</body>
+</html>

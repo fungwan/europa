@@ -1,0 +1,434 @@
+body {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center;
+    background-image: url("images/newyear-2016/mask.png");
+}
+
+.layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.layer01 {
+    background: url("images/newyear-2016/background1.png");
+}
+
+.layer02 {
+    background-image: url("images/newyear-2016/monkey.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center;
+}
+
+.caption {
+    text-align: center;
+    font-size: 2em;
+    padding: 0 .5em;
+}
+
+.content {
+    padding: 0 1em;
+    margin: 1em 0;
+    line-height: 150%;
+    overflow: auto;
+}
+
+.command {
+    margin: 1em 0 0 0;
+    align-self: stretch;
+    -webkit-align-self: stretch;
+}
+
+.command > button {
+    display: block;
+}
+
+button {
+    border: none;
+    background-color: white;
+    color: #000;
+    padding: .8em 1em;
+    font-size: 1.2em;
+    box-shadow: rgba(0, 0, 0, .6) 0 0 .5em;
+}
+
+.footer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: #000;
+    padding: .5em;
+}
+
+.bigwheel {
+    text-align: center;
+}
+
+.bigwheel::after {
+    content: '点击转盘开始抽奖\A猴子的尾巴指着奖励哦';
+    white-space: pre;
+    margin-top: .5em;
+    text-align: center;
+}
+
+.bigwheel ul {
+    margin: .5em;
+    border: white solid .5em;
+    box-shadow: rgba(0, 0, 0, .5) 0px 0px .5em;
+}
+
+.bigwheel ul li:nth-of-type(8n) {
+    background: -webkit-radial-gradient(circle, #61aef5, #005eb5);
+}
+
+.bigwheel ul li:nth-of-type(8n + 1) {
+    background: -webkit-radial-gradient(circle, #ea5300, #b74100);
+}
+
+.bigwheel ul li:nth-of-type(8n + 2) {
+    background: -webkit-radial-gradient(circle, #ee16ab, #a1357f);
+}
+
+.bigwheel ul li:nth-of-type(8n + 3) {
+    background: -webkit-radial-gradient(circle, #8175d6, #50459a);
+}
+
+.bigwheel ul li:nth-of-type(8n + 4) {
+    background: -webkit-radial-gradient(circle, #0ce9de, #03a098);
+}
+
+.bigwheel ul li:nth-of-type(8n + 5) {
+    background: -webkit-radial-gradient(circle, #f76f24, #c04a09);
+}
+
+.bigwheel ul li:nth-of-type(8n + 6) {
+    background: -webkit-radial-gradient(circle, #88cb5a, #459a0b);
+}
+
+.bigwheel ul li:nth-of-type(8n + 7) {
+    background: -webkit-radial-gradient(circle, #ffaa89, #e56635);
+}
+
+.bigwheel ul a {
+    color: white;
+    text-shadow: 0 0 .2em rgba(0, 0, 0, .6);
+}
+
+.bigwheel > button {
+    background-image: url(images/newyear-2016/big-wheel-cursor.png);
+    margin: .5em;
+}
+
+.message-picking #messagePickup {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
+.phone-picking #phonePickup {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+}
+
+input.info {
+    height: 40px;
+    border: 1px solid #B7B0B0;
+    border-radius: 2px;
+    outline: none;
+    text-indent: 5px;
+}
+
+button.info {
+    height: 38px;
+    border: 1px solid #B7B0B0;
+    border-radius: 2px;
+    outline: none;
+    box-sizing: content-box;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 5px;
+}
+
+.address-list {
+    list-style: none;
+}
+
+.address-item {
+    list-style: none;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    margin-bottom: .6em;
+}
+
+.address-item * {
+    color: #333;
+    font-weight: normal;
+}
+
+.address-item > div {
+    padding: 0 .5em;
+}
+
+.contact-info {
+    height: 2.5em;
+    line-height: 2.5em;
+}
+
+.contact-name {
+    font-size: 1.5em;
+    margin-right: 4em;
+}
+
+.contact-phone {
+    font-size: 1.5em;
+}
+
+.address-info {
+    height: 2em;
+    line-height: 2em;
+}
+
+.address {
+    color: #d5d5d5;
+    font-size: 1em;
+}
+
+.operation {
+    height: 2em;
+    line-height: 2em;
+    position: relative;
+}
+
+.select {
+    display: inline-block;
+}
+
+.select input[type='radio'] {
+    display: none;
+}
+
+.select input[type='radio'] + label {
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    flex-flow: row nowrap;
+    -webkit-flex-flow: row nowrap;
+    -moz-box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    align-items: center;
+
+    color: #999;
+}
+
+.select input[type='radio'] + label::before {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: .6em;
+    border-radius: 50%;
+    border: rgba(0, 0, 0, .25) solid 1px;
+    content: '';
+    background-color: #f5f5f5;
+}
+
+.select input[type='radio']:checked + label::before {
+    background-color: #61AEF5;
+    -webkit-box-shadow: inset 0 0 0 .15em white;
+    -moz-box-shadow: inset 0 0 0 .15em white;
+    box-shadow: inset 0 0 0 .15em white;
+}
+
+.action {
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    right: .5em;
+}
+
+.action * {
+    color: #81b9ec;
+}
+
+.action-edit, .action-remove {
+    display: inline-block;
+}
+
+.action-edit {
+    margin-right: .8em;
+}
+
+/* 新增/编辑收货地址 */
+.address-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    font-size: 1.2rem;
+}
+
+.address-content * {
+    color: #333;
+    font-weight: normal;
+}
+
+.address-form {
+    margin: 35px .8em 0 .8em;
+}
+
+.address-form form {
+    margin-bottom: 1em;
+}
+
+.form-item {
+    height: 3.5rem;
+    line-height: 3.5rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.form-item input,
+.form-item textarea {
+    max-width: 60%;
+}
+
+.address-detail {
+    height: 3.5em;
+    line-height: normal;
+}
+
+.address-detail * {
+    vertical-align: top;
+}
+
+.address-detail div {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.address-detail textarea {
+    height: 3em;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    display: inline-block;
+
+    margin-top: 5px;
+}
+
+.btn-form {
+    padding: .2em;
+    width: 45%;
+    border-radius: 2px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    background: #ff531e;
+    color: #fff;
+}
+
+
+.form-item input[type='checkbox'] {
+    display: none;
+}
+
+.form-item input[type='checkbox'] + label {
+    padding: .8em .8em .8em 0;
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    flex-flow: row nowrap;
+    -webkit-flex-flow: row nowrap;
+    -moz-box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    align-items: center;
+}
+
+.form-item input[type='checkbox'] + label::before {
+    display: inline-block;
+    width: .8em;
+    height: .8em;
+    margin-right: .6em;
+    border-radius: .2em;
+    border: rgba(0, 0, 0, .25) solid 1px;
+    content: '';
+    background-color: #f5f5f5;
+}
+
+.form-item input[type='checkbox']:checked + label::before {
+    background-color: #61AEF5;
+    -webkit-box-shadow: inset 0 0 0 .15em white;
+    -moz-box-shadow: inset 0 0 0 .15em white;
+    box-shadow: inset 0 0 0 .15em white;
+}
+
+.area-item {
+    position: relative;
+}
+
+.area {
+    position: absolute;
+    top: 0;
+    right: 5px;
+}
+
+.address-province {
+    margin-top: 1.8em;
+}
+
+.address-province-list {
+    list-style: none;
+    padding: 0 1em;
+}
+
+.address-province-item {
+    border-top: 1px solid #e7e7e7;
+    height: 3em;
+    line-height: 3em;
+}
+
+.address-province-item i {
+    float: right;
+    font-size: 2em;
+    margin-top: .2em;
+    font-weight: lighter;
+    color: #ccc;
+}
+
+
+.address-city {
+    margin-top: 1.8em;
+}
+
+.address-city-list {
+    list-style: none;
+    padding: 0 1em;
+}
+
+.address-city-item {
+    border-top: 1px solid #e7e7e7;
+    height: 3em;
+    line-height: 3em;
+}
+
+.address-city-item i {
+    float: right;
+    font-size: 2em;
+    margin-top: .2em;
+    font-weight: lighter;
+    color: #ccc;
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2362px" height="1098px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2362 1098.33"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil1 {fill:white}
+    .fil0 {fill:white;fill-opacity:0.05}
+   ]]>
+  </style>
+    <mask id="id0">
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="1144.62" y1="43.8234" x2="1144.62" y2="1051.76">
+   <stop offset="0" style="stop-opacity:0.1; stop-color:white"/>
+   <stop offset="0.141176" style="stop-opacity:0.05; stop-color:white"/>
+   <stop offset="1" style="stop-opacity:0; stop-color:white"/>
+  </linearGradient>
+     <rect style="fill:url(#id1)" x="319.068" y="-1.181" width="1651.11" height="1097.95"/>
+    </mask>
+    <mask id="id2">
+  <linearGradient id="id3" gradientUnits="userSpaceOnUse" x1="1245.58" y1="266.94" x2="1116.42" y2="1200.03">
+   <stop offset="0" style="stop-opacity:0.1; stop-color:white"/>
+   <stop offset="0.0901961" style="stop-opacity:0.05; stop-color:white"/>
+   <stop offset="1" style="stop-opacity:0; stop-color:white"/>
+  </linearGradient>
+     <rect style="fill:url(#id3)" x="-1.181" y="367.462" width="2364.36" height="732.049"/>
+    </mask>
+ </defs>
+ <g id="图层_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_153759272">
+   <path id="_153988848" class="fil0" d="M106.484 0l831.841 1097.7c184.932,0 369.623,-1.66521 554.561,0l750.79 -1097.7 -2137.19 0z"/>
+   <polygon id="_110382496" class="fil1" style="mask:url(#id0)" points="320.249,1095.59 669.47,0 889.585,0 1968.99,1095.59 "/>
+   <polygon id="_153758912" class="fil1" style="mask:url(#id2)" points="-0,368.643 262.444,1098.33 1333.39,1098.33 2362,685.898 "/>
+  </g>
+ </g>
+</svg>

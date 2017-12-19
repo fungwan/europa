@@ -1,0 +1,21 @@
+<div class="view-table-pagination">
+    <div class="pagination-message">
+        共<em ng-bind="mRecordTotal"></em>条记录，当前显示第<em ng-bind="mPageNum">2</em>页
+    </div>
+    <ul class="pagination" ng-show="showPageNums.length > 1">
+        <li ng-class="{disabled: mPageNum == 1}">
+            <button href="javascript:;" ng-disabled="mPageNum == 1" ng-click="goPage(mPageNum - 1)">Prev</a>
+        </li>
+        <li ng-repeat="num in showPageNums"
+            ng-class="{current: num == mPageNum}">
+            <button href="javascript:;"
+                ng-bind="num"
+                ng-disabled="mPageNum == num"
+                ng-click="goPage(num)">
+            </button>
+        </li>
+        <li ng-class="{disabled: mPageNum == mPageCount}">
+            <button href="javascript:;" ng-disabled="mPageNum == mPageCount" ng-click="goPage(mPageNum + 1)">Next</button>
+        </li>
+    </ul>
+</div>

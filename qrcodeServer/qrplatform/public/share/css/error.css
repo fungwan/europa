@@ -1,0 +1,46 @@
+.error-img {
+    margin-bottom: 10px;
+    height: 300px;
+    text-align: center;
+}
+
+.error-img img {
+    height: 300px;
+    width: 300px;
+}
+
+.error-msg {
+    text-align: center;
+    color: #6b7371;
+    padding: 0 40px;
+}
+
+.error-msg-title {
+    display: block;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.error-msg-content {
+    font-size: 14px;
+}
+
+.action {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.action button {
+    font-size: 16px;
+    color: #158dec;
+    border: 1px solid  #158dec;
+    padding: 5px 10px;
+    border-radius: 18px;
+    background: #fff;
+    outline: none;
+}
+
+.action button:active {
+    background: #F9F9F9;
+}

@@ -1,0 +1,170 @@
+<div class="manage manageproduct" ng-controller="financeRedpacketManageCtrl">
+    <h3 class="view-title">
+        <i class="fa fa-envelope"></i>
+        红包统计
+    </h3>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item" style="width: 100%;">
+                        <span class="filter-item-label">时间范围:</span>
+                        <span class="filter-item-tab"
+                            ng-class="{selected: redpacketList.queryOptions.datetype == 0}"
+                            ng-click="redpacketList.selectDateType(0)">今天</span>
+                        <span class="filter-item-tab"
+                            ng-class="{selected: redpacketList.queryOptions.datetype == 1}"
+                            ng-click="redpacketList.selectDateType(1)">最近一周</span>
+                        <span class="filter-item-tab"
+                            ng-class="{selected: redpacketList.queryOptions.datetype == 2}"
+                            ng-click="redpacketList.selectDateType(2)">一个月</span>
+                        <span class="filter-item-tab"
+                            ng-class="{selected: redpacketList.queryOptions.datetype == 3}"
+                            ng-click="redpacketList.selectDateType(3)">三个月</span>
+                        <span class="filter-item-tab"
+                            ng-class="{selected: redpacketList.queryOptions.datetype == 4}"
+                            ng-click="redpacketList.selectDateType(4)">自定义</span>
+                    </div>
+                    <div class="filter-item" style="width: 100%;" ng-show="redpacketList.queryOptions.datetype == 4">
+                        <span class="filter-item-label"></span>
+                        <input type="date" 
+                            ng-model="redpacketList.queryOptions.begtime">
+                        ~
+                        <input type="date"
+                            ng-model="redpacketList.queryOptions.endtime" id="redpacketListEndtime">
+                    </div>
+                    <div class="filter-item" style="width: 100%;">
+                        <span class="filter-item-label">红包单号:</span>
+                        <input type="text" class="filter-item-input" placeholder="红包单号" ng-model="redpacketList.queryOptions.code" style="width: 300px;">
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary"
+                        ng-click="redpacketList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default"
+                        ng-click="redpacketList.resetQuery()">
+                        重置
+                    </button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="butn butn-primary" ng-click="redpacketList.download()">
+                <i class="fa fa-download"></i>
+                导出红包记录
+            </button>
+        </m-action>
+    </div>
+    <div class="view-table" id="redpacketTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>红包单号</th>
+                    <th>红包状态</th>
+                    <th>红包金额（元）</th>
+                    <th>创建时间</th>
+                    <th>发送时间</th>
+                    <th>详情</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in redpacketList.items">
+                    <td ng-bind="item.billno"></td>
+                    <td ng-bind="item.state | FbillState"></td>
+                    <td ng-bind="item.amount | toFixed"></td>
+                    <td ng-bind="item.createtime"></td>
+                    <td ng-bind="item.sendtime"></td>
+                    <td style="padding: 0;">
+                        <button class="butn butn-link"
+                            ng-click="redpacketForm.show(item)">
+                            <i class="fa fa-list"></i>
+                            查看详情
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="redpacketForm.showForm">
+        <div class="shade">
+            <div class="content" style="width: 500px;">
+                <div class="content-top">
+                    <h3 class="title">红包详情</h3>
+                </div>
+                <div class="content-body">
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            红包单号
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="redpacketForm.redpacketInfo.detail_id || '无'"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            商户订单号
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="redpacketForm.redpacketInfo.mch_billno || '无'"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            红包状态
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="(redpacketForm.redpacketInfo.status | FhbStatus) || '未知状态'"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            红包金额（元）
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="(redpacketForm.redpacketInfo.total_amount | FtotalFee) || '----'"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            发送时间
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="redpacketForm.redpacketInfo.send_time || '----'"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            祝福语
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="redpacketForm.redpacketInfo.wishing || '无'"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            退款时间
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="redpacketForm.redpacketInfo.refund_time || '----'"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <h4 class="input-group-label">
+                            失败原因
+                        </h4>
+                        <div class="input-group-input">
+                            <span ng-bind="redpacketForm.redpacketInfo.reason || '无'"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <button class="butn butn-default"
+                        ng-click="redpacketForm.close()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

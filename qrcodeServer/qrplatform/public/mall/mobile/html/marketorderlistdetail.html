@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marketorderlistdetail.css">
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="panel-overlay"></div>
+        <div class="panel panel-right panel-reveal theme-dark" id='panel-js-demo'>
+            <div class="content-block">
+                <p style="display:none;" class="poststatus">暂无物流信息</p>
+                <p class="postname"></p>
+                <p class="postbm"></p>
+                <div class="addrlist" id="addrlist">
+
+                </div>
+            </div>
+        </div>
+        <div class="page page-current" id="index">
+
+        </div>
+        <!--评价晒单-->
+        <div class="page" id="evaluate">
+            <div class="content">
+                <!--列表-->
+                <div>
+                    <div class="card" style="margin: 0">
+                    </div>
+                    <div class="card-content">
+                        <div class="list-block media-list">
+                            <ul class="orderlistdetailbox" id="pingbox">
+                                <!--<li class="item-content">-->
+                                <!--<div class="item-media">-->
+                                <!--<img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="80">-->
+                                <!--</div>-->
+                                <!--<div class="item-inner">-->
+                                <!--<div class="item-title-row">-->
+                                <!--<div class="item-title">阿萨德撒的撒大所大所大所大所多撒大所大大大所大所大所大所大</div>-->
+                                <!--</div>-->
+                                <!--<div class="item-subtitle" style="height: 40px;"><a href="#evaluatedetail" class="button button-light" style="width: 80px;float: right;margin-top: 10px;">评价晒单</a></div>-->
+                                <!--</div>-->
+                                <!--</li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--评价晒单详细-->
+    <div class="page" id="evaluatedetail">
+        <nav class="bar bar-tab" style="height: 4rem">
+            <span class="button button-big button-success button-fill" id="pingjiaback" style=" height: 1.5rem;
+                                                                                                background: #c1c1c1;
+                                                                                                margin-bottom: 0.25rem;
+                                                                                                line-height: 1.5rem;">返回</span>
+            <span data-score="5" data-leve="0" class="button button-big button-success button-fill" id="pingjiasub" style="height:1.5rem;line-height:1.5rem;margin-bottom:0.25rem">提交</span>
+
+        </nav>
+        <div class="content">
+            <!--列表-->
+            <div id="">
+                <div class="card" style="margin: 0">
+                </div>
+                <div class="card-content">
+                    <div class="list-block media-list">
+                        <ul class="orderlistdetailbox">
+                            <li class="item-content">
+                                <div class="item-media">
+                                    <img id="pingsrc" width="80" height="80">
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">评分</div>
+                                    </div>
+                                    <div class="item-subtitle" id="js-star">
+                                        <span class="iconfont icon-heart1" data-num=0></span>
+                                        <span class="iconfont icon-heart1" data-num=1></span>
+                                        <span class="iconfont icon-heart1" data-num=2></span>
+                                        <span class="iconfont icon-heart1" data-num=3></span>
+                                        <span class="iconfont icon-heart1" data-num=4></span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="list-block">
+                            <ul style="background:#eee">
+                                <li class="align-top">
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-input">
+                                                <textarea style="font-size: 0.7rem" id="evamsg" placeholder="写下购买体会和其他小伙伴分享"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+    <script>
+        $("#picker").picker({
+            toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">选择时间</h1>\
+  </header>',
+            cols: [{
+                textAlign: 'center',
+                values: ['近一个月', '近三个月', '近六个月', '近一年', '全部']
+            }]
+        });
+    </script>
+    <script type='text/javascript' src='../js/static/moment.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../js/marketorderlistdetail.js' charset='utf-8'></script>
+    <script>
+        $.init()
+</script>
+</body>
+
+</html>

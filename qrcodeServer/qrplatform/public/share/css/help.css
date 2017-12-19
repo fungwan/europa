@@ -1,0 +1,98 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    font-size: 1em;
+    font-family: "Open Sans", "Microsoft Yahei", Verdana;
+    font-weight: normal;
+    outline: none;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-margin-collapse: separate;
+    word-break: break-all;
+    background-repeat: no-repeat;
+    font-size: 13px;
+    background-color: rgb(70, 142, 251);
+    background-image: -webkit-linear-gradient(top, rgb(74, 229, 254), rgb(70, 142, 251));
+}
+
+
+.main {
+    perspective: 750px;
+}
+
+.title {
+    font-size: 60px;
+    padding: 20px;
+    margin-top: 15px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: rgba(0, 0, 0, 0.3) 3px 3px 0px;
+    transform-origin: 50% 0% 0px;
+    transform: rotateY(20deg);
+}
+
+.max-point {
+    text-align: center;
+    color: #f2f2f2;
+    font-size: 20px;
+}
+
+.point {
+    // color: #2a0f52;
+}
+
+.description {
+    padding: 30px;
+    color: #f2f2f2;
+}
+
+.description h4 {
+    font-size: 20px;
+}
+
+.description ul {
+    padding-left: 20px;
+}
+
+.current-point {
+    text-align: center;
+    color: #f3f3f3;
+    font-size: 18px;
+}
+
+.action {
+    text-align: center;
+    padding: 20px;
+}
+
+.action button {
+    font-size: 20px;   
+    color: rgb(74, 133, 254);
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 0px 2px;
+    padding: 8px 20px;
+    border: none;
+}
+
+.note {
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+    color: #f2f2f2;
+}

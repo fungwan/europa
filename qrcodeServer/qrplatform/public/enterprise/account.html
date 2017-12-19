@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>万码易联 - 企业平台 - 企业信息</title>
+    <link rel="stylesheet" type="text/css" href="../themes/common.css" />
+</head>
+<body>
+
+<div class="fw">
+    <h1>企业资料</h1>
+
+    <h3>请完善贵单位的资料，以享受本公司提供的更为优质的服务以及更多的功能。</h3>
+
+    <div class="editorGroup">
+        <div class="editorItem">
+            <label>企业名称</label>
+            <input type="text" name="entname" placeholder="请输入企业名称" data-lang-name="企业名称" required
+                   style="width: 480px;" maxlength="25"/>
+        </div>
+    </div>
+    <div class="editorGroup">
+        <div class="editorItem">
+            <label>企业Logo</label>
+            <img src="../themes/default/images/noimg.jpg" style="width: 80px; height: 80px; margin-right: 10px; background: #fff" id="logoImg">
+            <button id="logoFile" class="wfico ico_upload" style="display: inline-block;background: #019fde; color: #fff;">上传Logo</button>
+            <input type="hidden" name="imageurl">
+            <span style="display: block; color:red; font-size: 16px;display: none;" id="logoError">文件太大或者格式错误，请选择小于500KB的图片文件</span>
+        </div>
+    </div>
+    <div class="editorGroup">
+        <div class="editorItem">
+            <label>联系人</label>
+            <input type="text" name="entcontact" placeholder="请输入联系人姓名" data-validateKey="ent-contacts"
+                   data-lang-name="联系人" maxlength="10" pattern="(^[\u4e00-\u9fa5]+$)|(^[a-zA-Z]+$)"
+                   required style="width: 200px;"/>
+        </div>
+        <div class="editorItem">
+            <label>联系电话/座机电话</label>
+            <input type="text" name="entphone" placeholder="请输入联系电话/座机电话" data-lang-name="联系电话" required
+                style="width: 270px;" pattern="(^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^1[34578]\d{9}$)" />
+        </div>
+    </div>
+    <div class="editorGroup">
+        <div class="editorItem">
+            <label>企业地址</label>
+
+            <div class="buttonGroup vButtonGroup">
+                <button data-type="citypicker" data-popup="citypicker" data-level="top" name="areacode">选择区域</button>
+                <input type="text" name="entaddr" placeholder="请输入详细地址" data-lang-name="详细地址"
+                       maxlength="50" style="width: 480px;"/>
+            </div>
+            <!--<input type="text" name="contactor" placeholder="请输入联系人姓名" data-lang-name="联系人" data-required="true" style="width: 200px;" />-->
+        </div>
+    </div>
+    <div id="ent-msg"></div>
+    <div class="editorGroup">
+        <button value="save" class="wfico ico_save commit" data-lang="保存"></button>
+    </div>
+</div>
+
+<div class="fb ccBox" id="completed">
+    <div class="ccBox">
+        <div class="logo"></div>
+        <h3>非常感谢您的支持，您现在可以使用我们提供的功能与服务了！</h3>
+
+        <div class="buttonGroup">
+            <button value="close" class="cancel">我知道了</button>
+            <button value="go" class="commit">立即体验</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../scripts/lib/moxie.min.js"></script>
+<script type="text/javascript" src="../scripts/lib/plupload.min.js"></script>
+<script type="text/javascript" src="../scripts/lib/qiniu.min.js"></script>
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.account" data-deps="citypicker"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<div class="qoupon-addproduction">
+    <div class="add-production-container">
+        <div class="add-production-container-header">
+            <!--关闭按钮-->
+            <i class="fa fa-times-circle" ng-click="lotteryForm.getBack()" title="关闭">
+            </i>
+        </div>
+
+        <!--搜索 start-->
+        <div class="production-filter">
+            <div class="filter-up">
+                <div>
+                    <label>商品名称：</label>
+                    <input type="text" ng-model="lotteryForm.defaultProductionQuery.query.productname">
+                </div>
+            </div>
+            <div style="margin:10px auto 0 auto">
+                <button class="butn butn-primary" ng-click="lotteryForm.getProductionList(1)">
+                        <i class="fa fa-search"></i> 查询
+                </button>
+                <button class="butn butn-default" ng-click="lotteryForm.resetProduct()">
+                        <i class="fa fa-undo"></i> 重置
+                </button>
+            </div>
+        </div>
+        <!--搜索 end-->
+
+        <div class="view-table" id="mallproductiontable">
+            <table style="table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th width="160px">商品名称</th>
+                        <th width="140px">描述</th>
+                        <th width="80px">价格</th>
+                        <th width="60px">状态</th>
+                        <th width="60px">库存</th>
+                        <th width="60px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in lotteryForm.mallProductList">
+                        <td ng-bind="item.productname"></td>
+                        <td ng-bind="item.productinfo"></td>
+                        <td ng-bind="item.cost.toFixed(2)"></td>
+                        <td>
+                            <span ng-bind="item.state | forstate"></span>
+                        </td>
+                        <td ng-bind="item.amount"></td>
+                        <td style="padding: 0">
+                            <button class="butn butn-link" ng-click="lotteryForm.addProduction(item)">
+                                <i class="fa fa-plus"></i>
+                                <span> 添加</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>

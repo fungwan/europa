@@ -1,0 +1,119 @@
+<div class="shade sale" ng-init="productForm.initForm()">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">编辑商品</h3>
+        </div>
+        <div class="content-body">
+            <div class="input-group heaitebox heaiteboxtop">
+                <div class="heaite">
+                    <h4 class="input-group-label">
+                        商品名称 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="text" placeholder=" 商品名称不超过100个字" 
+                            ng-model="productForm.product.productname"
+                            ng-class="{error: productForm.errors.productname}">
+                        <span class="error-msg" ng-if="productForm.errors.productname">
+                            {{productForm.errors.productname}}
+                        </span>
+                    </div>
+                </div>
+                <div class="heaite">
+                    <h4 class="input-group-label">
+                        成本 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="number" placeholder="请输入不超过2位小数的正数" 
+                            ng-model="productForm.product.cost"
+                            ng-class="{error: productForm.errors.cost}">
+                        <span class="error-msg" ng-if="productForm.errors.cost">
+                            {{productForm.errors.cost}}
+                        </span>
+                    </div>
+                </div>
+                <div class="heaite">
+                    <h4 class="input-group-label">
+                        售价 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="number" placeholder="请输入不超过2位小数的正数" 
+                            ng-model="productForm.product.price"
+                            ng-class="{error: productForm.errors.price}">
+                        <span class="error-msg" ng-if="productForm.errors.price">
+                            {{productForm.errors.price}}
+                        </span>
+                    </div>
+                </div>
+                <div class="heaite">
+                    <h4 class="input-group-label">
+                        商品总数 <span class="require">*</span>
+                    </h4>
+                    <div class="input-group-input">
+                        <input type="number" placeholder=" 商品总数为正整数" 
+                            ng-model="productForm.product.amount"
+                            ng-class="{error: productForm.errors.amount}">
+                        <span class="error-msg" ng-if="productForm.errors.amount">
+                            {{productForm.errors.amount}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group heaitebox">
+                <h4 class="input-group-label">
+                    商品描述 <span class="require">*</span>
+                </h4>
+                <div class="input-group-input">
+                    <input type="text" placeholder="商品描述不超过200个字" 
+                        ng-model="productForm.product.productinfo" style="width:81%"
+                        ng-class="{error: productForm.errors.productinfo}">
+                    <span class="error-msg" ng-if="productForm.errors.productinfo">
+                        {{productForm.errors.productinfo}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-group" style="margin-bottom: 10px;">
+                <h4 class="input-group-label">
+                    商品轮播图片上传
+                    <span class="require">*</span>
+                    <span style="font-size: 12px;">
+                        （不超过10张）
+                    </span>
+                </h4>
+                <div class="input-group-input" id="btnbox">
+                    <button class="butn butn-primary" id="pickfiles">
+                        <i class="fa fa-cloud-upload"></i> 上传图片
+                    </button>
+                    <span class="error-msg" ng-if="productForm.errors.images">
+                        {{productForm.errors.images}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="img-preview-item" ng-repeat="item in productForm.imgItems">
+                    <img ng-src="{{item.src}}">
+                    <div class="cover">
+                        <a href="javascript:;" class="img-remove" title="移除图片" ng-click="productForm.removeImg(item)">
+                            <i class="fa fa-close"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group heaitebox">
+                <h4 class="input-group-label">
+                    商品详情编辑 <!-- <span class="require">*</span> -->
+                </h4>
+                <!-- <div class="input-group-input">
+                    <span class="error-msg" ng-if="productForm.errors.htmlinfo">
+                        {{productForm.errors.htmlinfo}}
+                    </span>
+                </div> -->
+            </div>
+            <div id="divedit" style="min-height:1000px;">
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="productForm.confirmClose()">取消</button>
+            <button class="butn butn-primary" ng-click="productForm.confirmUpdate()">保存</button>
+        </div>
+    </div>
+</div>

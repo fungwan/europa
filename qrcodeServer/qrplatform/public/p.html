@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+    <script type="text/javascript" src="templates/js/jquery.js"></script>
+    <script type="text/javascript" src="templates/js/jquery.transit.min.js"></script>
+    <script type="text/javascript" src="mall/mobile/config.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="templates/js/activity.js"></script>
+    <script type="text/javascript" src="templates/js/p.js"></script>
+    <link href="templates/css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="templates/css/se.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .tooltip {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            visibility: hidden;
+            background-color: rgba(255, 255, 255, .5);
+            -webkit-transform: scale(0);
+            -moz-transform: scale(0);
+            -ms-transform: scale(0);
+            -o-transform: scale(0);
+            transform: scale(0);
+        }
+
+        .tooltip-content {
+            background-color: rgba(0, 0, 0, .8);
+            color: white;
+            padding: 1em;
+            font-size: .8em;
+            -webkit-border-radius: .25em;
+            -moz-border-radius: .25em;
+            border-radius: .25em;
+        }
+
+        .loading .tooltip {
+            visibility: visible;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            -o-transform: scale(1);
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+<div id="main"></div>
+<div class="pickup box box-tb box-pack-center box-align-center" id="pickup">
+    <div class=" box box-tb pickup-content">
+        <div class="title">输入手机号参与活动</div>
+        <div class="content" name="content"></div>
+        <div class="box box-tb">
+            <div class="box box-lr" style="background-color: red;">
+                <input class="flex info" name="phone" id='pickup_phone' type="tel" placeholder="请输入您的手机号码" maxlength="11"/>
+            </div>
+            <div id="pickupMessage"></div>
+        </div>
+        <div class="command box box-lr">
+            <button class="flex submit" value="sendMoney" id="pickup_submit">提交</button>
+        </div>
+    </div>
+</div>
+<div class="tooltip box box-tb box-align-center box-pack-center">
+    <div class="tooltip-content"></div>
+</div>
+</body>
+</html>

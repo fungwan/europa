@@ -1,0 +1,11 @@
+<div class="view-bar view-opt-group">
+    <section class="search-form" ng-transclude="form"
+        ng-class="{collapse: isCollapse}"></section>
+    <section class="action-bar" ng-transclude="action"
+        ng-class="{collapse: isCollapse}"></section>
+    <a href="javascript:;" class="search-form-toggle-btn"
+        ng-click="toggleCollapse()">
+        <i class="icon fa"
+            ng-class="{'fa-angle-double-up': !isCollapse, 'fa-angle-double-down': isCollapse}"></i>
+    </a>
+</div>

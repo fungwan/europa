@@ -1,0 +1,33 @@
+<div class="shade">
+    <div class="content">
+        <div class="content-top">
+            <h3 class="title">新增商品分类</h3>
+        </div>
+        <div class="content-body">
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    商品类别名称 <span class="require">*</span>
+                </h4>
+                <div class="input-group-input">
+                    <input type="text" placeholder="请输入商品类别名称" ng-model="categoryForm.category.name"
+                    ng-class="{error: categoryForm.errors.name}">
+                    <span class="error-msg" ng-if="categoryForm.errors.name">{{categoryForm.errors.name}}</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="input-group-label">
+                    商品类别描述
+                </h4>
+                <div class="input-group-input">
+                    <textarea placeholder="请输入商品类别描述" ng-model="categoryForm.category.categorydesc"
+                    ng-class="{error: categoryForm.errors.categorydesc}"></textarea>
+                    <span class="error-msg" ngi-if="categoryForm.errors.categorydesc">{{categoryForm.errors.categorydesc}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="categoryForm.closeForm()">取消</button>
+            <button class="butn butn-primary" ng-click="categoryForm.saveCategory()">保存</button>
+        </div>
+    </div>
+</div>

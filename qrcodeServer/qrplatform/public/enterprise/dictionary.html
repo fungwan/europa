@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../themes/common.css"/>
+    <title></title>
+</head>
+<body>
+<div class="groupManage">
+    <div class="wfico ico_hand_right" id="hand"></div>
+    <div class="groupMenu">
+        <div class="pageIcon horizontalFlexBox">
+            <div class="icoManage icoManageGroup " style="background-color: #ff855c;"></div>
+            <h2 class="flex">分组管理</h2>
+        </div>
+        <div class="menu verticalFlexBox">
+            <div class="item selected " data-value="dealerGroup">经销商</div>
+            <div class="item" data-value="customerGroup">消费者</div>
+        </div>
+    </div>
+    <div style=" margin: 30px 20px 0px 20px;flex: 1;position: relative">
+        <div class="dealerGroupInfo" id="dealerGroup">
+            <div class="buttonGroups">
+                <button id="dealerGroupDelete" class="wfico ico_trash">删除</button>
+                <button id="dealerGroupAdd" class="wfico ico_add">添加分组</button>
+                <button id="dealerGroupSave" class="wfico ico_save">保存修改</button>
+                <div>
+                    <input id="querydealer" type="text" placeholder="输入分组名称"><button id="queryd" class="wfico ico_query">查询</button>
+                </div>
+            </div>
+            <div class="dealerGroupList datagrid"></div>
+            <div id="dealerMessage"></div>
+        </div>
+        <div class="customerGroupInfo" id="customerGroup">
+            <div class="buttonGroups">
+                <button id="customerGroupDelete" class="wfico ico_trash">删除</button>
+                <button id="customerGroupAdd" class="wfico ico_add">添加分组</button>
+                <button id="customerGroupSave" class="wfico ico_save">保存修改</button>
+                <div>
+                    <input id="querycustomer" type="text" placeholder="输入分组名称"><button id="queryc" class="wfico ico_query">查询</button>
+                </div>
+            </div>
+            <div class="customerGroupList datagrid"></div>
+            <div id="customerMessage"></div>
+        </div>
+    </div>
+
+
+</div>
+<script id="require" src="../scripts/lib/require.js" type="text/javascript" data-main="../scripts/lib/entrance"
+        data-module="enterprise.dictionary" data-deps="dateTimePicker,colorPicker,datagrid"></script>
+</body>
+</html>

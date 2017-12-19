@@ -1,0 +1,131 @@
+<div class='view'>
+    <h3 class="view-title">
+        <i class="fa fa-bar-chart-o"></i> 订单分析
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">数据分析</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">订单统计</a>
+            </li>
+        </ul>
+    </div>
+
+    <!--content-->
+
+    <div class="member">
+
+        <!--顶部栏 start-->
+
+        <div class="member-top">
+
+            <!--筛选 start-->
+            <div class="member-filter">
+                <div class="filter-item filter-position">
+                    <span class="item-label">地区:</span>
+                    <select ng-model="orderList.selectedProvince" ng-change="provinceChange(orderList.selectedProvince)">
+                            <option value="">不限</option>
+                            <option ng-repeat="item in orderList.provinceList" 
+                                    ng-bind="item.name" 
+                                    value="{{item.code}}">
+                            </option>
+                    </select>
+                    <select ng-model="orderList.selectedCity">
+                            <option value="">请先选择省份</option>
+                            <option ng-repeat="item in orderList.cityList" 
+                                    ng-bind="item.name" 
+                                    value="{{item.code}}">
+                            </option>
+                    </select>
+                </div>
+                <div class="filter-item filter-production">
+                    <span class="item-label">商品:</span>
+                    <select ng-model="orderList.productid">
+                        <option value="">所有</option>
+                        <option ng-repeat="item in orderList.productionList" 
+                                ng-bind="item.productname" 
+                                value="{{item.productid}}">
+                        </option>
+                    </select>
+                </div>
+                <div class="filter-item filter-points">
+                    <span class="item-label">时间:</span>
+                    <input type="date" class="filter-item-input" placeholder="请选择开始时间" ng-model="orderList.defaultQuery.begtime"> -
+                    <input type="date" class="filter-item-input" placeholder="请选择开始时间" ng-model="orderList.defaultQuery.endtime">
+                </div>
+                <div class="filter-item filter-cal">
+                    <button class="butn butn-primary" ng-click="orderList.getOrderList(1)">
+                        <i class="fa fa-pencil"></i>
+                         统计
+                    </button>
+                </div>
+            </div>
+            <!--筛选 end-->
+
+            <!--订单总数 start-->
+            <div class="member-number">
+                <div>
+                    <div class="number-title">共：</div>
+                    <div class="number-content">
+                        <span ng-bind="orderList.totalOrder"></span>单
+                    </div>
+                </div>
+            </div>
+            <!--订单总数 end-->
+
+            <!--积分总数 start-->
+            <div class="member-number">
+                <div>
+                    <div class="number-title">合计：</div>
+                    <div class="number-content">
+                        <span ng-bind="orderList.totalPoint"></span>分
+                    </div>
+                </div>
+            </div>
+            <!--积分总数 end-->
+
+            <!--饼状图 start-->
+            <div class="member-echarts" id="orderChart"></div>
+            <!--饼状图 end-->
+        </div>
+
+        <!--顶部栏 end-->
+
+        <!--数据表格 start-->
+        <div class="member-table">
+            <div class="view-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>省/市</th>
+                            <!--<th>市</th>-->
+                            <th>订单数</th>
+                            <th>总消耗积分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in orderList.orderList">
+                            <td ng-bind="item.full || '其他'"></td>
+                            <!--<td ng-bind="item.city"></td>-->
+                            <td ng-bind="item.s_order"></td>
+                            <td ng-bind="item.s_point"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="mapChart"></div>
+
+        </div>
+        <!--数据表格 end-->
+        
+    </div>
+</div>

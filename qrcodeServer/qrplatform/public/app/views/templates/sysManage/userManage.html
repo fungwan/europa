@@ -1,0 +1,83 @@
+<div class="view">
+    <h3 class="view-title">
+        <i class="fa fa-user"></i>
+        用户管理
+    </h3>
+    <div class="view-bar">
+        <ul class="view-breadcrumb">
+            <li class="view-breadcrumb-item">
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <span>后台管理</span>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="view-breadcrumb-item">
+                <a href="javascript:;">用户管理</a>
+            </li>
+        </ul>
+    </div>
+    <div m-view-opt-group>
+        <m-form>
+            <form>
+                <div class="filter">
+                    <div class="filter-item">
+                        <span class="filter-item-label">账户名称:</span>
+                        <input type="text" class="filter-item-input" placeholder="请输入账户名称" ng-model="roleList.queryOptions.query.useraccount">
+                    </div>
+                </div>
+                <div class="action">
+                    <button class="butn butn-primary" ng-click="roleList.query(1)">
+                        <i class="fa fa-search"></i>
+                        查询
+                    </button>
+                    <button class="butn butn-default" ng-click="roleList.resetQuery()">重置</button>
+                </div>
+            </form>
+        </m-form>
+        <m-action>
+            <button class="action-bar-item butn butn-danger" style="visibility: hidden;">
+                <i class="fa fa-trash"></i>
+                删除
+            </button>
+        </m-action>
+    </div>
+    <div class="view-table">
+        <table>
+            <thead>
+            <tr>
+                <th width="100px">账户名称</th>
+                <th width="100px">账户状态</th>
+                <th width="100px">角色名称</th>
+                <th>描述</th>
+                <th width="100px">分配角色</th>
+                <th width="100px">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in roleList.items">
+                <td ng-bind="item.useraccount"></td>
+                <td ng-bind="item | userstate"></td>
+                <td ng-bind="item.roleid | roleState"></td>
+                <td ng-bind="item.roleid | roleDesc"></td>
+                <td>
+                    <button class="butn butn-link" ng-click="roleForm.showSetRoleForm(item)" ng-disabled="(item.roleid=='erathink')">
+                    <i class="fa fa-sitemap"></i>
+                        分配角色
+                    </button>
+                </td>
+                <td>
+                    <button class="butn butn-link" ng-click="roleList.frozen(item)" ng-bind="item.confirmed | updateUserState" ng-disabled="(item.roleid=='erathink')">
+                        <i class="fa fa-ban"></i>
+
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="roleForm.showSetRole"
+         ng-include="'views/templates/sysManage/userPrivilegeManage.html'"></div>
+</div>

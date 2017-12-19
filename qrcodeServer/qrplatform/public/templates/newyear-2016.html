@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="css/se.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../scripts/lib/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="js/jquery.transit.min.js"></script>
+    <script type="text/javascript" src="js/jquery.eraser.min.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript">
+        var _activeType = "redpacket", _defaultPageSetting = {
+            lotteryMode: "bigwheel",
+            extend: {
+                body: {
+                    id: "body",
+                    backgroundImage: "",
+                    backgroundColor: "#51c2c6",
+                    color: "#ffffff"
+                },
+                header: {
+                    id: "header",
+                    heightPercent: 25,
+                    backgroundImage: "/templates/css/images/newyear-2016/header.jpg",
+                    backgroundColor: "#51c2c6",
+                    color: "#ffffff"
+                }
+            }
+        }, _defaultSettings = {
+            shortname: "Happy new year"
+        }, _css = {
+            "bigwheel": "box box-tb box-align-center",
+            "scratchcard": "box box-tb box-pack-center"
+        };
+
+        function _windowSizeChanged() {
+            var win = $(window), w = win.width(), h = win.height();
+        }
+    </script>
+    <style type="text/css">
+        body {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+            /*background-image: url("css/images/newyear-2016/background.png");*/
+        }
+
+        .caption {
+            text-align: center;
+            font-size: 2em;
+            padding: 0 .5em;
+        }
+
+        .content {
+            padding: 0 1em;
+            margin: 1em 0;
+            line-height: 150%;
+            overflow: auto;
+        }
+
+        .command {
+            margin: 1em 0 0 0;
+            align-self: stretch;
+            -webkit-align-self: stretch;
+        }
+
+        .command > button {
+            display: block;
+        }
+
+        button {
+            border: none;
+            background-color: white;
+            color: #000;
+            padding: .8em 1em;
+            font-size: 1.2em;
+        }
+
+        .bigwheel::after {
+            content: '点击转盘开始抽奖\A猴子的尾巴指着奖励哦';
+            white-space: pre;
+            margin-top: .5em;
+            text-align: center;
+        }
+
+        .bigwheel ul {
+            margin: .5em;
+            border: white solid .5em;
+            box-shadow: rgba(0, 0, 0, .5) 0px 0px .5em;
+        }
+
+        .bigwheel ul li:nth-of-type(8n) {
+            background: -webkit-radial-gradient(circle, #61aef5, #005eb5);
+        }
+
+        .bigwheel ul li:nth-of-type(8n + 1) {
+            background: -webkit-radial-gradient(circle, #ea5300, #b74100);
+        }
+
+        .bigwheel ul li:nth-of-type(8n + 2) {
+            background: -webkit-radial-gradient(circle, #ee16ab, #a1357f);
+        }
+
+        .bigwheel ul li:nth-of-type(8n + 3) {
+            background: -webkit-radial-gradient(circle, #8175d6, #50459a);
+        }
+
+        .bigwheel ul li:nth-of-type(8n + 4) {
+            background: -webkit-radial-gradient(circle, #0ce9de, #03a098);
+        }
+
+        .bigwheel ul li:nth-of-type(8n + 5) {
+            background: -webkit-radial-gradient(circle, #f76f24, #c04a09);
+        }
+
+        .bigwheel ul li:nth-of-type(8n + 6) {
+            background: -webkit-radial-gradient(circle, #88cb5a, #459a0b);
+        }
+
+        .bigwheel ul li:nth-of-type(8n + 7) {
+            background: -webkit-radial-gradient(circle, #ffaa89, #e56635);
+        }
+
+        .bigwheel ul a {
+            color: white;
+            text-shadow: 0 0 .2em rgba(0, 0, 0, .6);
+        }
+
+        .bigwheel > button {
+            background-image: url(css/images/newyear-2016/big-wheel-cursor.png);
+            margin: .5em;
+        }
+
+        .slotmachine > .box > div {
+            background-image: url(css/images/newyear-2016/slotmachine.banner.svg);
+        }
+
+        #pickup .info {
+            border: rgba(0, 0, 0, .2) solid;
+            border-width: 1px 0 0 0;
+            border-radius: 0;
+            padding: .75em 1em;
+            font-size: 1em;
+            -webkit-box-shadow: none !important;
+            -moz-box-shadow: none !important;
+            box-shadow: none !important;
+            display: block;
+        }
+
+        #pickup button.info {
+            background-color: #e2e2e2;
+            padding: .75em 1em;
+            font-size: 1em;
+        }
+
+        #pickup .command {
+            margin: 0;
+        }
+
+        #pickupMessage {
+            padding: .75em 1em;
+            color: black;
+            background-color: #ffff00;
+            border: rgba(0, 0, 0, .2) solid;
+            border-width: 1px 0 0 0;
+        }
+
+        .footer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            color: #000;
+            padding: .5em;
+        }
+
+        .header {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+        }
+    </style>
+</head>
+<body id="body" data-editable="true">
+<div class="main box box-tb">
+    <div id="header" class="header" data-resizeable="true" data-editable="true"></div>
+    <div class="pages flex">
+        <div class="page box box-tb" data-step="base">
+            <div name="description" class="content flex"></div>
+            <div class="command box box-lr">
+                <button class="flex" value="1">参与活动</button>
+            </div>
+        </div>
+        <div class="page box box-tb" data-step="point">
+            <div name="description" class="content flex"></div>
+            <div class="command box box-lr">
+                <button class="flex" value="sendPoint">领取积分</button>
+            </div>
+        </div>
+        <div class="page box box-tb box-pack-center box-align-center" data-step="lottery">
+            <div id="lottery"></div>
+        </div>
+        <div class="page box box-tb" data-step="question">
+            <form id="question"></form>
+            <div class="command box box-lr">
+                <button class="flex" value="sendAnswer">提交问卷</button>
+            </div>
+        </div>
+        <div class="page box box-tb" data-step="result">
+            <div class="caption" id="result-caption"></div>
+            <div class="flex" id="result-content"></div>
+            <div class="command box box-lr">
+                <button class="flex" value="close">关闭页面</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Powered by EraThink Co.,Ltd.
+    </div>
+</div>
+
+<div class="pickup box box-tb box-pack-center box-align-center" id="pickup">
+    <div class=" box box-tb pickup-content">
+        <div class="title"></div>
+        <div class="content" name="content"></div>
+        <div class="box box-tb">
+            <div class="box box-lr" style="background-color: red;">
+                <input class="flex info" name="phone" type="tel" placeholder="请输入您的手机号码"/>
+            </div>
+            <div id="pickupMessage"></div>
+        </div>
+        <div class="command box box-lr">
+            <button class="flex submit" value="sendMoney" id="btn_sendmoney" disabled>领取红包</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/fill.js"></script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+.s01 {
+    background-image: url(../images/banner.enterprise.solution.jpg);
+}
+
+.fw {
+    width: 1000px;
+}
+
+.bigTitle {
+    text-align: center;
+    font-size: 56px;
+    padding: 0;
+    color: #2c333a;
+}
+
+#generalize {
+    z-index: 4;
+    background: linear-gradient(#f0f9ff, #f0f9ff, white);
+}
+
+#activityMenus {
+    padding: 30px 0 0 0;
+    background-color: white;
+    z-index: 3;
+    align-content: center;
+    border-bottom: rgba(0, 0, 0, .1) solid 1px;
+}
+
+#activityMenus > .fw {
+    justify-content: space-between;
+}
+
+#activityMenus input {
+    display: none;
+}
+
+#activityMenus label {
+    background-color: transparent !important;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    font-size: 18px;
+    padding: 20px 50px;
+    cursor: pointer;
+    color: #828282;
+    margin-bottom: -1px;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+#activityMenus label:hover {
+    color: #000;
+}
+
+#activityMenus label::before {
+    font-family: FontAwesome;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+#activityMenus input:checked + label {
+    background-color: #f5f5f5 !important;
+    border-color: rgba(0, 0, 0, .1);
+    color: #1b88ee;
+}
+
+#activityMenus .sep {
+    width: 1px;
+    background-color: #e2e2e2;
+    margin: 20px;
+}
+
+#activityMenus button {
+    border-color: transparent;
+    padding: 20px 50px;
+    border-radius: 0;
+    font-size: 28px;
+    background-color: transparent;
+    color: #61AEF5;
+    margin-bottom: -1px;
+}
+
+#activityMenus button:hover {
+    color: #1b88ee;
+}
+
+#activityMenus button.opened {
+    background-color: #1b88ee;
+    color: white;
+    border-color: rgba(0, 0, 0, .1);
+}
+
+#activityExtendMenu button {
+    font-size: 14px;
+}
+
+.columnItems {
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 30px 0;
+    align-items: center;
+    z-index: 2;
+}
+
+.columnItems input {
+    display: none;
+}
+
+.columnItems::before, .columnItems::after {
+    height: 1px;
+    flex: 1;
+    content: '';
+}
+
+.columnItems label {
+    background-color: transparent !important;
+    border: none;
+    border-radius: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-size: 18px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.columnItems label > div {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, .6);
+    background-color: #0b2443;
+    box-shadow: inset rgba(0, 0, 0, .25) 0 2px 3px;
+    pointer-events: none;
+    transform: scale(1);
+    transition: transform 200ms;
+}
+
+.columnItems label > div::before {
+    font-family: FontAwesome;
+    font-size: 28px;
+}
+
+.columnItems label::after, .columnItems label::before {
+    pointer-events: none;
+    width: 30px;
+    content: '';
+}
+
+.columnItems label:hover {
+    background-color: transparent !important;
+}
+
+.columnItems label:hover > div {
+    color: white;
+}
+
+.columnItems input:checked + label > div {
+    background-color: white !important;
+    color: #0b2443 !important;
+    box-shadow: rgba(0, 0, 0, .25) 0 3px 3px;
+    transform: scale(1.2);
+}
+
+.querybar .editorGroup {
+    padding: 20px 20px 0 20px;
+    margin-right: 0;
+    justify-content: center;
+}
+
+#listView {
+    background-color: #f5f5f5;
+    z-index: 1;
+}
+
+#listView > button {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 50px;
+    border-radius: 50%;
+    font-size: 42px;
+    background-color: transparent;
+    border: none;
+    align-self: center;
+    color: #505050;
+}
+
+#listView > button:hover {
+    color: #1b88ee;
+}
+
+#list {
+    align-self: center;
+    max-width: 1050px;
+    padding: 30px 0;
+}
+
+#list .item {
+    width: 480px;
+    margin: 15px 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, .2) 0 0 3px;
+    transition: all 200ms;
+    overflow: hidden;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    flex-flow: column nowrap;
+}
+#list .item * {
+    cursor: pointer;
+}
+#list .item:hover {
+    background-color: #f0f9ff;
+}
+
+#list .item h1 {
+    font-size: 28px;
+    color: rgba(0, 0, 0, .9);
+    margin: 0 30px 0 0;
+    font-weight: lighter;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#list .item h3 {
+    font-size: 14px;
+    font-weight: lighter;
+    color: rgba(0, 0, 0, .6);
+    margin: 20px 0;
+    line-height: 180%;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#list .item .progress {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#list .item .progress button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    padding: 0;
+    border: rgba(0, 0, 0, .2) solid 2px;
+    background-color: transparent;
+}
+
+#list .item .progress button::before {
+    position: absolute;
+    top: -20px;
+    content: attr(value);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+#list .item .progress button:first-child::before {
+    left: -2px;
+}
+
+#list .item .progress button:last-child::before {
+    right: -2px;
+}
+
+#list .item .progress progress {
+    margin: 0;
+    height: 10px;
+    flex: 1;
+    -webkit-appearance: none;
+    padding: 4px 0;
+}
+
+#list .item .progress progress::after {
+    display: none;
+}
+
+#list .item .progress progress::-webkit-progress-bar {
+    background-color: rgba(0, 0, 0, .1);
+    border: none;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+#list .item .progress progress::-webkit-progress-value {
+    border: none;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+#list .item .qrcode {
+    margin-left: 50px;
+}
+
+#list .indate button:first-child,
+#list .outdate button {
+    border-color: rgba(0, 0, 0, .88) !important;
+}
+
+#list .add {
+    display: -webkit-box !important;
+    font-size: 18px;
+}
+
+#list .add .wficoonly {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+#list .item .cmd {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+#list .item .cmd button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: transparent;
+    color: #000;
+    border-color: #000;
+}
+
+#list .item .cmd button:hover {
+    color: #1b88ee;
+    border-color: #1b88ee;
+}
+
+#list .item .cmd button.processing {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    width: 1em;
+    height: 1em;
+    font-size: 48px !important;
+}
+
+#list .item .cmd button.processing::before {
+    display: none;
+}
+
+#list .item .cmd button.processing::after {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 48px;
+    content: attr(data-process);
+}
+
+#list .item::after {
+    content: 'States';
+    padding: 5px;
+    width: 200px;
+    position: absolute;
+    top: 15px;
+    right: -85px;
+    text-align: center;
+    transform-origin: 50% 0%;
+    transform: rotate(45deg);
+    color: white;
+}
+
+#list .editing::after {
+    background-color: #505050;
+    content: '编辑中';
+}
+
+#list .start::after {
+    background-color: #1b88ee;
+    content: '进行中';
+}
+
+#list .stop::after {
+    background-color: #dc3023;
+    content: '已停止';
+}
+
+#list .completed::after {
+    background-color: #50bd00;
+    content: '已结束';
+}
+
+#list .gen::after {
+    background-color: #dc3023;
+    content: '生成中';
+}
+
+#list .empty h1 {
+    color: #505050;
+    font-size: 32px;
+    font-weight: lighter;
+}
+
+#list .empty button {
+    font-size: 42px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.viewModel > #activityMenus {
+    position: fixed;
+    top: 69px;
+    left: 0;
+    right: 0;
+    background-color: white;
+}
+
+.viewModel #listView {
+    margin-top: 127px;
+}
+
+#searchBox, #helpBox {
+    display: -webkit-box;
+    transform: scale(0);
+    transition: transform 200ms;
+    background-color: #0b2443;
+}
+
+#searchBox > div, #helpBox > div {
+    max-width: 1000px;
+}
+
+#searchBox h1, #helpBox h1 {
+    align-self: stretch;
+    color: white;
+    font-size: 32px;
+    margin: 0 80px 30px 0;
+    font-weight: lighter;
+}
+
+#searchBox .columnItems {
+    padding: 10px 0;
+}
+
+#searchBox .columnItems::before,
+#searchBox .columnItems::after,
+#searchBox .columnItems label::after,
+#searchBox .columnItems label::before {
+    display: none;
+}
+
+#searchBox .columnItems label {
+    margin: 0 20px 0 0;
+}
+
+#helpBox ul {
+    color: white;
+    font-size: 18px;
+    line-height: 180%;
+}
+
+#helpBox ul li {
+    color: rgba(255, 255, 255, .8);
+    font-size: 14px;
+}
+
+.searching #searchBox, .help #helpBox {
+    transform: scale(1);
+}
+
+.searching .columnItems label > div {
+    box-shadow: none !important;
+}
+
+.searching, .help {
+    overflow: hidden;
+}
+
+.cross {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    width: 32px;
+    height: 32px;
+    background-image: url(../images/light.cross.white.svg) !important;
+}

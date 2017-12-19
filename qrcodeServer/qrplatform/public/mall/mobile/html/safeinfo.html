@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>安全中心</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <link rel="stylesheet" href="../css/static/sm.min.css">
+    <link rel="stylesheet" href="../css/static/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/static/font.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selfsafe.css">
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="page-modyfiyautograph">
+        <div class="content">
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">昵称</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="昵称不能超过10个字！" id="ninkname">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">性别</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="sex" id="picker" class="sexper">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">年龄</div>
+                                <div class="item-input">
+                                    <input type="number" placeholder="请输入正确的年龄!" id="age">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-email"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">电话</div>
+                                <div class="item-input">
+                                    <input type="number" placeholder="请输入正确手机号码！" id="phone">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content item-link">
+                            <div class="item-media"><i class="icon icon-f7"></i></div>
+                                <div class="item-inner" id="getperaddr">
+
+                                    <div class="item-title" style="margin-left: .75rem;">个人地址</div>
+                                    <span id="editaddress"></span>
+                                    <div class="item-after addperaddr" style="display: block"></div>
+                                </div>
+                        </div>
+                    </li>
+                    <!-- Switch (Checkbox) -->
+                    <li class="align-top"  style="margin-top: 10px">
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">详细地址</div>
+                                <div class="item-input" style="padding-bottom: 0.5rem">
+                                    <textarea style="border: 1px solid #e1e1e1;" id="adrmore" placeholder="详细地址不能超过50个字！"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="align-top"  style="margin-top: 10px">
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">签名</div>
+                                <div class="item-input"  style="padding-bottom: 0.5rem">
+                                    <textarea style="border: 1px solid #e1e1e1;" id="qianmin" placeholder="签名不能超过30个字！"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50"><a href="./selfsafe.html" class="button button-big button-fill button-danger external">取消</a></div>
+                    <div class="col-50"><span class="external button button-big button-fill button-success" id="infobtn">提交</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="address">
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50">
+            <div class="list-block" style="margin: 0">
+                <ul class="list-container">
+                    <!--<li class="item-content item-link">-->
+                    <!--<div class="item-media"><i class="icon icon-f7"></i></div>-->
+                    <!--<div class="item-inner">-->
+                    <!--<div class="item-title">商品名称</div>-->
+                    <!--</div>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='../js/static/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/static/sm-extend.min.js' charset='utf-8'></script>
+<script>$.init()</script>
+<script>
+    //    性别
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+  <button class="button button-link pull-left close-picker">取消</button>\
+  <button class="button button-link pull-right close-picker">确定</button>\
+  <h1 class="title">选择时间</h1>\
+  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['男', '女']
+            }
+        ]
+    });
+</script>
+<script type='text/javascript' src='../js/common.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/safeinfo.js' charset='utf-8'></script>
+<script>$.init()</script>
+</body>
+</html>

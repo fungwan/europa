@@ -1,0 +1,71 @@
+<div class="shade">
+    <div class="content" style="min-width: 1050px">
+        <div class="content-top">
+            <h3 class="title">中奖记录</h3>
+        </div>
+        <div class="content-body">
+            <div style="margin-bottom: 10px">
+                <span>时间范围:</span>
+                <select ng-model="prizeRecordList.timeType" ng-change="prizeRecordList.selectTimeType(prizeRecordList.timeType)">
+                    <option value="0">最近一月</option>
+                    <option value="1">最近三月</option>
+                    <option value="2">最近一年</option>
+                </select>
+            </div>
+            <div class="view-table table-header no-border">
+                <table>
+                    <colgroup width="160px"></colgroup>
+                    <colgroup width="210px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <thead>
+                        <tr>
+                            <td>时间</td>
+                            <td>活动名称</td>
+                            <td>奖项</td>
+                            <td>奖品</td>
+                            <td>奖品金额</td>
+                            <td>奖品数量</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="view-table no-border table-body" 
+                style="overflow: auto">
+                <table>
+                    <colgroup width="160px"></colgroup>
+                    <colgroup width="210px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <colgroup width="100px"></colgroup>
+                    <thead style="display: none;">
+                        <tr>
+                            <td>时间</td>
+                            <td>活动名称</td>
+                            <td>奖项</td>
+                            <td>奖品</td>
+                            <td>奖品金额</td>
+                            <td>奖品数量</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in prizeRecordList.items">
+                            <td ng-bind="item.rectime"></td>
+                            <td ng-bind="item.projectname"></td>
+                            <td ng-bind="item.lotteryname"></td>
+                            <td ng-bind="item.mallproductname"></td>
+                            <td ng-bind="item.price | toFixed"></td>
+                            <td ng-bind="item.amount"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="content-footer">
+            <button class="butn butn-default" ng-click="prizeRecordList.close()">关闭</button>
+        </div>
+    </div>
+</div>

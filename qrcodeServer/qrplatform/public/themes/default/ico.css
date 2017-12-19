@@ -1,0 +1,436 @@
+
+.wfico::before {
+    font-family: 'FontAwesome';
+    margin-right: .25em;
+}
+
+.wficoonly::before {
+    font-family: 'FontAwesome';
+}
+
+.ico_user::before {
+    content: '\f007' !important;
+}
+
+.ico_users::before {
+    content: '\f0c0' !important;
+}
+
+.ico_list::before {
+    content: '\f03a' !important;
+}
+
+.ico_detail::before {
+    content: '\f0f6' !important;
+}
+
+.ico_connect::before {
+    content: '\f1e6' !important;
+}
+
+.ico_datasource::before {
+    content: '\f233' !important;
+}
+
+.ico_file::before {
+    content: '\f016' !important;
+}
+
+.ico_database::before {
+    content: '\f1c0' !important;
+}
+
+.ico_dataset::before {
+    content: '\f0ce' !important;
+}
+
+.ico_sort::before {
+    content: '\f0dc' !important;
+}
+
+.ico_sort_asc::before {
+    content: '\f176' !important;
+}
+
+.ico_sort_desc::before {
+    content: '\f175' !important;
+}
+
+.ico_tool::before {
+    content: '\f0d0' !important;
+}
+
+.ico_result::before {
+    content: '\f1b2' !important;
+}
+
+.ico_results::before {
+    content: '\f1b3' !important;
+}
+
+.ico_project::before {
+    content: '\f20e' !important;
+}
+
+.ico_favorite::before {
+    content: '\f004' !important;
+}
+
+.ico_view::before {
+    content: '\f1b0' !important;
+}
+
+.ico_remove::before {
+    content: '\f1f8' !important;
+}
+
+.ico_author::before {
+    content: '\f1fc' !important;
+}
+
+.ico_help::before {
+    content: '\f128' !important;
+}
+
+.ico_twitter::before {
+    content: '\f099' !important;
+}
+
+.ico_facebook::before {
+    content: '\f09a' !important;
+}
+
+.ico_skype::before {
+    content: '\f17e' !important;
+}
+
+.ico_attribute::before {
+    content: '\f1de' !important;
+}
+
+.ico_design::before {
+    content: '\f108' !important;
+}
+
+.ico_save::before {
+    content: '\f0c7' !important;
+}
+
+.ico_apply::before {
+    content: '\f144' !important;
+}
+
+.ico_submit::before {
+    content: '\f00c' !important;
+}
+
+.ico_cancel::before {
+    content: '\f00d' !important;
+}
+
+.ico_try::before {
+    content: '\f1ce' !important;
+}
+
+.ico_add::before {
+    content: '\f067' !important;
+}
+
+.ico_edit::before {
+    content: '\f040' !important;
+}
+
+.ico_refresh::before {
+    content: '\f021' !important;
+}
+
+.ico_gear::before {
+    content: '\f013' !important;
+}
+
+.ico_gears::before {
+    content: '\f085' !important;
+}
+
+.ico_resetPwd::before {
+    content: '\f084' !important;
+}
+
+.ico_signout::before {
+    content: '\f011' !important;
+}
+
+.ico_describe::before {
+    content: '\f05a' !important;
+}
+
+.ico_error::before {
+    content: '\f071' !important;
+}
+
+.ico_cubes::before {
+    content: '\f12e' !important;
+}
+
+.ico_reference::before {
+    content: '\f0c1' !important;
+}
+
+.ico_sheet::before {
+    content: '\f016' !important;
+}
+
+.ico_report::before {
+    content: '\f1ea' !important;
+}
+
+.ico_confirm::before {
+    content: '\f059' !important;
+}
+
+.ico_query::before {
+    content: '\f002' !important;
+}
+
+.ico_done::before {
+    content: '\f101' !important;
+}
+
+.ico_group::before {
+    content: '\f247' !important;
+}
+
+.ico_ungroup::before {
+    content: '\f248' !important;
+}
+
+.ico_filter::before {
+    content: '\f0b0' !important;
+}
+
+.ico_italic::before {
+    content: '\f033' !important;
+}
+
+.ico_bold::before {
+    content: '\f032' !important;
+}
+
+.ico_underline::before {
+    content: '\f0cd' !important;
+}
+
+.ico_open::before {
+    content: '\f115' !important;
+}
+
+.ico_share::before {
+    content: '\f1e0' !important;
+}
+
+.ico_undo::before {
+    content: '\f112' !important;
+}
+
+.ico_analysis::before {
+    content: '\f200' !important;
+}
+
+.ico_sitemap::before {
+    content: '\f0e8' !important;
+}
+
+.ico_clone::before {
+    content: '\f24d' !important;
+}
+
+.ico_list-ul::before {
+    content: '\f0ca' !important;
+}
+
+.ico_trash::before {
+    content: '\f014' !important;
+}
+
+.ico_navigation::before {
+    content: '\f0c9' !important;
+}
+
+.ico_key::before {
+    content: '\f084' !important;
+}
+
+.ico_exit::before {
+    content: '\f08b' !important;
+}
+
+.ico_print::before {
+    content: '\f02f' !important;
+}
+
+.ico_download::before {
+    content: '\f0ed' !important;
+}
+
+.ico_calendar::before {
+    content: '\f073' !important;
+}
+
+.ico_pdf::before {
+    content: '\f1c1' !important;
+}
+
+.ico_word::before {
+    content: '\f1c2' !important;
+}
+
+.ico_html::before {
+    content: '\f13b' !important;
+}
+
+.ico_copy::before {
+    content: '\f0c5' !important;
+}
+
+.ico_chain::before {
+    content: '\f0c1' !important;
+}
+
+.ico_chainBroken::before {
+    content: '\f127' !important;
+}
+
+.ico_usd::before {
+    content: '\f155' !important;
+}
+
+.ico_cny::before {
+    content: '\f157' !important;
+}
+
+.ico_rub::before {
+    content: '\f158' !important;
+}
+
+.ico_home::before {
+    content: '\f015' !important;
+}
+
+.ico_mail::before {
+    content: '\f003' !important;
+}
+
+.ico_lock::before {
+    content: '\f023' !important;
+}
+
+.ico_flash::before {
+    content: '\f0e7' !important;
+}
+
+.ico_clock::before {
+    content: '\f017' !important;
+}
+
+.ico_star::before {
+    content: '\f006' !important;
+}
+
+.ico_close::before {
+    content: '\f00d' !important;
+}
+
+.ico_play::before {
+    content: '\f04b' !important;
+}
+
+.ico_stop::before {
+    content: '\f04d' !important;
+}
+
+.ico_back::before {
+    content: '\f060' !important;
+}
+
+.ico_qrcode::before {
+    content: '\f029' !important;
+}
+
+.ico_lang::before {
+    content: '\f0ac' !important;
+}
+
+.ico_arrow_left::before {
+    content: '\f104' !important;
+    zoom: 1.25;
+}
+
+.ico_arrow_top::before {
+    content: '\f106' !important;
+    zoom: 1.25;
+}
+
+.ico_arrow_right::before {
+    content: '\f105' !important;
+    zoom: 1.25;
+}
+
+.ico_arrow_bottom::before {
+    content: '\f107' !important;
+    zoom: 1.25;
+}
+
+.ico_th_large::before {
+    content: '\f009' !important;
+}
+
+.ico_th::before {
+    content: '\f00a' !important;
+}
+
+.ico_wifi::before {
+    content: '\f1eb' !important;
+}
+
+.ico_coffee::before {
+    content: '\f0f4' !important;
+}
+
+.ico_battery_half::before {
+    content: '\f242' !important;
+}
+
+.ico_futbol::before {
+    content: '\f1e3' !important;
+}
+
+.ico_gamepad::before {
+    content: '\f11b' !important;
+}
+
+.ico_discover::before {
+    content: '\f1f2' !important;
+}
+
+.ico_car::before {
+    content: '\f0d1' !important;
+}
+
+.ico_hand_right::before {
+    content: '\f0a4' !important
+}
+.ico_pair::before {
+    content: '\f0ad' !important
+}
+.ico_goods::before {
+    content: '\f187' !important
+}
+.ico_upload::before {
+    content: '\f093' !important
+}
+.ico_pho::before {
+    content: '\f1c5 ' !important
+}
+.ico_caret_right::before {
+    content: '\f0da ' !important
+}
